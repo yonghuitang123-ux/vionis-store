@@ -282,8 +282,8 @@ export const siteConfig = {
         链接: '/blog/quiet-luxury',
       },
       {
-        图片_电脑端: '',
-        图片_手机端: '',
+        图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-natural-cashmere-merino-yarn-cones-premium-mill.webp?v=1773413116',
+        图片_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-natural-cashmere-merino-yarn-cones-premium-mill.webp?v=1773413116',
         文章标题: 'Precision Knit Engineering',
         文章正文: 'Every VIONIS·XY garment is constructed with tension-balanced knitting — engineered for durability, designed for longevity.',
         链接: '/blog/knit-engineering',

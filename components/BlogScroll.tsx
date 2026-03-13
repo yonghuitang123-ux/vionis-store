@@ -71,6 +71,7 @@ export default function BlogScroll({
     hasDragged.current = false;
     startX.current = e.pageX - (trackRef.current?.offsetLeft ?? 0);
     scrollLeft.current = trackRef.current?.scrollLeft ?? 0;
+    trackRef.current?.classList.add('is-dragging');
   }, []);
 
   const onMouseMove = useCallback((e: React.MouseEvent) => {
@@ -82,7 +83,10 @@ export default function BlogScroll({
     if (trackRef.current) trackRef.current.scrollLeft = scrollLeft.current - walk;
   }, []);
 
-  const stopDrag = useCallback(() => { isDragging.current = false; }, []);
+  const stopDrag = useCallback(() => {
+    isDragging.current = false;
+    trackRef.current?.classList.remove('is-dragging');
+  }, []);
 
   const onTouchStart = useCallback((e: React.TouchEvent) => {
     startX.current = e.touches[0].pageX;
@@ -132,7 +136,10 @@ export default function BlogScroll({
     `#${scopeId} .bsc-img img{transition:transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94)!important}`,
     `#${scopeId} .bsc-card:hover .bsc-img img{transform:scale(1.04)!important}`,
 
-    // 文字区
+    // 文字全部禁止划选
+    `#${scopeId} .bsc-track *{user-select:none;-webkit-user-select:none}`,
+
+    // 文字区截断
     `#${scopeId} .bsc-body{line-height:1.75;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}`,
 
     // 手机端
@@ -180,6 +187,7 @@ export default function BlogScroll({
         onMouseMove={onMouseMove}
         onMouseUp={stopDrag}
         onMouseLeave={stopDrag}
+        onDragStart={(e) => e.preventDefault()}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
       >
@@ -198,6 +206,7 @@ export default function BlogScroll({
                 sizes={`(max-width: 768px) ${cardWidthMob}px, ${cardWidth}px`}
                 className="object-cover object-top"
                 loading={idx === 0 ? 'eager' : 'lazy'}
+                draggable={false}
               />
             </div>
 
