@@ -86,7 +86,7 @@ export interface MastermindShowcaseProps {
 // ─── Defaults ────────────────────────────────────────────────────────────────
 
 const DEFAULT_COLORS: MastermindColors = {
-  bgColor: '#F4F1EA',
+  bgColor: '#E8DFD6',
   headingColor: '#1a1a1a',
   textColor: '#1a1a1a',
 };

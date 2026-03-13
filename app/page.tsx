@@ -145,7 +145,7 @@ export default function Home() {
         ]}
         colors={{
           outerBg:      '#E8DFD6',
-          contentBg:    '#E8DFD6',
+          contentBg:    '#FFFFFF',
           headingColor: '#1a1a1a',
           btnBg:        '#FFFFFF',
           btnText:      '#000000',
@@ -192,7 +192,7 @@ export default function Home() {
       <MastermindShowcase
         womenSlides={womenSlidesFromConfig.length > 0 ? womenSlidesFromConfig : [SKELETON_SLIDE]}
         menSlides={menSlidesFromConfig.length > 0 ? menSlidesFromConfig : [SKELETON_SLIDE]}
-        colors={{ bgColor: '#F4F1EA', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
+        colors={{ bgColor: '#E8DFD6', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
         desktopHeight={700}
         modelWidthPct={55}
       />
@@ -247,7 +247,7 @@ export default function Home() {
         text={brandStory.正文}
         signature={brandStory.签名}
         colors={{
-          bgColor:      '#FFFFFF',
+          bgColor:      '#E8DFD6',
           headingColor: '#1a1a1a',
           textColor:    '#555555',
         }}
@@ -276,14 +276,14 @@ export default function Home() {
         showPolicies
         policies={footer.政策链接}
         colors={{
-          bgColor:      '#0f0f0f',
-          textColor:    '#aaaaaa',
-          headingColor: '#ffffff',
-          mutedColor:   '#666666',
-          borderColor:  'rgba(255,255,255,0.1)',
-          linkColor:    '#bbbbbb',
-          btnBg:        '#ffffff',
-          btnColor:     '#0f0f0f',
+          bgColor:      '#E8DFD6',
+          textColor:    '#555555',
+          headingColor: '#1a1a1a',
+          mutedColor:   '#888888',
+          borderColor:  'rgba(0,0,0,0.1)',
+          linkColor:    '#333333',
+          btnBg:        '#1a1a1a',
+          btnColor:     '#FFFFFF',
         }}
         paddingTop={80}
         paddingBottom={40}

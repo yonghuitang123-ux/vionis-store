@@ -56,7 +56,7 @@ export interface BrandStoryProps {
 // ─── Defaults ────────────────────────────────────────────────────────────────
 
 const DEFAULT_COLORS: BrandStoryColors = {
-  bgColor: '#FFFFFF',
+  bgColor: '#E8DFD6',
   headingColor: '#1a1a1a',
   textColor: '#555555',
 };

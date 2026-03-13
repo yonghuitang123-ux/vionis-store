@@ -80,14 +80,14 @@ export interface SiteFooterProps {
 // ─── Defaults ────────────────────────────────────────────────────────────────
 
 const DEFAULT_COLORS: FooterColors = {
-  bgColor: '#1a1a1a',
+  bgColor: '#E8DFD6',
   textColor: '#cccccc',
-  headingColor: '#ffffff',
+  headingColor: '#1a1a1a',
   mutedColor: '#888888',
   borderColor: 'rgba(255,255,255,0.12)',
   linkColor: '#cccccc',
   inputBorderColor: 'rgba(255,255,255,0.3)',
-  btnBg: '#ffffff',
+  btnBg: '#1a1a1a',
   btnColor: '#1a1a1a',
 };
 
