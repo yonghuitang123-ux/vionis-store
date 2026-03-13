@@ -201,10 +201,12 @@ function GenderGroup({
           </div>
 
           <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
+            modules={[EffectFade, Navigation, Pagination, Autoplay]}
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
             loop
-            speed={800}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            speed={700}
+            autoplay={{ delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
             observer
             observeParents
             className="mm-info-swiper"

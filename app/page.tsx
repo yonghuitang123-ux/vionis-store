@@ -108,6 +108,10 @@ const menSlidesFromConfig = ([5, 6, 7, 8] as SlideKey[])
 export default function Home() {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
 
+  // ─── 全局 Women / Men 切换状态（0 = Women，1 = Men） ────────────────────────
+  // EditorialPanel、MastermindShowcase 等所有需要性别切换的组件共享同一份状态
+  const [activeTab, setActiveTab] = useState<0 | 1>(0);
+
   useEffect(() => {
     // EditorialPanel 产品卡片仍从 Shopify API 获取
     getProducts()
@@ -167,6 +171,8 @@ export default function Home() {
       <EditorialPanel
         tab1Label={grid.女装Tab标签}
         tab2Label={grid.男装Tab标签}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
         panel1={{
           imageDesktop: grid.女装大图_电脑端,
           imageMobile:  grid.女装大图_手机端 || undefined,
@@ -193,6 +199,7 @@ export default function Home() {
       <MastermindShowcase
         womenSlides={womenSlidesFromConfig.length > 0 ? womenSlidesFromConfig : [SKELETON_SLIDE]}
         menSlides={menSlidesFromConfig.length > 0 ? menSlidesFromConfig : [SKELETON_SLIDE]}
+        activeGender={activeTab === 0 ? 'women' : 'men'}
         colors={{ bgColor: '#E8DFD6', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
         desktopHeight={700}
         modelWidthPct={55}
