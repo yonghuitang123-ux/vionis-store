@@ -219,7 +219,7 @@ export default function Header() {
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/主页顶部标签.png"
+              src="/logo1.png"
               alt="VIONIS·XY"
               style={{ background: 'transparent', height: '70px', width: 'auto' }}
             />
