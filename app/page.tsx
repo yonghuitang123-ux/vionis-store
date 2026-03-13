@@ -24,9 +24,9 @@ export default function Home() {
           向下滚动时左右图片从两侧汇聚，内容卡片渐隐
       ══════════════════════════════════════════════════════ */}
       <LiquidBanner
-        leftImageDesktop={PH_TALL}
+        leftImageDesktop="https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606"
         leftImageAlt="VIONIS·XY 女装模特"
-        rightImageDesktop={PH_TALL}
+        rightImageDesktop="https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606"
         rightImageAlt="VIONIS·XY 男装模特"
         heading="THE 2026 ESSENTIALS"
         description="RARE CASHMERE & SEAMLESS MERINO"
