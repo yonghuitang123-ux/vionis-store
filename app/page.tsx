@@ -1,65 +1,296 @@
-import Image from "next/image";
+'use client';
+
+import LiquidBanner from '@/components/LiquidBanner';
+import EditorialPanel from '@/components/EditorialPanel';
+import MastermindShowcase from '@/components/MastermindShowcase';
+import MaterialDualWall from '@/components/MaterialDualWall';
+import BrandStory from '@/components/BrandStory';
+import SiteFooter from '@/components/SiteFooter';
+
+// ─── 占位图 URL ───────────────────────────────────────────────────────────────
+// 生产环境替换为真实 CDN 地址；placehold.co 已加入 next.config.ts remotePatterns
+
+const PH_TALL   = 'https://placehold.co/800x1200/1a1a1a/888888';   // 竖版模特图
+const PH_SQUARE = 'https://placehold.co/600x600/f0ede6/aaaaaa';    // 方形产品图
+const PH_WIDE   = 'https://placehold.co/1200x800/2a2a2a/888888';   // 横版大图
+const PH_PANEL  = 'https://placehold.co/1600x900/1a1a1a/888888';   // 全幅图
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main>
+
+      {/* ══════════════════════════════════════════════════════
+          1. LiquidBanner — 视差滚动横幅（首屏）
+          向下滚动时左右图片从两侧汇聚，内容卡片渐隐
+      ══════════════════════════════════════════════════════ */}
+      <LiquidBanner
+        leftImageDesktop={PH_TALL}
+        leftImageAlt="VIONIS·XY 女装模特"
+        rightImageDesktop={PH_TALL}
+        rightImageAlt="VIONIS·XY 男装模特"
+        heading="THE 2026 ESSENTIALS"
+        description="RARE CASHMERE & SEAMLESS MERINO"
+        buttons={[
+          { text: 'MERINO WOOL', href: '/collections/merino' },
+          { text: 'CASHMERE',    href: '/collections/cashmere' },
+        ]}
+        colors={{
+          outerBg:    '#F5F3EF',
+          contentBg:  '#FFFFFF',
+          headingColor: '#1a1a1a',
+          btnBg:      '#FFFFFF',
+          btnText:    '#000000',
+          btnBorder:  '#000000',
+          btnHoverBg: '#000000',
+          btnHoverText: '#FFFFFF',
+        }}
+        headingSize={48}
+        headingWeight={300}
+        headingSpacing={30}
+        headingTransform="uppercase"
+      />
+
+      {/* ══════════════════════════════════════════════════════
+          2. EditorialPanel — 4:5 对称画报（Women / Men Tab）
+          左侧模特大图 + 右侧 2×2 产品网格
+      ══════════════════════════════════════════════════════ */}
+      <EditorialPanel
+        tab1Label="Women"
+        tab2Label="Men"
+        panel1={{
+          imageDesktop:  PH_TALL,
+          imageAlt:      'VIONIS·XY Women Collection',
+          title:         'The Cashmere Origin',
+          description:   'Inner Mongolia, -30°C',
+          products: [
+            { imageUrl: PH_SQUARE, title: 'Cashmere Turtleneck',  price: '¥ 1,580', href: '/products/cashmere-turtleneck' },
+            { imageUrl: PH_SQUARE, title: 'Merino Longline Coat', price: '¥ 2,280', href: '/products/merino-coat' },
+            { imageUrl: PH_SQUARE, title: 'Ribbed Cashmere Vest', price: '¥ 980',   href: '/products/cashmere-vest' },
+            { imageUrl: PH_SQUARE, title: 'Seamless Merino Set',  price: '¥ 1,280', href: '/products/merino-set' },
+          ],
+        }}
+        panel2={{
+          imageDesktop:  PH_TALL,
+          imageAlt:      'VIONIS·XY Men Collection',
+          title:         'The Cashmere Structure',
+          description:   'Engineered for Warmth',
+          products: [
+            { imageUrl: PH_SQUARE, title: 'Men Cashmere Crewneck', price: '¥ 1,480', href: '/products/men-cashmere-crewneck' },
+            { imageUrl: PH_SQUARE, title: 'Men Merino Hoodie',     price: '¥ 1,180', href: '/products/men-merino-hoodie' },
+            { imageUrl: PH_SQUARE, title: 'Men Cashmere Cardigan', price: '¥ 1,880', href: '/products/men-cashmere-cardigan' },
+            { imageUrl: PH_SQUARE, title: 'Men Seamless Base',     price: '¥ 880',   href: '/products/men-merino-base' },
+          ],
+        }}
+        colors={{ accentColor: '#A05E46' }}
+      />
+
+      {/* ══════════════════════════════════════════════════════
+          3. MastermindShowcase — Swiper 双轨轮播
+          左侧模特图 + 右侧产品信息卡，自动轮播 + 导航箭头
+      ══════════════════════════════════════════════════════ */}
+      <MastermindShowcase
+        womenSlides={[
+          {
+            modelImageDesktop:   PH_TALL,
+            modelImageAlt:       'VIONIS·XY Women Look 01',
+            productImageDesktop: PH_SQUARE,
+            productImageAlt:     'Cashmere Turtleneck',
+            subtitle:            'THE LOOK',
+            title:               'Cashmere Turtleneck',
+            material:            '¥ 1,580 · 100% Inner Mongolia Cashmere',
+            linkText:            'VIEW PRODUCT',
+            href:                '/products/cashmere-turtleneck',
+          },
+          {
+            modelImageDesktop:   PH_TALL,
+            modelImageAlt:       'VIONIS·XY Women Look 02',
+            productImageDesktop: PH_SQUARE,
+            productImageAlt:     'Merino Longline Coat',
+            subtitle:            'THE LOOK',
+            title:               'Merino Longline Coat',
+            material:            '¥ 2,280 · Extra-fine Merino 18.5µm',
+            linkText:            'VIEW PRODUCT',
+            href:                '/products/merino-coat',
+          },
+          {
+            modelImageDesktop:   PH_TALL,
+            modelImageAlt:       'VIONIS·XY Women Look 03',
+            productImageDesktop: PH_SQUARE,
+            productImageAlt:     'Ribbed Cashmere Vest',
+            subtitle:            'THE LOOK',
+            title:               'Ribbed Cashmere Vest',
+            material:            '¥ 980 · Grade-A Cashmere',
+            linkText:            'VIEW PRODUCT',
+            href:                '/products/cashmere-vest',
+          },
+        ]}
+        menSlides={[
+          {
+            modelImageDesktop:   PH_TALL,
+            modelImageAlt:       'VIONIS·XY Men Look 01',
+            productImageDesktop: PH_SQUARE,
+            productImageAlt:     'Men Cashmere Crewneck',
+            subtitle:            'THE LOOK',
+            title:               'Cashmere Crewneck',
+            material:            '¥ 1,480 · 100% Inner Mongolia Cashmere',
+            linkText:            'VIEW PRODUCT',
+            href:                '/products/men-cashmere-crewneck',
+          },
+          {
+            modelImageDesktop:   PH_TALL,
+            modelImageAlt:       'VIONIS·XY Men Look 02',
+            productImageDesktop: PH_SQUARE,
+            productImageAlt:     'Men Merino Hoodie',
+            subtitle:            'THE LOOK',
+            title:               'Seamless Merino Hoodie',
+            material:            '¥ 1,180 · Superfine Merino 17.5µm',
+            linkText:            'VIEW PRODUCT',
+            href:                '/products/men-merino-hoodie',
+          },
+        ]}
+        colors={{ bgColor: '#F4F1EA', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
+        desktopHeight={700}
+        modelWidthPct={55}
+      />
+
+      {/* ══════════════════════════════════════════════════════
+          4. MaterialDualWall — 材质双壁展示
+          悬停时面板伸展 + 图片缩放 + 按钮滑出
+      ══════════════════════════════════════════════════════ */}
+      <MaterialDualWall
+        leftPanel={{
+          imageDesktop: PH_WIDE,
+          imageAlt:     'Merino Wool — VIONIS·XY',
+          href:         '/collections/merino',
+          subtitle:     'THE ESSENTIAL',
+          title:        'Merino Wool',
+          specs:        '18.5µm • Everyday Luxury',
+          btnText:      'EXPLORE',
+        }}
+        rightPanel={{
+          imageDesktop: PH_WIDE,
+          imageAlt:     'Cashmere — VIONIS·XY',
+          href:         '/collections/cashmere',
+          subtitle:     'THE RAREST',
+          title:        'Cashmere',
+          specs:        '15.5µm • Soft Gold',
+          btnText:      'DISCOVER',
+        }}
+        colors={{
+          bgColor:      '#F4F1EA',
+          headingColor: '#FFFFFF',
+          textColor:    '#FFFFFF',
+          btnHoverBg:   '#FFFFFF',
+          btnHoverColor: '#000000',
+        }}
+        desktopHeight={600}
+        gridGap={16}
+        paddingTop={60}
+        paddingBottom={60}
+      />
+
+      {/* ══════════════════════════════════════════════════════
+          5. BrandStory — 品牌叙事三栏布局
+          左侧主图 + 中间文字 + 右侧错落副图
+      ══════════════════════════════════════════════════════ */}
+      <BrandStory
+        mainImage={PH_TALL}
+        mainImageAlt="VIONIS·XY Brand Story — Model"
+        subImage={PH_SQUARE}
+        subImageAlt="VIONIS·XY Cashmere Detail"
+        subtitle="THE PHILOSOPHY"
+        title="Quiet Confidence"
+        text="True elegance does not need to shout. At VIONIS·XY, we believe in the power of subtraction — removing the excess to reveal the essential quality of Merino and Cashmere. Each piece is crafted to outlast trends and outlive seasons."
+        signature="Viral Momentum"
+        colors={{
+          bgColor:      '#FFFFFF',
+          headingColor: '#1a1a1a',
+          textColor:    '#555555',
+        }}
+        headingSize={48}
+        mainImgHeight={650}
+        subImgHeight={400}
+        subImgOffset={50}
+      />
+
+      {/* ══════════════════════════════════════════════════════
+          6. SiteFooter — 站点底部
+          导航栏 + Newsletter + 社交图标 + 版权
+      ══════════════════════════════════════════════════════ */}
+      <SiteFooter
+        shopName="VIONIS·XY"
+        shopUrl="/"
+        showNewsletter
+        newsletterHeading="GET EARLY ACCESS"
+        newsletterPlaceholder="Enter your email"
+        onNewsletterSubmit={async (email) => {
+          // 接入实际 API 时替换此处
+          console.log('Newsletter subscribe:', email);
+        }}
+        showSocial
+        socialLinks={{
+          instagram: 'https://instagram.com/vionis.xy',
+          tiktok:    'https://tiktok.com/@vionis.xy',
+          pinterest: 'https://pinterest.com/vionisxy',
+          youtube:   'https://youtube.com/@vionisxy',
+        }}
+        blocks={[
+          {
+            type: 'link_list',
+            heading: 'Shop',
+            links: [
+              { title: 'Cashmere',        url: '/collections/cashmere' },
+              { title: 'Merino Wool',     url: '/collections/merino' },
+              { title: 'New Arrivals',    url: '/collections/new' },
+              { title: 'Best Sellers',    url: '/collections/best-sellers' },
+            ],
+          },
+          {
+            type: 'link_list',
+            heading: 'About',
+            links: [
+              { title: 'Our Story',       url: '/pages/about' },
+              { title: 'Craftsmanship',   url: '/pages/craft' },
+              { title: 'Sustainability',  url: '/pages/sustainability' },
+              { title: 'Wholesale',       url: '/pages/wholesale' },
+            ],
+          },
+          {
+            type: 'link_list',
+            heading: 'Help',
+            links: [
+              { title: 'Size Guide',      url: '/pages/size-guide' },
+              { title: 'Shipping',        url: '/pages/shipping' },
+              { title: 'Returns',         url: '/pages/returns' },
+              { title: 'Contact Us',      url: '/pages/contact' },
+            ],
+          },
+          {
+            type: 'text',
+            heading: 'Brand',
+            content: 'VIONIS·XY — Rare Cashmere & Seamless Merino. <br/>Crafted for quiet luxury.',
+          },
+        ]}
+        showPolicies
+        policies={[
+          { title: 'Privacy Policy',    url: '/policies/privacy-policy' },
+          { title: 'Terms of Service',  url: '/policies/terms-of-service' },
+          { title: 'Refund Policy',     url: '/policies/refund-policy' },
+        ]}
+        colors={{
+          bgColor:      '#0f0f0f',
+          textColor:    '#aaaaaa',
+          headingColor: '#ffffff',
+          mutedColor:   '#666666',
+          borderColor:  'rgba(255,255,255,0.1)',
+          linkColor:    '#bbbbbb',
+          btnBg:        '#ffffff',
+          btnColor:     '#0f0f0f',
+        }}
+        paddingTop={80}
+        paddingBottom={40}
+      />
+
+    </main>
   );
 }
