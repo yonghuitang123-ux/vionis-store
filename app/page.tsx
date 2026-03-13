@@ -1,32 +1,108 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import LiquidBanner from '@/components/LiquidBanner';
 import EditorialPanel from '@/components/EditorialPanel';
+import type { ProductCard } from '@/components/EditorialPanel';
 import MastermindShowcase from '@/components/MastermindShowcase';
+import type { SlideItem } from '@/components/MastermindShowcase';
 import MaterialDualWall from '@/components/MaterialDualWall';
 import BrandStory from '@/components/BrandStory';
 import SiteFooter from '@/components/SiteFooter';
+import { getProducts } from '@/lib/shopify';
 
-// ─── 占位图 URL ───────────────────────────────────────────────────────────────
-// 生产环境替换为真实 CDN 地址；placehold.co 已加入 next.config.ts remotePatterns
+// ─── 静态占位图（仅在产品数据加载前使用） ──────────────────────────────────────
+const PH_SQUARE = 'https://placehold.co/600x600/f0ede6/cccccc';
+const PH_TALL   = 'https://placehold.co/800x1200/1a1a1a/888888';
+const PH_WIDE   = 'https://placehold.co/1200x800/2a2a2a/888888';
 
-const PH_TALL   = 'https://placehold.co/800x1200/1a1a1a/888888';   // 竖版模特图
-const PH_SQUARE = 'https://placehold.co/600x600/f0ede6/aaaaaa';    // 方形产品图
-const PH_WIDE   = 'https://placehold.co/1200x800/2a2a2a/888888';   // 横版大图
-const PH_PANEL  = 'https://placehold.co/1600x900/1a1a1a/888888';   // 全幅图
+// ─── Hero 图（真实 Shopify CDN） ────────────────────────────────────────────────
+const HERO_WOMEN = 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/2_b5b746b0-b008-4593-9da3-f06952603f17.webp?v=1769206938';
+const HERO_MEN   = 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/1_449b9768-3f31-4671-ac0c-c5bbc73d9f2e.webp?v=1769206854';
+const HERO_BANNER = 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606';
+
+// ─── Shopify 产品原始类型 ───────────────────────────────────────────────────────
+interface ShopifyProduct {
+  id: string;
+  title: string;
+  handle: string;
+  priceRange: { minVariantPrice: { amount: string; currencyCode: string } };
+  images: { edges: { node: { url: string; altText: string | null } }[] };
+}
+
+/** 将 Shopify 货币格式化为展示字符串 */
+function formatPrice(amount: string, currencyCode: string): string {
+  const num = parseFloat(amount);
+  if (currencyCode === 'CNY') return `¥ ${num.toLocaleString('zh-CN', { minimumFractionDigits: 0 })}`;
+  if (currencyCode === 'USD') return `$ ${num.toFixed(2)}`;
+  return `${currencyCode} ${num.toFixed(2)}`;
+}
+
+/** Shopify product → EditorialPanel ProductCard */
+function toProductCard(p: ShopifyProduct): ProductCard {
+  const img = p.images.edges[0]?.node;
+  const { amount, currencyCode } = p.priceRange.minVariantPrice;
+  return {
+    imageUrl:  img?.url    ?? PH_SQUARE,
+    imageAlt:  img?.altText ?? p.title,
+    title:     p.title,
+    price:     formatPrice(amount, currencyCode),
+    href:      `/products/${p.handle}`,
+  };
+}
+
+/** Shopify product → MastermindShowcase SlideItem（产品图同时用作模特图） */
+function toSlideItem(p: ShopifyProduct): SlideItem {
+  const img = p.images.edges[0]?.node;
+  const { amount, currencyCode } = p.priceRange.minVariantPrice;
+  return {
+    modelImageDesktop:   img?.url ?? PH_TALL,
+    modelImageAlt:       p.title,
+    productImageDesktop: img?.url ?? PH_SQUARE,
+    productImageAlt:     p.title,
+    subtitle:            'THE LOOK',
+    title:               p.title,
+    material:            formatPrice(amount, currencyCode),
+    linkText:            'VIEW PRODUCT',
+    href:                `/products/${p.handle}`,
+  };
+}
+
+// ─── 加载骨架产品（占位，保持布局稳定） ────────────────────────────────────────
+const SKELETON_PRODUCTS: ProductCard[] = Array.from({ length: 4 }, (_, i) => ({
+  imageUrl:  PH_SQUARE,
+  imageAlt:  'Loading…',
+  title:     'Loading…',
+  price:     '—',
+  href:      '#',
+}));
 
 export default function Home() {
+  const [products, setProducts] = useState<ShopifyProduct[]>([]);
+
+  useEffect(() => {
+    getProducts()
+      .then((data) => setProducts(data))
+      .catch((err) => console.error('Shopify product fetch failed:', err));
+  }, []);
+
+  // 将产品按顺序分配给各区块（不足时回落到占位）
+  const cards        = products.length >= 4 ? products.map(toProductCard) : SKELETON_PRODUCTS;
+  const panel1Cards  = cards.slice(0, 4);
+  const panel2Cards  = cards.slice(4, 8).length === 4 ? cards.slice(4, 8) : SKELETON_PRODUCTS;
+  const womenSlides  = products.slice(0, 4).map(toSlideItem);
+  const menSlides    = products.slice(4, 8).map(toSlideItem);
+
   return (
     <main>
 
       {/* ══════════════════════════════════════════════════════
           1. LiquidBanner — 视差滚动横幅（首屏）
-          向下滚动时左右图片从两侧汇聚，内容卡片渐隐
       ══════════════════════════════════════════════════════ */}
       <LiquidBanner
-        leftImageDesktop="https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606"
+        leftImageDesktop={HERO_BANNER}
         leftImageAlt="VIONIS·XY 女装模特"
-        rightImageDesktop="https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606"
+        rightImageDesktop={HERO_BANNER}
         rightImageAlt="VIONIS·XY 男装模特"
         heading="THE 2026 ESSENTIALS"
         description="RARE CASHMERE & SEAMLESS MERINO"
@@ -35,13 +111,13 @@ export default function Home() {
           { text: 'CASHMERE',    href: '/collections/cashmere' },
         ]}
         colors={{
-          outerBg:    '#F5F3EF',
-          contentBg:  '#FFFFFF',
+          outerBg:      '#F5F3EF',
+          contentBg:    '#FFFFFF',
           headingColor: '#1a1a1a',
-          btnBg:      '#FFFFFF',
-          btnText:    '#000000',
-          btnBorder:  '#000000',
-          btnHoverBg: '#000000',
+          btnBg:        '#FFFFFF',
+          btnText:      '#000000',
+          btnBorder:    '#000000',
+          btnHoverBg:   '#000000',
           btnHoverText: '#FFFFFF',
         }}
         headingSize={48}
@@ -52,101 +128,38 @@ export default function Home() {
 
       {/* ══════════════════════════════════════════════════════
           2. EditorialPanel — 4:5 对称画报（Women / Men Tab）
-          左侧模特大图 + 右侧 2×2 产品网格
+          hero 图已替换为真实 Shopify CDN；产品卡片来自 API
       ══════════════════════════════════════════════════════ */}
       <EditorialPanel
         tab1Label="Women"
         tab2Label="Men"
         panel1={{
-          imageDesktop:  PH_TALL,
-          imageAlt:      'VIONIS·XY Women Collection',
-          title:         'The Cashmere Origin',
-          description:   'Inner Mongolia, -30°C',
-          products: [
-            { imageUrl: PH_SQUARE, title: 'Cashmere Turtleneck',  price: '¥ 1,580', href: '/products/cashmere-turtleneck' },
-            { imageUrl: PH_SQUARE, title: 'Merino Longline Coat', price: '¥ 2,280', href: '/products/merino-coat' },
-            { imageUrl: PH_SQUARE, title: 'Ribbed Cashmere Vest', price: '¥ 980',   href: '/products/cashmere-vest' },
-            { imageUrl: PH_SQUARE, title: 'Seamless Merino Set',  price: '¥ 1,280', href: '/products/merino-set' },
-          ],
+          imageDesktop: HERO_WOMEN,
+          imageAlt:     'VIONIS·XY Women Collection',
+          title:        'The Cashmere Origin',
+          description:  'Inner Mongolia, -30°C',
+          products:     panel1Cards,
         }}
         panel2={{
-          imageDesktop:  PH_TALL,
-          imageAlt:      'VIONIS·XY Men Collection',
-          title:         'The Cashmere Structure',
-          description:   'Engineered for Warmth',
-          products: [
-            { imageUrl: PH_SQUARE, title: 'Men Cashmere Crewneck', price: '¥ 1,480', href: '/products/men-cashmere-crewneck' },
-            { imageUrl: PH_SQUARE, title: 'Men Merino Hoodie',     price: '¥ 1,180', href: '/products/men-merino-hoodie' },
-            { imageUrl: PH_SQUARE, title: 'Men Cashmere Cardigan', price: '¥ 1,880', href: '/products/men-cashmere-cardigan' },
-            { imageUrl: PH_SQUARE, title: 'Men Seamless Base',     price: '¥ 880',   href: '/products/men-merino-base' },
-          ],
+          imageDesktop: HERO_MEN,
+          imageAlt:     'VIONIS·XY Men Collection',
+          title:        'The Cashmere Structure',
+          description:  'Engineered for Warmth',
+          products:     panel2Cards,
         }}
         colors={{ accentColor: '#A05E46' }}
       />
 
       {/* ══════════════════════════════════════════════════════
           3. MastermindShowcase — Swiper 双轨轮播
-          左侧模特图 + 右侧产品信息卡，自动轮播 + 导航箭头
+          产品数据来自 Shopify API（加载中显示骨架轮播）
       ══════════════════════════════════════════════════════ */}
       <MastermindShowcase
-        womenSlides={[
-          {
-            modelImageDesktop:   PH_TALL,
-            modelImageAlt:       'VIONIS·XY Women Look 01',
-            productImageDesktop: PH_SQUARE,
-            productImageAlt:     'Cashmere Turtleneck',
-            subtitle:            'THE LOOK',
-            title:               'Cashmere Turtleneck',
-            material:            '¥ 1,580 · 100% Inner Mongolia Cashmere',
-            linkText:            'VIEW PRODUCT',
-            href:                '/products/cashmere-turtleneck',
-          },
-          {
-            modelImageDesktop:   PH_TALL,
-            modelImageAlt:       'VIONIS·XY Women Look 02',
-            productImageDesktop: PH_SQUARE,
-            productImageAlt:     'Merino Longline Coat',
-            subtitle:            'THE LOOK',
-            title:               'Merino Longline Coat',
-            material:            '¥ 2,280 · Extra-fine Merino 18.5µm',
-            linkText:            'VIEW PRODUCT',
-            href:                '/products/merino-coat',
-          },
-          {
-            modelImageDesktop:   PH_TALL,
-            modelImageAlt:       'VIONIS·XY Women Look 03',
-            productImageDesktop: PH_SQUARE,
-            productImageAlt:     'Ribbed Cashmere Vest',
-            subtitle:            'THE LOOK',
-            title:               'Ribbed Cashmere Vest',
-            material:            '¥ 980 · Grade-A Cashmere',
-            linkText:            'VIEW PRODUCT',
-            href:                '/products/cashmere-vest',
-          },
+        womenSlides={womenSlides.length > 0 ? womenSlides : [
+          { modelImageDesktop: PH_TALL, productImageDesktop: PH_SQUARE, subtitle: 'THE LOOK', title: 'Loading…', material: '—', linkText: 'VIEW PRODUCT', href: '#' },
         ]}
-        menSlides={[
-          {
-            modelImageDesktop:   PH_TALL,
-            modelImageAlt:       'VIONIS·XY Men Look 01',
-            productImageDesktop: PH_SQUARE,
-            productImageAlt:     'Men Cashmere Crewneck',
-            subtitle:            'THE LOOK',
-            title:               'Cashmere Crewneck',
-            material:            '¥ 1,480 · 100% Inner Mongolia Cashmere',
-            linkText:            'VIEW PRODUCT',
-            href:                '/products/men-cashmere-crewneck',
-          },
-          {
-            modelImageDesktop:   PH_TALL,
-            modelImageAlt:       'VIONIS·XY Men Look 02',
-            productImageDesktop: PH_SQUARE,
-            productImageAlt:     'Men Merino Hoodie',
-            subtitle:            'THE LOOK',
-            title:               'Seamless Merino Hoodie',
-            material:            '¥ 1,180 · Superfine Merino 17.5µm',
-            linkText:            'VIEW PRODUCT',
-            href:                '/products/men-merino-hoodie',
-          },
+        menSlides={menSlides.length > 0 ? menSlides : [
+          { modelImageDesktop: PH_TALL, productImageDesktop: PH_SQUARE, subtitle: 'THE LOOK', title: 'Loading…', material: '—', linkText: 'VIEW PRODUCT', href: '#' },
         ]}
         colors={{ bgColor: '#F4F1EA', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
         desktopHeight={700}
@@ -155,7 +168,6 @@ export default function Home() {
 
       {/* ══════════════════════════════════════════════════════
           4. MaterialDualWall — 材质双壁展示
-          悬停时面板伸展 + 图片缩放 + 按钮滑出
       ══════════════════════════════════════════════════════ */}
       <MaterialDualWall
         leftPanel={{
@@ -177,10 +189,10 @@ export default function Home() {
           btnText:      'DISCOVER',
         }}
         colors={{
-          bgColor:      '#F4F1EA',
-          headingColor: '#FFFFFF',
-          textColor:    '#FFFFFF',
-          btnHoverBg:   '#FFFFFF',
+          bgColor:       '#F4F1EA',
+          headingColor:  '#FFFFFF',
+          textColor:     '#FFFFFF',
+          btnHoverBg:    '#FFFFFF',
           btnHoverColor: '#000000',
         }}
         desktopHeight={600}
@@ -191,7 +203,6 @@ export default function Home() {
 
       {/* ══════════════════════════════════════════════════════
           5. BrandStory — 品牌叙事三栏布局
-          左侧主图 + 中间文字 + 右侧错落副图
       ══════════════════════════════════════════════════════ */}
       <BrandStory
         mainImage={PH_TALL}
@@ -215,7 +226,6 @@ export default function Home() {
 
       {/* ══════════════════════════════════════════════════════
           6. SiteFooter — 站点底部
-          导航栏 + Newsletter + 社交图标 + 版权
       ══════════════════════════════════════════════════════ */}
       <SiteFooter
         shopName="VIONIS·XY"
@@ -224,7 +234,6 @@ export default function Home() {
         newsletterHeading="GET EARLY ACCESS"
         newsletterPlaceholder="Enter your email"
         onNewsletterSubmit={async (email) => {
-          // 接入实际 API 时替换此处
           console.log('Newsletter subscribe:', email);
         }}
         showSocial
@@ -239,43 +248,43 @@ export default function Home() {
             type: 'link_list',
             heading: 'Shop',
             links: [
-              { title: 'Cashmere',        url: '/collections/cashmere' },
-              { title: 'Merino Wool',     url: '/collections/merino' },
-              { title: 'New Arrivals',    url: '/collections/new' },
-              { title: 'Best Sellers',    url: '/collections/best-sellers' },
+              { title: 'Cashmere',     url: '/collections/cashmere' },
+              { title: 'Merino Wool',  url: '/collections/merino' },
+              { title: 'New Arrivals', url: '/collections/new' },
+              { title: 'Best Sellers', url: '/collections/best-sellers' },
             ],
           },
           {
             type: 'link_list',
             heading: 'About',
             links: [
-              { title: 'Our Story',       url: '/pages/about' },
-              { title: 'Craftsmanship',   url: '/pages/craft' },
-              { title: 'Sustainability',  url: '/pages/sustainability' },
-              { title: 'Wholesale',       url: '/pages/wholesale' },
+              { title: 'Our Story',      url: '/pages/about' },
+              { title: 'Craftsmanship',  url: '/pages/craft' },
+              { title: 'Sustainability', url: '/pages/sustainability' },
+              { title: 'Wholesale',      url: '/pages/wholesale' },
             ],
           },
           {
             type: 'link_list',
             heading: 'Help',
             links: [
-              { title: 'Size Guide',      url: '/pages/size-guide' },
-              { title: 'Shipping',        url: '/pages/shipping' },
-              { title: 'Returns',         url: '/pages/returns' },
-              { title: 'Contact Us',      url: '/pages/contact' },
+              { title: 'Size Guide',  url: '/pages/size-guide' },
+              { title: 'Shipping',    url: '/pages/shipping' },
+              { title: 'Returns',     url: '/pages/returns' },
+              { title: 'Contact Us',  url: '/pages/contact' },
             ],
           },
           {
             type: 'text',
             heading: 'Brand',
-            content: 'VIONIS·XY — Rare Cashmere & Seamless Merino. <br/>Crafted for quiet luxury.',
+            content: 'VIONIS·XY — Rare Cashmere & Seamless Merino.<br/>Crafted for quiet luxury.',
           },
         ]}
         showPolicies
         policies={[
-          { title: 'Privacy Policy',    url: '/policies/privacy-policy' },
-          { title: 'Terms of Service',  url: '/policies/terms-of-service' },
-          { title: 'Refund Policy',     url: '/policies/refund-policy' },
+          { title: 'Privacy Policy',   url: '/policies/privacy-policy' },
+          { title: 'Terms of Service', url: '/policies/terms-of-service' },
+          { title: 'Refund Policy',    url: '/policies/refund-policy' },
         ]}
         colors={{
           bgColor:      '#0f0f0f',
