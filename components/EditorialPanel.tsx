@@ -60,6 +60,14 @@ export interface EditorialPanelProps {
   pcGutter?: number;
   /** 手机端左右内边距（px） */
   mobGutter?: number;
+  /**
+   * 外部 Tab 控制（受控模式）。
+   * - 传入时：组件不渲染内置 Tab，由外部驱动（适合与页面级 Women/Men 联动）。
+   * - 不传时：组件自行维护内置 Tab 状态。
+   */
+  activeTab?: 0 | 1;
+  /** 受控模式下，用户点击 Tab 时的回调 */
+  onTabChange?: (tab: 0 | 1) => void;
 }
 
 // ─── Defaults ────────────────────────────────────────────────────────────────
@@ -88,7 +96,7 @@ function ProductCardItem({
       <Link href={card.href || '#'}>
         {/* 4:5 比例图片容器，悬停时内图缩放 */}
         <div
-          className="relative overflow-hidden bg-[#eeeeee] mb-[15px]"
+          className="relative overflow-hidden bg-[#E8DFD6] mb-[15px]"
           style={{ aspectRatio: '4/5' }}
         >
           <Image
@@ -146,7 +154,7 @@ function ContentPanel({
 
       {/* ── 左侧：4:5 大图 + 文字叠层 ── */}
       <div
-        className="relative overflow-hidden bg-[#f4f4f4] min-h-0"
+        className="relative overflow-hidden bg-[#E8DFD6] min-h-0"
         style={{ aspectRatio: '4/5', flex: '1 1 50%' }}
       >
         {hasMobile ? (
@@ -159,7 +167,7 @@ function ContentPanel({
                 fill
                 priority={isActive}
                 sizes="50vw"
-                className="object-cover"
+                className="object-cover object-top"
               />
             </div>
             {/* 手机端显示 */}
@@ -170,7 +178,7 @@ function ContentPanel({
                 fill
                 priority={isActive}
                 sizes="100vw"
-                className="object-cover"
+                className="object-cover object-top"
               />
             </div>
           </>
@@ -181,7 +189,7 @@ function ContentPanel({
             fill
             priority={isActive}
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
+            className="object-cover object-top"
           />
         )}
 
@@ -254,11 +262,23 @@ export default function EditorialPanel({
   containerWidth = 1400,
   pcGutter = 60,
   mobGutter = 20,
+  activeTab: activeTabProp,
+  onTabChange,
 }: EditorialPanelProps) {
   const uid = useId();
   // useId 生成含冒号的字符串，替换为合法 CSS ID
   const scopeId = `ep${uid.replace(/:/g, '')}`;
-  const [activeTab, setActiveTab] = useState<0 | 1>(0);
+  const [internalTab, setInternalTab] = useState<0 | 1>(0);
+  const isControlled = activeTabProp !== undefined;
+  const activeTab = isControlled ? activeTabProp! : internalTab;
+
+  function handleTabClick(tab: 0 | 1) {
+    if (isControlled) {
+      onTabChange?.(tab);
+    } else {
+      setInternalTab(tab);
+    }
+  }
 
   const c: EditorialColors = { ...DEFAULT_COLORS, ...colorsProp };
 
@@ -295,7 +315,7 @@ export default function EditorialPanel({
     >
       <style dangerouslySetInnerHTML={{ __html: css }} />
 
-      {/* ── Tab 切换按钮组 ── */}
+      {/* ── Tab 切换按钮组（受控模式下仍渲染，允许外部感知点击） ── */}
       <div className="text-center mb-[30px]">
         {tabs.map(({ label }, i) => {
           const isActive = activeTab === i;
@@ -303,7 +323,7 @@ export default function EditorialPanel({
             <button
               key={i}
               type="button"
-              onClick={() => setActiveTab(i as 0 | 1)}
+              onClick={() => handleTabClick(i as 0 | 1)}
               className="px-[25px] py-[10px] bg-transparent border-none cursor-pointer relative transition-all duration-300"
               style={{
                 fontFamily: textFont,

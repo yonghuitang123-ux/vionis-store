@@ -68,8 +68,8 @@ export interface LiquidBannerProps {
 // ─── Defaults ────────────────────────────────────────────────────────────────
 
 const DEFAULT_COLORS: LiquidBannerColors = {
-  outerBg: '#F5F3EF',
-  contentBg: '#FFFFFF',
+  outerBg: '#E8DFD6',
+  contentBg: '#E8DFD6',
   headingColor: '#1a1a1a',
   textColor: '#555555',
   btnBg: '#FFFFFF',

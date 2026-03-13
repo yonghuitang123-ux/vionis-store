@@ -11,10 +11,11 @@ import BrandStory from '@/components/BrandStory';
 import SiteFooter from '@/components/SiteFooter';
 import { getProducts } from '@/lib/shopify';
 
-// ─── 静态占位图（仅在产品数据加载前使用） ──────────────────────────────────────
-const PH_SQUARE = 'https://placehold.co/600x600/f0ede6/cccccc';
-const PH_TALL   = 'https://placehold.co/800x1200/1a1a1a/888888';
-const PH_WIDE   = 'https://placehold.co/1200x800/2a2a2a/888888';
+// ─── 占位图 ────────────────────────────────────────────────────────────────────
+// 使用与品牌一致的暖米色 #E8DFD6，不显示任何文字/图标
+const PH_SQUARE = 'https://placehold.co/600x600/E8DFD6/E8DFD6';
+const PH_TALL   = 'https://placehold.co/800x1200/E8DFD6/E8DFD6';
+const PH_WIDE   = 'https://placehold.co/1200x800/E8DFD6/E8DFD6';
 
 // ─── Hero 图（真实 Shopify CDN） ────────────────────────────────────────────────
 const HERO_WOMEN = 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/2_b5b746b0-b008-4593-9da3-f06952603f17.webp?v=1769206938';
@@ -51,14 +52,18 @@ function toProductCard(p: ShopifyProduct): ProductCard {
   };
 }
 
-/** Shopify product → MastermindShowcase SlideItem（产品图同时用作模特图） */
-function toSlideItem(p: ShopifyProduct): SlideItem {
+/**
+ * Shopify product → MastermindShowcase SlideItem
+ * - modelImageDesktop : 来自 API 的产品主图（左侧大图）
+ * - productImageDesktop: 独立传入的产品缩图（右侧小图），不从 API 自动获取
+ */
+function toSlideItem(p: ShopifyProduct, productImg: string): SlideItem {
   const img = p.images.edges[0]?.node;
   const { amount, currencyCode } = p.priceRange.minVariantPrice;
   return {
     modelImageDesktop:   img?.url ?? PH_TALL,
     modelImageAlt:       p.title,
-    productImageDesktop: img?.url ?? PH_SQUARE,
+    productImageDesktop: productImg,
     productImageAlt:     p.title,
     subtitle:            'THE LOOK',
     title:               p.title,
@@ -68,14 +73,26 @@ function toSlideItem(p: ShopifyProduct): SlideItem {
   };
 }
 
-// ─── 加载骨架产品（占位，保持布局稳定） ────────────────────────────────────────
-const SKELETON_PRODUCTS: ProductCard[] = Array.from({ length: 4 }, (_, i) => ({
-  imageUrl:  PH_SQUARE,
-  imageAlt:  'Loading…',
-  title:     'Loading…',
-  price:     '—',
-  href:      '#',
+// ─── 加载骨架（纯色占位，无文字，保持布局稳定） ──────────────────────────────
+const SKELETON_PRODUCTS: ProductCard[] = Array.from({ length: 4 }, () => ({
+  imageUrl: PH_SQUARE,
+  imageAlt: '',
+  title:    '',
+  price:    '',
+  href:     '#',
 }));
+
+const SKELETON_SLIDE: SlideItem = {
+  modelImageDesktop:   PH_TALL,
+  modelImageAlt:       '',
+  productImageDesktop: PH_SQUARE,
+  productImageAlt:     '',
+  subtitle:            '',
+  title:               '',
+  material:            '',
+  linkText:            '',
+  href:                '#',
+};
 
 export default function Home() {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -87,11 +104,14 @@ export default function Home() {
   }, []);
 
   // 将产品按顺序分配给各区块（不足时回落到占位）
-  const cards        = products.length >= 4 ? products.map(toProductCard) : SKELETON_PRODUCTS;
-  const panel1Cards  = cards.slice(0, 4);
-  const panel2Cards  = cards.slice(4, 8).length === 4 ? cards.slice(4, 8) : SKELETON_PRODUCTS;
-  const womenSlides  = products.slice(0, 4).map(toSlideItem);
-  const menSlides    = products.slice(4, 8).map(toSlideItem);
+  const cards       = products.length >= 4 ? products.map(toProductCard) : SKELETON_PRODUCTS;
+  const panel1Cards = cards.slice(0, 4);
+  const panel2Cards = cards.slice(4, 8).length === 4 ? cards.slice(4, 8) : SKELETON_PRODUCTS;
+
+  // MastermindShowcase：右侧小图（productImg）通过 props 显式传入
+  // 生产环境请替换为各产品的专属缩图 URL；暂用品牌占位色块
+  const womenSlides = products.slice(0, 4).map((p) => toSlideItem(p, PH_SQUARE));
+  const menSlides   = products.slice(4, 8).map((p) => toSlideItem(p, PH_SQUARE));
 
   return (
     <main>
@@ -111,8 +131,8 @@ export default function Home() {
           { text: 'CASHMERE',    href: '/collections/cashmere' },
         ]}
         colors={{
-          outerBg:      '#F5F3EF',
-          contentBg:    '#FFFFFF',
+          outerBg:      '#E8DFD6',
+          contentBg:    '#E8DFD6',
           headingColor: '#1a1a1a',
           btnBg:        '#FFFFFF',
           btnText:      '#000000',
@@ -155,12 +175,8 @@ export default function Home() {
           产品数据来自 Shopify API（加载中显示骨架轮播）
       ══════════════════════════════════════════════════════ */}
       <MastermindShowcase
-        womenSlides={womenSlides.length > 0 ? womenSlides : [
-          { modelImageDesktop: PH_TALL, productImageDesktop: PH_SQUARE, subtitle: 'THE LOOK', title: 'Loading…', material: '—', linkText: 'VIEW PRODUCT', href: '#' },
-        ]}
-        menSlides={menSlides.length > 0 ? menSlides : [
-          { modelImageDesktop: PH_TALL, productImageDesktop: PH_SQUARE, subtitle: 'THE LOOK', title: 'Loading…', material: '—', linkText: 'VIEW PRODUCT', href: '#' },
-        ]}
+        womenSlides={womenSlides.length > 0 ? womenSlides : [SKELETON_SLIDE]}
+        menSlides={menSlides.length > 0 ? menSlides : [SKELETON_SLIDE]}
         colors={{ bgColor: '#F4F1EA', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
         desktopHeight={700}
         modelWidthPct={55}
