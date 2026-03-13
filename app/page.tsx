@@ -10,19 +10,12 @@ import MaterialDualWall from '@/components/MaterialDualWall';
 import BrandStory from '@/components/BrandStory';
 import SiteFooter from '@/components/SiteFooter';
 import { getProducts } from '@/lib/shopify';
+import { siteConfig, 占位图 } from '@/config/site';
 
-// ─── 占位图 ────────────────────────────────────────────────────────────────────
-// 使用与品牌一致的暖米色 #E8DFD6，不显示任何文字/图标
-const PH_SQUARE = 'https://placehold.co/600x600/E8DFD6/E8DFD6';
-const PH_TALL   = 'https://placehold.co/800x1200/E8DFD6/E8DFD6';
-const PH_WIDE   = 'https://placehold.co/1200x800/E8DFD6/E8DFD6';
+// ─── 便捷解构 ─────────────────────────────────────────────────────────────────
+const { banner, grid, featuredLook, materialWall, brandStory, footer } = siteConfig;
 
-// ─── Hero 图（真实 Shopify CDN） ────────────────────────────────────────────────
-const HERO_WOMEN = 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/2_b5b746b0-b008-4593-9da3-f06952603f17.webp?v=1769206938';
-const HERO_MEN   = 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/1_449b9768-3f31-4671-ac0c-c5bbc73d9f2e.webp?v=1769206854';
-const HERO_BANNER = 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606';
-
-// ─── Shopify 产品原始类型 ───────────────────────────────────────────────────────
+// ─── Shopify 产品原始类型 ─────────────────────────────────────────────────────
 interface ShopifyProduct {
   id: string;
   title: string;
@@ -31,7 +24,7 @@ interface ShopifyProduct {
   images: { edges: { node: { url: string; altText: string | null } }[] };
 }
 
-/** 将 Shopify 货币格式化为展示字符串 */
+/** 货币格式化 */
 function formatPrice(amount: string, currencyCode: string): string {
   const num = parseFloat(amount);
   if (currencyCode === 'CNY') return `¥ ${num.toLocaleString('zh-CN', { minimumFractionDigits: 0 })}`;
@@ -44,38 +37,17 @@ function toProductCard(p: ShopifyProduct): ProductCard {
   const img = p.images.edges[0]?.node;
   const { amount, currencyCode } = p.priceRange.minVariantPrice;
   return {
-    imageUrl:  img?.url    ?? PH_SQUARE,
-    imageAlt:  img?.altText ?? p.title,
-    title:     p.title,
-    price:     formatPrice(amount, currencyCode),
-    href:      `/products/${p.handle}`,
+    imageUrl: img?.url     ?? 占位图.方形,
+    imageAlt: img?.altText ?? p.title,
+    title:    p.title,
+    price:    formatPrice(amount, currencyCode),
+    href:     `/products/${p.handle}`,
   };
 }
 
-/**
- * Shopify product → MastermindShowcase SlideItem
- * - modelImageDesktop : 来自 API 的产品主图（左侧大图）
- * - productImageDesktop: 独立传入的产品缩图（右侧小图），不从 API 自动获取
- */
-function toSlideItem(p: ShopifyProduct, productImg: string): SlideItem {
-  const img = p.images.edges[0]?.node;
-  const { amount, currencyCode } = p.priceRange.minVariantPrice;
-  return {
-    modelImageDesktop:   img?.url ?? PH_TALL,
-    modelImageAlt:       p.title,
-    productImageDesktop: productImg,
-    productImageAlt:     p.title,
-    subtitle:            'THE LOOK',
-    title:               p.title,
-    material:            formatPrice(amount, currencyCode),
-    linkText:            'VIEW PRODUCT',
-    href:                `/products/${p.handle}`,
-  };
-}
-
-// ─── 加载骨架（纯色占位，无文字，保持布局稳定） ──────────────────────────────
+// ─── 骨架占位（产品加载前，保持布局稳定，无文字） ───────────────────────────
 const SKELETON_PRODUCTS: ProductCard[] = Array.from({ length: 4 }, () => ({
-  imageUrl: PH_SQUARE,
+  imageUrl: 占位图.方形,
   imageAlt: '',
   title:    '',
   price:    '',
@@ -83,9 +55,9 @@ const SKELETON_PRODUCTS: ProductCard[] = Array.from({ length: 4 }, () => ({
 }));
 
 const SKELETON_SLIDE: SlideItem = {
-  modelImageDesktop:   PH_TALL,
+  modelImageDesktop:   占位图.竖版,
+  productImageDesktop: 占位图.方形,
   modelImageAlt:       '',
-  productImageDesktop: PH_SQUARE,
   productImageAlt:     '',
   subtitle:            '',
   title:               '',
@@ -94,41 +66,82 @@ const SKELETON_SLIDE: SlideItem = {
   href:                '#',
 };
 
+// ─── featuredLook config → SlideItem 数组 ─────────────────────────────────────
+// 将 config 中编号式字段（轮播1_xxx ~ 轮播N_xxx）转换为组件所需的 SlideItem 数组
+// 模特大图/右侧小图留空时，回落到品牌占位图
+type SlideKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+function buildSlideItem(n: SlideKey): SlideItem | null {
+  const modelPc  = featuredLook[`轮播${n}_模特大图_电脑端`];
+  const modelMob = featuredLook[`轮播${n}_模特大图_手机端`];
+  const prodImg  = featuredLook[`轮播${n}_右侧小图`];
+  const title    = featuredLook[`轮播${n}_产品名称`];
+  const price    = featuredLook[`轮播${n}_产品价格`];
+  const href     = featuredLook[`轮播${n}_产品链接`];
+
+  // 模特大图和产品名称都为空时，跳过此条
+  if (!modelPc && !title) return null;
+
+  return {
+    modelImageDesktop:  modelPc  || 占位图.竖版,
+    modelImageMobile:   modelMob || undefined,   // 留空则 Swiper 自动用 desktop 图
+    modelImageAlt:      title    || '',
+    productImageDesktop: prodImg || 占位图.方形,
+    productImageAlt:    title    || '',
+    subtitle:           featuredLook.副标签文字,
+    title:              title    || '',
+    material:           price    || '',
+    linkText:           featuredLook.查看按钮文字,
+    href:               href     || '#',
+  };
+}
+
+const womenSlidesFromConfig = ([1, 2, 3, 4] as SlideKey[])
+  .map(buildSlideItem)
+  .filter((s): s is SlideItem => s !== null);
+
+const menSlidesFromConfig = ([5, 6, 7, 8] as SlideKey[])
+  .map(buildSlideItem)
+  .filter((s): s is SlideItem => s !== null);
+
 export default function Home() {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
 
   useEffect(() => {
+    // EditorialPanel 产品卡片仍从 Shopify API 获取
     getProducts()
       .then((data) => setProducts(data))
       .catch((err) => console.error('Shopify product fetch failed:', err));
   }, []);
 
-  // 将产品按顺序分配给各区块（不足时回落到占位）
+  // 产品卡片（EditorialPanel 网格）
   const cards       = products.length >= 4 ? products.map(toProductCard) : SKELETON_PRODUCTS;
   const panel1Cards = cards.slice(0, 4);
   const panel2Cards = cards.slice(4, 8).length === 4 ? cards.slice(4, 8) : SKELETON_PRODUCTS;
 
-  // MastermindShowcase：右侧小图（productImg）通过 props 显式传入
-  // 生产环境请替换为各产品的专属缩图 URL；暂用品牌占位色块
-  const womenSlides = products.slice(0, 4).map((p) => toSlideItem(p, PH_SQUARE));
-  const menSlides   = products.slice(4, 8).map((p) => toSlideItem(p, PH_SQUARE));
+  // 页脚社交链接：过滤掉空字符串
+  const activeSocial = Object.fromEntries(
+    Object.entries(footer.社交媒体).filter(([, v]) => Boolean(v)),
+  ) as typeof footer.社交媒体;
 
   return (
     <main>
 
       {/* ══════════════════════════════════════════════════════
-          1. LiquidBanner — 视差滚动横幅（首屏）
+          1. LiquidBanner — 首屏横幅
       ══════════════════════════════════════════════════════ */}
       <LiquidBanner
-        leftImageDesktop={HERO_BANNER}
-        leftImageAlt="VIONIS·XY 女装模特"
-        rightImageDesktop={HERO_BANNER}
-        rightImageAlt="VIONIS·XY 男装模特"
-        heading="THE 2026 ESSENTIALS"
-        description="RARE CASHMERE & SEAMLESS MERINO"
+        leftImageDesktop={banner.电脑端左图}
+        leftImageMobile={banner.手机端左图 || undefined}
+        leftImageAlt="VIONIS·XY"
+        rightImageDesktop={banner.电脑端右图}
+        rightImageMobile={banner.手机端右图 || undefined}
+        rightImageAlt="VIONIS·XY"
+        heading={banner.标题}
+        description={banner.副标题}
         buttons={[
-          { text: 'MERINO WOOL', href: '/collections/merino' },
-          { text: 'CASHMERE',    href: '/collections/cashmere' },
+          { text: banner.按钮1文字, href: banner.按钮1链接 },
+          { text: banner.按钮2文字, href: banner.按钮2链接 },
         ]}
         colors={{
           outerBg:      '#E8DFD6',
@@ -147,62 +160,66 @@ export default function Home() {
       />
 
       {/* ══════════════════════════════════════════════════════
-          2. EditorialPanel — 4:5 对称画报（Women / Men Tab）
-          hero 图已替换为真实 Shopify CDN；产品卡片来自 API
+          2. EditorialPanel — Women / Men 产品网格
+          hero 图来自 config；产品卡片来自 Shopify API
       ══════════════════════════════════════════════════════ */}
       <EditorialPanel
-        tab1Label="Women"
-        tab2Label="Men"
+        tab1Label={grid.女装Tab标签}
+        tab2Label={grid.男装Tab标签}
         panel1={{
-          imageDesktop: HERO_WOMEN,
+          imageDesktop: grid.女装大图_电脑端,
+          imageMobile:  grid.女装大图_手机端 || undefined,
           imageAlt:     'VIONIS·XY Women Collection',
-          title:        'The Cashmere Origin',
-          description:  'Inner Mongolia, -30°C',
+          title:        grid.女装标题,
+          description:  grid.女装副标题,
           products:     panel1Cards,
         }}
         panel2={{
-          imageDesktop: HERO_MEN,
+          imageDesktop: grid.男装大图_电脑端,
+          imageMobile:  grid.男装大图_手机端 || undefined,
           imageAlt:     'VIONIS·XY Men Collection',
-          title:        'The Cashmere Structure',
-          description:  'Engineered for Warmth',
+          title:        grid.男装标题,
+          description:  grid.男装副标题,
           products:     panel2Cards,
         }}
         colors={{ accentColor: '#A05E46' }}
       />
 
       {/* ══════════════════════════════════════════════════════
-          3. MastermindShowcase — Swiper 双轨轮播
-          产品数据来自 Shopify API（加载中显示骨架轮播）
+          3. MastermindShowcase — 轮播看款
+          所有数据来自 config/site.ts，与 API 无关
       ══════════════════════════════════════════════════════ */}
       <MastermindShowcase
-        womenSlides={womenSlides.length > 0 ? womenSlides : [SKELETON_SLIDE]}
-        menSlides={menSlides.length > 0 ? menSlides : [SKELETON_SLIDE]}
+        womenSlides={womenSlidesFromConfig.length > 0 ? womenSlidesFromConfig : [SKELETON_SLIDE]}
+        menSlides={menSlidesFromConfig.length > 0 ? menSlidesFromConfig : [SKELETON_SLIDE]}
         colors={{ bgColor: '#F4F1EA', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
         desktopHeight={700}
         modelWidthPct={55}
       />
 
       {/* ══════════════════════════════════════════════════════
-          4. MaterialDualWall — 材质双壁展示
+          4. MaterialDualWall — 材质双墙
       ══════════════════════════════════════════════════════ */}
       <MaterialDualWall
         leftPanel={{
-          imageDesktop: PH_WIDE,
-          imageAlt:     'Merino Wool — VIONIS·XY',
-          href:         '/collections/merino',
-          subtitle:     'THE ESSENTIAL',
-          title:        'Merino Wool',
-          specs:        '18.5µm • Everyday Luxury',
-          btnText:      'EXPLORE',
+          imageDesktop: materialWall.左侧_美利奴图_电脑端 || 占位图.横版,
+          imageMobile:  materialWall.左侧_美利奴图_手机端 || undefined,
+          imageAlt:     `${materialWall.左侧_标题} — VIONIS·XY`,
+          href:         materialWall.左侧_链接,
+          subtitle:     materialWall.左侧_小标题,
+          title:        materialWall.左侧_标题,
+          specs:        materialWall.左侧_规格,
+          btnText:      materialWall.左侧_按钮,
         }}
         rightPanel={{
-          imageDesktop: PH_WIDE,
-          imageAlt:     'Cashmere — VIONIS·XY',
-          href:         '/collections/cashmere',
-          subtitle:     'THE RAREST',
-          title:        'Cashmere',
-          specs:        '15.5µm • Soft Gold',
-          btnText:      'DISCOVER',
+          imageDesktop: materialWall.右侧_羊绒图_电脑端 || 占位图.横版,
+          imageMobile:  materialWall.右侧_羊绒图_手机端 || undefined,
+          imageAlt:     `${materialWall.右侧_标题} — VIONIS·XY`,
+          href:         materialWall.右侧_链接,
+          subtitle:     materialWall.右侧_小标题,
+          title:        materialWall.右侧_标题,
+          specs:        materialWall.右侧_规格,
+          btnText:      materialWall.右侧_按钮,
         }}
         colors={{
           bgColor:       '#F4F1EA',
@@ -218,17 +235,17 @@ export default function Home() {
       />
 
       {/* ══════════════════════════════════════════════════════
-          5. BrandStory — 品牌叙事三栏布局
+          5. BrandStory — 品牌叙事
       ══════════════════════════════════════════════════════ */}
       <BrandStory
-        mainImage={PH_TALL}
-        mainImageAlt="VIONIS·XY Brand Story — Model"
-        subImage={PH_SQUARE}
+        mainImage={brandStory.主图_电脑端 || 占位图.竖版}
+        mainImageAlt="VIONIS·XY Brand Story"
+        subImage={brandStory.副图_电脑端 || 占位图.方形}
         subImageAlt="VIONIS·XY Cashmere Detail"
-        subtitle="THE PHILOSOPHY"
-        title="Quiet Confidence"
-        text="True elegance does not need to shout. At VIONIS·XY, we believe in the power of subtraction — removing the excess to reveal the essential quality of Merino and Cashmere. Each piece is crafted to outlast trends and outlive seasons."
-        signature="Viral Momentum"
+        subtitle={brandStory.小标题}
+        title={brandStory.标题}
+        text={brandStory.正文}
+        signature={brandStory.签名}
         colors={{
           bgColor:      '#FFFFFF',
           headingColor: '#1a1a1a',
@@ -241,67 +258,23 @@ export default function Home() {
       />
 
       {/* ══════════════════════════════════════════════════════
-          6. SiteFooter — 站点底部
+          6. SiteFooter — 页脚
       ══════════════════════════════════════════════════════ */}
       <SiteFooter
-        shopName="VIONIS·XY"
-        shopUrl="/"
+        shopName={footer.品牌名称}
+        shopUrl={footer.首页链接}
         showNewsletter
-        newsletterHeading="GET EARLY ACCESS"
-        newsletterPlaceholder="Enter your email"
+        newsletterHeading={footer.订阅栏标题}
+        newsletterPlaceholder={footer.订阅栏占位文字}
         onNewsletterSubmit={async (email) => {
+          // 接入实际 Newsletter API 时在此替换
           console.log('Newsletter subscribe:', email);
         }}
         showSocial
-        socialLinks={{
-          instagram: 'https://instagram.com/vionis.xy',
-          tiktok:    'https://tiktok.com/@vionis.xy',
-          pinterest: 'https://pinterest.com/vionisxy',
-          youtube:   'https://youtube.com/@vionisxy',
-        }}
-        blocks={[
-          {
-            type: 'link_list',
-            heading: 'Shop',
-            links: [
-              { title: 'Cashmere',     url: '/collections/cashmere' },
-              { title: 'Merino Wool',  url: '/collections/merino' },
-              { title: 'New Arrivals', url: '/collections/new' },
-              { title: 'Best Sellers', url: '/collections/best-sellers' },
-            ],
-          },
-          {
-            type: 'link_list',
-            heading: 'About',
-            links: [
-              { title: 'Our Story',      url: '/pages/about' },
-              { title: 'Craftsmanship',  url: '/pages/craft' },
-              { title: 'Sustainability', url: '/pages/sustainability' },
-              { title: 'Wholesale',      url: '/pages/wholesale' },
-            ],
-          },
-          {
-            type: 'link_list',
-            heading: 'Help',
-            links: [
-              { title: 'Size Guide',  url: '/pages/size-guide' },
-              { title: 'Shipping',    url: '/pages/shipping' },
-              { title: 'Returns',     url: '/pages/returns' },
-              { title: 'Contact Us',  url: '/pages/contact' },
-            ],
-          },
-          {
-            type: 'text',
-            heading: 'Brand',
-            content: 'VIONIS·XY — Rare Cashmere & Seamless Merino.<br/>Crafted for quiet luxury.',
-          },
-        ]}
+        socialLinks={activeSocial}
+        blocks={footer.导航列}
         showPolicies
-        policies={[
-          { title: 'Privacy Policy',   url: '/policies/privacy-policy' },
-          { title: 'Terms of Service', url: '/policies/terms-of-service' },
-          { title: 'Refund Policy',    url: '/policies/refund-policy' },
-        ]}
+        policies={footer.政策链接}
         colors={{
           bgColor:      '#0f0f0f',
           textColor:    '#aaaaaa',
