@@ -230,7 +230,7 @@ function ContentPanel({
 
       {/* ── 右侧：2列产品网格 ── */}
       <div
-        className="grid grid-cols-2"
+        className="ep-product-grid grid grid-cols-2"
         style={{ flex: '1 1 45%', gap: '25px 15px' }}
       >
         {config.products.map((card, idx) => (
@@ -255,12 +255,12 @@ export default function EditorialPanel({
   panel1,
   panel2,
   colors: colorsProp,
-  headingFont = '"Assistant", serif',
-  textFont = '"Assistant", sans-serif',
+  headingFont = 'var(--font-cormorant), "Cormorant", serif',
+  textFont = 'var(--font-montserrat), "Montserrat", sans-serif',
   headingSize = 28,
   textSize = 14,
   containerWidth = 1400,
-  pcGutter = 60,
+  pcGutter = 40,
   mobGutter = 20,
   activeTab: activeTabProp,
   onTabChange,
@@ -292,7 +292,8 @@ export default function EditorialPanel({
     // 移动端响应式
     `@media(max-width:768px){`,
     `  #${scopeId} .ep-inner{padding-left:${mobGutter}px;padding-right:${mobGutter}px}`,
-    // !important 覆盖 inline style，实现移动端标题自动缩小
+    `  #${scopeId} .ep-panel{gap:16px}`,
+    `  #${scopeId} .ep-product-grid{gap:16px 10px!important}`,
     `  #${scopeId} .ep-hero-title{font-size:calc(${headingSize}px * 0.75)!important}`,
     `  #${scopeId} .ep-card-text{font-size:calc(${textSize}px * 0.9)!important}`,
     `}`,

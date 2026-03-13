@@ -7,9 +7,9 @@ import { siteConfig } from '@/config/site';
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
 
-function IconSearch() {
+function IconSearch({ size = 17 }: { size?: number }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="10.5" cy="10.5" r="6.5" />
       <line x1="15.5" y1="15.5" x2="21" y2="21" />
@@ -17,18 +17,18 @@ function IconSearch() {
   );
 }
 
-function IconHeart() {
+function IconHeart({ size = 17 }: { size?: number }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 20.9l7.84-7.84a5.5 5.5 0 0 0 0-7.45z" />
     </svg>
   );
 }
 
-function IconUser() {
+function IconUser({ size = 17 }: { size?: number }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="8" r="4" />
       <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" />
@@ -36,10 +36,10 @@ function IconUser() {
   );
 }
 
-function IconBag({ count }: { count: number }) {
+function IconBag({ count, size = 17 }: { count: number; size?: number }) {
   return (
     <span className="relative inline-flex items-center justify-center">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
         stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
         <line x1="3" y1="6" x2="21" y2="6" />
@@ -57,9 +57,9 @@ function IconBag({ count }: { count: number }) {
   );
 }
 
-function IconMenu() {
+function IconMenu({ size = 22 }: { size?: number }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.3" strokeLinecap="round">
       <line x1="3" y1="7"  x2="21" y2="7"  />
       <line x1="3" y1="12" x2="21" y2="12" />
@@ -183,7 +183,7 @@ export default function Header() {
             <span
               style={{
                 color: '#1a1a1a',
-                fontFamily: '"Assistant", sans-serif',
+                fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
                 fontSize: 11,
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
@@ -257,7 +257,7 @@ export default function Header() {
                   className="hdr-link"
                   style={{
                     color: item.颜色 ?? '#1a1a1a',
-                    fontFamily: '"Assistant", sans-serif',
+                    fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
                     fontSize: 11,
                     fontWeight: 400,
                     letterSpacing: '0.14em',
@@ -303,29 +303,29 @@ export default function Header() {
           {/* 手机端：汉堡左 | 空中 | 购物车右 */}
           <div className="flex md:hidden items-center justify-between px-5" style={{ height: 52 }}>
             <button
-              className="p-1 transition-opacity hover:opacity-60"
+              className="p-2 transition-opacity hover:opacity-60"
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
               onClick={() => setMobileOpen((o) => !o)}
               aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
             >
-              {mobileOpen ? <IconX size={18} /> : <IconMenu />}
+              {mobileOpen ? <IconX size={22} /> : <IconMenu size={24} />}
             </button>
 
-            <div className="flex items-center" style={{ gap: 18 }}>
+            <div className="flex items-center" style={{ gap: 20 }}>
               <button
-                className="p-1 transition-opacity hover:opacity-60"
+                className="p-2 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="搜索"
               >
-                <IconSearch />
+                <IconSearch size={22} />
               </button>
               <Link
                 href="/cart"
-                className="p-1 transition-opacity hover:opacity-60"
+                className="p-2 transition-opacity hover:opacity-60"
                 style={{ color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="购物车"
               >
-                <IconBag count={0} />
+                <IconBag count={0} size={22} />
               </Link>
             </div>
           </div>
@@ -348,7 +348,7 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 style={{
                   color: item.颜色 ?? '#1a1a1a',
-                  fontFamily: '"Assistant", sans-serif',
+                  fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
                   fontSize: 13,
                   fontWeight: 300,
                   letterSpacing: '0.16em',
@@ -372,7 +372,7 @@ export default function Header() {
                   className="flex items-center gap-2 transition-opacity hover:opacity-60"
                   style={{
                     background: 'none', border: 'none', cursor: 'pointer',
-                    color: '#1a1a1a', fontFamily: '"Assistant", sans-serif',
+                    color: '#1a1a1a', fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
                     fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: 0,
                   }}
                 >

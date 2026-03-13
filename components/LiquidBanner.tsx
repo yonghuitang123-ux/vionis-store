@@ -131,14 +131,14 @@ export default function LiquidBanner({
   description,
   buttons = [],
   colors: colorsProp,
-  headingFont = 'Cormorant Garamond',
+  headingFont = 'Cormorant',
   headingSize = 48,
   headingWeight = 300,
   headingSpacing = 30,
   headingTransform = 'uppercase',
   useSystemFont = false,
   btnFontSize = 11,
-  desktopPadding = 60,
+  desktopPadding = 40,
   mobilePadding = 20,
   animationRange = 600,
   dampingFactor = 0.08,
@@ -150,7 +150,7 @@ export default function LiquidBanner({
   const contentBg = c.contentBg;
   const fontFamily = useSystemFont
     ? SYSTEM_FONT_STACK
-    : `"${headingFont}", serif`;
+    : `var(--font-cormorant), "${headingFont}", serif`;
 
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
