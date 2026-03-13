@@ -222,7 +222,7 @@ export default function Home() {
           btnText:      materialWall.右侧_按钮,
         }}
         colors={{
-          bgColor:       '#F4F1EA',
+          bgColor:       '#E8DFD6',
           headingColor:  '#FFFFFF',
           textColor:     '#FFFFFF',
           btnHoverBg:    '#FFFFFF',

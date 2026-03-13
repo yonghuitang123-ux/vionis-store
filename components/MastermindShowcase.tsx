@@ -418,12 +418,12 @@ export default function MastermindShowcase({
     `#${scopeId} .mm-nav-prev{left:10px}`,
     `#${scopeId} .mm-nav-next{right:10px}`,
 
-    // ── 桌面端（顶对齐，固定高度） ──
+    // ── 桌面端（左侧4:5比例驱动整体高度） ──
     `@media(min-width:769px){`,
-    `  #${scopeId} .mm-layout-grid{height:${desktopHeight}px}`,
-    `  #${scopeId} .mm-model-area{width:${modelWidthPct}%;height:100%}`,
+    `  #${scopeId} .mm-layout-grid{align-items:stretch}`,
+    `  #${scopeId} .mm-model-area{width:${modelWidthPct}%;aspect-ratio:4/5;flex-shrink:0}`,
     `  #${scopeId} .mm-info-area{`,
-    `    width:${infoWidth}%;height:100%;position:relative;`,
+    `    flex:1;position:relative;`,
     `    min-width:0;padding-top:${infoTopPaddingPc}px`,
     `  }`,
     `  #${scopeId} .mm-info-card{`,

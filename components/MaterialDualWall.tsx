@@ -64,7 +64,7 @@ export interface MaterialDualWallProps {
 // ─── Defaults ────────────────────────────────────────────────────────────────
 
 const DEFAULT_COLORS: DualWallColors = {
-  bgColor: '#F4F1EA',
+  bgColor: '#E8DFD6',
   headingColor: '#FFFFFF',
   textColor: '#FFFFFF',
   btnColor: '#FFFFFF',
