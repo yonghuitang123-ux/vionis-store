@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import PlaceholderImage from '@/components/PlaceholderImage';
 import Link from 'next/link';
 import { useId } from 'react';
 
@@ -86,7 +86,7 @@ function Panel({ panel }: { panel: DualWallPanel }) {
           <>
             {/* 桌面端图 */}
             <div className="absolute inset-0 hidden min-[769px]:block">
-              <Image
+              <PlaceholderImage
                 src={panel.imageDesktop}
                 alt={panel.imageAlt ?? ''}
                 fill
@@ -97,7 +97,7 @@ function Panel({ panel }: { panel: DualWallPanel }) {
             </div>
             {/* 手机端图 */}
             <div className="absolute inset-0 min-[769px]:hidden">
-              <Image
+              <PlaceholderImage
                 src={panel.imageMobile!}
                 alt={panel.imageAlt ?? ''}
                 fill
@@ -108,7 +108,7 @@ function Panel({ panel }: { panel: DualWallPanel }) {
             </div>
           </>
         ) : (
-          <Image
+          <PlaceholderImage
             src={panel.imageDesktop}
             alt={panel.imageAlt ?? ''}
             fill

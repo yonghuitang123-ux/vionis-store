@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import PlaceholderImage from '@/components/PlaceholderImage';
 import Link from 'next/link';
 import { useId, useState } from 'react';
 
@@ -99,7 +99,7 @@ function ProductCardItem({
           className="relative overflow-hidden bg-[#E8DFD6] mb-[15px]"
           style={{ aspectRatio: '4/5' }}
         >
-          <Image
+          <PlaceholderImage
             src={card.imageUrl}
             alt={card.imageAlt ?? card.title}
             fill
@@ -161,7 +161,7 @@ function ContentPanel({
           <>
             {/* 桌面端显示 */}
             <div className="absolute inset-0 hidden min-[769px]:block">
-              <Image
+              <PlaceholderImage
                 src={config.imageDesktop}
                 alt={config.imageAlt ?? ''}
                 fill
@@ -172,7 +172,7 @@ function ContentPanel({
             </div>
             {/* 手机端显示 */}
             <div className="absolute inset-0 min-[769px]:hidden">
-              <Image
+              <PlaceholderImage
                 src={config.imageMobile!}
                 alt={config.imageAlt ?? ''}
                 fill
@@ -183,7 +183,7 @@ function ContentPanel({
             </div>
           </>
         ) : (
-          <Image
+          <PlaceholderImage
             src={config.imageDesktop}
             alt={config.imageAlt ?? ''}
             fill

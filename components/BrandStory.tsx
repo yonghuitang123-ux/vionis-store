@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import PlaceholderImage from '@/components/PlaceholderImage';
 import { useId } from 'react';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -178,7 +178,7 @@ export default function BrandStory({
         {/* ── 左列：主图（竖构图） ── */}
         <div className="bs-col-left">
           <div className="bs-main-img">
-            <Image
+            <PlaceholderImage
               src={mainImage}
               alt={mainImageAlt}
               fill
@@ -207,7 +207,7 @@ export default function BrandStory({
         {/* ── 右列：副图（方形，向下错落） ── */}
         <div className="bs-col-right">
           <div className="bs-sub-img">
-            <Image
+            <PlaceholderImage
               src={subImage}
               alt={subImageAlt}
               fill

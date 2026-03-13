@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
-import Image from 'next/image';
+import PlaceholderImage from '@/components/PlaceholderImage';
 import Link from 'next/link';
 import { useId, useRef, useState } from 'react';
 
@@ -153,7 +153,7 @@ function GenderGroup({
                     <>
                       {/* 桌面端模特图 */}
                       <div className="absolute inset-0 hidden min-[769px]:block">
-                        <Image
+                        <PlaceholderImage
                           src={slide.modelImageDesktop}
                           alt={slide.modelImageAlt ?? ''}
                           fill
@@ -164,7 +164,7 @@ function GenderGroup({
                       </div>
                       {/* 手机端模特图 */}
                       <div className="absolute inset-0 min-[769px]:hidden">
-                        <Image
+                        <PlaceholderImage
                           src={slide.modelImageMobile}
                           alt={slide.modelImageAlt ?? ''}
                           fill
@@ -175,7 +175,7 @@ function GenderGroup({
                       </div>
                     </>
                   ) : (
-                    <Image
+                    <PlaceholderImage
                       src={slide.modelImageDesktop}
                       alt={slide.modelImageAlt ?? ''}
                       fill
@@ -239,25 +239,29 @@ function GenderGroup({
                     >
                       {slide.productImageMobile ? (
                         <>
-                          <Image
+                          {/* 桌面端产品缩图：overlayClassName 与图片显隐保持一致，防止两个遮罩互相遮挡 */}
+                          <PlaceholderImage
                             src={slide.productImageDesktop}
                             alt={slide.productImageAlt ?? slide.title}
                             fill
                             loading={isFirstGroup && idx === 0 ? 'eager' : 'lazy'}
                             sizes="350px"
                             className="object-contain hidden min-[769px]:block"
+                            overlayClassName="hidden min-[769px]:block"
                           />
-                          <Image
+                          {/* 手机端产品缩图 */}
+                          <PlaceholderImage
                             src={slide.productImageMobile}
                             alt={slide.productImageAlt ?? slide.title}
                             fill
                             loading={isFirstGroup && idx === 0 ? 'eager' : 'lazy'}
                             sizes="180px"
                             className="object-contain min-[769px]:hidden"
+                            overlayClassName="min-[769px]:hidden"
                           />
                         </>
                       ) : (
-                        <Image
+                        <PlaceholderImage
                           src={slide.productImageDesktop}
                           alt={slide.productImageAlt ?? slide.title}
                           fill

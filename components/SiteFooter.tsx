@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import PlaceholderImage from '@/components/PlaceholderImage';
 import Link from 'next/link';
 import { FormEvent, useId, useState } from 'react';
 
@@ -332,7 +332,7 @@ function BlockRenderer({
         <div className="space-y-4">
           {brandInfo?.logoUrl && (
             <div style={{ maxWidth: brandInfo.logoWidth ?? 160 }}>
-              <Image
+              <PlaceholderImage
                 src={brandInfo.logoUrl}
                 alt={brandInfo.logoAlt ?? ''}
                 width={brandInfo.logoWidth ?? 160}
@@ -367,7 +367,7 @@ function BlockRenderer({
           : '';
       return (
         <div className={`${alignClass}`} style={{ maxWidth: block.imageWidth ?? 100 }}>
-          <Image
+          <PlaceholderImage
             src={block.imageUrl}
             alt={block.imageAlt ?? ''}
             width={block.imageWidth ?? 100}
@@ -500,7 +500,7 @@ export default function SiteFooter({
           <ul className="flex flex-wrap items-center gap-2 list-none p-0 m-0">
             {paymentIcons.map((icon) => (
               <li key={icon.name}>
-                <Image
+                <PlaceholderImage
                   src={icon.url}
                   alt={icon.name}
                   width={38}

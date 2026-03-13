@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import PlaceholderImage from '@/components/PlaceholderImage';
 import Link from 'next/link';
 import { useEffect, useId, useRef } from 'react';
 
@@ -104,7 +104,7 @@ function ImageSlot({
       className={`absolute top-0 ${pos} w-[200%] h-full pointer-events-none select-none ${visibility ?? ''}`}
     >
       <div className="relative w-full h-full">
-        <Image
+        <PlaceholderImage
           src={src}
           alt={alt}
           fill
