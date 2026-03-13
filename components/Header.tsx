@@ -170,7 +170,7 @@ export default function Header() {
         {/* ═══ 第一行：公告栏 ═══════════════════════════════════════════════════ */}
         <div
           style={{
-            backgroundColor: '#1a1a1a',
+            backgroundColor: '#E8DFD6',
             maxHeight: announcementVisible ? '44px' : '0',
             overflow: 'hidden',
             transition: 'max-height 0.4s ease',
@@ -182,7 +182,7 @@ export default function Header() {
           >
             <span
               style={{
-                color: '#ffffff',
+                color: '#1a1a1a',
                 fontFamily: '"Assistant", sans-serif',
                 fontSize: 11,
                 letterSpacing: '0.2em',
@@ -197,7 +197,7 @@ export default function Header() {
 
             <button
               className="absolute right-5 top-1/2 -translate-y-1/2 opacity-40 hover:opacity-80 transition-opacity"
-              style={{ color: '#ffffff', background: 'none', border: 'none', cursor: 'pointer', padding: 4, lineHeight: 0 }}
+              style={{ color: '#1a1a1a', background: 'none', border: 'none', cursor: 'pointer', padding: 4, lineHeight: 0 }}
               onClick={() => setAnnouncementVisible(false)}
               aria-label="关闭公告"
             >
@@ -340,7 +340,6 @@ export default function Header() {
             maxHeight: mobileOpen ? '520px' : '0',
             overflow: 'hidden',
             transition: 'max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1)',
-            borderBottom: mobileOpen ? '1px solid #d4c9be' : 'none',
           }}
         >
           <nav className="flex flex-col px-8 pt-5 pb-7">
@@ -358,7 +357,6 @@ export default function Header() {
                   textTransform: 'uppercase',
                   textDecoration: 'none',
                   padding: '15px 0',
-                  borderBottom: idx < nav.菜单.length - 1 ? '1px solid rgba(0,0,0,0.06)' : 'none',
                   display: 'block',
                 }}
               >
@@ -366,7 +364,7 @@ export default function Header() {
               </Link>
             ))}
 
-            <div className="flex items-center gap-6 mt-5 pt-5" style={{ borderTop: '1px solid #d4c9be' }}>
+            <div className="flex items-center gap-6 mt-5 pt-5">
               {[
                 { icon: <IconHeart />, label: 'Wishlist' },
                 { icon: <IconUser />,  label: 'Account'  },
