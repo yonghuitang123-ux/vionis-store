@@ -223,7 +223,7 @@ export default function Header() {
               width={220}
               height={80}
               priority
-              style={{ height: 80, width: 'auto', objectFit: 'contain' }}
+              style={{ height: 80, width: 'auto', objectFit: 'contain', color: 'transparent' }}
             />
           </Link>
         </div>
