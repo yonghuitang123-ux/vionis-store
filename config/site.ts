@@ -295,9 +295,13 @@ export const siteConfig = {
   // 公告栏  Announcement Bar
   // ═══════════════════════════════════════════════════════════════════
   announcement: {
-    文字:  'Complimentary Shipping on Orders Over $300',  // 公告文字
-    链接:  '/pages/shipping',                            // 点击跳转（留空则不可点击）
-    显示:  true,                                         // false = 关闭公告栏
+    显示: true,          // false = 永久关闭公告栏
+    // 说明：3条文字每5秒自动轮播，淡入淡出切换
+    轮播列表: [
+      'Complimentary Shipping on Orders Over $300',
+      'Free 30-Day Returns — No Questions Asked',
+      'SGS Certified 100% Natural Fibres',
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════════

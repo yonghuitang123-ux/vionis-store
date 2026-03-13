@@ -5,7 +5,7 @@ import NextImage from 'next/image';
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
 
-// ─── SVG Icons（极简线条风格） ────────────────────────────────────────────────
+// ─── SVG Icons ────────────────────────────────────────────────────────────────
 
 function IconSearch() {
   return (
@@ -48,7 +48,7 @@ function IconBag({ count }: { count: number }) {
       {count > 0 && (
         <span
           className="absolute -top-1.5 -right-2 min-w-[15px] h-[15px] rounded-full text-[9px] flex items-center justify-center px-0.5"
-          style={{ backgroundColor: '#1a1a1a', color: '#fff', fontFamily: 'sans-serif' }}
+          style={{ backgroundColor: '#1a1a1a', color: '#fff' }}
         >
           {count}
         </span>
@@ -68,7 +68,7 @@ function IconMenu() {
   );
 }
 
-function IconX({ size = 16 }: { size?: number }) {
+function IconX({ size = 14 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
@@ -82,27 +82,51 @@ function IconX({ size = 16 }: { size?: number }) {
 
 export default function Header() {
   const { announcement, nav } = siteConfig;
+  const slides = announcement.轮播列表 ?? [];
 
+  // ── 公告轮播 ────────────────────────────────────────────────────────────────
+  const [slideIdx, setSlideIdx] = useState(0);
+  const [slideVisible, setSlideVisible] = useState(true);
+
+  useEffect(() => {
+    if (slides.length <= 1) return;
+    const timer = setInterval(() => {
+      setSlideVisible(false);
+      setTimeout(() => {
+        setSlideIdx((i) => (i + 1) % slides.length);
+        setSlideVisible(true);
+      }, 380);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  // ── 公告栏显隐 ──────────────────────────────────────────────────────────────
   const [announcementVisible, setAnnouncementVisible] = useState(announcement.显示);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
-  // 整个 header 的不透明度（滚动 > 80px → 淡出）
-  const [headerOpacity, setHeaderOpacity] = useState(1);
+  // ── 滚动收起 / 展开（向下收起，向上展开） ──────────────────────────────────
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const prevScrollY = useRef(0);
 
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [headerHeight, setHeaderHeight] = useState(124);
-
-  // 滚动淡出
   useEffect(() => {
     const onScroll = () => {
-      setHeaderOpacity(window.scrollY > 80 ? 0 : 1);
+      const y = window.scrollY;
+      if (y < 12) {
+        setHeaderHidden(false);
+      } else if (y > prevScrollY.current + 3) {
+        setHeaderHidden(true);   // 向下滚动 → 收起
+      } else if (y < prevScrollY.current - 3) {
+        setHeaderHidden(false);  // 向上滚动 → 展开
+      }
+      prevScrollY.current = y;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ResizeObserver 追踪 header 真实高度 → spacer
+  // ── Spacer 高度（ResizeObserver 追踪真实值） ────────────────────────────────
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(210);
+
   useEffect(() => {
     const el = headerRef.current;
     if (!el) return;
@@ -111,7 +135,9 @@ export default function Header() {
     return () => ro.disconnect();
   }, []);
 
-  // 宽屏时自动关闭手机菜单
+  // ── 手机菜单 ────────────────────────────────────────────────────────────────
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   useEffect(() => {
     const onResize = () => { if (window.innerWidth >= 768) setMobileOpen(false); };
     window.addEventListener('resize', onResize);
@@ -120,88 +146,68 @@ export default function Header() {
 
   return (
     <>
-      {/* ── 下划线 hover 动画 CSS ── */}
+      {/* 菜单下划线动画 */}
       <style>{`
-        .hdr-nav-link {
+        .hdr-link {
           position: relative;
           display: inline-block;
         }
-        .hdr-nav-link::after {
+        .hdr-link::after {
           content: '';
           position: absolute;
-          bottom: -4px;
+          bottom: -3px;
           left: 0;
           width: 0%;
           height: 1px;
-          background-color: currentColor;
-          transition: width 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          background: currentColor;
+          transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .hdr-nav-link:hover::after {
-          width: 100%;
-        }
+        .hdr-link:hover::after { width: 100%; }
       `}</style>
 
-      {/* ── 固定顶部 header ── */}
+      {/* ── 固定 header（整体 translateY 收起/展开） ── */}
       <div
         ref={headerRef}
         style={{
           position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
+          top: 0, left: 0, right: 0,
           zIndex: 1000,
-          opacity: headerOpacity,
-          transition: 'opacity 0.6s ease',
-          // 透明时禁止点击，避免不可见按钮拦截事件
-          pointerEvents: headerOpacity === 0 ? 'none' : 'auto',
+          transform: headerHidden ? 'translateY(-100%)' : 'translateY(0)',
+          transition: 'transform 0.4s ease',
         }}
       >
 
-        {/* ── 公告栏（背景 #E8DFD6，深色文字） ── */}
+        {/* ═══ 第一行：公告栏 ═══════════════════════════════════════════════════ */}
         <div
           style={{
-            backgroundColor: '#E8DFD6',
+            backgroundColor: '#1a1a1a',
             maxHeight: announcementVisible ? '44px' : '0',
             overflow: 'hidden',
             transition: 'max-height 0.4s ease',
-            borderBottom: announcementVisible ? '1px solid #d4c9be' : 'none',
           }}
         >
           <div
             className="flex items-center justify-center relative px-10"
             style={{ height: 44 }}
           >
-            {announcement.链接 ? (
-              <Link
-                href={announcement.链接}
-                className="hdr-nav-link hover:opacity-70 transition-opacity"
-                style={{
-                  color: '#1a1a1a',
-                  fontFamily: '"Assistant", sans-serif',
-                  fontSize: 11,
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  textDecoration: 'none',
-                }}
-              >
-                {announcement.文字}
-              </Link>
-            ) : (
-              <p style={{
-                color: '#1a1a1a',
+            <span
+              style={{
+                color: '#ffffff',
                 fontFamily: '"Assistant", sans-serif',
                 fontSize: 11,
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
-                margin: 0,
-              }}>
-                {announcement.文字}
-              </p>
-            )}
+                opacity: slideVisible ? 1 : 0,
+                transition: 'opacity 0.35s ease',
+                display: 'inline-block',
+              }}
+            >
+              {slides[slideIdx] ?? ''}
+            </span>
 
             <button
               className="absolute right-5 top-1/2 -translate-y-1/2 opacity-40 hover:opacity-80 transition-opacity"
-              style={{ color: '#1a1a1a', background: 'none', border: 'none', cursor: 'pointer', padding: 4, lineHeight: 0 }}
+              style={{ color: '#ffffff', background: 'none', border: 'none', cursor: 'pointer', padding: 4, lineHeight: 0 }}
               onClick={() => setAnnouncementVisible(false)}
               aria-label="关闭公告"
             >
@@ -210,122 +216,144 @@ export default function Header() {
           </div>
         </div>
 
-        {/* ── 主导航栏 ── */}
+        {/* ═══ 第二行：Logo 居中大图 ════════════════════════════════════════════ */}
         <div
           style={{
             backgroundColor: '#E8DFD6',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '14px 0',
             borderBottom: '1px solid #d4c9be',
           }}
         >
+          <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
+            {/*
+              mix-blend-mode: screen → 使图片中的黑色像素透明（透出背景色 #E8DFD6）
+              最佳效果需要透明背景 PNG；有透明图后删除 mixBlendMode 即可
+            */}
+            <NextImage
+              src="/主页顶部标签.png"
+              alt="VIONIS·XY"
+              width={220}
+              height={80}
+              priority
+              style={{
+                height: 80,
+                width: 'auto',
+                objectFit: 'contain',
+                mixBlendMode: 'screen',
+              }}
+            />
+          </Link>
+        </div>
+
+        {/* ═══ 第三行：导航菜单 ════════════════════════════════════════════════ */}
+        <div style={{ backgroundColor: '#E8DFD6', borderBottom: '1px solid #d4c9be' }}>
+
+          {/* 桌面端：search 左 | 菜单居中 | 图标右 */}
           <div
-            className="px-6 md:px-12"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr auto 1fr',
-              alignItems: 'center',
-              height: 80,
-            }}
+            className="hidden md:flex items-center px-10"
+            style={{ height: 52, position: 'relative' }}
           >
-
-            {/* ── 左侧：汉堡（手机）/ 搜索 + 导航链接（桌面） ── */}
-            <div className="flex items-center" style={{ gap: 20 }}>
-
-              {/* 汉堡（手机端） */}
+            {/* 左：搜索 */}
+            <div style={{ position: 'absolute', left: 40, display: 'flex', alignItems: 'center' }}>
               <button
-                className="md:hidden p-1 transition-opacity hover:opacity-60"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
-                onClick={() => setMobileOpen((o) => !o)}
-                aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
-              >
-                {mobileOpen ? <IconX size={18} /> : <IconMenu />}
-              </button>
-
-              {/* 搜索（桌面端） */}
-              <button
-                className="hidden md:flex p-1 transition-opacity hover:opacity-60"
+                className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="搜索"
               >
                 <IconSearch />
               </button>
-
-              {/* 导航链接（桌面端，间距 48px） */}
-              <nav className="hidden md:flex items-center" style={{ gap: 48 }}>
-                {nav.菜单.map((item) => {
-                  const color = item.颜色 ?? '#1a1a1a';
-                  return (
-                    <Link
-                      key={item.链接 + item.文字}
-                      href={item.链接}
-                      className="hdr-nav-link"
-                      style={{
-                        color,
-                        fontFamily: '"Assistant", sans-serif',
-                        fontSize: 11,
-                        fontWeight: 400,
-                        letterSpacing: '0.14em',
-                        textTransform: 'uppercase',
-                        textDecoration: 'none',
-                      }}
-                    >
-                      {item.文字}
-                    </Link>
-                  );
-                })}
-              </nav>
             </div>
 
-            {/* ── 中间 Logo ── */}
-            <div className="flex justify-center">
-              <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0 }}>
-                <NextImage
-                  src="/主页顶部标签.png"
-                  alt="VIONIS·XY"
-                  width={180}
-                  height={60}
-                  priority
-                  style={{ height: 60, width: 'auto', objectFit: 'contain' }}
-                />
-              </Link>
-            </div>
+            {/* 中：导航链接（严格居中） */}
+            <nav
+              className="flex items-center"
+              style={{ flex: 1, justifyContent: 'center', display: 'flex', gap: 40 }}
+            >
+              {nav.菜单.map((item) => (
+                <Link
+                  key={item.链接 + item.文字}
+                  href={item.链接}
+                  className="hdr-link"
+                  style={{
+                    color: item.颜色 ?? '#1a1a1a',
+                    fontFamily: '"Assistant", sans-serif',
+                    fontSize: 11,
+                    fontWeight: 400,
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {item.文字}
+                </Link>
+              ))}
+            </nav>
 
-            {/* ── 右侧图标 ── */}
-            <div className="flex items-center justify-end" style={{ gap: 20 }}>
-
-              {/* 收藏（桌面端） */}
+            {/* 右：图标组 */}
+            <div
+              style={{ position: 'absolute', right: 40, display: 'flex', alignItems: 'center', gap: 20 }}
+            >
               <button
-                className="hidden md:flex p-1 transition-opacity hover:opacity-60"
+                className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="收藏夹"
               >
                 <IconHeart />
               </button>
-
-              {/* 账户（桌面端） */}
               <Link
                 href="/account"
-                className="hidden md:flex p-1 transition-opacity hover:opacity-60"
+                className="p-1 transition-opacity hover:opacity-60"
                 style={{ color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="账户"
               >
                 <IconUser />
               </Link>
-
-              {/* 购物车（始终显示） */}
               <Link
                 href="/cart"
-                className="flex p-1 transition-opacity hover:opacity-60"
+                className="p-1 transition-opacity hover:opacity-60"
                 style={{ color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="购物车"
               >
                 <IconBag count={0} />
               </Link>
             </div>
+          </div>
 
+          {/* 手机端：汉堡左 | 空中 | 购物车右 */}
+          <div className="flex md:hidden items-center justify-between px-5" style={{ height: 52 }}>
+            <button
+              className="p-1 transition-opacity hover:opacity-60"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
+              onClick={() => setMobileOpen((o) => !o)}
+              aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
+            >
+              {mobileOpen ? <IconX size={18} /> : <IconMenu />}
+            </button>
+
+            <div className="flex items-center" style={{ gap: 18 }}>
+              <button
+                className="p-1 transition-opacity hover:opacity-60"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
+                aria-label="搜索"
+              >
+                <IconSearch />
+              </button>
+              <Link
+                href="/cart"
+                className="p-1 transition-opacity hover:opacity-60"
+                style={{ color: '#1a1a1a', lineHeight: 0 }}
+                aria-label="购物车"
+              >
+                <IconBag count={0} />
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* ── 手机端菜单抽屉 ── */}
+        {/* ═══ 手机端菜单抽屉 ═══════════════════════════════════════════════════ */}
         <div
           style={{
             backgroundColor: '#E8DFD6',
@@ -335,38 +363,33 @@ export default function Header() {
             borderBottom: mobileOpen ? '1px solid #d4c9be' : 'none',
           }}
         >
-          <nav className="flex flex-col px-8 pt-6 pb-8">
+          <nav className="flex flex-col px-8 pt-5 pb-7">
+            {nav.菜单.map((item, idx) => (
+              <Link
+                key={item.链接 + item.文字}
+                href={item.链接}
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  color: item.颜色 ?? '#1a1a1a',
+                  fontFamily: '"Assistant", sans-serif',
+                  fontSize: 13,
+                  fontWeight: 300,
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  padding: '15px 0',
+                  borderBottom: idx < nav.菜单.length - 1 ? '1px solid rgba(0,0,0,0.06)' : 'none',
+                  display: 'block',
+                }}
+              >
+                {item.文字}
+              </Link>
+            ))}
 
-            {nav.菜单.map((item, idx) => {
-              const color = item.颜色 ?? '#1a1a1a';
-              return (
-                <Link
-                  key={item.链接 + item.文字}
-                  href={item.链接}
-                  onClick={() => setMobileOpen(false)}
-                  style={{
-                    color,
-                    fontFamily: '"Assistant", sans-serif',
-                    fontSize: 13,
-                    fontWeight: 300,
-                    letterSpacing: '0.16em',
-                    textTransform: 'uppercase',
-                    textDecoration: 'none',
-                    padding: '15px 0',
-                    borderBottom: idx < nav.菜单.length - 1 ? '1px solid rgba(0,0,0,0.06)' : 'none',
-                    display: 'block',
-                  }}
-                >
-                  {item.文字}
-                </Link>
-              );
-            })}
-
-            {/* 辅助操作行 */}
-            <div className="flex items-center gap-6 mt-6 pt-5" style={{ borderTop: '1px solid #d4c9be' }}>
+            <div className="flex items-center gap-6 mt-5 pt-5" style={{ borderTop: '1px solid #d4c9be' }}>
               {[
-                { icon: <IconSearch />, label: 'Search'   },
-                { icon: <IconHeart />,  label: 'Wishlist'  },
+                { icon: <IconHeart />, label: 'Wishlist' },
+                { icon: <IconUser />,  label: 'Account'  },
               ].map(({ icon, label }) => (
                 <button
                   key={label}
@@ -381,25 +404,13 @@ export default function Header() {
                   <span>{label}</span>
                 </button>
               ))}
-              <Link
-                href="/account"
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-2 transition-opacity hover:opacity-60"
-                style={{
-                  color: '#1a1a1a', fontFamily: '"Assistant", sans-serif',
-                  fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none',
-                }}
-              >
-                <IconUser />
-                <span>Account</span>
-              </Link>
             </div>
           </nav>
         </div>
 
       </div>
 
-      {/* Spacer — 与 fixed header 高度同步 */}
+      {/* Spacer：高度与 fixed header 实时同步 */}
       <div style={{ height: headerHeight }} aria-hidden />
     </>
   );
