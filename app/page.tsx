@@ -276,14 +276,15 @@ export default function Home() {
         showPolicies
         policies={footer.政策链接}
         colors={{
-          bgColor:      '#E8DFD6',
-          textColor:    '#555555',
-          headingColor: '#1a1a1a',
-          mutedColor:   '#888888',
-          borderColor:  'rgba(0,0,0,0.1)',
-          linkColor:    '#333333',
-          btnBg:        '#1a1a1a',
-          btnColor:     '#FFFFFF',
+          bgColor:          '#E8DFD6',
+          textColor:        '#555555',
+          headingColor:     '#1a1a1a',
+          mutedColor:       '#888888',
+          borderColor:      'rgba(0,0,0,0.1)',
+          linkColor:        '#333333',
+          inputBorderColor: 'rgba(0,0,0,0.2)',
+          btnBg:            '#1a1a1a',
+          btnColor:         '#FFFFFF',
         }}
         paddingTop={80}
         paddingBottom={40}

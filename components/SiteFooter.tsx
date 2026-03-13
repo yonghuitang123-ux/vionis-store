@@ -81,14 +81,14 @@ export interface SiteFooterProps {
 
 const DEFAULT_COLORS: FooterColors = {
   bgColor: '#E8DFD6',
-  textColor: '#cccccc',
+  textColor: '#555555',
   headingColor: '#1a1a1a',
   mutedColor: '#888888',
-  borderColor: 'rgba(255,255,255,0.12)',
-  linkColor: '#cccccc',
-  inputBorderColor: 'rgba(255,255,255,0.3)',
+  borderColor: 'rgba(0,0,0,0.1)',
+  linkColor: '#333333',
+  inputBorderColor: 'rgba(0,0,0,0.2)',
   btnBg: '#1a1a1a',
-  btnColor: '#1a1a1a',
+  btnColor: '#FFFFFF',
 };
 
 // ─── Inline Social SVG Icons ──────────────────────────────────────────────────
@@ -179,7 +179,7 @@ function SocialRow({ links, linkColor }: { links: SocialLinks; linkColor: string
             rel="noopener noreferrer"
             aria-label={SOCIAL_LABELS[key]}
             className="flex items-center justify-center w-9 h-9 rounded-full border transition-opacity duration-200 hover:opacity-70"
-            style={{ color: linkColor, borderColor: 'rgba(255,255,255,0.2)' }}
+            style={{ color: linkColor, borderColor: 'rgba(0,0,0,0.15)' }}
           >
             {SOCIAL_ICON_MAP[key]}
           </a>
