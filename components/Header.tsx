@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import NextImage from 'next/image';
+
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
 
@@ -213,17 +213,15 @@ export default function Header() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '14px 0',
+            padding: '16px 0',
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
-            <NextImage
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/主页顶部标签.png"
               alt="VIONIS·XY"
-              width={220}
-              height={80}
-              priority
-              style={{ height: 80, width: 'auto', objectFit: 'contain', color: 'transparent', mixBlendMode: 'multiply' }}
+              style={{ background: 'transparent', height: '70px', width: 'auto' }}
             />
           </Link>
         </div>
