@@ -6,13 +6,15 @@ import EditorialPanel from '@/components/EditorialPanel';
 import type { ProductCard } from '@/components/EditorialPanel';
 import MastermindShowcase from '@/components/MastermindShowcase';
 import type { SlideItem } from '@/components/MastermindShowcase';
+import BlogScroll from '@/components/BlogScroll';
 import BrandStory from '@/components/BrandStory';
+import ServiceBar from '@/components/ServiceBar';
 import SiteFooter from '@/components/SiteFooter';
 import { getProducts } from '@/lib/shopify';
 import { siteConfig, 占位图 } from '@/config/site';
 
 // ─── 便捷解构 ─────────────────────────────────────────────────────────────────
-const { banner, grid, featuredLook, brandStory, footer } = siteConfig;
+const { banner, grid, featuredLook, blog, brandStory, serviceBar, footer } = siteConfig;
 
 // ─── Shopify 产品原始类型 ─────────────────────────────────────────────────────
 interface ShopifyProduct {
@@ -197,6 +199,24 @@ export default function Home() {
       />
 
       {/* ══════════════════════════════════════════════════════
+          4. BlogScroll — 博客横向滚动
+      ══════════════════════════════════════════════════════ */}
+      <BlogScroll
+        heading={blog.标题}
+        posts={blog.文章列表.map((a) => ({
+          imageDesktop: a.图片_电脑端 || 占位图.竖版,
+          imageMobile:  a.图片_手机端 || undefined,
+          title:        a.文章标题,
+          body:         a.文章正文,
+          href:         a.链接,
+        }))}
+        bgColor="#E8DFD6"
+        headingColor="#1a1a1a"
+        textColor="#555555"
+        mutedColor="#888888"
+      />
+
+      {/* ══════════════════════════════════════════════════════
           5. BrandStory — 品牌叙事
       ══════════════════════════════════════════════════════ */}
       <BrandStory
@@ -220,7 +240,22 @@ export default function Home() {
       />
 
       {/* ══════════════════════════════════════════════════════
-          6. SiteFooter — 页脚
+          6. ServiceBar — 服务承诺栏
+      ══════════════════════════════════════════════════════ */}
+      <ServiceBar
+        items={serviceBar.服务列表.map((s) => ({
+          icon:     s.图标,
+          title:    s.标题,
+          subtitle: s.副标题,
+        }))}
+        bgColor="#E8DFD6"
+        textColor="#1a1a1a"
+        mutedColor="#888888"
+        borderColor="rgba(0,0,0,0.1)"
+      />
+
+      {/* ══════════════════════════════════════════════════════
+          7. SiteFooter — 页脚
       ══════════════════════════════════════════════════════ */}
       <SiteFooter
         shopName={footer.品牌名称}
