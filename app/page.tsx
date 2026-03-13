@@ -6,14 +6,13 @@ import EditorialPanel from '@/components/EditorialPanel';
 import type { ProductCard } from '@/components/EditorialPanel';
 import MastermindShowcase from '@/components/MastermindShowcase';
 import type { SlideItem } from '@/components/MastermindShowcase';
-import MaterialDualWall from '@/components/MaterialDualWall';
 import BrandStory from '@/components/BrandStory';
 import SiteFooter from '@/components/SiteFooter';
 import { getProducts } from '@/lib/shopify';
 import { siteConfig, 占位图 } from '@/config/site';
 
 // ─── 便捷解构 ─────────────────────────────────────────────────────────────────
-const { banner, grid, featuredLook, materialWall, brandStory, footer } = siteConfig;
+const { banner, grid, featuredLook, brandStory, footer } = siteConfig;
 
 // ─── Shopify 产品原始类型 ─────────────────────────────────────────────────────
 interface ShopifyProduct {
@@ -195,43 +194,6 @@ export default function Home() {
         colors={{ bgColor: '#E8DFD6', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
         desktopHeight={700}
         modelWidthPct={55}
-      />
-
-      {/* ══════════════════════════════════════════════════════
-          4. MaterialDualWall — 材质双墙
-      ══════════════════════════════════════════════════════ */}
-      <MaterialDualWall
-        leftPanel={{
-          imageDesktop: materialWall.左侧_美利奴图_电脑端 || 占位图.横版,
-          imageMobile:  materialWall.左侧_美利奴图_手机端 || undefined,
-          imageAlt:     `${materialWall.左侧_标题} — VIONIS·XY`,
-          href:         materialWall.左侧_链接,
-          subtitle:     materialWall.左侧_小标题,
-          title:        materialWall.左侧_标题,
-          specs:        materialWall.左侧_规格,
-          btnText:      materialWall.左侧_按钮,
-        }}
-        rightPanel={{
-          imageDesktop: materialWall.右侧_羊绒图_电脑端 || 占位图.横版,
-          imageMobile:  materialWall.右侧_羊绒图_手机端 || undefined,
-          imageAlt:     `${materialWall.右侧_标题} — VIONIS·XY`,
-          href:         materialWall.右侧_链接,
-          subtitle:     materialWall.右侧_小标题,
-          title:        materialWall.右侧_标题,
-          specs:        materialWall.右侧_规格,
-          btnText:      materialWall.右侧_按钮,
-        }}
-        colors={{
-          bgColor:       '#E8DFD6',
-          headingColor:  '#FFFFFF',
-          textColor:     '#FFFFFF',
-          btnHoverBg:    '#FFFFFF',
-          btnHoverColor: '#000000',
-        }}
-        desktopHeight={600}
-        gridGap={16}
-        paddingTop={60}
-        paddingBottom={60}
       />
 
       {/* ══════════════════════════════════════════════════════
