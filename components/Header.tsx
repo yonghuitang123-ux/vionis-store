@@ -123,17 +123,7 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ── Spacer 高度（ResizeObserver 追踪真实值） ────────────────────────────────
   const headerRef = useRef<HTMLDivElement>(null);
-  const [headerHeight, setHeaderHeight] = useState(210);
-
-  useEffect(() => {
-    const el = headerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(() => setHeaderHeight(el.offsetHeight));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
 
   // ── 手机菜单 ────────────────────────────────────────────────────────────────
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -224,32 +214,22 @@ export default function Header() {
             justifyContent: 'center',
             alignItems: 'center',
             padding: '14px 0',
-            borderBottom: '1px solid #d4c9be',
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
-            {/*
-              mix-blend-mode: screen → 使图片中的黑色像素透明（透出背景色 #E8DFD6）
-              最佳效果需要透明背景 PNG；有透明图后删除 mixBlendMode 即可
-            */}
             <NextImage
               src="/主页顶部标签.png"
               alt="VIONIS·XY"
               width={220}
               height={80}
               priority
-              style={{
-                height: 80,
-                width: 'auto',
-                objectFit: 'contain',
-                mixBlendMode: 'screen',
-              }}
+              style={{ height: 80, width: 'auto', objectFit: 'contain' }}
             />
           </Link>
         </div>
 
         {/* ═══ 第三行：导航菜单 ════════════════════════════════════════════════ */}
-        <div style={{ backgroundColor: '#E8DFD6', borderBottom: '1px solid #d4c9be' }}>
+        <div style={{ backgroundColor: '#E8DFD6' }}>
 
           {/* 桌面端：search 左 | 菜单居中 | 图标右 */}
           <div
@@ -410,8 +390,7 @@ export default function Header() {
 
       </div>
 
-      {/* Spacer：高度与 fixed header 实时同步 */}
-      <div style={{ height: headerHeight }} aria-hidden />
+      {/* Spacer 已移除：header 以 position:fixed 悬浮，页面内容从顶部开始渲染 */}
     </>
   );
 }
