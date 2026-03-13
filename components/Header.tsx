@@ -9,7 +9,7 @@ import { siteConfig } from '@/config/site';
 
 function IconSearch() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="10.5" cy="10.5" r="6.5" />
       <line x1="15.5" y1="15.5" x2="21" y2="21" />
@@ -19,7 +19,7 @@ function IconSearch() {
 
 function IconHeart() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 20.9l7.84-7.84a5.5 5.5 0 0 0 0-7.45z" />
     </svg>
@@ -28,7 +28,7 @@ function IconHeart() {
 
 function IconUser() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="8" r="4" />
       <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" />
@@ -39,7 +39,7 @@ function IconUser() {
 function IconBag({ count }: { count: number }) {
   return (
     <span className="relative inline-flex items-center justify-center">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
         <line x1="3" y1="6" x2="21" y2="6" />
@@ -47,8 +47,8 @@ function IconBag({ count }: { count: number }) {
       </svg>
       {count > 0 && (
         <span
-          className="absolute -top-1.5 -right-2 min-w-[16px] h-4 rounded-full text-[9px] flex items-center justify-center px-0.5"
-          style={{ backgroundColor: '#1a1a1a', color: '#ffffff', fontFamily: 'sans-serif' }}
+          className="absolute -top-1.5 -right-2 min-w-[15px] h-[15px] rounded-full text-[9px] flex items-center justify-center px-0.5"
+          style={{ backgroundColor: '#1a1a1a', color: '#fff', fontFamily: 'sans-serif' }}
         >
           {count}
         </span>
@@ -60,8 +60,8 @@ function IconBag({ count }: { count: number }) {
 function IconMenu() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-      <line x1="3" y1="7" x2="21" y2="7" />
+      stroke="currentColor" strokeWidth="1.3" strokeLinecap="round">
+      <line x1="3" y1="7"  x2="21" y2="7"  />
       <line x1="3" y1="12" x2="21" y2="12" />
       <line x1="3" y1="17" x2="21" y2="17" />
     </svg>
@@ -72,8 +72,8 @@ function IconX({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
+      <line x1="18" y1="6"  x2="6"  y2="18" />
+      <line x1="6"  y1="6"  x2="18" y2="18" />
     </svg>
   );
 }
@@ -84,21 +84,25 @@ export default function Header() {
   const { announcement, nav } = siteConfig;
 
   const [announcementVisible, setAnnouncementVisible] = useState(announcement.显示);
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [headerHeight, setHeaderHeight] = useState(104);
+  // 整个 header 的不透明度（滚动 > 80px → 淡出）
+  const [headerOpacity, setHeaderOpacity] = useState(1);
 
-  // 滚动监听
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(124);
+
+  // 滚动淡出
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setHeaderOpacity(window.scrollY > 80 ? 0 : 1);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // 用 ResizeObserver 实时追踪 header 实际高度，同步更新 spacer
+  // ResizeObserver 追踪 header 真实高度 → spacer
   useEffect(() => {
     const el = headerRef.current;
     if (!el) return;
@@ -114,35 +118,68 @@ export default function Header() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const navBg = scrolled ? 'rgba(232,223,214,0.92)' : '#E8DFD6';
-
   return (
     <>
+      {/* ── 下划线 hover 动画 CSS ── */}
+      <style>{`
+        .hdr-nav-link {
+          position: relative;
+          display: inline-block;
+        }
+        .hdr-nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0%;
+          height: 1px;
+          background-color: currentColor;
+          transition: width 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .hdr-nav-link:hover::after {
+          width: 100%;
+        }
+      `}</style>
+
       {/* ── 固定顶部 header ── */}
       <div
         ref={headerRef}
-        style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          opacity: headerOpacity,
+          transition: 'opacity 0.6s ease',
+          // 透明时禁止点击，避免不可见按钮拦截事件
+          pointerEvents: headerOpacity === 0 ? 'none' : 'auto',
+        }}
       >
 
-        {/* 公告栏 */}
+        {/* ── 公告栏（背景 #E8DFD6，深色文字） ── */}
         <div
           style={{
-            backgroundColor: '#1a1a1a',
-            maxHeight: announcementVisible ? '48px' : '0',
+            backgroundColor: '#E8DFD6',
+            maxHeight: announcementVisible ? '44px' : '0',
             overflow: 'hidden',
             transition: 'max-height 0.4s ease',
+            borderBottom: announcementVisible ? '1px solid #d4c9be' : 'none',
           }}
         >
-          <div className="flex items-center justify-center relative px-10 py-2.5">
+          <div
+            className="flex items-center justify-center relative px-10"
+            style={{ height: 44 }}
+          >
             {announcement.链接 ? (
               <Link
                 href={announcement.链接}
-                className="text-center hover:opacity-70 transition-opacity"
+                className="hdr-nav-link hover:opacity-70 transition-opacity"
                 style={{
-                  color: '#ffffff',
+                  color: '#1a1a1a',
                   fontFamily: '"Assistant", sans-serif',
                   fontSize: 11,
-                  letterSpacing: '0.18em',
+                  letterSpacing: '0.2em',
                   textTransform: 'uppercase',
                   textDecoration: 'none',
                 }}
@@ -151,48 +188,47 @@ export default function Header() {
               </Link>
             ) : (
               <p style={{
-                color: '#ffffff',
+                color: '#1a1a1a',
                 fontFamily: '"Assistant", sans-serif',
                 fontSize: 11,
-                letterSpacing: '0.18em',
+                letterSpacing: '0.2em',
                 textTransform: 'uppercase',
                 margin: 0,
               }}>
                 {announcement.文字}
               </p>
             )}
+
             <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 opacity-50 hover:opacity-100 transition-opacity"
-              style={{ color: '#ffffff', background: 'none', border: 'none', cursor: 'pointer', padding: 4, lineHeight: 0 }}
+              className="absolute right-5 top-1/2 -translate-y-1/2 opacity-40 hover:opacity-80 transition-opacity"
+              style={{ color: '#1a1a1a', background: 'none', border: 'none', cursor: 'pointer', padding: 4, lineHeight: 0 }}
               onClick={() => setAnnouncementVisible(false)}
               aria-label="关闭公告"
             >
-              <IconX size={12} />
+              <IconX size={11} />
             </button>
           </div>
         </div>
 
-        {/* 主导航栏 */}
+        {/* ── 主导航栏 ── */}
         <div
           style={{
-            backgroundColor: navBg,
-            backdropFilter: scrolled ? 'blur(14px)' : 'none',
-            WebkitBackdropFilter: scrolled ? 'blur(14px)' : 'none',
-            transition: 'background-color 0.4s ease, box-shadow 0.35s ease',
-            boxShadow: scrolled ? '0 1px 0 rgba(0,0,0,0.07)' : 'none',
+            backgroundColor: '#E8DFD6',
+            borderBottom: '1px solid #d4c9be',
           }}
         >
           <div
-            className="px-6 md:px-10"
+            className="px-6 md:px-12"
             style={{
               display: 'grid',
               gridTemplateColumns: '1fr auto 1fr',
               alignItems: 'center',
-              height: 64,
+              height: 80,
             }}
           >
-            {/* ── 左侧 ── */}
-            <div className="flex items-center gap-5">
+
+            {/* ── 左侧：汉堡（手机）/ 搜索 + 导航链接（桌面） ── */}
+            <div className="flex items-center" style={{ gap: 20 }}>
 
               {/* 汉堡（手机端） */}
               <button
@@ -204,7 +240,7 @@ export default function Header() {
                 {mobileOpen ? <IconX size={18} /> : <IconMenu />}
               </button>
 
-              {/* 搜索图标（桌面端） */}
+              {/* 搜索（桌面端） */}
               <button
                 className="hidden md:flex p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
@@ -213,29 +249,29 @@ export default function Header() {
                 <IconSearch />
               </button>
 
-              {/* 导航链接（桌面端） */}
-              <nav className="hidden md:flex items-center gap-7">
-                {nav.菜单.map((item) => (
-                  <Link
-                    key={item.链接}
-                    href={item.链接}
-                    style={{
-                      color: '#1a1a1a',
-                      fontFamily: '"Assistant", sans-serif',
-                      fontSize: 11,
-                      fontWeight: 400,
-                      letterSpacing: '0.14em',
-                      textTransform: 'uppercase',
-                      textDecoration: 'none',
-                      opacity: 0.85,
-                      transition: 'opacity 0.2s',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.85')}
-                  >
-                    {item.文字}
-                  </Link>
-                ))}
+              {/* 导航链接（桌面端，间距 48px） */}
+              <nav className="hidden md:flex items-center" style={{ gap: 48 }}>
+                {nav.菜单.map((item) => {
+                  const color = item.颜色 ?? '#1a1a1a';
+                  return (
+                    <Link
+                      key={item.链接 + item.文字}
+                      href={item.链接}
+                      className="hdr-nav-link"
+                      style={{
+                        color,
+                        fontFamily: '"Assistant", sans-serif',
+                        fontSize: 11,
+                        fontWeight: 400,
+                        letterSpacing: '0.14em',
+                        textTransform: 'uppercase',
+                        textDecoration: 'none',
+                      }}
+                    >
+                      {item.文字}
+                    </Link>
+                  );
+                })}
               </nav>
             </div>
 
@@ -243,18 +279,18 @@ export default function Header() {
             <div className="flex justify-center">
               <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0 }}>
                 <NextImage
-                  src="/LOGO.png"
+                  src="/主页顶部标签.png"
                   alt="VIONIS·XY"
-                  width={120}
-                  height={40}
+                  width={180}
+                  height={60}
                   priority
-                  style={{ height: 40, width: 'auto', objectFit: 'contain' }}
+                  style={{ height: 60, width: 'auto', objectFit: 'contain' }}
                 />
               </Link>
             </div>
 
             {/* ── 右侧图标 ── */}
-            <div className="flex items-center justify-end gap-4">
+            <div className="flex items-center justify-end" style={{ gap: 20 }}>
 
               {/* 收藏（桌面端） */}
               <button
@@ -285,6 +321,7 @@ export default function Header() {
                 <IconBag count={0} />
               </Link>
             </div>
+
           </div>
         </div>
 
@@ -292,58 +329,52 @@ export default function Header() {
         <div
           style={{
             backgroundColor: '#E8DFD6',
-            maxHeight: mobileOpen ? '480px' : '0',
+            maxHeight: mobileOpen ? '520px' : '0',
             overflow: 'hidden',
             transition: 'max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1)',
-            borderTop: '1px solid rgba(0,0,0,0.06)',
-            boxShadow: mobileOpen ? '0 8px 24px rgba(0,0,0,0.06)' : 'none',
+            borderBottom: mobileOpen ? '1px solid #d4c9be' : 'none',
           }}
         >
-          <nav className="flex flex-col px-8 pt-6 pb-8 gap-0">
+          <nav className="flex flex-col px-8 pt-6 pb-8">
 
-            {/* 导航链接 */}
-            {nav.菜单.map((item, idx) => (
-              <Link
-                key={item.链接}
-                href={item.链接}
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  color: '#1a1a1a',
-                  fontFamily: '"Assistant", sans-serif',
-                  fontSize: 13,
-                  fontWeight: 300,
-                  letterSpacing: '0.16em',
-                  textTransform: 'uppercase',
-                  textDecoration: 'none',
-                  padding: '14px 0',
-                  borderBottom: idx < nav.菜单.length - 1 ? '1px solid rgba(0,0,0,0.06)' : 'none',
-                  display: 'block',
-                  opacity: 0.9,
-                }}
-              >
-                {item.文字}
-              </Link>
-            ))}
+            {nav.菜单.map((item, idx) => {
+              const color = item.颜色 ?? '#1a1a1a';
+              return (
+                <Link
+                  key={item.链接 + item.文字}
+                  href={item.链接}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    color,
+                    fontFamily: '"Assistant", sans-serif',
+                    fontSize: 13,
+                    fontWeight: 300,
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    textDecoration: 'none',
+                    padding: '15px 0',
+                    borderBottom: idx < nav.菜单.length - 1 ? '1px solid rgba(0,0,0,0.06)' : 'none',
+                    display: 'block',
+                  }}
+                >
+                  {item.文字}
+                </Link>
+              );
+            })}
 
             {/* 辅助操作行 */}
-            <div className="flex items-center gap-6 mt-6 pt-5" style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+            <div className="flex items-center gap-6 mt-6 pt-5" style={{ borderTop: '1px solid #d4c9be' }}>
               {[
-                { icon: <IconSearch />, label: 'Search' },
-                { icon: <IconHeart />,  label: 'Wishlist' },
+                { icon: <IconSearch />, label: 'Search'   },
+                { icon: <IconHeart />,  label: 'Wishlist'  },
               ].map(({ icon, label }) => (
                 <button
                   key={label}
                   className="flex items-center gap-2 transition-opacity hover:opacity-60"
                   style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    color: '#1a1a1a',
-                    fontFamily: '"Assistant", sans-serif',
-                    fontSize: 10,
-                    letterSpacing: '0.14em',
-                    textTransform: 'uppercase',
-                    padding: 0,
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    color: '#1a1a1a', fontFamily: '"Assistant", sans-serif',
+                    fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: 0,
                   }}
                 >
                   {icon}
@@ -355,12 +386,8 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center gap-2 transition-opacity hover:opacity-60"
                 style={{
-                  color: '#1a1a1a',
-                  fontFamily: '"Assistant", sans-serif',
-                  fontSize: 10,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  textDecoration: 'none',
+                  color: '#1a1a1a', fontFamily: '"Assistant", sans-serif',
+                  fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none',
                 }}
               >
                 <IconUser />
@@ -372,7 +399,7 @@ export default function Header() {
 
       </div>
 
-      {/* Spacer — 高度与 fixed header 实时同步，防止内容被遮挡 */}
+      {/* Spacer — 与 fixed header 高度同步 */}
       <div style={{ height: headerHeight }} aria-hidden />
     </>
   );
