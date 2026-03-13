@@ -291,7 +291,7 @@ export default function EditorialPanel({
     `@media(min-width:769px){#${scopeId} .ep-panel{flex-direction:row}}`,
     // 移动端响应式
     `@media(max-width:768px){`,
-    `  #${scopeId}{padding-left:${mobGutter}px;padding-right:${mobGutter}px}`,
+    `  #${scopeId} .ep-inner{padding-left:${mobGutter}px;padding-right:${mobGutter}px}`,
     // !important 覆盖 inline style，实现移动端标题自动缩小
     `  #${scopeId} .ep-hero-title{font-size:calc(${headingSize}px * 0.75)!important}`,
     `  #${scopeId} .ep-card-text{font-size:calc(${textSize}px * 0.9)!important}`,
@@ -304,62 +304,69 @@ export default function EditorialPanel({
   ] as const;
 
   return (
+    // 外层 section 全宽，承载背景色
     <section
       id={scopeId}
-      style={{
-        maxWidth: containerWidth,
-        margin: '40px auto',
-        padding: `0 ${pcGutter}px`,
-        boxSizing: 'border-box',
-      }}
+      style={{ backgroundColor: '#E8DFD6', padding: '40px 0' }}
     >
       <style dangerouslySetInnerHTML={{ __html: css }} />
 
-      {/* ── Tab 切换按钮组（受控模式下仍渲染，允许外部感知点击） ── */}
-      <div className="text-center mb-[30px]">
-        {tabs.map(({ label }, i) => {
-          const isActive = activeTab === i;
-          return (
-            <button
-              key={i}
-              type="button"
-              onClick={() => handleTabClick(i as 0 | 1)}
-              className="px-[25px] py-[10px] bg-transparent border-none cursor-pointer relative transition-all duration-300"
-              style={{
-                fontFamily: textFont,
-                fontSize: `calc(${textSize}px * 1.1)`,
-                color: c.textColor,
-                opacity: isActive ? 1 : 0.5,
-                fontWeight: isActive ? 600 : 400,
-                letterSpacing: '1px',
-                lineHeight: 1.6,
-              }}
-            >
-              {label}
-              {/* 激活下划线（替代 CSS ::after 伪元素，方便用 JS/State 驱动颜色） */}
-              <span
-                aria-hidden
-                className="absolute bottom-0 left-[10%] w-[80%] h-[1.5px] block transition-colors duration-300"
-                style={{ backgroundColor: isActive ? c.accentColor : 'transparent' }}
-              />
-            </button>
-          );
-        })}
-      </div>
+      {/* 内层容器限制最大宽度 */}
+      <div
+        className="ep-inner"
+        style={{
+          maxWidth: containerWidth,
+          margin: '0 auto',
+          padding: `0 ${pcGutter}px`,
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* ── Tab 切换按钮组（受控模式下仍渲染，允许外部感知点击） ── */}
+        <div className="text-center mb-[30px]">
+          {tabs.map(({ label }, i) => {
+            const isActive = activeTab === i;
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => handleTabClick(i as 0 | 1)}
+                className="px-[25px] py-[10px] bg-transparent border-none cursor-pointer relative transition-all duration-300"
+                style={{
+                  fontFamily: textFont,
+                  fontSize: `calc(${textSize}px * 1.1)`,
+                  color: c.textColor,
+                  opacity: isActive ? 1 : 0.5,
+                  fontWeight: isActive ? 600 : 400,
+                  letterSpacing: '1px',
+                  lineHeight: 1.6,
+                }}
+              >
+                {label}
+                {/* 激活下划线（替代 CSS ::after 伪元素，方便用 JS/State 驱动颜色） */}
+                <span
+                  aria-hidden
+                  className="absolute bottom-0 left-[10%] w-[80%] h-[1.5px] block transition-colors duration-300"
+                  style={{ backgroundColor: isActive ? c.accentColor : 'transparent' }}
+                />
+              </button>
+            );
+          })}
+        </div>
 
-      {/* ── 内容面板（两个都渲染，display 切换，切换瞬时无闪烁） ── */}
-      {tabs.map(({ panel }, i) => (
-        <ContentPanel
-          key={i}
-          config={panel}
-          headingFont={headingFont}
-          headingSize={headingSize}
-          textFont={textFont}
-          textSize={textSize}
-          colors={c}
-          isActive={activeTab === i}
-        />
-      ))}
+        {/* ── 内容面板（两个都渲染，display 切换，切换瞬时无闪烁） ── */}
+        {tabs.map(({ panel }, i) => (
+          <ContentPanel
+            key={i}
+            config={panel}
+            headingFont={headingFont}
+            headingSize={headingSize}
+            textFont={textFont}
+            textSize={textSize}
+            colors={c}
+            isActive={activeTab === i}
+          />
+        ))}
+      </div>
     </section>
   );
 }
