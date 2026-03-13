@@ -75,12 +75,12 @@ export const siteConfig = {
   featuredLook: {
 
     // ── 女装 Women（轮播 1–4）──────────────────────────────────────────
-    轮播1_模特大图_电脑端: '',
-    轮播1_模特大图_手机端: '',   // 留空则自动用电脑端图片
-    轮播1_右侧小图:         '',   // 右侧产品缩图（建议方形 600×600）
-    轮播1_产品名称:         '',
-    轮播1_产品价格:         '',   // 如 "¥ 1,580" 或 "$ 138.00"
-    轮播1_产品链接:         '',   // 如 "/products/cashmere-turtleneck"
+    轮播1_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/2546.webp?v=1770621760',
+    轮播1_模特大图_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/2546.webp?v=1770621760',   // 留空则自动用电脑端图片
+    轮播1_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_The_Merino_Tie-Bonnet_80g_100_merino_wool_cocoa9.webp?v=1770656169',   // 右侧产品缩图（建议方形 600×600）
+    轮播1_产品名称:         'The Merino Tie-Bonnet（80g)',
+    轮播1_产品价格:         '$56.00',   // 如 "¥ 1,580" 或 "$ 138.00"
+    轮播1_产品链接:         'https://vionisxy.com/products/the-merino-tie-bonnet-100-wool-80g',   // 如 "/products/cashmere-turtleneck"
 
     轮播2_模特大图_电脑端: '',
     轮播2_模特大图_手机端: '',
