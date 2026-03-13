@@ -256,23 +256,30 @@ export const siteConfig = {
       {
         图片_电脑端: '',              // 建议上传 3:4 竖图，宽 680px 以上
         图片_手机端: '',              // 不填则自动使用电脑端图片
-        文章标题: '羊绒的起源',
-        文章正文: '内蒙古，-30°C，这里是世界最好的羊绒产地。每一根纤维都从极寒中诞生，细如发丝，却温暖无比。',
+        文章标题: 'The Origin of Cashmere',
+        文章正文: 'Inner Mongolia, -30°C. The world\'s finest cashmere is born from extreme cold.',
         链接: '/blog/cashmere-origin',
       },
       {
         图片_电脑端: '',
         图片_手机端: '',
-        文章标题: '美利奴羊毛的秘密',
-        文章正文: '18.5 微米，比人类发丝细三倍。VIONIS·XY 仅选用最细等级的美利奴原毛，确保每一件贴身穿着都如同第二层皮肤。',
+        文章标题: 'The Secret of Merino',
+        文章正文: '18.5 microns — three times finer than human hair. Every fibre chosen with precision.',
         链接: '/blog/merino-secret',
       },
       {
         图片_电脑端: '',
         图片_手机端: '',
-        文章标题: '手工编织的温度',
-        文章正文: '每一件 VIONIS·XY 都经过 72 道工序，由内蒙古匠人手工完成。不是流水线，是时间与技艺沉淀的温度。',
+        文章标题: 'The Art of Handcraft',
+        文章正文: '72 steps, handcrafted by artisans in Inner Mongolia. Not a production line — a ritual.',
         链接: '/blog/handcraft',
+      },
+      {
+        图片_电脑端: '',
+        图片_手机端: '',
+        文章标题: 'Quiet Luxury, Defined',
+        文章正文: 'True luxury whispers. VIONIS·XY is for those who know the difference.',
+        链接: '/blog/quiet-luxury',
       },
     ],
   },

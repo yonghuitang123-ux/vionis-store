@@ -199,25 +199,7 @@ export default function Home() {
       />
 
       {/* ══════════════════════════════════════════════════════
-          4. BlogScroll — 博客横向滚动
-      ══════════════════════════════════════════════════════ */}
-      <BlogScroll
-        heading={blog.标题}
-        posts={blog.文章列表.map((a) => ({
-          imageDesktop: a.图片_电脑端 || 占位图.竖版,
-          imageMobile:  a.图片_手机端 || undefined,
-          title:        a.文章标题,
-          body:         a.文章正文,
-          href:         a.链接,
-        }))}
-        bgColor="#E8DFD6"
-        headingColor="#1a1a1a"
-        textColor="#555555"
-        mutedColor="#888888"
-      />
-
-      {/* ══════════════════════════════════════════════════════
-          5. BrandStory — 品牌叙事
+          4. BrandStory — 品牌叙事
       ══════════════════════════════════════════════════════ */}
       <BrandStory
         mainImage={brandStory.主图_电脑端 || 占位图.竖版}
@@ -237,6 +219,24 @@ export default function Home() {
         mainImgHeight={650}
         subImgHeight={400}
         subImgOffset={50}
+      />
+
+      {/* ══════════════════════════════════════════════════════
+          5. BlogScroll — 博客横向滚动
+      ══════════════════════════════════════════════════════ */}
+      <BlogScroll
+        heading={blog.标题}
+        posts={blog.文章列表.map((a) => ({
+          imageDesktop: a.图片_电脑端 || 占位图.竖版,
+          imageMobile:  a.图片_手机端 || undefined,
+          title:        a.文章标题,
+          body:         a.文章正文,
+          href:         a.链接,
+        }))}
+        bgColor="#E8DFD6"
+        headingColor="#1a1a1a"
+        textColor="#555555"
+        mutedColor="#888888"
       />
 
       {/* ══════════════════════════════════════════════════════
