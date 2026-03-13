@@ -214,7 +214,6 @@ export default function Header() {
             justifyContent: 'center',
             alignItems: 'center',
             padding: '14px 0',
-            borderBottom: '1px solid #A05E46',
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
@@ -224,7 +223,7 @@ export default function Header() {
               width={220}
               height={80}
               priority
-              style={{ height: 80, width: 'auto', objectFit: 'contain', color: 'transparent' }}
+              style={{ height: 80, width: 'auto', objectFit: 'contain', color: 'transparent', mixBlendMode: 'multiply' }}
             />
           </Link>
         </div>
