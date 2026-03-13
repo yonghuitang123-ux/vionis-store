@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* 全局隐藏 broken image 图标及 alt 文字 */
+img {
+  color: transparent;
+}
+img::before {
+  display: none;
+}

@@ -178,7 +178,7 @@ export default function Header() {
         >
           <div
             className="flex items-center justify-center relative px-10"
-            style={{ height: 44 }}
+            style={{ height: 44, borderBottom: '1px solid #A05E46' }}
           >
             <span
               style={{
@@ -214,6 +214,7 @@ export default function Header() {
             justifyContent: 'center',
             alignItems: 'center',
             padding: '14px 0',
+            borderBottom: '1px solid #A05E46',
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
