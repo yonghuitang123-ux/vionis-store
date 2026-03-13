@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FormEvent, useId, useState } from 'react';
@@ -141,7 +142,7 @@ function IconPinterest() {
 }
 
 // 社交平台图标映射
-const SOCIAL_ICON_MAP: Record<keyof SocialLinks, JSX.Element> = {
+const SOCIAL_ICON_MAP: Record<keyof SocialLinks, React.ReactElement> = {
   instagram: <IconInstagram />,
   facebook: <IconFacebook />,
   twitter: <IconTwitter />,
