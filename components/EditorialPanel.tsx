@@ -295,8 +295,8 @@ export default function EditorialPanel({
     `  #${scopeId} .ep-inner{padding-left:15px;padding-right:15px}`,
     `  #${scopeId} .ep-hero-wrapper{flex:none!important;width:100%}`,
     `  #${scopeId} .ep-hero-col{aspect-ratio:3/2!important}`,
-    // 手机端单列：每张产品卡撑满宽度，12px 间隙
-    `  #${scopeId} .ep-product-grid{flex:none!important;width:100%;grid-template-columns:1fr!important;gap:12px!important}`,
+    // 手机端2列并排，列间距8px
+    `  #${scopeId} .ep-product-grid{flex:none!important;width:100%;grid-template-columns:repeat(2,1fr)!important;gap:12px 8px!important}`,
     `  #${scopeId} .ep-hero-title{font-size:calc(${headingSize}px * 0.75)!important}`,
     `  #${scopeId} .ep-card-text{font-size:calc(${textSize}px * 0.9)!important}`,
     `}`,
