@@ -1,0 +1,218 @@
+/**
+ * 产品详情页 — Server Component
+ * ─────────────────────────────────────────────────────────────────
+ * 路由：/products/[handle]
+ * 功能：动态 SEO metadata、JSON-LD 结构化数据、面包屑导航、
+ *       产品交互区（委托给客户端组件）、推荐产品网格。
+ */
+
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import type { Metadata } from 'next';
+import { getProductByHandle, getProductRecommendations } from '@/lib/shopify';
+import ProductCard from '@/components/ProductCard';
+import ProductDetail from './ProductDetail';
+import type { CSSProperties } from 'react';
+
+// ─── 类型 ──────────────────────────────────────────────────────────────────────
+
+interface PageProps {
+  params: Promise<{ handle: string }>;
+}
+
+// ─── 数据规范化 ────────────────────────────────────────────────────────────────
+
+/** 将 Shopify edges 结构展平为普通数组，方便客户端组件消费 */
+function normalizeProduct(raw: any) {
+  return {
+    ...raw,
+    images: raw.images?.edges?.map((e: any) => e.node) ?? [],
+    variants: raw.variants?.edges?.map((e: any) => e.node) ?? [],
+  };
+}
+
+/** 推荐产品只需展平 images（ProductCard 需要 images[].url） */
+function normalizeCardProduct(raw: any) {
+  return {
+    ...raw,
+    images: raw.images?.edges?.map((e: any) => e.node) ?? [],
+  };
+}
+
+// ─── SEO: generateMetadata ─────────────────────────────────────────────────────
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { handle } = await params;
+  const product = await getProductByHandle(handle);
+
+  if (!product) {
+    return { title: 'Product Not Found — VIONIS·XY' };
+  }
+
+  const image = product.images?.edges?.[0]?.node;
+  const description =
+    product.seo?.description ||
+    product.descriptionHtml?.replace(/<[^>]*>/g, '').slice(0, 160) ||
+    '';
+
+  return {
+    title: `${product.title} — VIONIS·XY`,
+    description,
+    openGraph: {
+      title: `${product.title} — VIONIS·XY`,
+      description,
+      type: 'website',
+      siteName: 'VIONIS·XY',
+      images: image
+        ? [{ url: image.url, width: image.width, height: image.height }]
+        : [],
+    },
+  };
+}
+
+// ─── 样式 ──────────────────────────────────────────────────────────────────────
+
+const pageStyle: CSSProperties = {
+  backgroundColor: '#E8DFD6',
+  minHeight: '100vh',
+};
+
+const innerStyle: CSSProperties = {
+  maxWidth: 1400,
+  margin: '0 auto',
+  padding: '0 24px',
+};
+
+const breadcrumbStyle: CSSProperties = {
+  fontFamily: 'var(--font-montserrat)',
+  fontSize: 11,
+  fontWeight: 400,
+  letterSpacing: '0.06em',
+  textTransform: 'uppercase' as const,
+  color: '#888',
+  padding: '28px 0 20px',
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
+  flexWrap: 'wrap',
+};
+
+const breadcrumbLinkStyle: CSSProperties = {
+  color: '#888',
+  textDecoration: 'none',
+  transition: 'color 0.2s',
+};
+
+const breadcrumbCurrentStyle: CSSProperties = {
+  color: '#1a1a1a',
+};
+
+const recsWrapperStyle: CSSProperties = {
+  marginTop: 80,
+  paddingBottom: 100,
+};
+
+const recsTitleStyle: CSSProperties = {
+  fontFamily: 'var(--font-cormorant)',
+  fontSize: 28,
+  fontWeight: 300,
+  color: '#1a1a1a',
+  textAlign: 'center',
+  margin: '0 0 48px',
+};
+
+const recsGridStyle: CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: 20,
+};
+
+// ─── 页面组件 ──────────────────────────────────────────────────────────────────
+
+export default async function ProductPage({ params }: PageProps) {
+  const { handle } = await params;
+
+  // 获取产品数据
+  const raw = await getProductByHandle(handle);
+  if (!raw) notFound();
+
+  const product = normalizeProduct(raw);
+
+  // 获取推荐产品
+  let recommendations: any[] = [];
+  try {
+    const recs = await getProductRecommendations(product.id);
+    recommendations = recs.slice(0, 4).map(normalizeCardProduct);
+  } catch {
+    // 推荐获取失败不影响页面渲染
+  }
+
+  // JSON-LD 结构化数据
+  const firstImage = product.images[0];
+  const price = product.priceRange?.minVariantPrice;
+  const hasVariantsInStock = product.variants.some(
+    (v: any) => v.availableForSale,
+  );
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.title,
+    image: firstImage?.url ?? '',
+    description:
+      product.descriptionHtml?.replace(/<[^>]*>/g, '').slice(0, 500) ?? '',
+    brand: {
+      '@type': 'Brand',
+      name: 'VIONIS·XY',
+    },
+    offers: {
+      '@type': 'Offer',
+      url: `https://vionisxy.com/products/${handle}`,
+      priceCurrency: price?.currencyCode ?? 'USD',
+      price: price?.amount ?? '0',
+      availability: hasVariantsInStock
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+    },
+  };
+
+  return (
+    <div style={pageStyle}>
+      {/* JSON-LD 结构化数据 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      <div style={innerStyle}>
+        {/* 面包屑导航 */}
+        <nav aria-label="Breadcrumb" style={breadcrumbStyle}>
+          <Link href="/" style={breadcrumbLinkStyle}>
+            Home
+          </Link>
+          <span aria-hidden>／</span>
+          <Link href="/collections" style={breadcrumbLinkStyle}>
+            Shop
+          </Link>
+          <span aria-hidden>／</span>
+          <span style={breadcrumbCurrentStyle}>{product.title}</span>
+        </nav>
+
+        {/* 产品详情交互区 — 客户端组件 */}
+        <ProductDetail product={product} />
+
+        {/* 推荐产品 */}
+        {recommendations.length > 0 && (
+          <section style={recsWrapperStyle}>
+            <h2 style={recsTitleStyle}>You May Also Like</h2>
+            <div style={recsGridStyle} className="!grid-cols-2 md:!grid-cols-4">
+              {recommendations.map((rec: any) => (
+                <ProductCard key={rec.id || rec.handle} product={rec} />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
+  );
+}

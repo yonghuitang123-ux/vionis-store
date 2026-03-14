@@ -154,7 +154,7 @@ function ContentPanel({
 
       {/* ── 左侧：4:5 大图 + 文字叠层 ── */}
       <div
-        className="relative overflow-hidden bg-[#E8DFD6] min-h-0"
+        className="ep-hero-col relative overflow-hidden bg-[#E8DFD6] min-h-0"
         style={{ aspectRatio: '4/5', flex: '1 1 50%' }}
       >
         {hasMobile ? (
@@ -292,8 +292,9 @@ export default function EditorialPanel({
     // 移动端响应式
     `@media(max-width:768px){`,
     `  #${scopeId} .ep-inner{padding-left:${mobGutter}px;padding-right:${mobGutter}px}`,
-    `  #${scopeId} .ep-panel{gap:16px}`,
-    `  #${scopeId} .ep-product-grid{gap:16px 10px!important}`,
+    `  #${scopeId} .ep-panel{gap:20px}`,
+    `  #${scopeId} .ep-hero-col{flex:none!important;width:100%}`,
+    `  #${scopeId} .ep-product-grid{flex:none!important;width:100%;gap:14px 10px!important}`,
     `  #${scopeId} .ep-hero-title{font-size:calc(${headingSize}px * 0.75)!important}`,
     `  #${scopeId} .ep-card-text{font-size:calc(${textSize}px * 0.9)!important}`,
     `}`,

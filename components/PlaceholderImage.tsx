@@ -71,6 +71,17 @@ export default function PlaceholderImage({
   // color:transparent → 隐藏 broken image 图标及 alt 文字
   const mergedStyle: React.CSSProperties = { color: 'transparent', ...styleProp };
 
+  // 非首屏图片：loading lazy + placeholder blur
+  const defaultBlur =
+    'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBEQACEQADAP/Z';
+  const useBlur = !props.priority && props.placeholder !== 'empty';
+  const imageProps = {
+    ...props,
+    placeholder: useBlur ? ('blur' as const) : props.placeholder,
+    blurDataURL: useBlur ? (props.blurDataURL ?? defaultBlur) : props.blurDataURL,
+    loading: props.loading ?? (props.priority ? 'eager' : 'lazy'),
+  };
+
   // ── fill 模式 ──────────────────────────────────────────────────────────────
   if (fill) {
     return (
@@ -79,7 +90,7 @@ export default function PlaceholderImage({
         <NextImage
           ref={imgRef}
           fill
-          {...props}
+          {...imageProps}
           style={mergedStyle}
           onLoad={handleLoad}
           onError={handleError}
@@ -96,7 +107,7 @@ export default function PlaceholderImage({
         ref={imgRef}
         width={width}
         height={height}
-        {...props}
+        {...imageProps}
         style={mergedStyle}
         onLoad={handleLoad}
         onError={handleError}

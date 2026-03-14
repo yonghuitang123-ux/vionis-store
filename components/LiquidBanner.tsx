@@ -138,8 +138,8 @@ export default function LiquidBanner({
   headingTransform = 'uppercase',
   useSystemFont = false,
   btnFontSize = 11,
-  desktopPadding = 40,
-  mobilePadding = 20,
+  desktopPadding = 0,
+  mobilePadding = 0,
   animationRange = 600,
   dampingFactor = 0.08,
 }: LiquidBannerProps) {

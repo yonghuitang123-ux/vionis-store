@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import { useCart } from '@/lib/cart-context';
+import SearchModal from '@/components/SearchModal';
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
 
@@ -47,8 +48,8 @@ function IconBag({ count, size = 17 }: { count: number; size?: number }) {
       </svg>
       {count > 0 && (
         <span
-          className="absolute -top-1.5 -right-2 min-w-[15px] h-[15px] rounded-full text-[9px] flex items-center justify-center px-0.5"
-          style={{ backgroundColor: '#1a1a1a', color: '#fff' }}
+          className="absolute -top-1.5 -right-2 min-w-[15px] h-[15px] rounded-full text-[9px] font-medium flex items-center justify-center px-0.5"
+          style={{ backgroundColor: '#A05E46', color: '#fff' }}
         >
           {count}
         </span>
@@ -83,6 +84,8 @@ function IconX({ size = 14 }: { size?: number }) {
 export default function Header() {
   const { announcement, nav } = siteConfig;
   const slides = announcement.轮播列表 ?? [];
+  const { totalQuantity, openDrawer } = useCart();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   // ── 公告轮播 ────────────────────────────────────────────────────────────────
   const [slideIdx, setSlideIdx] = useState(0);
@@ -240,6 +243,7 @@ export default function Header() {
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="搜索"
+                onClick={() => setSearchOpen(true)}
               >
                 <IconSearch />
               </button>
@@ -254,6 +258,7 @@ export default function Header() {
                 <Link
                   key={item.链接 + item.文字}
                   href={item.链接}
+                  prefetch
                   className="hdr-link"
                   style={{
                     color: item.颜色 ?? '#1a1a1a',
@@ -289,14 +294,14 @@ export default function Header() {
               >
                 <IconUser />
               </Link>
-              <Link
-                href="/cart"
+              <button
                 className="p-1 transition-opacity hover:opacity-60"
-                style={{ color: '#1a1a1a', lineHeight: 0 }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="购物车"
+                onClick={openDrawer}
               >
-                <IconBag count={0} />
-              </Link>
+                <IconBag count={totalQuantity} />
+              </button>
             </div>
           </div>
 
@@ -316,17 +321,18 @@ export default function Header() {
                 className="p-2 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="搜索"
+                onClick={() => setSearchOpen(true)}
               >
                 <IconSearch size={22} />
               </button>
-              <Link
-                href="/cart"
+              <button
                 className="p-2 transition-opacity hover:opacity-60"
-                style={{ color: '#1a1a1a', lineHeight: 0 }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="购物车"
+                onClick={openDrawer}
               >
-                <IconBag count={0} size={22} />
-              </Link>
+                <IconBag count={totalQuantity} size={22} />
+              </button>
             </div>
           </div>
         </div>
@@ -345,6 +351,7 @@ export default function Header() {
               <Link
                 key={item.链接 + item.文字}
                 href={item.链接}
+                prefetch
                 onClick={() => setMobileOpen(false)}
                 style={{
                   color: item.颜色 ?? '#1a1a1a',
@@ -386,7 +393,8 @@ export default function Header() {
 
       </div>
 
-      {/* Spacer 已移除：header 以 position:fixed 悬浮，页面内容从顶部开始渲染 */}
+      {/* 搜索弹窗 */}
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

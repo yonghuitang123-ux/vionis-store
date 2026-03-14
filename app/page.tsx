@@ -271,8 +271,15 @@ export default function Home() {
         newsletterHeading={footer.订阅栏标题}
         newsletterPlaceholder={footer.订阅栏占位文字}
         onNewsletterSubmit={async (email) => {
-          // 接入实际 Newsletter API 时在此替换
-          console.log('Newsletter subscribe:', email);
+          const res = await fetch('/api/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+          });
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            throw new Error(data.error ?? 'Subscription failed');
+          }
         }}
         showSocial
         socialLinks={activeSocial}
