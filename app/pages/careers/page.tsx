@@ -3,17 +3,17 @@ import { getPageByHandle } from '@/lib/shopify/getPageByHandle';
 
 export const revalidate = 86400;
 
-const HANDLE = 'size-guide';
-const PATH = '/pages/size-guide';
+const HANDLE = 'careers';
+const PATH = '/pages/careers';
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageByHandle(HANDLE);
-  const title = page?.seo?.title ?? page?.title ?? 'Size Guide';
+  const title = page?.seo?.title ?? page?.title ?? 'Careers';
   const description = page?.seo?.description ?? undefined;
   return { title: `${title} — VIONIS·XY`, description };
 }
 
-export default async function SizeGuidePage() {
+export default async function CareersPage() {
   const page = await getPageByHandle(HANDLE);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vionisxy.com';
 

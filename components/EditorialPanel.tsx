@@ -292,7 +292,7 @@ export default function EditorialPanel({
     `@media(min-width:769px){#${scopeId} .ep-panel{flex-direction:row;gap:25px}}`,
     // 移动端响应式
     `@media(max-width:768px){`,
-    `  #${scopeId} .ep-inner{padding-left:15px;padding-right:15px}`,
+    `  #${scopeId} .ep-inner{padding-left:0!important;padding-right:0!important}`,
     `  #${scopeId} .ep-hero-wrapper{flex:none!important;width:100%}`,
     `  #${scopeId} .ep-hero-col{aspect-ratio:3/2!important}`,
     // 手机端2列并排，列间距8px
