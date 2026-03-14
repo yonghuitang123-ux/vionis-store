@@ -58,7 +58,7 @@ export default function ProductGallery({ media, selectedColor, productTitle }: P
           min-width: 0;
         }
         .pg-right {
-          flex: 1.8;
+          flex: 1;
           min-width: 0;
         }
         @media (max-width: 768px) {
@@ -88,7 +88,7 @@ export default function ProductGallery({ media, selectedColor, productTitle }: P
                       src={leftUrl}
                       alt={pair[0]?.alt ?? productTitle}
                       fill
-                      sizes="(max-width: 768px) 100vw, 35vw"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       style={imageStyle}
                       priority={rowIdx === 0}
                       draggable={false}
@@ -107,7 +107,7 @@ export default function ProductGallery({ media, selectedColor, productTitle }: P
                       src={rightUrl}
                       alt={pair[1]?.alt ?? `${productTitle} - ${rowIdx * 2 + 2}`}
                       fill
-                      sizes="(max-width: 768px) 100vw, 65vw"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       style={imageStyle}
                       priority={rowIdx === 0}
                       draggable={false}
@@ -128,9 +128,9 @@ export default function ProductGallery({ media, selectedColor, productTitle }: P
 const imageContainerStyle: React.CSSProperties = {
   position: 'relative',
   width: '100%',
-  aspectRatio: '3 / 4',
+  aspectRatio: '4 / 5',
   overflow: 'hidden',
-  backgroundColor: '#F5F0E8',
+  backgroundColor: '#E8DFD6',
   cursor: 'default',
 }
 
@@ -142,5 +142,5 @@ const imageStyle: React.CSSProperties = {
 const placeholderStyle: React.CSSProperties = {
   width: '100%',
   height: '100%',
-  backgroundColor: '#F5F0E8',
+  backgroundColor: '#E8DFD6',
 }
