@@ -5,14 +5,20 @@ interface MediaItem {
   image?: { url: string; width?: number; height?: number }
 }
 
+// 按长度降序排列，长的优先匹配
+const SORTED_COLORS = [...COLORS].sort((a, b) => b.length - a.length)
+
 export function getAvailableColors(media: MediaItem[]): string[] {
   const found = new Set<string>()
   for (const item of media) {
-    const alt = item.alt ?? ''
-    const match = alt.match(/\bin\s+([^,]+)/i)
-    if (!match) continue
-    const color = match[1].toLowerCase().trim()
-    if (COLORS.includes(color as any)) found.add(color)
+    const alt = (item.alt ?? '').toLowerCase()
+    if (!alt) continue
+    for (const color of SORTED_COLORS) {
+      if (alt.includes(color)) {
+        found.add(color)
+        break // 一张图只匹配一个颜色（最长优先）
+      }
+    }
   }
   return Array.from(found)
 }

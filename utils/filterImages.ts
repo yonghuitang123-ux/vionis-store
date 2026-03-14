@@ -6,11 +6,16 @@ interface MediaItem {
   image?: { url: string; width?: number; height?: number }
 }
 
+// 按长度降序排列，长的优先匹配，避免 "grey" 误匹配 "heather grey"
+const SORTED_COLORS = [...COLORS].sort((a, b) => b.length - a.length)
+
 function extractColor(alt: string): string | null {
-  const match = alt.match(/\bin\s+([^,]+)/i)
-  if (!match) return null
-  const c = match[1].toLowerCase().trim()
-  return COLORS.includes(c as any) ? c : null
+  if (!alt) return null
+  const lower = alt.toLowerCase()
+  for (const color of SORTED_COLORS) {
+    if (lower.includes(color)) return color
+  }
+  return null
 }
 
 export function filterImagesByColor(media: MediaItem[], selectedColor: string): MediaItem[] {
