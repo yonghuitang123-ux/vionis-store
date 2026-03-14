@@ -20,7 +20,6 @@ import ProductGallery from '@/components/product/ProductGallery';
 import ColorSelector from '@/components/product/ColorSelector';
 import SizeSelector from '@/components/product/SizeSelector';
 import { getAvailableColors } from '@/utils/getAvailableColors';
-import { getSizeFitMetafield } from '@/utils/getSizeFitMetafield';
 
 // ─── 类型定义 ──────────────────────────────────────────────────────────────────
 
@@ -71,7 +70,7 @@ interface Product {
   media?: ProductImage[];
   options: ProductOption[];
   variants: ProductVariant[];
-  metafields?: { namespace: string; key: string; value: string }[];
+  metafields?: { namespace: string; key: string; value: string; html?: string }[];
   priceRange: {
     minVariantPrice: MoneyV2;
     maxVariantPrice: MoneyV2;
@@ -197,11 +196,6 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         : (colorOption?.values ?? []).map((name) => ({ name, swatch: null })),
     [colorOption],
   );
-  const sizeFitContent = useMemo(
-    () => getSizeFitMetafield(product.metafields),
-    [product.metafields],
-  );
-
   const {
     selectedOptions,
     setOption,
@@ -508,24 +502,41 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               </Accordion>
             )}
 
-            {sizeFitContent && (
-              <Accordion title="Size & Fit 尺寸与版型">
-                <p style={{ whiteSpace: 'pre-wrap' }}>{sizeFitContent}</p>
-              </Accordion>
-            )}
+            {(() => {
+              const fabricMeta = product.metafields?.find((m) => m.key === '1234');
+              return fabricMeta?.html ? (
+                <Accordion title="Materials & Care">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: fabricMeta.html }}
+                    style={metafieldHtmlStyle}
+                  />
+                </Accordion>
+              ) : null;
+            })()}
 
-            <Accordion title="Materials & Care">
-              <p>
-                This piece is crafted from the finest natural fibres, selected for
-                exceptional softness and durability.
-              </p>
-              <ul style={{ paddingLeft: 18, marginTop: 8 }}>
-                <li>Dry clean recommended</li>
-                <li>Store folded in a cool, dry place</li>
-                <li>Use a cashmere comb to remove pilling</li>
-                <li>Avoid prolonged exposure to direct sunlight</li>
-              </ul>
-            </Accordion>
+            {(() => {
+              const careMeta = product.metafields?.find((m) => m.key === '123456');
+              return careMeta?.html ? (
+                <Accordion title="Care Guide">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: careMeta.html }}
+                    style={metafieldHtmlStyle}
+                  />
+                </Accordion>
+              ) : null;
+            })()}
+
+            {(() => {
+              const sizeMeta = product.metafields?.find((m) => m.key === '1123');
+              return sizeMeta?.html ? (
+                <Accordion title="Size & Fit">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: sizeMeta.html }}
+                    style={metafieldHtmlStyle}
+                  />
+                </Accordion>
+              ) : null;
+            })()}
 
             <Accordion title="Shipping & Returns">
               <p>
@@ -693,4 +704,8 @@ const buyNowStyle: CSSProperties = {
   border: '1.5px solid #1a1a1a',
   cursor: 'pointer',
   transition: 'opacity 0.3s ease',
+};
+
+const metafieldHtmlStyle: CSSProperties = {
+  fontFamily: 'var(--font-montserrat)',
 };

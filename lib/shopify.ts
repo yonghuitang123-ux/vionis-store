@@ -8,6 +8,45 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client';
 import { PRODUCT_BY_HANDLE_QUERY } from './shopify/queries/product';
 
+// ─── Shopify Rich Text → HTML ─────────────────────────────────────────────────
+
+function richTextToHtml(raw: string): string {
+  try {
+    const doc = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    return renderNode(doc);
+  } catch {
+    return raw ?? '';
+  }
+}
+
+function renderNode(node: any): string {
+  if (!node) return '';
+  if (typeof node === 'string') return escapeHtml(node);
+
+  if (node.type === 'text') {
+    let t = escapeHtml(node.value ?? '').replace(/\n/g, '<br/>');
+    if (node.bold) t = `<strong>${t}</strong>`;
+    if (node.italic) t = `<em>${t}</em>`;
+    return t;
+  }
+
+  const children = (node.children ?? []).map(renderNode).join('');
+
+  switch (node.type) {
+    case 'root': return children;
+    case 'paragraph': return `<p>${children}</p>`;
+    case 'heading': return `<h${node.level ?? 3}>${children}</h${node.level ?? 3}>`;
+    case 'list': return node.listType === 'ordered' ? `<ol>${children}</ol>` : `<ul>${children}</ul>`;
+    case 'list-item': return `<li>${children}</li>`;
+    case 'link': return `<a href="${escapeHtml(node.url ?? '')}">${children}</a>`;
+    default: return children;
+  }
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 // ─── 客户端初始化 ──────────────────────────────────────────────────────────────
 
 export const shopify = createStorefrontApiClient({
@@ -163,12 +202,14 @@ function normalizeProductByHandle(raw: any) {
     image: v.image,
   }));
 
-  const metafieldNodes = raw.metafields?.nodes ?? [];
-  const metafields = metafieldNodes.map((m: any) => ({
-    namespace: m.namespace,
-    key: m.key,
-    value: m.value,
-  }));
+  const metafields = [raw.care_guide, raw.fabric_details, raw.size_info]
+    .filter(Boolean)
+    .map((m: any) => ({
+      namespace: m.namespace,
+      key: m.key,
+      value: m.value,
+      html: richTextToHtml(m.value),
+    }));
 
   const options = (raw.options ?? []).map((opt: any) => ({
     id: opt.id,

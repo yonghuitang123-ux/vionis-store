@@ -55,12 +55,14 @@ export const PRODUCT_BY_HANDLE_QUERY = `
           }
         }
       }
-      metafields(first: 20) {
-        nodes {
-          namespace
-          key
-          value
-        }
+      care_guide: metafield(namespace: "custom", key: "123456") {
+        namespace key value
+      }
+      fabric_details: metafield(namespace: "custom", key: "1234") {
+        namespace key value
+      }
+      size_info: metafield(namespace: "custom", key: "1123") {
+        namespace key value
       }
     }
   }
