@@ -6,6 +6,7 @@
  */
 
 import { createStorefrontApiClient } from '@shopify/storefront-api-client';
+import { PRODUCT_BY_HANDLE_QUERY } from './shopify/queries/product';
 
 // ─── 客户端初始化 ──────────────────────────────────────────────────────────────
 
@@ -128,16 +129,70 @@ export async function getProducts(first = 12) {
   return data.products.edges.map((e: any) => e.node);
 }
 
-/** 根据 handle 获取单个产品完整信息（PDP 页面用） */
+/** 根据 handle 获取单个产品完整信息（PDP 页面用，含 media 用于颜色过滤） */
 export async function getProductByHandle(handle: string) {
-  const query = `
-    ${PRODUCT_FULL_FRAGMENT}
-    query GetProduct($handle: String!) {
-      product(handle: $handle) { ...ProductFull }
-    }
-  `;
-  const { data } = await shopify.request(query, { variables: { handle } });
-  return data.product;
+  const { data } = await shopify.request(PRODUCT_BY_HANDLE_QUERY, {
+    variables: { handle },
+  });
+  return normalizeProductByHandle(data.product);
+}
+
+/** 将 ProductByHandle 查询结果规范化为统一结构 */
+function normalizeProductByHandle(raw: any) {
+  if (!raw) return null;
+
+  const mediaNodes = raw.media?.nodes ?? [];
+  const media = mediaNodes
+    .filter((n: any) => n?.image?.url)
+    .map((n: any) => ({
+      url: n.image.url,
+      alt: n.alt ?? n.image?.altText ?? null,
+      width: n.image.width ?? 0,
+      height: n.image.height ?? 0,
+    }));
+
+  const variantNodes = raw.variants?.nodes ?? raw.variants?.edges?.map((e: any) => e.node) ?? [];
+  const variants = variantNodes.map((v: any) => ({
+    id: v.id,
+    title: v.title,
+    availableForSale: v.availableForSale,
+    quantityAvailable: v.quantityAvailable,
+    selectedOptions: v.selectedOptions ?? [],
+    priceV2: v.price ?? v.priceV2,
+    compareAtPriceV2: v.compareAtPrice ?? v.compareAtPriceV2,
+    image: v.image,
+  }));
+
+  const metafieldNodes = raw.metafields?.nodes ?? [];
+  const metafields = metafieldNodes.map((m: any) => ({
+    namespace: m.namespace,
+    key: m.key,
+    value: m.value,
+  }));
+
+  const options = (raw.options ?? []).map((opt: any) => ({
+    id: opt.id,
+    name: opt.name,
+    values: opt.values ?? opt.optionValues?.map((v: any) => v.name) ?? [],
+    optionValues: opt.optionValues ?? [],
+  }));
+
+  return {
+    id: raw.id,
+    title: raw.title,
+    handle: raw.handle,
+    vendor: raw.vendor,
+    tags: raw.tags ?? [],
+    descriptionHtml: raw.descriptionHtml,
+    seo: raw.seo,
+    priceRange: raw.priceRange,
+    compareAtPriceRange: raw.compareAtPriceRange,
+    options,
+    variants,
+    media,
+    images: media,
+    metafields,
+  };
 }
 
 /** 获取同系列推荐产品（排除当前产品） */

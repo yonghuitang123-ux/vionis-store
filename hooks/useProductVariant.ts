@@ -1,147 +1,129 @@
-'use client';
+'use client'
+import { useState, useMemo } from 'react'
+import { getAvailableColors } from '@/utils/getAvailableColors'
 
-/**
- * useProductVariant — 产品变体选择状态管理
- * ─────────────────────────────────────────────────────────────────
- * 管理 selectedOptions（颜色、尺码等），暴露 selectedColor / selectedSize 及对应 setter。
- */
-
-import { useCallback, useMemo, useState } from 'react';
-
-export interface SelectedOption {
-  name: string;
-  value: string;
+interface MediaItem { alt?: string | null; image?: { url: string } }
+interface Variant {
+  id: string
+  availableForSale: boolean
+  selectedOptions: { name: string; value: string }[]
+  price?: { amount: string; currencyCode: string }
+  priceV2?: { amount: string; currencyCode: string }
+  compareAtPrice?: { amount: string; currencyCode: string } | null
+  compareAtPriceV2?: { amount: string; currencyCode: string } | null
+  quantityAvailable?: number
+}
+interface Option { id: string; name: string; values: string[] }
+interface Product {
+  options: Option[]
+  variants: { nodes?: Variant[] } | Variant[]
 }
 
-export interface ProductVariant {
-  id: string;
-  title: string;
-  availableForSale: boolean;
-  quantityAvailable?: number;
-  selectedOptions: SelectedOption[];
-  image?: { url: string; altText?: string | null } | null;
-  priceV2?: { amount: string; currencyCode: string };
-  compareAtPriceV2?: { amount: string; currencyCode: string } | null;
+interface UseProductVariantProps {
+  product: Product
+  media: MediaItem[]
+  initialVariantId?: string | null
 }
 
-export interface ProductOption {
-  id: string;
-  name: string;
-  values: string[];
-}
+export function useProductVariant({ product, media, initialVariantId }: UseProductVariantProps) {
+  const variants: Variant[] = Array.isArray(product.variants)
+    ? product.variants
+    : (product.variants as any).nodes ?? []
 
-export interface ProductForVariant {
-  options: ProductOption[];
-  variants: ProductVariant[];
-}
+  const availableColors = useMemo(() => getAvailableColors(media), [media])
 
-/** 根据已选 options 查找匹配的 variant */
-function findVariant(
-  variants: ProductVariant[],
-  selections: Record<string, string>,
-): ProductVariant | undefined {
-  return variants.find((v) =>
-    v.selectedOptions.every((opt) => selections[opt.name] === opt.value),
-  );
-}
+  const colorOption = product.options.find(
+    (o) => o.name.toLowerCase() === 'color' || o.name.toLowerCase() === 'colour'
+  )
+  const sizeOption = product.options.find((o) => o.name.toLowerCase() === 'size')
 
-/** 检测选项名是否为颜色 */
-function isColorOption(name: string): boolean {
-  const n = name.toLowerCase();
-  return n === 'color' || n === 'colour';
-}
+  const initialVariant = initialVariantId
+    ? variants.find((v) => v.id.includes(initialVariantId))
+    : variants[0]
 
-/** 检测选项名是否为尺码 */
-function isSizeOption(name: string): boolean {
-  return name.toLowerCase() === 'size';
-}
+  const getInitialColor = () => {
+    if (initialVariant) {
+      const c = initialVariant.selectedOptions.find(
+        (o) => o.name.toLowerCase() === 'color' || o.name.toLowerCase() === 'colour'
+      )
+      if (c) return c.value
+    }
+    return availableColors[0] ?? colorOption?.values[0] ?? ''
+  }
 
-export interface UseProductVariantOptions {
-  product: ProductForVariant;
-  initialVariantId?: string | null;
-}
+  const getInitialSize = () => {
+    if (initialVariant) {
+      const s = initialVariant.selectedOptions.find((o) => o.name.toLowerCase() === 'size')
+      if (s) return s.value
+    }
+    return sizeOption?.values[0] ?? ''
+  }
 
-export interface UseProductVariantReturn {
-  selectedOptions: Record<string, string>;
-  setOption: (name: string, value: string) => void;
-  selectedVariant: ProductVariant | undefined;
-  selectedColor: string | null;
-  setSelectedColor: (color: string | null) => void;
-  selectedSize: string | null;
-  setSelectedSize: (size: string | null) => void;
-  colorOptions: string[];
-  sizeOptions: string[];
-}
-
-export function useProductVariant({
-  product,
-  initialVariantId,
-}: UseProductVariantOptions): UseProductVariantReturn {
-  const colorOpt = product.options.find((o) => isColorOption(o.name));
-  const sizeOpt = product.options.find((o) => isSizeOption(o.name));
-
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(
-    () => {
-      const initial: Record<string, string> = {};
-      if (initialVariantId) {
-        const v = product.variants.find(
-          (x) => x.id === initialVariantId || x.id.endsWith(initialVariantId),
-        );
-        if (v?.selectedOptions) {
-          v.selectedOptions.forEach((o) => {
-            initial[o.name] = o.value;
-          });
-          return initial;
-        }
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() => {
+    const opts: Record<string, string> = {}
+    product.options.forEach((o) => {
+      if (o.name.toLowerCase() === 'color' || o.name.toLowerCase() === 'colour') {
+        opts[o.name] = getInitialColor()
+      } else if (o.name.toLowerCase() === 'size') {
+        opts[o.name] = getInitialSize()
+      } else {
+        opts[o.name] = o.values[0] ?? ''
       }
-      product.options.forEach((opt) => {
-        initial[opt.name] = opt.values[0] ?? '';
-      });
-      return initial;
-    },
-  );
+    })
+    return opts
+  })
 
-  const setOption = useCallback(
-    (name: string, value: string) => {
-      setSelectedOptions((prev) => ({ ...prev, [name]: value }));
-    },
-    [],
-  );
+  const setOption = (name: string, value: string) => {
+    setSelectedOptions((prev) => ({ ...prev, [name]: value }))
+  }
 
-  const selectedVariant = useMemo(
-    () => findVariant(product.variants, selectedOptions),
-    [product.variants, selectedOptions],
-  );
+  const selectedColor = useMemo(() => {
+    if (!colorOption) return ''
+    return selectedOptions[colorOption.name] ?? ''
+  }, [selectedOptions, colorOption])
 
-  const selectedColor = colorOpt ? selectedOptions[colorOpt.name] ?? null : null;
-  const selectedSize = sizeOpt ? selectedOptions[sizeOpt.name] ?? null : null;
+  const setSelectedColor = (color: string) => {
+    if (colorOption) setOption(colorOption.name, color)
+  }
 
-  const setSelectedColor = useCallback(
-    (color: string | null) => {
-      if (colorOpt) setOption(colorOpt.name, color ?? colorOpt.values[0] ?? '');
-    },
-    [colorOpt, setOption],
-  );
+  const selectedSize = useMemo(() => {
+    if (!sizeOption) return ''
+    return selectedOptions[sizeOption.name] ?? ''
+  }, [selectedOptions, sizeOption])
 
-  const setSelectedSize = useCallback(
-    (size: string | null) => {
-      if (sizeOpt) setOption(sizeOpt.name, size ?? sizeOpt.values[0] ?? '');
-    },
-    [sizeOpt, setOption],
-  );
+  const setSelectedSize = (size: string) => {
+    if (sizeOption) setOption(sizeOption.name, size)
+  }
 
-  const colorOptions = colorOpt?.values ?? [];
-  const sizeOptions = sizeOpt?.values ?? [];
+  const selectedVariant = useMemo(() => {
+    return variants.find((v) =>
+      v.selectedOptions.every((opt) => selectedOptions[opt.name] === opt.value)
+    )
+  }, [variants, selectedOptions])
+
+  const sizeOptions = sizeOption?.values ?? []
+
+  // 兼容 price / priceV2 字段名
+  const normalizedVariant = useMemo(() => {
+    if (!selectedVariant) return undefined
+    const price = selectedVariant.priceV2 ?? selectedVariant.price
+    const compareAtPrice = selectedVariant.compareAtPriceV2 ?? selectedVariant.compareAtPrice ?? null
+    return {
+      ...selectedVariant,
+      priceV2: price,
+      compareAtPriceV2: compareAtPrice,
+    }
+  }, [selectedVariant])
 
   return {
     selectedOptions,
     setOption,
-    selectedVariant,
+    selectedVariant: normalizedVariant,
     selectedColor,
     setSelectedColor,
     selectedSize,
     setSelectedSize,
-    colorOptions,
     sizeOptions,
-  };
+    availableColors,
+  }
 }

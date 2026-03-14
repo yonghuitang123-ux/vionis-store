@@ -1,11 +1,10 @@
 /**
- * 产品图片按颜色过滤时使用的颜色名单
+ * 颜色名单 — 唯一数据源
  * ─────────────────────────────────────────────────────────────────
- * 与 layout.liquid 中的 filterImages 逻辑保持一致。
- * 新增颜色时在此补充，确保 alt 文字能正确匹配。
+ * 所有颜色匹配逻辑都从这里 import，不要在其他地方硬编码。
  */
 
-export const PRODUCT_COLORS = [
+export const COLORS = [
   'black',
   'white',
   'grey',
@@ -42,4 +41,4 @@ export const PRODUCT_COLORS = [
   'blush',
 ] as const;
 
-export type ProductColor = (typeof PRODUCT_COLORS)[number];
+export type ColorName = (typeof COLORS)[number];

@@ -22,20 +22,11 @@ interface PageProps {
 
 // ─── 数据规范化 ────────────────────────────────────────────────────────────────
 
-/** 将 Shopify edges 结构展平为普通数组，方便客户端组件消费 */
-function normalizeProduct(raw: any) {
-  return {
-    ...raw,
-    images: raw.images?.edges?.map((e: any) => e.node) ?? [],
-    variants: raw.variants?.edges?.map((e: any) => e.node) ?? [],
-  };
-}
-
 /** 推荐产品只需展平 images（ProductCard 需要 images[].url） */
 function normalizeCardProduct(raw: any) {
   return {
     ...raw,
-    images: raw.images?.edges?.map((e: any) => e.node) ?? [],
+    images: raw.images?.edges?.map((e: any) => e.node) ?? raw.images ?? [],
   };
 }
 
@@ -49,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Product Not Found — VIONIS·XY' };
   }
 
-  const image = product.images?.edges?.[0]?.node;
+  const image = Array.isArray(product.images) ? product.images[0] : product.images?.edges?.[0]?.node;
   const description =
     product.seo?.description ||
     product.descriptionHtml?.replace(/<[^>]*>/g, '').slice(0, 160) ||
@@ -79,8 +70,9 @@ const pageStyle: CSSProperties = {
 
 const innerStyle: CSSProperties = {
   maxWidth: 1400,
+  width: '100%',
   margin: '0 auto',
-  padding: '0 24px',
+  boxSizing: 'border-box',
 };
 
 const breadcrumbStyle: CSSProperties = {
@@ -132,11 +124,9 @@ const recsGridStyle: CSSProperties = {
 export default async function ProductPage({ params }: PageProps) {
   const { handle } = await params;
 
-  // 获取产品数据
-  const raw = await getProductByHandle(handle);
-  if (!raw) notFound();
-
-  const product = normalizeProduct(raw);
+  // 获取产品数据（getProductByHandle 已返回规范化结构，含 media）
+  const product = await getProductByHandle(handle);
+  if (!product) notFound();
 
   // 获取推荐产品
   let recommendations: any[] = [];
@@ -148,7 +138,7 @@ export default async function ProductPage({ params }: PageProps) {
   }
 
   // JSON-LD 结构化数据
-  const firstImage = product.images[0];
+  const firstImage = Array.isArray(product.images) ? product.images[0] : product.images?.[0];
   const price = product.priceRange?.minVariantPrice;
   const hasVariantsInStock = product.variants.some(
     (v: any) => v.availableForSale,
@@ -184,7 +174,7 @@ export default async function ProductPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div style={innerStyle}>
+      <div style={innerStyle} className="max-w-full min-w-0 px-4 sm:px-6">
         {/* 面包屑导航 */}
         <nav aria-label="Breadcrumb" style={breadcrumbStyle}>
           <Link href="/" style={breadcrumbLinkStyle}>

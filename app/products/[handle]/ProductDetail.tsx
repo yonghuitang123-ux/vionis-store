@@ -11,7 +11,7 @@
  * 大量留白 · 极简边框 · 精致排版
  */
 
-import { useCallback, useEffect, useId, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState, type CSSProperties } from 'react';
 import { useSearchParams } from 'next/navigation';
 import SizeGuideModal from '@/components/SizeGuideModal';
 import { useCart } from '@/lib/cart-context';
@@ -19,6 +19,8 @@ import { useProductVariant } from '@/hooks/useProductVariant';
 import ProductGallery from '@/components/product/ProductGallery';
 import ColorSelector from '@/components/product/ColorSelector';
 import SizeSelector from '@/components/product/SizeSelector';
+import { getAvailableColors } from '@/utils/getAvailableColors';
+import { getSizeFitMetafield } from '@/utils/getSizeFitMetafield';
 
 // ─── 类型定义 ──────────────────────────────────────────────────────────────────
 
@@ -29,6 +31,7 @@ interface MoneyV2 {
 
 interface ProductImage {
   url: string;
+  alt?: string | null;
   altText?: string | null;
   width?: number;
   height?: number;
@@ -45,10 +48,16 @@ interface ProductVariant {
   image?: ProductImage | null;
 }
 
+interface OptionValueWithSwatch {
+  name: string;
+  swatch?: { image?: { previewImage?: { url: string } }; color?: string } | null;
+}
+
 interface ProductOption {
   id: string;
   name: string;
   values: string[];
+  optionValues?: OptionValueWithSwatch[];
 }
 
 interface Product {
@@ -56,10 +65,13 @@ interface Product {
   title: string;
   handle: string;
   vendor?: string;
+  tags?: string[];
   descriptionHtml?: string;
   images: ProductImage[];
+  media?: ProductImage[];
   options: ProductOption[];
   variants: ProductVariant[];
+  metafields?: { namespace: string; key: string; value: string }[];
   priceRange: {
     minVariantPrice: MoneyV2;
     maxVariantPrice: MoneyV2;
@@ -169,6 +181,27 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   const { addItem, loading: cartLoading, checkoutUrl } = useCart();
 
   const variantIdFromUrl = searchParams.get('variant');
+  const media = product.media ?? product.images;
+  const availableColors = useMemo(
+    () => getAvailableColors(media),
+    [media],
+  );
+
+  const colorOption = product.options.find(
+    (o) => o.name.toLowerCase() === 'color' || o.name.toLowerCase() === 'colour',
+  );
+  const colorOptionsWithSwatch = useMemo(
+    () =>
+      colorOption?.optionValues?.length
+        ? colorOption.optionValues
+        : (colorOption?.values ?? []).map((name) => ({ name, swatch: null })),
+    [colorOption],
+  );
+  const sizeFitContent = useMemo(
+    () => getSizeFitMetafield(product.metafields),
+    [product.metafields],
+  );
+
   const {
     selectedOptions,
     setOption,
@@ -177,10 +210,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     setSelectedColor,
     selectedSize,
     setSelectedSize,
-    colorOptions,
     sizeOptions,
   } = useProductVariant({
     product,
+    media,
     initialVariantId: variantIdFromUrl,
   });
 
@@ -255,19 +288,22 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           grid-template-columns: 55fr 45fr;
           gap: 60px;
           align-items: start;
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
         }
         @media (max-width: 768px) {
           .pdp-grid-${CSS.escape(scopeId)} {
             grid-template-columns: 1fr;
-            gap: 32px;
+            gap: 24px;
           }
         }
       `}</style>
 
-      <section className={`pdp-grid-${CSS.escape(scopeId)}`} style={{ paddingBottom: 60 }}>
+      <section className={`pdp-grid-${CSS.escape(scopeId)}`} style={{ paddingBottom: 60, overflow: 'hidden' }}>
         {/* ═══ 左侧：图片画廊（按颜色过滤，无放大镜） ═══ */}
         <ProductGallery
-          media={product.images}
+          media={media}
           selectedColor={selectedColor}
           productTitle={product.title}
         />
@@ -296,16 +332,16 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
           {/* ── 变体选择器 ─────────────────────────────────────────────────── */}
           <div style={{ marginTop: 32 }}>
-            {colorOptions.length > 0 && (
+            {colorOptionsWithSwatch.length > 0 && (
               <div>
                 <p style={optionLabelStyle}>
                   Color
                   <span style={{ fontWeight: 400, marginLeft: 8, color: '#888' }}>
-                    — {selectedColor ?? ''}
+                    — {selectedColor || ''}
                   </span>
                 </p>
                 <ColorSelector
-                  colors={colorOptions}
+                  colorOptions={colorOptionsWithSwatch}
                   selectedColor={selectedColor}
                   onColorChange={setSelectedColor}
                 />
@@ -469,6 +505,12 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                   dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
                   style={{ fontFamily: 'var(--font-montserrat)' }}
                 />
+              </Accordion>
+            )}
+
+            {sizeFitContent && (
+              <Accordion title="Size & Fit 尺寸与版型">
+                <p style={{ whiteSpace: 'pre-wrap' }}>{sizeFitContent}</p>
               </Accordion>
             )}
 
