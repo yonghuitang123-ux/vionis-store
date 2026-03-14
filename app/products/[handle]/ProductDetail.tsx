@@ -3,7 +3,7 @@
 /**
  * ProductDetail — 产品详情交互区（客户端组件）
  * ─────────────────────────────────────────────────────────────────
- * 包含：图片画廊（hover 放大镜）、变体选择、数量调节、加入购物袋、立即购买、
+ * 包含：图片画廊（按颜色过滤）、变体选择、数量调节、加入购物袋、立即购买、
  *       折叠信息面板（描述/材质/物流）、尺寸指南弹窗。
  *       URL 支持 ?variant=xxx 预选变体
  *
@@ -11,11 +11,14 @@
  * 大量留白 · 极简边框 · 精致排版
  */
 
-import { useCallback, useEffect, useId, useMemo, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useId, useState, type CSSProperties } from 'react';
 import { useSearchParams } from 'next/navigation';
-import PlaceholderImage from '@/components/PlaceholderImage';
 import SizeGuideModal from '@/components/SizeGuideModal';
 import { useCart } from '@/lib/cart-context';
+import { useProductVariant } from '@/hooks/useProductVariant';
+import ProductGallery from '@/components/product/ProductGallery';
+import ColorSelector from '@/components/product/ColorSelector';
+import SizeSelector from '@/components/product/SizeSelector';
 
 // ─── 类型定义 ──────────────────────────────────────────────────────────────────
 
@@ -82,7 +85,7 @@ function formatMoney({ amount, currencyCode }: MoneyV2): string {
   }).format(value);
 }
 
-/** 根据已选 options 查找匹配的 variant */
+/** 根据已选 options 查找匹配的 variant（用于 isOutOfStock 等） */
 function findVariant(
   variants: ProductVariant[],
   selections: Record<string, string>,
@@ -90,51 +93,6 @@ function findVariant(
   return variants.find((v) =>
     v.selectedOptions.every((opt) => selections[opt.name] === opt.value),
   );
-}
-
-// ─── 颜色词映射（用于 Color swatch 背景色） ──────────────────────────────────
-
-const COLOR_MAP: Record<string, string> = {
-  black: '#1a1a1a',
-  white: '#f5f5f0',
-  ivory: '#fffff0',
-  cream: '#f5f0e8',
-  beige: '#d4c5a9',
-  camel: '#c19a6b',
-  sand: '#d2b48c',
-  tan: '#d2b48c',
-  brown: '#6b4226',
-  chocolate: '#3e2723',
-  espresso: '#3c1414',
-  navy: '#1b2a4a',
-  blue: '#3a5a8c',
-  grey: '#8c8c8c',
-  gray: '#8c8c8c',
-  charcoal: '#36454f',
-  red: '#8b2500',
-  burgundy: '#5c1a1b',
-  wine: '#722f37',
-  green: '#3a5a3a',
-  olive: '#556b2f',
-  pink: '#d4a5a5',
-  rose: '#b76e79',
-  orange: '#c65d07',
-  rust: '#a0522d',
-  cocoa: '#5c3a21',
-  oatmeal: '#c8b896',
-  taupe: '#9e8e7e',
-  khaki: '#bdb395',
-  lavender: '#b4a7d6',
-  fog: '#c8c8c0',
-};
-
-function getSwatchColor(colorValue: string): string {
-  const key = colorValue.toLowerCase().trim();
-  if (COLOR_MAP[key]) return COLOR_MAP[key];
-  for (const [k, v] of Object.entries(COLOR_MAP)) {
-    if (key.includes(k)) return v;
-  }
-  return '#ccc';
 }
 
 // ─── 折叠面板组件 ──────────────────────────────────────────────────────────────
@@ -210,34 +168,34 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   const searchParams = useSearchParams();
   const { addItem, loading: cartLoading, checkoutUrl } = useCart();
 
-  // ── 图片画廊状态 ──────────────────────────────────────────────────────────
-  const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const [zoomPos, setZoomPos] = useState<{ x: number; y: number } | null>(null);
-  const images = product.images;
-  const activeImage = images[activeImageIdx] ?? images[0];
+  const variantIdFromUrl = searchParams.get('variant');
+  const {
+    selectedOptions,
+    setOption,
+    selectedVariant,
+    selectedColor,
+    setSelectedColor,
+    selectedSize,
+    setSelectedSize,
+    colorOptions,
+    sizeOptions,
+  } = useProductVariant({
+    product,
+    initialVariantId: variantIdFromUrl,
+  });
 
-  // ── 变体选择状态（支持 URL ?variant=xxx） ───────────────────────────────────
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(
-    () => {
-      const initial: Record<string, string> = {};
-      const variantId = searchParams.get('variant');
-      if (variantId) {
-        const v = product.variants.find((x) => x.id === variantId || x.id.endsWith(variantId));
-        if (v?.selectedOptions) {
-          v.selectedOptions.forEach((o) => { initial[o.name] = o.value; });
-          return initial;
-        }
-      }
-      product.options.forEach((opt) => {
-        initial[opt.name] = opt.values[0] ?? '';
-      });
-      return initial;
-    },
+  const sizeOpt = product.options.find(
+    (o) => o.name.toLowerCase() === 'size',
   );
 
-  const selectedVariant = useMemo(
-    () => findVariant(product.variants, selectedOptions),
-    [product.variants, selectedOptions],
+  const isOutOfStock = useCallback(
+    (size: string) => {
+      if (!sizeOpt) return false;
+      const tentative = { ...selectedOptions, [sizeOpt.name]: size };
+      const v = findVariant(product.variants, tentative);
+      return v ? !v.availableForSale : false;
+    },
+    [selectedOptions, product.variants, sizeOpt],
   );
 
   // URL 同步：选择变化时更新 ?variant=xxx
@@ -249,27 +207,11 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     window.history.replaceState({}, '', url.toString());
   }, [selectedVariant?.id]);
 
-  // 从 URL variant 加载时，同步主图到变体对应图片
-  useEffect(() => {
-    if (!selectedVariant?.image?.url) return;
-    const idx = product.images.findIndex((img) => img.url === selectedVariant!.image!.url);
-    if (idx >= 0) setActiveImageIdx(idx);
-  }, [selectedVariant?.id]); // 仅当 variant 变化时更新主图（含 URL 初始化）
-
-  // 选中变体对应的图片自动切换
   const handleOptionChange = useCallback(
     (optionName: string, value: string) => {
-      setSelectedOptions((prev) => {
-        const next = { ...prev, [optionName]: value };
-        const variant = findVariant(product.variants, next);
-        if (variant?.image?.url) {
-          const idx = images.findIndex((img) => img.url === variant.image!.url);
-          if (idx >= 0) setActiveImageIdx(idx);
-        }
-        return next;
-      });
+      setOption(optionName, value);
     },
-    [product.variants, images],
+    [setOption],
   );
 
   // ── 数量状态 ──────────────────────────────────────────────────────────────
@@ -319,97 +261,16 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             grid-template-columns: 1fr;
             gap: 32px;
           }
-          .pdp-main-img-${CSS.escape(scopeId)}:hover img { transform: none !important; }
-        }
-        .pdp-thumb-strip-${CSS.escape(scopeId)} {
-          display: flex;
-          gap: 8px;
-          margin-top: 12px;
-          overflow-x: auto;
-          scrollbar-width: none;
-        }
-        .pdp-thumb-strip-${CSS.escape(scopeId)}::-webkit-scrollbar {
-          display: none;
         }
       `}</style>
 
       <section className={`pdp-grid-${CSS.escape(scopeId)}`} style={{ paddingBottom: 60 }}>
-        {/* ═══ 左侧：图片画廊（hover 放大镜） ═══ */}
-        <div>
-          {/* 主图 + hover 放大 */}
-          <div
-            className={`pdp-main-img-${CSS.escape(scopeId)}`}
-            style={{
-              position: 'relative',
-              width: '100%',
-              aspectRatio: '4 / 5',
-              overflow: 'hidden',
-              backgroundColor: '#f0ebe4',
-              cursor: zoomPos ? 'zoom-out' : 'zoom-in',
-            }}
-            onMouseEnter={() => setZoomPos({ x: 0.5, y: 0.5 })}
-            onMouseLeave={() => setZoomPos(null)}
-            onMouseMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = (e.clientX - rect.left) / rect.width;
-              const y = (e.clientY - rect.top) / rect.height;
-              setZoomPos({ x, y });
-            }}
-          >
-            {activeImage?.url && (
-              <PlaceholderImage
-                src={activeImage.url}
-                alt={activeImage.altText ?? product.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 55vw"
-                style={{
-                  objectFit: 'cover',
-                  transform: zoomPos ? `scale(1.8)` : 'scale(1)',
-                  transformOrigin: zoomPos ? `${zoomPos.x * 100}% ${zoomPos.y * 100}%` : 'center',
-                  transition: zoomPos ? 'none' : 'transform 0.3s ease',
-                }}
-                priority
-              />
-            )}
-          </div>
-
-          {/* 缩略图条 */}
-          {images.length > 1 && (
-            <div className={`pdp-thumb-strip-${CSS.escape(scopeId)}`}>
-              {images.map((img, idx) => (
-                <button
-                  key={img.url}
-                  type="button"
-                  onClick={() => setActiveImageIdx(idx)}
-                  aria-label={`查看图片 ${idx + 1}`}
-                  style={{
-                    position: 'relative',
-                    width: 60,
-                    height: 75,
-                    flexShrink: 0,
-                    overflow: 'hidden',
-                    border:
-                      idx === activeImageIdx
-                        ? '2px solid #1a1a1a'
-                        : '2px solid transparent',
-                    padding: 0,
-                    background: '#f0ebe4',
-                    cursor: 'pointer',
-                    transition: 'border-color 0.2s ease',
-                  }}
-                >
-                  <PlaceholderImage
-                    src={img.url}
-                    alt={img.altText ?? `${product.title} - ${idx + 1}`}
-                    fill
-                    sizes="60px"
-                    style={{ objectFit: 'cover' }}
-                  />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* ═══ 左侧：图片画廊（按颜色过滤，无放大镜） ═══ */}
+        <ProductGallery
+          media={product.images}
+          selectedColor={selectedColor}
+          productTitle={product.title}
+        />
 
         {/* ═══ 右侧：产品信息 ═══ */}
         <div style={{ position: 'sticky', top: 200 }}>
@@ -435,96 +296,96 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
           {/* ── 变体选择器 ─────────────────────────────────────────────────── */}
           <div style={{ marginTop: 32 }}>
+            {colorOptions.length > 0 && (
+              <div>
+                <p style={optionLabelStyle}>
+                  Color
+                  <span style={{ fontWeight: 400, marginLeft: 8, color: '#888' }}>
+                    — {selectedColor ?? ''}
+                  </span>
+                </p>
+                <ColorSelector
+                  colors={colorOptions}
+                  selectedColor={selectedColor}
+                  onColorChange={setSelectedColor}
+                />
+              </div>
+            )}
+
+            {sizeOptions.length > 0 && (
+              <div>
+                <p style={optionLabelStyle}>
+                  Size
+                  <span style={{ fontWeight: 400, marginLeft: 8, color: '#888' }}>
+                    — {selectedSize ?? ''}
+                  </span>
+                </p>
+                <SizeSelector
+                  sizes={sizeOptions}
+                  selectedSize={selectedSize}
+                  onSizeChange={setSelectedSize}
+                  isOutOfStock={isOutOfStock}
+                />
+              </div>
+            )}
+
+            {/* 其他选项（非 Color/Size） */}
             {product.options
-              .filter((opt) => opt.values.length > 1 || opt.name !== 'Title')
-              .map((opt) => {
-                const isColor = opt.name.toLowerCase() === 'color' || opt.name.toLowerCase() === 'colour';
+              .filter(
+                (opt) =>
+                  (opt.values.length > 1 || opt.name !== 'Title') &&
+                  opt.name.toLowerCase() !== 'color' &&
+                  opt.name.toLowerCase() !== 'colour' &&
+                  opt.name.toLowerCase() !== 'size',
+              )
+              .map((opt) => (
+                <div key={opt.id} style={{ marginBottom: 24 }}>
+                  <p style={optionLabelStyle}>
+                    {opt.name}
+                    <span style={{ fontWeight: 400, marginLeft: 8, color: '#888' }}>
+                      — {selectedOptions[opt.name]}
+                    </span>
+                  </p>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    {opt.values.map((val) => {
+                      const active = selectedOptions[opt.name] === val;
+                      const tentative = { ...selectedOptions, [opt.name]: val };
+                      const matchVariant = findVariant(product.variants, tentative);
+                      const outOfStock = matchVariant && !matchVariant.availableForSale;
 
-                return (
-                  <div key={opt.id} style={{ marginBottom: 24 }}>
-                    {/* 选项标签 */}
-                    <p style={optionLabelStyle}>
-                      {opt.name}
-                      <span style={{ fontWeight: 400, marginLeft: 8, color: '#888' }}>
-                        — {selectedOptions[opt.name]}
-                      </span>
-                    </p>
-
-                    {isColor ? (
-                      /* 颜色：圆形色块 */
-                      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                        {opt.values.map((val) => {
-                          const active = selectedOptions[opt.name] === val;
-                          return (
-                            <button
-                              key={val}
-                              type="button"
-                              title={val}
-                              onClick={() => handleOptionChange(opt.name, val)}
-                              style={{
-                                width: 28,
-                                height: 28,
-                                borderRadius: '50%',
-                                backgroundColor: getSwatchColor(val),
-                                border: active
-                                  ? '2px solid #1a1a1a'
-                                  : '1px solid rgba(0,0,0,0.15)',
-                                outline: active ? '2px solid #E8DFD6' : 'none',
-                                outlineOffset: 1,
-                                cursor: 'pointer',
-                                padding: 0,
-                                transition: 'border-color 0.2s, outline 0.2s',
-                              }}
-                              aria-label={val}
-                            />
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      /* 其他选项（尺码等）：横排按钮 */
-                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                        {opt.values.map((val) => {
-                          const active = selectedOptions[opt.name] === val;
-                          // 检查这个选项值对应的变体是否有货
-                          const tentative = { ...selectedOptions, [opt.name]: val };
-                          const matchVariant = findVariant(product.variants, tentative);
-                          const outOfStock = matchVariant && !matchVariant.availableForSale;
-
-                          return (
-                            <button
-                              key={val}
-                              type="button"
-                              onClick={() => !outOfStock && handleOptionChange(opt.name, val)}
-                              disabled={!!outOfStock}
-                              style={{
-                                minWidth: 48,
-                                padding: '10px 16px',
-                                fontFamily: 'var(--font-montserrat)',
-                                fontSize: 12,
-                                fontWeight: active ? 500 : 400,
-                                letterSpacing: '0.04em',
-                                border: outOfStock
-                                  ? '1px solid #ddd'
-                                  : active
-                                    ? '1.5px solid #1a1a1a'
-                                    : '1px solid rgba(0,0,0,0.15)',
-                                backgroundColor: outOfStock ? '#e8e8e8' : active ? '#1a1a1a' : 'transparent',
-                                color: outOfStock ? '#999' : active ? '#fff' : '#1a1a1a',
-                                cursor: outOfStock ? 'not-allowed' : 'pointer',
-                                textDecoration: outOfStock ? 'line-through' : 'none',
-                                opacity: outOfStock ? 0.7 : 1,
-                                transition: 'all 0.2s ease',
-                              }}
-                            >
-                              {val}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
+                      return (
+                        <button
+                          key={val}
+                          type="button"
+                          onClick={() => !outOfStock && handleOptionChange(opt.name, val)}
+                          disabled={!!outOfStock}
+                          style={{
+                            minWidth: 48,
+                            padding: '10px 16px',
+                            fontFamily: 'var(--font-montserrat)',
+                            fontSize: 12,
+                            fontWeight: active ? 500 : 400,
+                            letterSpacing: '0.04em',
+                            border: outOfStock
+                              ? '1px solid #ddd'
+                              : active
+                                ? '1.5px solid #1a1a1a'
+                                : '1px solid rgba(0,0,0,0.15)',
+                            backgroundColor: outOfStock ? '#e8e8e8' : active ? '#1a1a1a' : 'transparent',
+                            color: outOfStock ? '#999' : active ? '#fff' : '#1a1a1a',
+                            cursor: outOfStock ? 'not-allowed' : 'pointer',
+                            textDecoration: outOfStock ? 'line-through' : 'none',
+                            opacity: outOfStock ? 0.7 : 1,
+                            transition: 'all 0.2s ease',
+                          }}
+                        >
+                          {val}
+                        </button>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                </div>
+              ))}
           </div>
 
           {/* ── 尺寸指南链接 ──────────────────────────────────────────────── */}
