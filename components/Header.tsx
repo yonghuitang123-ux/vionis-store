@@ -234,11 +234,11 @@ export default function Header() {
 
           {/* 桌面端：search 左 | 菜单居中 | 图标右 */}
           <div
-            className="hidden md:flex items-center px-10"
+            className="hidden md:flex items-center px-[30px]"
             style={{ height: 52, position: 'relative' }}
           >
             {/* 左：搜索 */}
-            <div style={{ position: 'absolute', left: 40, display: 'flex', alignItems: 'center' }}>
+            <div style={{ position: 'absolute', left: 30, display: 'flex', alignItems: 'center' }}>
               <button
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
@@ -277,7 +277,7 @@ export default function Header() {
 
             {/* 右：图标组 */}
             <div
-              style={{ position: 'absolute', right: 40, display: 'flex', alignItems: 'center', gap: 20 }}
+              style={{ position: 'absolute', right: 30, display: 'flex', alignItems: 'center', gap: 20 }}
             >
               <button
                 className="p-1 transition-opacity hover:opacity-60"

@@ -425,7 +425,7 @@ export default function SiteFooter({
       {/* ── Top: Blocks + Newsletter ── */}
       {hasTop && (
         <div
-          className="max-w-[1400px] mx-auto px-6 md:px-10"
+          className="max-w-[1400px] mx-auto px-6 md:px-[30px]"
           style={{ paddingTop, paddingBottom }}
         >
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -472,7 +472,7 @@ export default function SiteFooter({
 
       {/* ── Bottom bar ── */}
       <div
-        className="max-w-[1400px] mx-auto px-6 md:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-4"
+        className="max-w-[1400px] mx-auto px-6 md:px-[30px] py-5 flex flex-col sm:flex-row items-center justify-between gap-4"
       >
         {/* Copyright */}
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs" style={{ color: c.mutedColor }}>

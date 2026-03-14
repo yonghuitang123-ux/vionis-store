@@ -152,57 +152,58 @@ function ContentPanel({
     // display 用 inline style 控制（flex/none），flex 方向由 scoped CSS 媒体查询控制
     <div className="ep-panel gap-[25px]" style={{ display: isActive ? 'flex' : 'none' }}>
 
-      {/* ── 左侧：4:5 大图 + 文字叠层 ── */}
-      <div
-        className="ep-hero-col relative overflow-hidden bg-[#E8DFD6] min-h-0"
-        style={{ aspectRatio: '4/5', flex: '1 1 50%' }}
-      >
-        {hasMobile ? (
-          <>
-            {/* 桌面端显示 */}
-            <div className="absolute inset-0 hidden min-[769px]:block">
-              <PlaceholderImage
-                src={config.imageDesktop}
-                alt={config.imageAlt ?? ''}
-                fill
-                priority={isActive}
-                sizes="50vw"
-                className="object-cover object-top"
-              />
-            </div>
-            {/* 手机端显示 */}
-            <div className="absolute inset-0 min-[769px]:hidden">
-              <PlaceholderImage
-                src={config.imageMobile!}
-                alt={config.imageAlt ?? ''}
-                fill
-                priority={isActive}
-                sizes="100vw"
-                className="object-cover object-top"
-              />
-            </div>
-          </>
-        ) : (
-          <PlaceholderImage
-            src={config.imageDesktop}
-            alt={config.imageAlt ?? ''}
-            fill
-            priority={isActive}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover object-top"
-          />
-        )}
+      {/* ── 左侧：大图 + 文字在下方 ── */}
+      <div className="ep-hero-wrapper" style={{ flex: '1 1 50%' }}>
+        {/* 图片容器 */}
+        <div
+          className="ep-hero-col relative overflow-hidden bg-[#E8DFD6] min-h-0"
+          style={{ aspectRatio: '4/5' }}
+        >
+          {hasMobile ? (
+            <>
+              <div className="absolute inset-0 hidden min-[769px]:block">
+                <PlaceholderImage
+                  src={config.imageDesktop}
+                  alt={config.imageAlt ?? ''}
+                  fill
+                  priority={isActive}
+                  sizes="50vw"
+                  className="object-cover object-top"
+                />
+              </div>
+              <div className="absolute inset-0 min-[769px]:hidden">
+                <PlaceholderImage
+                  src={config.imageMobile!}
+                  alt={config.imageAlt ?? ''}
+                  fill
+                  priority={isActive}
+                  sizes="100vw"
+                  className="object-cover object-top"
+                />
+              </div>
+            </>
+          ) : (
+            <PlaceholderImage
+              src={config.imageDesktop}
+              alt={config.imageAlt ?? ''}
+              fill
+              priority={isActive}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover object-top"
+            />
+          )}
+        </div>
 
-        {/* 图片左下角文字叠层 */}
-        <div className="absolute bottom-[30px] left-[30px] z-[5] text-left">
+        {/* 标题文字（图片下方，居中，统一文字颜色） */}
+        <div style={{ textAlign: 'center', padding: '18px 0 0' }}>
           <h3
             className="ep-hero-title"
             style={{
               fontFamily: headingFont,
               fontSize: headingSize,
               fontWeight: 300,
-              color: colors.headingColor,
-              letterSpacing: '0.2em',
+              color: colors.textColor,
+              letterSpacing: '0.15em',
               lineHeight: 1.2,
               margin: 0,
             }}
@@ -214,12 +215,12 @@ function ContentPanel({
               style={{
                 fontFamily: textFont,
                 fontSize: `calc(${textSize}px * 0.85)`,
-                color: colors.headingColor,
-                opacity: 0.9,
+                color: colors.textColor,
+                opacity: 0.6,
                 textTransform: 'uppercase',
                 letterSpacing: '2px',
                 lineHeight: 1.6,
-                margin: '5px 0 0',
+                margin: '6px 0 0',
               }}
             >
               {config.description}
@@ -260,7 +261,7 @@ export default function EditorialPanel({
   headingSize = 28,
   textSize = 14,
   containerWidth = 1400,
-  pcGutter = 40,
+  pcGutter = 30,
   mobGutter = 20,
   activeTab: activeTabProp,
   onTabChange,
@@ -287,14 +288,15 @@ export default function EditorialPanel({
     // 全局去蓝（链接继承父色）
     `#${scopeId} a{color:inherit!important;text-decoration:none}`,
     // 面板默认竖排（移动端），桌面端转横排
-    `#${scopeId} .ep-panel{flex-direction:column}`,
-    `@media(min-width:769px){#${scopeId} .ep-panel{flex-direction:row}}`,
+    `#${scopeId} .ep-panel{flex-direction:column;gap:20px}`,
+    `@media(min-width:769px){#${scopeId} .ep-panel{flex-direction:row;gap:25px}}`,
     // 移动端响应式
     `@media(max-width:768px){`,
-    `  #${scopeId} .ep-inner{padding-left:${mobGutter}px;padding-right:${mobGutter}px}`,
-    `  #${scopeId} .ep-panel{gap:20px}`,
-    `  #${scopeId} .ep-hero-col{flex:none!important;width:100%}`,
-    `  #${scopeId} .ep-product-grid{flex:none!important;width:100%;gap:14px 10px!important}`,
+    `  #${scopeId} .ep-inner{padding-left:15px;padding-right:15px}`,
+    `  #${scopeId} .ep-hero-wrapper{flex:none!important;width:100%}`,
+    `  #${scopeId} .ep-hero-col{aspect-ratio:3/2!important}`,
+    // 手机端单列：每张产品卡撑满宽度，12px 间隙
+    `  #${scopeId} .ep-product-grid{flex:none!important;width:100%;grid-template-columns:1fr!important;gap:12px!important}`,
     `  #${scopeId} .ep-hero-title{font-size:calc(${headingSize}px * 0.75)!important}`,
     `  #${scopeId} .ep-card-text{font-size:calc(${textSize}px * 0.9)!important}`,
     `}`,

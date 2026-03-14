@@ -53,7 +53,7 @@ export default function BlogScroll({
   gap = 28,
   paddingTop = 80,
   paddingBottom = 90,
-  paddingSide = 60,
+  paddingSide = 30,
   paddingSideMob = 24,
 }: BlogScrollProps) {
   const uid = useId();

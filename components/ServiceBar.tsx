@@ -124,7 +124,7 @@ export default function ServiceBar({
     // 四列网格
     `#${scopeId} .sb-grid{`,
     `  display:grid;grid-template-columns:repeat(4,1fr);`,
-    `  max-width:1200px;margin:0 auto;padding:0 48px`,
+    `  max-width:1200px;margin:0 auto;padding:0 30px`,
     `}`,
 
     // 分隔线（右侧边框，最后一项无）

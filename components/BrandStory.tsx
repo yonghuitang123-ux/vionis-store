@@ -81,7 +81,7 @@ export default function BrandStory({
   mainImgHeight = 650,
   subImgHeight = 400,
   subImgOffset = 50,
-  pcGutter = 40,
+  pcGutter = 30,
   mobGutter = 20,
   paddingTop = 100,
   paddingBottom = 100,
