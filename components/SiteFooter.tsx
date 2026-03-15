@@ -77,6 +77,24 @@ export interface SiteFooterProps {
   marginTop?: number;
 }
 
+// ─── URL Normalizer ───────────────────────────────────────────────────────────
+// 把任何指向 myshopify.com / shopify.com 的绝对链接转成相对路径，
+// 避免链接跳出 Next.js 路由。
+function normalizeUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    if (
+      parsed.hostname.includes('myshopify.com') ||
+      parsed.hostname.includes('shopify.com')
+    ) {
+      return parsed.pathname + parsed.search + parsed.hash;
+    }
+  } catch {
+    // 已经是相对路径，直接返回
+  }
+  return url;
+}
+
 // ─── Defaults ────────────────────────────────────────────────────────────────
 
 const DEFAULT_COLORS: FooterColors = {
@@ -303,7 +321,7 @@ function BlockRenderer({
             {block.links.map((link) => (
               <li key={link.url}>
                 <Link
-                  href={link.url}
+                  href={normalizeUrl(link.url)}
                   className="text-sm transition-opacity duration-200 hover:opacity-70"
                   style={{ color: c.linkColor }}
                 >
@@ -486,7 +504,7 @@ export default function SiteFooter({
           {showPolicies && policies.map((p) => (
             <Link
               key={p.url}
-              href={p.url}
+              href={normalizeUrl(p.url)}
               className="hover:opacity-70 transition-opacity"
               style={{ color: c.mutedColor }}
             >

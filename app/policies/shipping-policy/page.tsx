@@ -16,7 +16,7 @@ export default async function ShippingPolicyPage() {
   return (
     <div
         style={{
-          margin: '0 30px',
+          padding: '40px 30px 80px',
           maxWidth: 800,
           marginLeft: 'auto',
           marginRight: 'auto',

@@ -18,6 +18,8 @@ import { useCart } from '@/lib/cart-context';
 import { useProductVariant } from '@/hooks/useProductVariant';
 import ProductGallery from '@/components/product/ProductGallery';
 import ColorSelector from '@/components/product/ColorSelector';
+import ReviewSummary from '@/components/reviews/ReviewSummary';
+import ReviewList, { mockReviews } from '@/components/reviews/ReviewList';
 import SizeSelector from '@/components/product/SizeSelector';
 import { getAvailableColors } from '@/utils/getAvailableColors';
 
@@ -552,6 +554,14 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             {/* 底部分隔线 */}
             <div style={{ borderTop: '1px solid rgba(0,0,0,0.1)' }} />
           </div>
+        </div>
+      </section>
+
+      {/* ── Reviews ── */}
+      <section style={{ paddingTop: 64, paddingBottom: 80 }}>
+        <ReviewSummary reviews={mockReviews} />
+        <div style={{ marginTop: 48 }}>
+          <ReviewList reviews={mockReviews} />
         </div>
       </section>
 

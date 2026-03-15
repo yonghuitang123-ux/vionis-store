@@ -205,7 +205,7 @@ export const siteConfig = {
         links: [
           { title: 'Cashmere',     url: '/collections/cashmere' },
           { title: 'Merino Wool',  url: '/collections/merino' },
-          { title: 'New Arrivals', url: '/collections/new' },
+          { title: 'New Arrivals', url: '/collections/new-arrivals' },
           { title: 'Best Sellers', url: '/collections/best-sellers' },
         ],
       },
@@ -214,7 +214,7 @@ export const siteConfig = {
         heading: 'About',
         links: [
           { title: 'Our Story',      url: '/pages/about' },
-          { title: 'Craftsmanship',  url: '/pages/craft' },
+          { title: 'Craftsmanship',  url: '/pages/craftsmanship' },
           { title: 'Sustainability', url: '/pages/sustainability' },
           { title: 'Wholesale',      url: '/pages/wholesale' },
         ],
@@ -226,7 +226,7 @@ export const siteConfig = {
           { title: 'Size Guide',  url: '/pages/size-guide' },
           { title: 'Shipping',    url: '/pages/shipping' },
           { title: 'Returns',     url: '/pages/returns' },
-          { title: 'Contact Us',  url: '/pages/contact' },
+          { title: 'Contact',     url: '/pages/contact-1' },
         ],
       },
       {
@@ -326,7 +326,7 @@ export const siteConfig = {
       { 图标: 'shipping' as const, 标题: 'Free Shipping',    副标题: 'Complimentary worldwide delivery' },
       { 图标: 'return'   as const, 标题: 'Free Returns',     副标题: '30-day hassle-free returns'       },
       { 图标: 'quality'  as const, 标题: 'Quality Guarantee',副标题: '100% natural fibres, certified'   },
-      { 图标: 'contact'  as const, 标题: 'Contact Us',       副标题: 'hello@vionisxy.com'               },
+      { 图标: 'contact'  as const, 标题: 'Contact',          副标题: 'support@vionisxy.com'              },
     ],
   },
 

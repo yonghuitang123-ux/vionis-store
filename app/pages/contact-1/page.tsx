@@ -4,8 +4,8 @@ import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
 
 export const revalidate = 86400;
 
-const HANDLE = 'contact';
-const PATH = '/pages/contact';
+const HANDLE = 'contact-1';
+const PATH = '/pages/contact-1';
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageByHandle(HANDLE);

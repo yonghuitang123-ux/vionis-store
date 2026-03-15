@@ -4,17 +4,17 @@ import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
 
 export const revalidate = 86400;
 
-const HANDLE = 'contact';
-const PATH = '/pages/contact';
+const HANDLE = 'craftsmanship';
+const PATH = '/pages/craftsmanship';
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageByHandle(HANDLE);
-  const title = page?.seo?.title ?? page?.title ?? 'Contact';
+  const title = page?.seo?.title ?? page?.title ?? 'Craftsmanship';
   const description = page?.seo?.description ?? undefined;
   return { title: `${title} — VIONIS·XY`, description };
 }
 
-export default async function ContactPage() {
+export default async function CraftsmanshipPage() {
   const page = await getPageByHandle(HANDLE);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vionisxy.com';
 

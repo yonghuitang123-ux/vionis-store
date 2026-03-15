@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getPageByHandle } from '@/lib/shopify/getPageByHandle';
+import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
 
 export const revalidate = 86400;
 
@@ -37,7 +38,7 @@ export default async function AboutPage() {
       )}
       <div
         style={{
-          margin: '0 30px',
+          padding: '40px 30px 80px',
           maxWidth: 800,
           marginLeft: 'auto',
           marginRight: 'auto',
@@ -48,7 +49,7 @@ export default async function AboutPage() {
         {page ? (
           <>
             <h1 style={{ marginBottom: 24 }}>{page.title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: page.body }} />
+            <div dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(page.body) }} />
           </>
         ) : (
           <p>Page not found.</p>

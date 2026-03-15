@@ -6,7 +6,6 @@
 
 import { type Metadata } from 'next';
 import { type CSSProperties } from 'react';
-import Breadcrumb from '@/components/Breadcrumb';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
 export function generateMetadata(): Metadata {
@@ -76,16 +75,7 @@ export default function OurStoryPage() {
   return (
     <main style={page}>
       <article style={container}>
-        {/* 面包屑导航 */}
-        <Breadcrumb
-          items={[
-            { label: 'Home', href: '/' },
-            { label: 'Our Story' },
-          ]}
-        />
-
-        {/* 页面标题 */}
-        <h1 style={{ ...heading, marginTop: 40 }}>Our Story</h1>
+        <h1 style={heading}>Our Story</h1>
 
         {/* 创立理念 */}
         <section>
