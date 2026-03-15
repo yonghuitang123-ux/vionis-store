@@ -1,14 +1,15 @@
 'use client';
 
 /**
- * ColorSelector — 颜色选择器（Shopify 原生 swatch）
+ * ColorSelector — 奢华纽扣式颜色选择器
  * ─────────────────────────────────────────────────────────────────
- * 使用 optionValues[].swatch：image 用图片背景，color 用 RGB/hex 背景。
- * 与 swatch.liquid / swatch-input.liquid 逻辑一致。
+ * 设计灵感：真实面料纽扣 + Loro Piana / Brunello Cucinelli 色卡
+ * 每个色块为圆形，带有内阴影模拟凹面质感，选中时外圈显示优雅环形。
+ * 底部显示颜色名称标签。
  */
 
+import { useId } from 'react';
 import { getSwatchBackground } from '@/utils/getSwatchBackground';
-import type { CSSProperties } from 'react';
 
 export interface OptionValueWithSwatch {
   name: string;
@@ -19,7 +20,6 @@ export interface OptionValueWithSwatch {
 }
 
 interface ColorSelectorProps {
-  /** 从 options 中提取的 Color 选项的 optionValues（含 swatch） */
   colorOptions: OptionValueWithSwatch[];
   selectedColor: string;
   onColorChange: (color: string) => void;
@@ -30,82 +30,115 @@ export default function ColorSelector({
   selectedColor,
   onColorChange,
 }: ColorSelectorProps) {
+  const scopeId = `cs${useId().replace(/:/g, '')}`;
+
   if (colorOptions.length === 0) return null;
 
+  const css = [
+    `#${scopeId}{margin-bottom:24px}`,
+    `#${scopeId} .cs-row{display:flex;gap:16px;flex-wrap:wrap}`,
+
+    /* Outer ring container */
+    `#${scopeId} .cs-item{`,
+    `  display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer`,
+    `}`,
+
+    /* Ring wrapper — provides the selection ring */
+    `#${scopeId} .cs-ring{`,
+    `  width:44px;height:44px;border-radius:50%;`,
+    `  display:flex;align-items:center;justify-content:center;`,
+    `  border:1.5px solid transparent;`,
+    `  transition:border-color 0.3s ease;`,
+    `  padding:3px`,
+    `}`,
+    `#${scopeId} .cs-ring.active{`,
+    `  border-color:#1a1a1a`,
+    `}`,
+
+    /* The swatch "button" itself */
+    `#${scopeId} .cs-swatch{`,
+    `  width:100%;height:100%;border-radius:50%;`,
+    `  background-size:cover;background-position:center;`,
+    `  box-shadow:inset 0 2px 4px rgba(0,0,0,0.12),0 1px 3px rgba(0,0,0,0.06);`,
+    `  border:0.5px solid rgba(0,0,0,0.08);`,
+    `  transition:transform 0.2s ease,box-shadow 0.2s ease`,
+    `}`,
+    `#${scopeId} .cs-item:hover .cs-swatch{`,
+    `  transform:scale(1.08);`,
+    `  box-shadow:inset 0 2px 4px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.1)`,
+    `}`,
+    `#${scopeId} .cs-ring.active .cs-swatch{`,
+    `  box-shadow:inset 0 2px 4px rgba(0,0,0,0.15),0 1px 3px rgba(0,0,0,0.08)`,
+    `}`,
+
+    /* Color label */
+    `#${scopeId} .cs-label{`,
+    `  font-family:var(--font-montserrat);font-weight:400;font-size:9px;`,
+    `  letter-spacing:0.06em;color:#aaa;text-transform:uppercase;`,
+    `  transition:color 0.2s ease;white-space:nowrap;max-width:52px;`,
+    `  overflow:hidden;text-overflow:ellipsis;text-align:center`,
+    `}`,
+    `#${scopeId} .cs-item:hover .cs-label{color:#888}`,
+    `#${scopeId} .cs-ring.active+.cs-label{color:#1a1a1a;font-weight:500}`,
+
+    /* Unavailable */
+    `#${scopeId} .cs-swatch.unavailable{`,
+    `  opacity:0.3;cursor:not-allowed`,
+    `}`,
+    `#${scopeId} .cs-unavailable-text{`,
+    `  font-size:8px;font-weight:500;color:#1a1a1a;text-transform:capitalize;`,
+    `  display:flex;align-items:center;justify-content:center;`,
+    `  width:100%;height:100%;padding:0 2px;text-align:center;line-height:1.1`,
+    `}`,
+  ].join('\n');
+
   return (
-    <div style={wrapperStyle}>
-      <div style={swatchRowStyle}>
+    <div id={scopeId}>
+      <style dangerouslySetInnerHTML={{ __html: css }} />
+      <div className="cs-row">
         {colorOptions.map((opt) => {
           const active =
             selectedColor.toLowerCase().trim() === opt.name.toLowerCase().trim();
           const background = getSwatchBackground(opt.swatch);
+          const available = !!background;
 
           return (
-            <button
+            <div
               key={opt.name}
-              type="button"
-              title={opt.name}
-              onClick={() => onColorChange(opt.name)}
-              style={
-                {
-                  ...swatchBtnStyle,
-                  '--swatch-background': background ?? 'transparent',
-                  outline: active ? '2px solid #1a1a1a' : '2px solid transparent',
-                  outlineOffset: 2,
-                  opacity: !background ? 0.4 : 1,
-                  cursor: !background ? 'not-allowed' : 'pointer',
-                } as CSSProperties & { '--swatch-background'?: string }
-              }
-              className={!background ? 'swatch-btn--unavailable' : ''}
+              className="cs-item"
+              onClick={() => available && onColorChange(opt.name)}
+              role="button"
+              tabIndex={0}
               aria-label={opt.name}
               aria-pressed={active}
-              disabled={!background}
+              onKeyDown={(e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && available) {
+                  e.preventDefault();
+                  onColorChange(opt.name);
+                }
+              }}
             >
-              {!background && (
-                <span style={fallbackTextStyle}>{opt.name.replace(/-/g, ' ')}</span>
-              )}
-            </button>
+              <div className={`cs-ring${active ? ' active' : ''}`}>
+                <div
+                  className={`cs-swatch${!available ? ' unavailable' : ''}`}
+                  style={
+                    available
+                      ? { background: background! }
+                      : { background: '#e8e8e8' }
+                  }
+                >
+                  {!available && (
+                    <span className="cs-unavailable-text">
+                      {opt.name.replace(/-/g, ' ')}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <span className="cs-label">{opt.name.replace(/-/g, ' ')}</span>
+            </div>
           );
         })}
       </div>
     </div>
   );
 }
-
-const wrapperStyle: CSSProperties = {
-  marginBottom: 24,
-};
-
-const swatchRowStyle: CSSProperties = {
-  display: 'flex',
-  gap: 10,
-  flexWrap: 'wrap',
-};
-
-const swatchBtnStyle: CSSProperties = {
-  width: 32,
-  height: 32,
-  padding: 0,
-  border: '1px solid rgba(0,0,0,0.15)',
-  borderRadius: '50%',
-  overflow: 'hidden',
-  background: 'var(--swatch-background)',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  transition: 'outline 0.2s ease',
-};
-
-const fallbackTextStyle: CSSProperties = {
-  fontSize: 9,
-  fontWeight: 500,
-  color: '#1a1a1a',
-  textTransform: 'capitalize',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '100%',
-  height: '100%',
-  padding: '0 2px',
-  textAlign: 'center',
-  lineHeight: 1.2,
-};

@@ -292,6 +292,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           .pdp-grid-${CSS.escape(scopeId)} {
             grid-template-columns: 1fr;
             gap: 24px;
+            overflow: visible;
+          }
+          .pdp-grid-${CSS.escape(scopeId)} > div:nth-child(2) {
+            padding: 0 20px;
           }
         }
       `}</style>

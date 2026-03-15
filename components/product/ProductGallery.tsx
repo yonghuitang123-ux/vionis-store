@@ -117,14 +117,14 @@ function MobileSwiper({
 
   if (images.length === 0) {
     return (
-      <div style={{ ...imageContainerStyle, width: '100vw' }}>
+      <div style={{ ...imageContainerStyle, width: '100%' }}>
         <div style={placeholderStyle} />
       </div>
     )
   }
 
   return (
-    <div style={{ position: 'relative', width: '100vw', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
       {/* Slides track */}
       <div
         style={{
