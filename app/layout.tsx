@@ -9,6 +9,8 @@ import NewsletterPopup from '@/components/NewsletterPopup';
 import ScrollToTop from '@/components/ScrollToTop';
 import { ToastProvider } from '@/components/Toast';
 import NProgress from '@/components/NProgress';
+import CookieConsent from '@/components/CookieConsent';
+import Analytics from '@/components/Analytics';
 
 const cormorant = Cormorant({
   variable: '--font-cormorant',
@@ -35,15 +37,24 @@ export const metadata: Metadata = {
   description:
     'Handcrafted luxury knitwear from the finest natural fibres. Premium cashmere and merino wool.',
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     title: 'VIONIS·XY — Rare Cashmere & Seamless Merino',
     description:
       'Handcrafted luxury knitwear from the finest natural fibres.',
     siteName: 'VIONIS·XY',
     type: 'website',
-    images: [{ url: '/logo1.png', width: 200, height: 70, alt: 'VIONIS·XY' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'VIONIS·XY — Rare Cashmere & Seamless Merino' }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VIONIS·XY — Rare Cashmere & Seamless Merino',
+    description: 'Handcrafted luxury knitwear from the finest natural fibres.',
+    images: ['/og-image.png'],
+  },
 };
 
 export default function RootLayout({
@@ -65,6 +76,8 @@ export default function RootLayout({
               <CartDrawer />
               <NewsletterPopup />
               <ScrollToTop />
+              <CookieConsent />
+              <Analytics />
             </WishlistProvider>
           </CartProvider>
         </ToastProvider>

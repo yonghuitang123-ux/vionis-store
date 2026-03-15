@@ -93,7 +93,6 @@ export async function POST(req: NextRequest) {
       { status: 201 },
     );
   } catch (err) {
-    console.error('Failed to create review:', err);
     return NextResponse.json(
       { error: 'Failed to create review' },
       { status: 500 },

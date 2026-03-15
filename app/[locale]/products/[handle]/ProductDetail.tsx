@@ -181,7 +181,7 @@ function Accordion({
 export default function ProductDetail({ product }: ProductDetailProps) {
   const scopeId = useId();
   const searchParams = useSearchParams();
-  const { addItem, loading: cartLoading, checkoutUrl } = useCart();
+  const { addItem, loading: cartLoading, localizedCheckoutUrl } = useCart();
 
   const variantIdFromUrl = searchParams.get('variant');
   const { reviews, loading: reviewsLoading } = useReviews(product.id);
@@ -263,10 +263,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   const handleBuyNow = useCallback(async () => {
     if (!selectedVariant?.id || !selectedVariant.availableForSale) return;
     await addItem(selectedVariant.id, quantity);
-    if (checkoutUrl) {
-      window.location.href = checkoutUrl;
+    if (localizedCheckoutUrl) {
+      window.location.href = localizedCheckoutUrl;
     }
-  }, [selectedVariant, quantity, addItem, checkoutUrl]);
+  }, [selectedVariant, quantity, addItem, localizedCheckoutUrl]);
 
   // ── 价格展示 ──────────────────────────────────────────────────────────────
   const displayPrice = selectedVariant?.priceV2 ?? product.priceRange.minVariantPrice;

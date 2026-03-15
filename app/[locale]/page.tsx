@@ -116,7 +116,7 @@ export default function Home() {
     // EditorialPanel 产品卡片仍从 Shopify API 获取
     getProducts()
       .then((data) => setProducts(data))
-      .catch((err) => console.error('Shopify product fetch failed:', err));
+      .catch(() => {});
   }, []);
 
   // 产品卡片（EditorialPanel 网格）

@@ -16,6 +16,7 @@ import {
   useReducer,
   type ReactNode,
 } from 'react';
+import { usePathname } from 'next/navigation';
 import {
   createCart,
   getCart,
@@ -124,6 +125,8 @@ interface CartContextValue extends CartState {
   openDrawer: () => void;
   closeDrawer: () => void;
   toggleDrawer: () => void;
+  /** checkoutUrl with ?locale= appended based on current route */
+  localizedCheckoutUrl: string | null;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -132,9 +135,38 @@ const CART_ID_KEY = 'vionis_cart_id';
 
 // ─── Provider ──────────────────────────────────────────────────────────────────
 
+// Shopify checkout 语言映射（Shopify 使用 ISO 639-1 + 地区）
+const SHOPIFY_LOCALE_MAP: Record<string, string> = {
+  en: 'en', fr: 'fr', de: 'de', ja: 'ja', it: 'it',
+  es: 'es', pt: 'pt', nl: 'nl', pl: 'pl', cs: 'cs',
+  da: 'da', fi: 'fi', no: 'nb', sv: 'sv',
+};
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const toast = useToast();
+  const pathname = usePathname();
+
+  // 从 URL 提取当前 locale (e.g. /fr/products/... → "fr")
+  const currentLocale = useMemo(() => {
+    const segments = pathname?.split('/').filter(Boolean) ?? [];
+    return segments[0] && SHOPIFY_LOCALE_MAP[segments[0]] ? segments[0] : 'en';
+  }, [pathname]);
+
+  // 给 checkoutUrl 附加 locale 参数
+  const localizedCheckoutUrl = useMemo(() => {
+    if (!state.checkoutUrl) return null;
+    try {
+      const url = new URL(state.checkoutUrl);
+      const shopifyLocale = SHOPIFY_LOCALE_MAP[currentLocale] ?? 'en';
+      if (shopifyLocale !== 'en') {
+        url.searchParams.set('locale', shopifyLocale);
+      }
+      return url.toString();
+    } catch {
+      return state.checkoutUrl;
+    }
+  }, [state.checkoutUrl, currentLocale]);
 
   // 初始化：从 localStorage 恢复购物车，或创建新购物车
   useEffect(() => {
@@ -156,7 +188,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         localStorage.setItem(CART_ID_KEY, cart.id);
         dispatch({ type: 'SET_CART', payload: cart });
       } catch (err) {
-        console.error('购物车初始化失败:', err);
+        /* silenced */
       }
     }
     init();
@@ -181,7 +213,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'TOGGLE_DRAWER', payload: true });
         toast.show('Added to cart');
       } catch (err) {
-        console.error('添加到购物车失败:', err);
+        /* silenced */
         dispatch({ type: 'SET_LOADING', payload: false });
       }
     },
@@ -196,7 +228,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const cart = await apiUpdateCartItem(state.cartId, lineId, quantity);
         dispatch({ type: 'SET_CART', payload: cart });
       } catch (err) {
-        console.error('更新购物车失败:', err);
+        /* silenced */
         dispatch({ type: 'SET_LOADING', payload: false });
       }
     },
@@ -211,7 +243,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const cart = await apiRemoveCartItem(state.cartId, lineId);
         dispatch({ type: 'SET_CART', payload: cart });
       } catch (err) {
-        console.error('删除购物车商品失败:', err);
+        /* silenced */
         dispatch({ type: 'SET_LOADING', payload: false });
       }
     },
@@ -240,8 +272,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       openDrawer,
       closeDrawer,
       toggleDrawer,
+      localizedCheckoutUrl,
     }),
-    [state, addItem, updateItem, removeItem, openDrawer, closeDrawer, toggleDrawer],
+    [state, addItem, updateItem, removeItem, openDrawer, closeDrawer, toggleDrawer, localizedCheckoutUrl],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

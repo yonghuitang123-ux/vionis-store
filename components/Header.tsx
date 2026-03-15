@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { siteConfig } from '@/config/site';
 import { useCart } from '@/lib/cart-context';
 import { useWishlist } from '@/lib/wishlist-context';
@@ -244,11 +245,12 @@ export default function Header() {
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/logo1.png"
               alt="VIONIS·XY"
-              style={{ background: 'transparent', height: '90px', width: 'auto' }}
+              width={160}
+              height={90}
+              priority
             />
           </Link>
         </div>

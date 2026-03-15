@@ -27,7 +27,7 @@ export default function CartDrawer() {
     closeDrawer,
     lines,
     subtotalAmount,
-    checkoutUrl,
+    localizedCheckoutUrl,
     loading,
     updateItem,
     removeItem,
@@ -361,7 +361,7 @@ export default function CartDrawer() {
 
             {/* 结算按钮 */}
             <a
-              href={checkoutUrl ?? '#'}
+              href={localizedCheckoutUrl ?? '#'}
               style={{
                 display: 'block', width: '100%', padding: '14px 0',
                 background: TEXT, color: '#fff',

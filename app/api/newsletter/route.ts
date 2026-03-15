@@ -77,7 +77,6 @@ export async function POST(request: Request) {
 
     // GraphQL 级别错误
     if (errors?.length) {
-      console.error('Shopify GraphQL errors:', errors);
       return NextResponse.json(
         { error: 'Subscription failed' },
         { status: 502 },
@@ -96,7 +95,6 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: true, alreadySubscribed: true });
       }
 
-      console.error('Shopify customerCreate errors:', userErrors);
       return NextResponse.json(
         { error: userErrors[0]?.message ?? 'Subscription failed' },
         { status: 400 },
@@ -105,7 +103,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error('Newsletter API error:', err);
     return NextResponse.json(
       { error: 'Subscription failed. Please try again.' },
       { status: 500 },

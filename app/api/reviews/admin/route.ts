@@ -66,7 +66,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(review, { status: 201 });
   } catch (err) {
-    console.error('Failed to create manual review:', err);
     return NextResponse.json(
       { error: 'Failed to create review' },
       { status: 500 },

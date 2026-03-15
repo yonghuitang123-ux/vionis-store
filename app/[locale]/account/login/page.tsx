@@ -7,13 +7,10 @@
  * 成功后将 access token 存入 cookie（30 天有效期），并跳转到 /account。
  */
 
-import { useState, type FormEvent, type CSSProperties } from 'react';
+import { Suspense, useState, type FormEvent, type CSSProperties } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { loginCustomer } from '@/lib/shopify';
-
-// ─── 元数据（需导出为独立的 generateMetadata，但 'use client' 不支持，
-//     所以在 layout 或通过 head 标签设置） ──────────────────────────────────────
 
 // ─── 样式常量 ──────────────────────────────────────────────────────────────────
 
@@ -122,9 +119,9 @@ function setCookie(name: string, value: string, days: number) {
   document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires};path=/;SameSite=Lax`;
 }
 
-// ─── 页面组件 ──────────────────────────────────────────────────────────────────
+// ─── 内部组件 ──────────────────────────────────────────────────────────────────
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -219,5 +216,15 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+// ─── 页面组件（Suspense 包裹） ─────────────────────────────────────────────────
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div style={pageStyle} />}>
+      <LoginContent />
+    </Suspense>
   );
 }

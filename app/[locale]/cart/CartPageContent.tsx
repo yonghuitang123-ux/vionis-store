@@ -234,7 +234,7 @@ export default function CartPageContent() {
   const {
     lines,
     subtotalAmount,
-    checkoutUrl,
+    localizedCheckoutUrl,
     loading,
     updateItem,
     removeItem,
@@ -399,9 +399,9 @@ export default function CartPageContent() {
             Shipping & taxes calculated at checkout
           </p>
 
-          {checkoutUrl && (
+          {localizedCheckoutUrl && (
             <a
-              href={checkoutUrl}
+              href={localizedCheckoutUrl}
               style={checkoutBtnStyle}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.backgroundColor = '#A05E46';
