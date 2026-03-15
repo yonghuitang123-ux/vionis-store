@@ -188,7 +188,7 @@ export default function AdminReviewsPage() {
     #${scopeId} .ar-card{border:1px solid rgba(0,0,0,0.08);padding:24px;margin-bottom:16px;background:#fff}
     #${scopeId} .ar-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
     #${scopeId} .ar-card-info{flex:1;min-width:200px}
-    #${scopeId} .ar-card-stars{color:#C4A882;font-size:16px;letter-spacing:2px}
+    #${scopeId} .ar-card-stars{color:#C8B69E;font-size:16px;letter-spacing:2px}
     #${scopeId} .ar-card-author{font-weight:500;font-size:13px;color:#1a1a1a;margin-top:4px}
     #${scopeId} .ar-card-email{font-size:11px;color:#888;margin-top:2px}
     #${scopeId} .ar-card-country{font-size:12px;color:#888;margin-top:2px}
@@ -198,7 +198,7 @@ export default function AdminReviewsPage() {
     #${scopeId} .ar-card-date{font-size:11px;color:#bbb;margin-top:8px}
     #${scopeId} .ar-card-images{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
     #${scopeId} .ar-card-images img{width:64px;height:64px;object-fit:cover;border-radius:2px;cursor:pointer;border:1px solid rgba(0,0,0,0.06)}
-    #${scopeId} .ar-card-verified{display:inline-block;font-size:10px;font-weight:500;letter-spacing:0.1em;color:#C4A882;text-transform:uppercase;margin-top:8px}
+    #${scopeId} .ar-card-verified{display:inline-block;font-size:10px;font-weight:500;letter-spacing:0.1em;color:#C8B69E;text-transform:uppercase;margin-top:8px}
 
     /* Actions */
     #${scopeId} .ar-actions{display:flex;gap:8px;flex-shrink:0;align-items:flex-start}

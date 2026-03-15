@@ -9,8 +9,8 @@
 
 import { type CSSProperties } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useCart } from '@/lib/cart-context';
+import PlaceholderImage from '@/components/PlaceholderImage';
 
 // ─── 货币格式化 ──────────────────────────────────────────────────────────────
 
@@ -281,14 +281,32 @@ export default function CartPageContent() {
             <div key={line.id} className="cart-line-item" style={lineItemStyle}>
               {/* 商品图片 */}
               <div style={imageCellStyle}>
-                {line.image?.url && (
-                  <Image
+                {line.image?.url ? (
+                  <PlaceholderImage
                     src={line.image.url}
                     alt={line.image.altText || line.title}
                     fill
                     sizes="80px"
                     style={{ objectFit: 'cover' }}
                   />
+                ) : (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      backgroundColor: '#E8DFD6',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/logo1.png"
+                      alt=""
+                      style={{ width: 40, height: 'auto', opacity: 0.25 }}
+                    />
+                  </div>
                 )}
               </div>
 

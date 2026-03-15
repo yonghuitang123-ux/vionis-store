@@ -72,7 +72,7 @@ export default function ReviewSummary({
     `  flex:1;height:2px;background:rgba(0,0,0,0.08);border-radius:1px;overflow:hidden`,
     `}`,
     `#${scopeId} .rs-bar-fill{`,
-    `  height:100%;background:#C4A882;border-radius:1px;`,
+    `  height:100%;background:#C8B69E;border-radius:1px;`,
     `  transition:width 0.6s ease`,
     `}`,
     `#${scopeId} .rs-bar-pct{`,

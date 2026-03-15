@@ -8,7 +8,7 @@
  */
 
 import { useCart } from '@/lib/cart-context';
-import Image from 'next/image';
+import PlaceholderImage from '@/components/PlaceholderImage';
 import { useCallback, useEffect, useId, useState } from 'react';
 
 // ─── 品牌设计 Token ──────────────────────────────────────────────────────────
@@ -209,14 +209,32 @@ export default function CartDrawer() {
                   position: 'relative', overflow: 'hidden',
                   background: BG_PAGE,
                 }}>
-                  {line.image?.url && (
-                    <Image
+                  {line.image?.url ? (
+                    <PlaceholderImage
                       src={line.image.url}
                       alt={line.image.altText ?? line.title}
                       fill
                       sizes="86px"
                       style={{ objectFit: 'cover' }}
                     />
+                  ) : (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        backgroundColor: BG_PAGE,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/logo1.png"
+                        alt=""
+                        style={{ width: 36, height: 'auto', opacity: 0.25 }}
+                      />
+                    </div>
                   )}
                 </div>
 

@@ -448,6 +448,13 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             onClick={() => setSizeGuideOpen(true)}
             style={sizeGuideBtnStyle}
           >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ marginRight: 5, verticalAlign: -1 }}>
+              <rect x="1" y="6" width="22" height="12" rx="1" />
+              <line x1="6" y1="6" x2="6" y2="12" />
+              <line x1="10" y1="6" x2="10" y2="10" />
+              <line x1="14" y1="6" x2="14" y2="12" />
+              <line x1="18" y1="6" x2="18" y2="10" />
+            </svg>
             <span style={{ borderBottom: '1px solid currentColor' }}>Size Guide</span>
           </button>
 
@@ -482,20 +489,11 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             type="button"
             onClick={handleAddToBag}
             disabled={!isAvailable || cartLoading}
+            className="pdp-atb-btn"
             style={{
               ...addToBagStyle,
               opacity: !isAvailable || cartLoading ? 0.5 : 1,
               cursor: !isAvailable ? 'not-allowed' : 'pointer',
-            }}
-            onMouseEnter={(e) => {
-              if (isAvailable && !cartLoading) {
-                e.currentTarget.style.backgroundColor = '#1a1a1a';
-                e.currentTarget.style.color = '#fff';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.color = '#1a1a1a';
             }}
           >
             {cartLoading ? 'ADDING…' : !isAvailable ? 'SOLD OUT' : 'ADD TO BAG'}
@@ -506,6 +504,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             type="button"
             onClick={handleBuyNow}
             disabled={!isAvailable || cartLoading}
+            className="pdp-buy-btn"
             style={{
               ...buyNowStyle,
               opacity: !isAvailable || cartLoading ? 0.5 : 1,
@@ -610,6 +609,15 @@ export default function ProductDetail({ product }: ProductDetailProps) {
       </div>
 
       <style>{`
+        .pdp-atb-btn:hover:not(:disabled){
+          background:#A89880!important;
+          border-color:#A89880!important;
+          color:#fff!important;
+        }
+        .pdp-buy-btn:hover:not(:disabled){
+          background:#A89880!important;
+          border-color:#A89880!important;
+        }
         .pdp-mobile-bar{display:none}
         @media(max-width:768px){
           .pdp-mobile-bar{
@@ -734,20 +742,24 @@ const sizeGuideBtnStyle: CSSProperties = {
   fontSize: 11,
   fontWeight: 400,
   letterSpacing: '0.06em',
-  color: '#888',
+  color: '#999',
   background: 'none',
   border: 'none',
   padding: 0,
   cursor: 'pointer',
   marginBottom: 28,
-  display: 'inline-block',
+  display: 'inline-flex',
+  alignItems: 'center',
+  transition: 'color 0.2s ease',
 };
 
 const quantityRowStyle: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginBottom: 20,
+  marginBottom: 24,
+  paddingBottom: 24,
+  borderBottom: '1px solid rgba(0,0,0,0.06)',
 };
 
 const quantityLabelStyle: CSSProperties = {
@@ -762,12 +774,12 @@ const quantityLabelStyle: CSSProperties = {
 const quantityControlStyle: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
-  border: '1px solid rgba(0,0,0,0.15)',
+  border: '1px solid rgba(0,0,0,0.12)',
 };
 
 const quantityBtnStyle: CSSProperties = {
-  width: 40,
-  height: 40,
+  width: 42,
+  height: 42,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -776,28 +788,30 @@ const quantityBtnStyle: CSSProperties = {
   cursor: 'pointer',
   fontFamily: 'var(--font-montserrat)',
   fontSize: 16,
+  fontWeight: 300,
   color: '#1a1a1a',
+  transition: 'background 0.2s ease',
 };
 
 const quantityValueStyle: CSSProperties = {
-  width: 44,
+  width: 48,
   textAlign: 'center',
   fontFamily: 'var(--font-montserrat)',
   fontSize: 13,
   fontWeight: 500,
   color: '#1a1a1a',
-  borderLeft: '1px solid rgba(0,0,0,0.1)',
-  borderRight: '1px solid rgba(0,0,0,0.1)',
-  lineHeight: '40px',
+  borderLeft: '1px solid rgba(0,0,0,0.08)',
+  borderRight: '1px solid rgba(0,0,0,0.08)',
+  lineHeight: '42px',
 };
 
 const addToBagStyle: CSSProperties = {
   width: '100%',
-  padding: '16px 0',
+  padding: '17px 0',
   fontFamily: 'var(--font-montserrat)',
   fontSize: 12,
   fontWeight: 500,
-  letterSpacing: '0.16em',
+  letterSpacing: '0.18em',
   textTransform: 'uppercase',
   color: '#1a1a1a',
   backgroundColor: 'transparent',
@@ -808,18 +822,18 @@ const addToBagStyle: CSSProperties = {
 
 const buyNowStyle: CSSProperties = {
   width: '100%',
-  marginTop: 10,
-  padding: '16px 0',
+  marginTop: 12,
+  padding: '17px 0',
   fontFamily: 'var(--font-montserrat)',
   fontSize: 12,
   fontWeight: 500,
-  letterSpacing: '0.16em',
+  letterSpacing: '0.18em',
   textTransform: 'uppercase',
   color: '#fff',
-  backgroundColor: '#1a1a1a',
-  border: '1.5px solid #1a1a1a',
+  backgroundColor: '#C8B69E',
+  border: '1.5px solid #C8B69E',
   cursor: 'pointer',
-  transition: 'opacity 0.3s ease',
+  transition: 'all 0.3s ease',
 };
 
 const metafieldHtmlStyle: CSSProperties = {

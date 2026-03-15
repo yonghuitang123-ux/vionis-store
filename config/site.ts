@@ -313,7 +313,7 @@ export const siteConfig = {
       { 文字: 'Cashmere',           链接: '/collections/cashmere'                       },
       { 文字: 'Merino Wool',        链接: '/collections/merino'                         },
       { 文字: 'New Arrivals',       链接: '/collections/new-arrivals'                   },
-      { 文字: 'Spring/Summer 2026', 链接: '/', 颜色: '#8B6F5E' },
+      { 文字: 'Spring/Summer 2026', 链接: '/', 颜色: '#C8B69E' },
       { 文字: 'Our Story',          链接: '/pages/our-story'                            },
       { 文字: 'Craftsmanship',      链接: '/pages/craftsmanship'                        },
       { 文字: 'Journal',            链接: '/blog'                                       },

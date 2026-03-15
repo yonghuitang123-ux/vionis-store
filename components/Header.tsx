@@ -142,11 +142,12 @@ export default function Header() {
 
   return (
     <>
-      {/* 菜单下划线动画 */}
+      {/* 菜单下划线动画 + 响应式导航 */}
       <style>{`
         .hdr-link {
           position: relative;
           display: inline-block;
+          white-space: nowrap;
         }
         .hdr-link::after {
           content: '';
@@ -159,6 +160,26 @@ export default function Header() {
           transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .hdr-link:hover::after { width: 100%; }
+        .hdr-nav-center {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 36px;
+          padding: 0 140px;
+          min-width: 0;
+        }
+        @media (max-width: 1280px) {
+          .hdr-nav-center { gap: 24px; padding: 0 120px; }
+        }
+        @media (max-width: 1100px) {
+          .hdr-nav-center { gap: 16px; padding: 0 100px; }
+          .hdr-link { font-size: 10px !important; letter-spacing: 0.1em !important; }
+        }
+        @media (max-width: 960px) {
+          .hdr-nav-center { gap: 12px; padding: 0 90px; }
+          .hdr-link { font-size: 9px !important; letter-spacing: 0.08em !important; }
+        }
       `}</style>
 
       {/* ── 固定 header（整体 translateY 收起/展开） ── */}
@@ -184,7 +205,7 @@ export default function Header() {
         >
           <div
             className="flex items-center justify-center relative px-10"
-            style={{ height: 44, borderBottom: '1px solid #A05E46' }}
+            style={{ height: 44, borderBottom: '1px solid #C8B69E' }}
           >
             <span
               style={{
@@ -253,10 +274,7 @@ export default function Header() {
             </div>
 
             {/* 中：导航链接（严格居中） */}
-            <nav
-              className="flex items-center"
-              style={{ flex: 1, justifyContent: 'center', display: 'flex', gap: 40 }}
-            >
+            <nav className="hdr-nav-center">
               {nav.菜单.map((item) => (
                 <Link
                   key={item.链接 + item.文字}
@@ -292,7 +310,7 @@ export default function Header() {
                 {wishlistCount > 0 && (
                   <span
                     className="absolute -top-1.5 -right-2 min-w-[15px] h-[15px] rounded-full text-[9px] font-medium flex items-center justify-center px-0.5"
-                    style={{ backgroundColor: '#C4A882', color: '#fff' }}
+                    style={{ backgroundColor: '#C8B69E', color: '#fff' }}
                   >
                     {wishlistCount}
                   </span>

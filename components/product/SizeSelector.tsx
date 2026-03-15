@@ -1,10 +1,13 @@
 'use client';
 
 /**
- * SizeSelector — 尺码选择器
+ * SizeSelector — 尺码选择器（品牌化设计）
+ * ─────────────────────────────────────────────────────────────────
+ * 参考 Loro Piana / Brunello Cucinelli 风格：
+ * 柔和边框、品牌色选中态、优雅过渡
  */
 
-import type { CSSProperties } from 'react';
+import { useId } from 'react';
 
 interface SizeSelectorProps {
   sizes: string[];
@@ -20,11 +23,57 @@ export default function SizeSelector({
   onSizeChange,
   isOutOfStock = () => false,
 }: SizeSelectorProps) {
+  const scopeId = `ss${useId().replace(/:/g, '')}`;
+
   if (sizes.length === 0) return null;
 
+  const css = `
+    #${scopeId} { margin-bottom: 24px; }
+    #${scopeId} .ss-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    #${scopeId} .ss-btn {
+      min-width: 52px;
+      height: 44px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-montserrat);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: transparent;
+      color: #1a1a1a;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    #${scopeId} .ss-btn:hover:not(.ss-active):not(.ss-oos) {
+      border-color: #C8B69E;
+      color: #C8B69E;
+    }
+    #${scopeId} .ss-btn.ss-active {
+      background: #C8B69E;
+      border-color: #C8B69E;
+      color: #fff;
+      font-weight: 500;
+    }
+    #${scopeId} .ss-btn.ss-oos {
+      border-color: rgba(0,0,0,0.06);
+      background: rgba(0,0,0,0.02);
+      color: #bbb;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+  `;
+
   return (
-    <div style={wrapperStyle}>
-      <div style={buttonRowStyle}>
+    <div id={scopeId}>
+      <style dangerouslySetInnerHTML={{ __html: css }} />
+      <div className="ss-row">
         {sizes.map((val) => {
           const active = selectedSize === val;
           const outOfStock = isOutOfStock(val);
@@ -33,21 +82,9 @@ export default function SizeSelector({
             <button
               key={val}
               type="button"
+              className={`ss-btn${active ? ' ss-active' : ''}${outOfStock ? ' ss-oos' : ''}`}
               onClick={() => !outOfStock && onSizeChange(val)}
               disabled={!!outOfStock}
-              style={{
-                ...buttonStyle,
-                border: outOfStock
-                  ? '1px solid #ddd'
-                  : active
-                    ? '1.5px solid #1a1a1a'
-                    : '1px solid rgba(0,0,0,0.15)',
-                backgroundColor: outOfStock ? '#e8e8e8' : active ? '#1a1a1a' : 'transparent',
-                color: outOfStock ? '#999' : active ? '#fff' : '#1a1a1a',
-                cursor: outOfStock ? 'not-allowed' : 'pointer',
-                textDecoration: outOfStock ? 'line-through' : 'none',
-                opacity: outOfStock ? 0.7 : 1,
-              }}
               aria-label={val}
               aria-pressed={active}
               aria-disabled={outOfStock}
@@ -60,23 +97,3 @@ export default function SizeSelector({
     </div>
   );
 }
-
-const wrapperStyle: CSSProperties = {
-  marginBottom: 24,
-};
-
-const buttonRowStyle: CSSProperties = {
-  display: 'flex',
-  gap: 8,
-  flexWrap: 'wrap',
-};
-
-const buttonStyle: CSSProperties = {
-  minWidth: 48,
-  padding: '10px 16px',
-  fontFamily: 'var(--font-montserrat)',
-  fontSize: 12,
-  fontWeight: 400,
-  letterSpacing: '0.04em',
-  transition: 'all 0.2s ease',
-};

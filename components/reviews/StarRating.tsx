@@ -12,8 +12,8 @@ export interface StarRatingProps {
 }
 
 const SIZE_MAP = { small: 14, medium: 18, large: 24 } as const;
-const FILLED = '#C4A882';
-const EMPTY = 'rgba(196,168,130,0.25)';
+const FILLED = '#C8B69E';
+const EMPTY = 'rgba(200,182,158,0.25)';
 
 // ─── Single Star SVG ─────────────────────────────────────────────────────────
 

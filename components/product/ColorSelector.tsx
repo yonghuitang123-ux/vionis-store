@@ -1,11 +1,10 @@
 'use client';
 
 /**
- * ColorSelector — 奢华纽扣式颜色选择器
+ * ColorSelector — 纯色纽扣式颜色选择器
  * ─────────────────────────────────────────────────────────────────
- * 设计灵感：真实面料纽扣 + Loro Piana / Brunello Cucinelli 色卡
- * 每个色块为圆形，带有内阴影模拟凹面质感，选中时外圈显示优雅环形。
- * 底部显示颜色名称标签。
+ * 每个色块为纯色圆形，选中时外圈显示品牌金色环。
+ * 不使用 Shopify swatch image，只用纯色值。
  */
 
 import { useId } from 'react';
@@ -34,63 +33,44 @@ export default function ColorSelector({
 
   if (colorOptions.length === 0) return null;
 
-  const css = [
-    `#${scopeId}{margin-bottom:24px}`,
-    `#${scopeId} .cs-row{display:flex;gap:16px;flex-wrap:wrap}`,
-
-    /* Outer ring container */
-    `#${scopeId} .cs-item{`,
-    `  display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer`,
-    `}`,
-
-    /* Ring wrapper — provides the selection ring */
-    `#${scopeId} .cs-ring{`,
-    `  width:44px;height:44px;border-radius:50%;`,
-    `  display:flex;align-items:center;justify-content:center;`,
-    `  border:1.5px solid transparent;`,
-    `  transition:border-color 0.3s ease;`,
-    `  padding:3px`,
-    `}`,
-    `#${scopeId} .cs-ring.active{`,
-    `  border-color:#1a1a1a`,
-    `}`,
-
-    /* The swatch "button" itself */
-    `#${scopeId} .cs-swatch{`,
-    `  width:100%;height:100%;border-radius:50%;`,
-    `  background-size:cover;background-position:center;`,
-    `  box-shadow:inset 0 2px 4px rgba(0,0,0,0.12),0 1px 3px rgba(0,0,0,0.06);`,
-    `  border:0.5px solid rgba(0,0,0,0.08);`,
-    `  transition:transform 0.2s ease,box-shadow 0.2s ease`,
-    `}`,
-    `#${scopeId} .cs-item:hover .cs-swatch{`,
-    `  transform:scale(1.08);`,
-    `  box-shadow:inset 0 2px 4px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.1)`,
-    `}`,
-    `#${scopeId} .cs-ring.active .cs-swatch{`,
-    `  box-shadow:inset 0 2px 4px rgba(0,0,0,0.15),0 1px 3px rgba(0,0,0,0.08)`,
-    `}`,
-
-    /* Color label */
-    `#${scopeId} .cs-label{`,
-    `  font-family:var(--font-montserrat);font-weight:400;font-size:9px;`,
-    `  letter-spacing:0.06em;color:#aaa;text-transform:uppercase;`,
-    `  transition:color 0.2s ease;white-space:nowrap;max-width:52px;`,
-    `  overflow:hidden;text-overflow:ellipsis;text-align:center`,
-    `}`,
-    `#${scopeId} .cs-item:hover .cs-label{color:#888}`,
-    `#${scopeId} .cs-ring.active+.cs-label{color:#1a1a1a;font-weight:500}`,
-
-    /* Unavailable */
-    `#${scopeId} .cs-swatch.unavailable{`,
-    `  opacity:0.3;cursor:not-allowed`,
-    `}`,
-    `#${scopeId} .cs-unavailable-text{`,
-    `  font-size:8px;font-weight:500;color:#1a1a1a;text-transform:capitalize;`,
-    `  display:flex;align-items:center;justify-content:center;`,
-    `  width:100%;height:100%;padding:0 2px;text-align:center;line-height:1.1`,
-    `}`,
-  ].join('\n');
+  const css = `
+    #${scopeId}{margin-bottom:24px}
+    #${scopeId} .cs-row{display:flex;gap:16px;flex-wrap:wrap}
+    #${scopeId} .cs-item{
+      display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer
+    }
+    #${scopeId} .cs-ring{
+      width:48px;height:48px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      border:2px solid transparent;
+      transition:border-color 0.3s ease;
+      padding:3px
+    }
+    #${scopeId} .cs-ring.active{
+      border-color:#C8B69E
+    }
+    #${scopeId} .cs-swatch{
+      width:100%;height:100%;border-radius:50%;
+      box-shadow:inset 0 1px 3px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.05);
+      border:1px solid rgba(0,0,0,0.1);
+      transition:transform 0.2s ease,box-shadow 0.2s ease
+    }
+    #${scopeId} .cs-item:hover .cs-swatch{
+      transform:scale(1.08);
+      box-shadow:inset 0 2px 4px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.1)
+    }
+    #${scopeId} .cs-ring.active .cs-swatch{
+      box-shadow:inset 0 2px 4px rgba(0,0,0,0.15),0 1px 3px rgba(0,0,0,0.08)
+    }
+    #${scopeId} .cs-label{
+      font-family:var(--font-montserrat);font-weight:400;font-size:9px;
+      letter-spacing:0.06em;color:#aaa;text-transform:uppercase;
+      transition:color 0.2s ease;white-space:nowrap;max-width:56px;
+      overflow:hidden;text-overflow:ellipsis;text-align:center
+    }
+    #${scopeId} .cs-item:hover .cs-label{color:#888}
+    #${scopeId} .cs-ring.active+.cs-label{color:#1a1a1a;font-weight:500}
+  `;
 
   return (
     <div id={scopeId}>
@@ -99,20 +79,19 @@ export default function ColorSelector({
         {colorOptions.map((opt) => {
           const active =
             selectedColor.toLowerCase().trim() === opt.name.toLowerCase().trim();
-          const background = getSwatchBackground(opt.swatch);
-          const available = !!background;
+          const bg = getSwatchBackground(opt.swatch, opt.name);
 
           return (
             <div
               key={opt.name}
               className="cs-item"
-              onClick={() => available && onColorChange(opt.name)}
+              onClick={() => onColorChange(opt.name)}
               role="button"
               tabIndex={0}
               aria-label={opt.name}
               aria-pressed={active}
               onKeyDown={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && available) {
+                if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   onColorChange(opt.name);
                 }
@@ -120,19 +99,9 @@ export default function ColorSelector({
             >
               <div className={`cs-ring${active ? ' active' : ''}`}>
                 <div
-                  className={`cs-swatch${!available ? ' unavailable' : ''}`}
-                  style={
-                    available
-                      ? { background: background! }
-                      : { background: '#e8e8e8' }
-                  }
-                >
-                  {!available && (
-                    <span className="cs-unavailable-text">
-                      {opt.name.replace(/-/g, ' ')}
-                    </span>
-                  )}
-                </div>
+                  className="cs-swatch"
+                  style={{ backgroundColor: bg ?? '#b0a99f' }}
+                />
               </div>
               <span className="cs-label">{opt.name.replace(/-/g, ' ')}</span>
             </div>

@@ -111,14 +111,14 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
               right: 0,
               marginTop: 8,
               background: '#FAF8F4',
-              border: '1px solid rgba(196,168,130,0.2)',
+              border: '1px solid rgba(200,182,158,0.2)',
               boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
               zIndex: 9999,
               minWidth: 280,
             }}
           >
             {/* Tabs */}
-            <div style={{ display: 'flex', borderBottom: '1px solid rgba(196,168,130,0.15)' }}>
+            <div style={{ display: 'flex', borderBottom: '1px solid rgba(200,182,158,0.15)' }}>
               {(['language', 'currency'] as const).map((t) => (
                 <button
                   key={t}
@@ -134,7 +134,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                     letterSpacing: '0.14em',
                     textTransform: 'uppercase',
                     color: tab === t ? '#1a1a1a' : '#999',
-                    borderBottom: tab === t ? '1px solid #C4A882' : '1px solid transparent',
+                    borderBottom: tab === t ? '1px solid #C8B69E' : '1px solid transparent',
                     marginBottom: -1,
                   }}
                 >
@@ -156,7 +156,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                         gap: 10,
                         width: '100%',
                         padding: '10px 16px',
-                        background: l === locale ? 'rgba(196,168,130,0.1)' : 'transparent',
+                        background: l === locale ? 'rgba(200,182,158,0.1)' : 'transparent',
                         border: 'none',
                         cursor: 'pointer',
                         fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
@@ -179,7 +179,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                       </span>
                       <span style={{ flex: 1 }}>{localeNames[l]}</span>
                       {l === locale && (
-                        <span style={{ color: '#C4A882', fontSize: 14 }}>✓</span>
+                        <span style={{ color: '#C8B69E', fontSize: 14 }}>✓</span>
                       )}
                     </button>
                   ))
@@ -195,7 +195,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                         padding: '10px 16px',
                         background:
                           c.code === currentCurrency
-                            ? 'rgba(196,168,130,0.1)'
+                            ? 'rgba(200,182,158,0.1)'
                             : 'transparent',
                         border: 'none',
                         cursor: 'pointer',
@@ -209,7 +209,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                       <span style={{ flex: 1 }}>{c.name}</span>
                       <span style={{ color: '#999', fontSize: 11 }}>{c.code}</span>
                       {c.code === currentCurrency && (
-                        <span style={{ color: '#C4A882', fontSize: 14 }}>✓</span>
+                        <span style={{ color: '#C8B69E', fontSize: 14 }}>✓</span>
                       )}
                     </button>
                   ))}
@@ -252,14 +252,14 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
             left: 0,
             marginBottom: 8,
             background: '#FAF8F4',
-            border: '1px solid rgba(196,168,130,0.2)',
+            border: '1px solid rgba(200,182,158,0.2)',
             boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
             zIndex: 9999,
             minWidth: 280,
             color: '#1a1a1a',
           }}
         >
-          <div style={{ display: 'flex', borderBottom: '1px solid rgba(196,168,130,0.15)' }}>
+          <div style={{ display: 'flex', borderBottom: '1px solid rgba(200,182,158,0.15)' }}>
             {(['language', 'currency'] as const).map((t) => (
               <button
                 key={t}
@@ -275,7 +275,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
                   color: tab === t ? '#1a1a1a' : '#999',
-                  borderBottom: tab === t ? '1px solid #C4A882' : '1px solid transparent',
+                  borderBottom: tab === t ? '1px solid #C8B69E' : '1px solid transparent',
                   marginBottom: -1,
                 }}
               >
@@ -296,7 +296,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                       gap: 10,
                       width: '100%',
                       padding: '10px 16px',
-                      background: l === locale ? 'rgba(196,168,130,0.1)' : 'transparent',
+                      background: l === locale ? 'rgba(200,182,158,0.1)' : 'transparent',
                       border: 'none',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
@@ -318,7 +318,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                       {l}
                     </span>
                     <span style={{ flex: 1 }}>{localeNames[l]}</span>
-                    {l === locale && <span style={{ color: '#C4A882', fontSize: 14 }}>✓</span>}
+                    {l === locale && <span style={{ color: '#C8B69E', fontSize: 14 }}>✓</span>}
                   </button>
                 ))
               : currencies.map((c) => (
@@ -332,7 +332,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                       width: '100%',
                       padding: '10px 16px',
                       background:
-                        c.code === currentCurrency ? 'rgba(196,168,130,0.1)' : 'transparent',
+                        c.code === currentCurrency ? 'rgba(200,182,158,0.1)' : 'transparent',
                       border: 'none',
                       cursor: 'pointer',
                       fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
@@ -345,7 +345,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                     <span style={{ flex: 1 }}>{c.name}</span>
                     <span style={{ color: '#999', fontSize: 11 }}>{c.code}</span>
                     {c.code === currentCurrency && (
-                      <span style={{ color: '#C4A882', fontSize: 14 }}>✓</span>
+                      <span style={{ color: '#C8B69E', fontSize: 14 }}>✓</span>
                     )}
                   </button>
                 ))}

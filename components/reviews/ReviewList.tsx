@@ -180,7 +180,7 @@ export default function ReviewList({
     `}`,
     `#${scopeId} .rl-verified{`,
     `  font-family:var(--font-montserrat);font-weight:500;font-size:10px;`,
-    `  letter-spacing:0.12em;color:#C4A882;text-transform:uppercase`,
+    `  letter-spacing:0.12em;color:#C8B69E;text-transform:uppercase`,
     `}`,
     `#${scopeId} .rl-date{`,
     `  font-family:var(--font-montserrat);font-weight:300;font-size:11px;color:#bbb`,

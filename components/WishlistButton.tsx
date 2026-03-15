@@ -4,7 +4,7 @@
  * 收藏按钮 — 产品卡片 / 产品详情页用
  * ─────────────────────────────────────────────────────────────────
  * 小爱心图标，点击切换收藏状态
- * 已收藏时填充 #C4A882，未收藏时空心
+ * 已收藏时填充 #C8B69E，未收藏时空心
  */
 
 import { useWishlist, type WishlistItem } from '@/lib/wishlist-context';
@@ -68,8 +68,8 @@ export default function WishlistButton({
           width={size}
           height={size}
           viewBox="0 0 24 24"
-          fill={active ? '#C4A882' : 'none'}
-          stroke={active ? '#C4A882' : '#1a1a1a'}
+          fill={active ? '#C8B69E' : 'none'}
+          stroke={active ? '#C8B69E' : '#1a1a1a'}
           strokeWidth="1.4"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -106,8 +106,8 @@ export default function WishlistButton({
         width={size}
         height={size}
         viewBox="0 0 24 24"
-        fill={active ? '#C4A882' : 'none'}
-        stroke={active ? '#C4A882' : 'currentColor'}
+        fill={active ? '#C8B69E' : 'none'}
+        stroke={active ? '#C8B69E' : 'currentColor'}
         strokeWidth="1.4"
         strokeLinecap="round"
         strokeLinejoin="round"
