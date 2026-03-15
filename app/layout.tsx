@@ -3,6 +3,7 @@ import { Cormorant, Cormorant_Garamond, Montserrat } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import { CartProvider } from '@/lib/cart-context';
+import { WishlistProvider } from '@/lib/wishlist-context';
 import CartDrawer from '@/components/CartDrawer';
 import NewsletterPopup from '@/components/NewsletterPopup';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -57,12 +58,14 @@ export default function RootLayout({
       >
         <ToastProvider>
           <CartProvider>
-            <NProgress />
-            <Header />
-            <div style={{ paddingTop: 180 }}>{children}</div>
-            <CartDrawer />
-            <NewsletterPopup />
-            <ScrollToTop />
+            <WishlistProvider>
+              <NProgress />
+              <Header />
+              <div style={{ paddingTop: 200 }}>{children}</div>
+              <CartDrawer />
+              <NewsletterPopup />
+              <ScrollToTop />
+            </WishlistProvider>
           </CartProvider>
         </ToastProvider>
       </body>

@@ -15,6 +15,7 @@
 import Link from 'next/link';
 import { type CSSProperties } from 'react';
 import PlaceholderImage from '@/components/PlaceholderImage';
+import WishlistButton from '@/components/WishlistButton';
 
 // ─── 类型定义 ────────────────────────────────────────────────────────────────
 
@@ -121,45 +122,63 @@ export default function ProductCard({ product, className, priority = false }: Pr
     parseFloat(compareAt.amount) > parseFloat(price.amount);
 
   return (
-    <Link href={`/products/${handle}`} style={cardStyle} className={className}>
-      {/* 图片容器 — 4:5 比例 */}
-      <div
-        style={imageWrapperStyle}
-        onMouseEnter={(e) => {
-          const img = e.currentTarget.querySelector('img');
-          if (img) img.style.transform = 'scale(1.04)';
-        }}
-        onMouseLeave={(e) => {
-          const img = e.currentTarget.querySelector('img');
-          if (img) img.style.transform = 'scale(1)';
-        }}
-      >
-        {imgSrc && (
-          <PlaceholderImage
-            src={imgSrc}
-            alt={imgAlt}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            style={imageStyle}
-            priority={priority}
-          />
-        )}
-      </div>
+    <div style={{ position: 'relative' }} className={className}>
+      <Link href={`/products/${handle}`} style={cardStyle}>
+        {/* 图片容器 — 4:5 比例 */}
+        <div
+          style={imageWrapperStyle}
+          onMouseEnter={(e) => {
+            const img = e.currentTarget.querySelector('img');
+            if (img) img.style.transform = 'scale(1.04)';
+          }}
+          onMouseLeave={(e) => {
+            const img = e.currentTarget.querySelector('img');
+            if (img) img.style.transform = 'scale(1)';
+          }}
+        >
+          {imgSrc && (
+            <PlaceholderImage
+              src={imgSrc}
+              alt={imgAlt}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              style={imageStyle}
+              priority={priority}
+            />
+          )}
+        </div>
 
-      {/* 产品标题 */}
-      <p style={titleStyle}>{title}</p>
+        {/* 产品标题 */}
+        <p style={titleStyle}>{title}</p>
 
-      {/* 价格行 */}
-      <div style={priceWrapperStyle}>
-        {hasDiscount ? (
-          <>
-            <span style={salePriceStyle}>{formatMoney(price)}</span>
-            <span style={compareAtStyle}>{formatMoney(compareAt)}</span>
-          </>
-        ) : (
-          <span>{formatMoney(price)}</span>
-        )}
-      </div>
-    </Link>
+        {/* 价格行 */}
+        <div style={priceWrapperStyle}>
+          {hasDiscount ? (
+            <>
+              <span style={salePriceStyle}>{formatMoney(price)}</span>
+              <span style={compareAtStyle}>{formatMoney(compareAt)}</span>
+            </>
+          ) : (
+            <span>{formatMoney(price)}</span>
+          )}
+        </div>
+      </Link>
+
+      {/* 收藏按钮（浮在图片右上角） */}
+      <WishlistButton
+        product={{
+          productId: `gid://shopify/Product/${handle}`,
+          handle,
+          title,
+          price: price.amount,
+          currencyCode: price.currencyCode,
+          compareAtPrice: compareAt?.amount,
+          image: imgSrc,
+          imageAlt: imgAlt,
+        }}
+        variant="floating"
+        size={16}
+      />
+    </div>
   );
 }

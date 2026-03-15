@@ -23,6 +23,7 @@ import ReviewList from '@/components/reviews/ReviewList';
 import SizeSelector from '@/components/product/SizeSelector';
 import { getAvailableColors } from '@/utils/getAvailableColors';
 import { useReviews } from '@/hooks/useReviews';
+import WishlistButton from '@/components/WishlistButton';
 
 // ─── 类型定义 ──────────────────────────────────────────────────────────────────
 
@@ -317,8 +318,23 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             <p style={vendorStyle}>{product.vendor}</p>
           )}
 
-          {/* 产品标题 */}
-          <h1 style={titleStyle}>{product.title}</h1>
+          {/* 产品标题 + 收藏 */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+            <h1 style={{ ...titleStyle, flex: 1 }}>{product.title}</h1>
+            <WishlistButton
+              product={{
+                productId: product.id,
+                handle: product.handle,
+                title: product.title,
+                price: displayPrice.amount,
+                currencyCode: displayPrice.currencyCode,
+                compareAtPrice: compareAtPrice?.amount,
+                image: product.images[0]?.url,
+                imageAlt: product.images[0]?.alt ?? product.images[0]?.altText ?? undefined,
+              }}
+              size={20}
+            />
+          </div>
 
           {/* 价格 */}
           <div style={priceRowStyle}>

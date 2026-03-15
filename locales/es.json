@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Cachemira",
+    "merinoWool": "Lana Merino",
+    "newArrivals": "Novedades",
+    "springSummer": "Primavera/Verano 2026",
+    "ourStory": "Nuestra Historia",
+    "craftsmanship": "Artesanía",
+    "journal": "Journal",
+    "search": "Buscar",
+    "wishlist": "Favoritos",
+    "account": "Cuenta",
+    "cart": "Bolsa"
+  },
+  "product": {
+    "addToBag": "Añadir a la Bolsa",
+    "adding": "Añadiendo…",
+    "buyNow": "Comprar Ahora",
+    "soldOut": "Agotado",
+    "color": "Color",
+    "size": "Talla",
+    "quantity": "Cantidad",
+    "sizeGuide": "Guía de Tallas",
+    "description": "Descripción",
+    "materialsCare": "Materiales y Cuidados",
+    "careGuide": "Guía de Cuidados",
+    "sizeFit": "Talla y Ajuste",
+    "shippingReturns": "Envío y Devoluciones",
+    "shippingText": "Envío de cortesía en todos los pedidos. Entrega en 5–10 días hábiles.",
+    "returnsText": "Devolución gratuita en los 30 días posteriores a la entrega. Las prendas deben conservar sus etiquetas y estar sin uso.",
+    "youMayAlsoLike": "También Te Puede Interesar"
+  },
+  "reviews": {
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "reviews": "Opiniones",
+    "review": "Opinión",
+    "verifiedPurchase": "Compra Verificada",
+    "loadMore": "Ver Más Opiniones",
+    "loading": "Cargando…",
+    "writeReview": "Escribir una Opinión",
+    "noReviews": "Aún no hay opiniones"
+  },
+  "cart": {
+    "yourBag": "Tu Bolsa",
+    "empty": "Tu bolsa está vacía",
+    "continueShopping": "Seguir Comprando",
+    "subtotal": "Subtotal",
+    "checkout": "Finalizar Compra",
+    "remove": "Eliminar",
+    "size": "Talla",
+    "color": "Color",
+    "quantity": "Cantidad"
+  },
+  "footer": {
+    "shop": "Tienda",
+    "help": "Ayuda",
+    "about": "Nosotros",
+    "newsletter": "Newsletter",
+    "newsletterText": "Recibe en exclusiva las novedades de nuestras colecciones y los eventos más selectos.",
+    "emailPlaceholder": "Tu dirección de email",
+    "subscribe": "Suscribirse",
+    "subscribed": "Gracias por suscribirte",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos y Condiciones",
+    "refundPolicy": "Política de Reembolso",
+    "shippingPolicy": "Política de Envío",
+    "contact": "Contacto",
+    "faq": "Preguntas Frecuentes",
+    "wholesale": "Wholesale",
+    "copyright": "© {year} VIONIS·XY. Todos los derechos reservados."
+  },
+  "serviceBar": {
+    "freeShipping": "Envío Gratuito",
+    "freeShippingDesc": "Entrega de cortesía en todo el mundo",
+    "freeReturns": "Devoluciones Gratuitas",
+    "freeReturnsDesc": "Devolución sin complicaciones en 30 días",
+    "quality": "Garantía de Calidad",
+    "qualityDesc": "Fibras 100% naturales, certificadas",
+    "contact": "Contacto",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Favoritos",
+    "empty": "Tu lista de favoritos está vacía",
+    "explore": "Explorar la Colección",
+    "clearAll": "Vaciar Todo"
+  },
+  "account": {
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión",
+    "createAccount": "Crear Cuenta",
+    "email": "Email",
+    "password": "Contraseña",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "myAccount": "Mi Cuenta",
+    "orderHistory": "Historial de Pedidos",
+    "noOrders": "Aún no hay pedidos"
+  },
+  "common": {
+    "home": "Inicio",
+    "loading": "Cargando…",
+    "error": "Ha ocurrido un error",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "viewAll": "Ver Todo",
+    "readMore": "Descubrir Más",
+    "collections": "Colecciones",
+    "language": "Idioma",
+    "currency": "Moneda"
+  },
+  "announcement": {
+    "freeShipping": "Envío de Cortesía en Pedidos Superiores a $300",
+    "certified": "Fibras 100% Naturales Certificadas por SGS",
+    "returns": "Devolución Gratuita en 30 Días"
+  },
+  "search": {
+    "placeholder": "Buscar productos…",
+    "noResults": "No se han encontrado resultados",
+    "tryDifferent": "Prueba con otra palabra clave o explora nuestras colecciones."
+  },
+  "newsletter": {
+    "title": "Descubre el Universo VIONIS·XY",
+    "subtitle": "Sé el primero en conocer las nuevas colecciones, ofertas exclusivas y el arte del lujo natural.",
+    "placeholder": "Tu dirección de email",
+    "subscribe": "Suscribirse",
+    "noThanks": "No, gracias",
+    "success": "Bienvenido al mundo VIONIS·XY"
+  }
+}

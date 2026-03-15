@@ -250,7 +250,7 @@ export default function LiquidBanner({
     `  color:${c.headingColor};text-transform:${headingTransform}}`,
     `#${scopeId} .lb-text{font-size:14px;line-height:1.6;color:${c.textColor};margin:0 0 30px}`,
     `#${scopeId} .lb-btn{`,
-    `  display:inline-block;padding:12px 30px;`,
+    `  display:inline-block;padding:12px 30px;min-width:180px;text-align:center;`,
     `  border:1px solid ${c.btnBorder};background:${c.btnBg};color:${c.btnText};`,
     `  font-size:${btnFontSize}px;letter-spacing:2px;text-transform:uppercase;`,
     `  transition:all .2s ease;white-space:nowrap;cursor:pointer}`,

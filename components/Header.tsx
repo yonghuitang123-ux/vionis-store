@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
 import { useCart } from '@/lib/cart-context';
+import { useWishlist } from '@/lib/wishlist-context';
 import SearchModal from '@/components/SearchModal';
+import LocaleSwitcher from '@/components/LocaleSwitcher';
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
 
@@ -85,6 +87,7 @@ export default function Header() {
   const { announcement, nav } = siteConfig;
   const slides = announcement.轮播列表 ?? [];
   const { totalQuantity, openDrawer } = useCart();
+  const { count: wishlistCount } = useWishlist();
   const [searchOpen, setSearchOpen] = useState(false);
 
   // ── 公告轮播 ────────────────────────────────────────────────────────────────
@@ -224,7 +227,7 @@ export default function Header() {
             <img
               src="/logo1.png"
               alt="VIONIS·XY"
-              style={{ background: 'transparent', height: '70px', width: 'auto' }}
+              style={{ background: 'transparent', height: '90px', width: 'auto' }}
             />
           </Link>
         </div>
@@ -279,13 +282,22 @@ export default function Header() {
             <div
               style={{ position: 'absolute', right: 30, display: 'flex', alignItems: 'center', gap: 20 }}
             >
-              <button
+              <Link
+                href="/wishlist"
                 className="p-1 transition-opacity hover:opacity-60"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
+                style={{ color: '#1a1a1a', lineHeight: 0, position: 'relative', display: 'inline-flex' }}
                 aria-label="收藏夹"
               >
                 <IconHeart />
-              </button>
+                {wishlistCount > 0 && (
+                  <span
+                    className="absolute -top-1.5 -right-2 min-w-[15px] h-[15px] rounded-full text-[9px] font-medium flex items-center justify-center px-0.5"
+                    style={{ backgroundColor: '#C4A882', color: '#fff' }}
+                  >
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
               <Link
                 href="/account"
                 className="p-1 transition-opacity hover:opacity-60"
@@ -302,6 +314,7 @@ export default function Header() {
               >
                 <IconBag count={totalQuantity} />
               </button>
+              <LocaleSwitcher variant="compact" />
             </div>
           </div>
 
@@ -371,21 +384,23 @@ export default function Header() {
 
             <div className="flex items-center gap-6 mt-5 pt-5">
               {[
-                { icon: <IconHeart />, label: 'Wishlist' },
-                { icon: <IconUser />,  label: 'Account'  },
-              ].map(({ icon, label }) => (
-                <button
+                { icon: <IconHeart />, label: 'Wishlist', href: '/wishlist' },
+                { icon: <IconUser />,  label: 'Account',  href: '/account' },
+              ].map(({ icon, label, href }) => (
+                <Link
                   key={label}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
                   className="flex items-center gap-2 transition-opacity hover:opacity-60"
                   style={{
-                    background: 'none', border: 'none', cursor: 'pointer',
                     color: '#1a1a1a', fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
-                    fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: 0,
+                    fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase',
+                    textDecoration: 'none',
                   }}
                 >
                   {icon}
-                  <span>{label}</span>
-                </button>
+                  <span>{label}{label === 'Wishlist' && wishlistCount > 0 ? ` (${wishlistCount})` : ''}</span>
+                </Link>
               ))}
             </div>
           </nav>

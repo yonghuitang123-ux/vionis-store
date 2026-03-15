@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Cashmere",
+    "merinoWool": "Merinould",
+    "newArrivals": "Nyheder",
+    "springSummer": "Forår/Sommer 2026",
+    "ourStory": "Vores Historie",
+    "craftsmanship": "Håndværk",
+    "journal": "Journal",
+    "search": "Søg",
+    "wishlist": "Ønskeliste",
+    "account": "Konto",
+    "cart": "Indkøbskurv"
+  },
+  "product": {
+    "addToBag": "Læg i kurv",
+    "adding": "Tilføjer…",
+    "buyNow": "Køb nu",
+    "soldOut": "Udsolgt",
+    "color": "Farve",
+    "size": "Størrelse",
+    "quantity": "Antal",
+    "sizeGuide": "Størrelsesguide",
+    "description": "Beskrivelse",
+    "materialsCare": "Materialer & Pleje",
+    "careGuide": "Plejeguide",
+    "sizeFit": "Størrelse & Pasform",
+    "shippingReturns": "Levering & Returnering",
+    "shippingText": "Gratis levering på alle ordrer. Forventet leveringstid: 5–10 hverdage.",
+    "returnsText": "Gratis returnering inden for 30 dage. Varer skal være ubrugte med mærker påsat.",
+    "youMayAlsoLike": "Du vil måske også synes om"
+  },
+  "reviews": {
+    "title": "Hvad vores kunder siger",
+    "reviews": "Anmeldelser",
+    "review": "Anmeldelse",
+    "verifiedPurchase": "Verificeret køb",
+    "loadMore": "Se flere anmeldelser",
+    "loading": "Indlæser…",
+    "writeReview": "Skriv en anmeldelse",
+    "noReviews": "Ingen anmeldelser endnu"
+  },
+  "cart": {
+    "yourBag": "Din kurv",
+    "empty": "Din kurv er tom",
+    "continueShopping": "Fortsæt med at handle",
+    "subtotal": "Subtotal",
+    "checkout": "Gå til kassen",
+    "remove": "Fjern",
+    "size": "Størrelse",
+    "color": "Farve",
+    "quantity": "Antal"
+  },
+  "footer": {
+    "shop": "Shop",
+    "help": "Kundeservice",
+    "about": "Om os",
+    "newsletter": "Nyhedsbrev",
+    "newsletterText": "Modtag eksklusive nyheder om nye kollektioner og private arrangementer.",
+    "emailPlaceholder": "Din e-mailadresse",
+    "subscribe": "Tilmeld",
+    "subscribed": "Tak for din tilmelding",
+    "privacyPolicy": "Privatlivspolitik",
+    "termsOfService": "Handelsbetingelser",
+    "refundPolicy": "Returpolitik",
+    "shippingPolicy": "Leveringspolitik",
+    "contact": "Kontakt",
+    "faq": "FAQ",
+    "wholesale": "Engros",
+    "copyright": "© {year} VIONIS·XY. Alle rettigheder forbeholdes."
+  },
+  "serviceBar": {
+    "freeShipping": "Gratis levering",
+    "freeShippingDesc": "Fri fragt til hele verden",
+    "freeReturns": "Gratis returnering",
+    "freeReturnsDesc": "30 dages problemfri returnering",
+    "quality": "Kvalitetsgaranti",
+    "qualityDesc": "100 % naturlige fibre, certificeret",
+    "contact": "Kontakt",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Ønskeliste",
+    "empty": "Din ønskeliste er tom",
+    "explore": "Udforsk kollektion",
+    "clearAll": "Ryd alle"
+  },
+  "account": {
+    "signIn": "Log ind",
+    "signOut": "Log ud",
+    "createAccount": "Opret konto",
+    "email": "E-mail",
+    "password": "Adgangskode",
+    "firstName": "Fornavn",
+    "lastName": "Efternavn",
+    "myAccount": "Min konto",
+    "orderHistory": "Ordrehistorik",
+    "noOrders": "Ingen ordrer endnu"
+  },
+  "common": {
+    "home": "Forside",
+    "loading": "Indlæser…",
+    "error": "Noget gik galt",
+    "close": "Luk",
+    "back": "Tilbage",
+    "next": "Næste",
+    "previous": "Forrige",
+    "viewAll": "Se alle",
+    "readMore": "Læs mere",
+    "collections": "Kollektioner",
+    "language": "Sprog",
+    "currency": "Valuta"
+  },
+  "announcement": {
+    "freeShipping": "Gratis levering ved køb over 2.500 kr.",
+    "certified": "SGS-certificerede 100 % naturlige fibre",
+    "returns": "Gratis returnering inden for 30 dage"
+  },
+  "search": {
+    "placeholder": "Søg efter produkter…",
+    "noResults": "Ingen resultater fundet",
+    "tryDifferent": "Prøv et andet søgeord eller udforsk vores kollektioner."
+  },
+  "newsletter": {
+    "title": "Bliv en del af VIONIS·XY",
+    "subtitle": "Vær den første til at opdage nye kollektioner, eksklusive tilbud og kunsten bag naturlig luksus.",
+    "placeholder": "Din e-mailadresse",
+    "subscribe": "Tilmeld",
+    "noThanks": "Nej tak",
+    "success": "Velkommen til VIONIS·XY"
+  }
+}

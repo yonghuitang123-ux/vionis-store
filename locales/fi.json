@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Kashmira",
+    "merinoWool": "Merinovilla",
+    "newArrivals": "Uutuudet",
+    "springSummer": "Kevät/Kesä 2026",
+    "ourStory": "Tarinamme",
+    "craftsmanship": "Käsityötaito",
+    "journal": "Julkaisut",
+    "search": "Haku",
+    "wishlist": "Toivelista",
+    "account": "Tili",
+    "cart": "Ostoskori"
+  },
+  "product": {
+    "addToBag": "Lisää ostoskoriin",
+    "adding": "Lisätään…",
+    "buyNow": "Osta nyt",
+    "soldOut": "Loppuunmyyty",
+    "color": "Väri",
+    "size": "Koko",
+    "quantity": "Määrä",
+    "sizeGuide": "Kokoopas",
+    "description": "Kuvaus",
+    "materialsCare": "Materiaalit ja hoito",
+    "careGuide": "Hoito-ohje",
+    "sizeFit": "Koko ja istuvuus",
+    "shippingReturns": "Toimitus ja palautus",
+    "shippingText": "Maksuton toimitus kaikkiin tilauksiin. Toimitusaika 5–10 arkipäivää.",
+    "returnsText": "Maksuton palautus 30 päivän kuluessa. Tuotteiden tulee olla käyttämättömiä ja etiketit kiinni.",
+    "youMayAlsoLike": "Saatat pitää myös näistä"
+  },
+  "reviews": {
+    "title": "Asiakkaidemme kokemuksia",
+    "reviews": "Arvostelut",
+    "review": "Arvostelu",
+    "verifiedPurchase": "Vahvistettu ostos",
+    "loadMore": "Näytä lisää arvosteluja",
+    "loading": "Ladataan…",
+    "writeReview": "Kirjoita arvostelu",
+    "noReviews": "Ei vielä arvosteluja"
+  },
+  "cart": {
+    "yourBag": "Ostoskorisi",
+    "empty": "Ostoskorisi on tyhjä",
+    "continueShopping": "Jatka ostoksia",
+    "subtotal": "Välisumma",
+    "checkout": "Siirry kassalle",
+    "remove": "Poista",
+    "size": "Koko",
+    "color": "Väri",
+    "quantity": "Määrä"
+  },
+  "footer": {
+    "shop": "Kauppa",
+    "help": "Asiakaspalvelu",
+    "about": "Meistä",
+    "newsletter": "Uutiskirje",
+    "newsletterText": "Saat ensimmäisenä tiedon uusista mallistoista ja yksityisistä tapahtumista.",
+    "emailPlaceholder": "Sähköpostiosoitteesi",
+    "subscribe": "Tilaa",
+    "subscribed": "Kiitos tilauksestasi",
+    "privacyPolicy": "Tietosuojakäytäntö",
+    "termsOfService": "Käyttöehdot",
+    "refundPolicy": "Palautuskäytäntö",
+    "shippingPolicy": "Toimituskäytäntö",
+    "contact": "Yhteystiedot",
+    "faq": "UKK",
+    "wholesale": "Tukkumyynti",
+    "copyright": "© {year} VIONIS·XY. Kaikki oikeudet pidätetään."
+  },
+  "serviceBar": {
+    "freeShipping": "Maksuton toimitus",
+    "freeShippingDesc": "Ilmainen toimitus maailmanlaajuisesti",
+    "freeReturns": "Maksuton palautus",
+    "freeReturnsDesc": "30 päivän vaivaton palautusoikeus",
+    "quality": "Laatutakuu",
+    "qualityDesc": "100 % luonnonkuituja, sertifioitu",
+    "contact": "Yhteystiedot",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Toivelista",
+    "empty": "Toivelistasi on tyhjä",
+    "explore": "Tutustu mallistoon",
+    "clearAll": "Tyhjennä kaikki"
+  },
+  "account": {
+    "signIn": "Kirjaudu sisään",
+    "signOut": "Kirjaudu ulos",
+    "createAccount": "Luo tili",
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "firstName": "Etunimi",
+    "lastName": "Sukunimi",
+    "myAccount": "Oma tili",
+    "orderHistory": "Tilaushistoria",
+    "noOrders": "Ei vielä tilauksia"
+  },
+  "common": {
+    "home": "Etusivu",
+    "loading": "Ladataan…",
+    "error": "Jotain meni pieleen",
+    "close": "Sulje",
+    "back": "Takaisin",
+    "next": "Seuraava",
+    "previous": "Edellinen",
+    "viewAll": "Näytä kaikki",
+    "readMore": "Lue lisää",
+    "collections": "Mallistot",
+    "language": "Kieli",
+    "currency": "Valuutta"
+  },
+  "announcement": {
+    "freeShipping": "Maksuton toimitus yli 300 € tilauksiin",
+    "certified": "SGS-sertifioitu 100 % luonnonkuituja",
+    "returns": "Maksuton palautus 30 päivän kuluessa"
+  },
+  "search": {
+    "placeholder": "Etsi tuotteita…",
+    "noResults": "Tuloksia ei löytynyt",
+    "tryDifferent": "Kokeile toista hakusanaa tai selaa mallistojamme."
+  },
+  "newsletter": {
+    "title": "Liity VIONIS·XY:n maailmaan",
+    "subtitle": "Ole ensimmäinen, joka saa tiedon uusista mallistoista, eksklusiivisista eduista ja luonnonluksuksen taiteesta.",
+    "placeholder": "Sähköpostiosoitteesi",
+    "subscribe": "Tilaa",
+    "noThanks": "Ei kiitos",
+    "success": "Tervetuloa VIONIS·XY:n pariin"
+  }
+}

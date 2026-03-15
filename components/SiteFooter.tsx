@@ -4,6 +4,7 @@ import React from 'react';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import Link from 'next/link';
 import { FormEvent, useId, useState } from 'react';
+import LocaleSwitcher from '@/components/LocaleSwitcher';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -492,6 +493,9 @@ export default function SiteFooter({
       <div
         className="max-w-[1400px] mx-auto px-6 md:px-[30px] py-5 flex flex-col sm:flex-row items-center justify-between gap-4"
       >
+        {/* Language / Currency Switcher */}
+        <LocaleSwitcher variant="full" />
+
         {/* Copyright */}
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs" style={{ color: c.mutedColor }}>
           <span>

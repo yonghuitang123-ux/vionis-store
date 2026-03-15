@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Kasjmier",
+    "merinoWool": "Merinowol",
+    "newArrivals": "Nieuw Binnen",
+    "springSummer": "Lente/Zomer 2026",
+    "ourStory": "Ons Verhaal",
+    "craftsmanship": "Vakmanschap",
+    "journal": "Journal",
+    "search": "Zoeken",
+    "wishlist": "Favorieten",
+    "account": "Account",
+    "cart": "Winkeltas"
+  },
+  "product": {
+    "addToBag": "In Winkeltas",
+    "adding": "Toevoegen…",
+    "buyNow": "Direct Bestellen",
+    "soldOut": "Uitverkocht",
+    "color": "Kleur",
+    "size": "Maat",
+    "quantity": "Aantal",
+    "sizeGuide": "Maatadvies",
+    "description": "Beschrijving",
+    "materialsCare": "Materialen & Verzorging",
+    "careGuide": "Verzorgingsadvies",
+    "sizeFit": "Maat & Pasvorm",
+    "shippingReturns": "Verzending & Retour",
+    "shippingText": "Gratis verzending op alle bestellingen. Levering binnen 5–10 werkdagen.",
+    "returnsText": "Kosteloos retourneren binnen 30 dagen na levering. Artikelen dienen ongedragen te zijn met labels bevestigd.",
+    "youMayAlsoLike": "Dit Past Wellicht Bij U"
+  },
+  "reviews": {
+    "title": "Wat Onze Klanten Zeggen",
+    "reviews": "Beoordelingen",
+    "review": "Beoordeling",
+    "verifiedPurchase": "Geverifieerde Aankoop",
+    "loadMore": "Meer Beoordelingen Laden",
+    "loading": "Laden…",
+    "writeReview": "Schrijf een Beoordeling",
+    "noReviews": "Nog geen beoordelingen"
+  },
+  "cart": {
+    "yourBag": "Uw Winkeltas",
+    "empty": "Uw winkeltas is leeg",
+    "continueShopping": "Verder Winkelen",
+    "subtotal": "Subtotaal",
+    "checkout": "Afrekenen",
+    "remove": "Verwijderen",
+    "size": "Maat",
+    "color": "Kleur",
+    "quantity": "Aantal"
+  },
+  "footer": {
+    "shop": "Winkel",
+    "help": "Klantenservice",
+    "about": "Over Ons",
+    "newsletter": "Nieuwsbrief",
+    "newsletterText": "Ontvang exclusieve updates over nieuwe collecties en privé-evenementen.",
+    "emailPlaceholder": "Uw e-mailadres",
+    "subscribe": "Inschrijven",
+    "subscribed": "Dank voor uw inschrijving",
+    "privacyPolicy": "Privacybeleid",
+    "termsOfService": "Algemene Voorwaarden",
+    "refundPolicy": "Retourbeleid",
+    "shippingPolicy": "Verzendbeleid",
+    "contact": "Contact",
+    "faq": "Veelgestelde Vragen",
+    "wholesale": "Wholesale",
+    "copyright": "© {year} VIONIS·XY. Alle rechten voorbehouden."
+  },
+  "serviceBar": {
+    "freeShipping": "Gratis Verzending",
+    "freeShippingDesc": "Kosteloos bezorgd, wereldwijd",
+    "freeReturns": "Gratis Retour",
+    "freeReturnsDesc": "30 dagen zorgeloos retourneren",
+    "quality": "Kwaliteitsgarantie",
+    "qualityDesc": "100% natuurlijke vezels, gecertificeerd",
+    "contact": "Contact",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Favorieten",
+    "empty": "Uw favorietenlijst is leeg",
+    "explore": "Ontdek de Collectie",
+    "clearAll": "Alles Wissen"
+  },
+  "account": {
+    "signIn": "Inloggen",
+    "signOut": "Uitloggen",
+    "createAccount": "Account Aanmaken",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "firstName": "Voornaam",
+    "lastName": "Achternaam",
+    "myAccount": "Mijn Account",
+    "orderHistory": "Bestelgeschiedenis",
+    "noOrders": "Nog geen bestellingen"
+  },
+  "common": {
+    "home": "Home",
+    "loading": "Laden…",
+    "error": "Er is iets misgegaan",
+    "close": "Sluiten",
+    "back": "Terug",
+    "next": "Volgende",
+    "previous": "Vorige",
+    "viewAll": "Alles Bekijken",
+    "readMore": "Meer Lezen",
+    "collections": "Collecties",
+    "language": "Taal",
+    "currency": "Valuta"
+  },
+  "announcement": {
+    "freeShipping": "Gratis Verzending bij Bestellingen Boven €300",
+    "certified": "SGS-gecertificeerd 100% Natuurlijke Vezels",
+    "returns": "Kosteloos Retourneren Binnen 30 Dagen"
+  },
+  "search": {
+    "placeholder": "Zoek in onze collectie…",
+    "noResults": "Geen resultaten gevonden",
+    "tryDifferent": "Probeer een ander zoekwoord of ontdek onze collecties."
+  },
+  "newsletter": {
+    "title": "Ontdek de Wereld van VIONIS·XY",
+    "subtitle": "Wees de eerste die nieuwe collecties, exclusieve aanbiedingen en de kunst van natuurlijke luxe ontdekt.",
+    "placeholder": "Uw e-mailadres",
+    "subscribe": "Inschrijven",
+    "noThanks": "Nee, dank u",
+    "success": "Welkom bij VIONIS·XY"
+  }
+}

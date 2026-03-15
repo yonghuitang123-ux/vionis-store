@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "カシミヤ",
+    "merinoWool": "メリノウール",
+    "newArrivals": "新作コレクション",
+    "springSummer": "2026年 春夏コレクション",
+    "ourStory": "ブランドストーリー",
+    "craftsmanship": "クラフツマンシップ",
+    "journal": "ジャーナル",
+    "search": "検索",
+    "wishlist": "ウィッシュリスト",
+    "account": "アカウント",
+    "cart": "ショッピングバッグ"
+  },
+  "product": {
+    "addToBag": "バッグに追加する",
+    "adding": "追加しています…",
+    "buyNow": "今すぐ購入する",
+    "soldOut": "完売",
+    "color": "カラー",
+    "size": "サイズ",
+    "quantity": "数量",
+    "sizeGuide": "サイズガイド",
+    "description": "商品について",
+    "materialsCare": "素材とお手入れ",
+    "careGuide": "お手入れガイド",
+    "sizeFit": "サイズとフィット",
+    "shippingReturns": "配送と返品について",
+    "shippingText": "全てのご注文に送料無料でお届けいたします。お届けまで5〜10営業日ほどお時間をいただいております。",
+    "returnsText": "お届けから30日以内であれば無料で返品を承ります。未着用でタグが付いた状態の商品に限ります。",
+    "youMayAlsoLike": "こちらもおすすめ"
+  },
+  "reviews": {
+    "title": "お客様の声",
+    "reviews": "レビュー",
+    "review": "レビュー",
+    "verifiedPurchase": "ご購入確認済み",
+    "loadMore": "さらにレビューを見る",
+    "loading": "読み込み中…",
+    "writeReview": "レビューを書く",
+    "noReviews": "まだレビューはありません"
+  },
+  "cart": {
+    "yourBag": "ショッピングバッグ",
+    "empty": "バッグに商品が入っていません",
+    "continueShopping": "お買い物を続ける",
+    "subtotal": "小計",
+    "checkout": "ご購入手続きへ",
+    "remove": "削除する",
+    "size": "サイズ",
+    "color": "カラー",
+    "quantity": "数量"
+  },
+  "footer": {
+    "shop": "コレクション",
+    "help": "カスタマーサポート",
+    "about": "VIONIS·XYについて",
+    "newsletter": "ニュースレター",
+    "newsletterText": "新作コレクションやプライベートイベントのご案内をいち早くお届けいたします。",
+    "emailPlaceholder": "メールアドレス",
+    "subscribe": "登録する",
+    "subscribed": "ご登録ありがとうございます",
+    "privacyPolicy": "プライバシーポリシー",
+    "termsOfService": "利用規約",
+    "refundPolicy": "返金ポリシー",
+    "shippingPolicy": "配送ポリシー",
+    "contact": "お問い合わせ",
+    "faq": "よくあるご質問",
+    "wholesale": "卸売りについて",
+    "copyright": "© {year} VIONIS·XY. All rights reserved."
+  },
+  "serviceBar": {
+    "freeShipping": "送料無料",
+    "freeShippingDesc": "世界各国への配送料を無料でご提供",
+    "freeReturns": "返品無料",
+    "freeReturnsDesc": "30日間の安心返品サービス",
+    "quality": "品質保証",
+    "qualityDesc": "認定済み天然繊維100%使用",
+    "contact": "お問い合わせ",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "ウィッシュリスト",
+    "empty": "ウィッシュリストに商品がありません",
+    "explore": "コレクションを見る",
+    "clearAll": "すべて削除"
+  },
+  "account": {
+    "signIn": "ログイン",
+    "signOut": "ログアウト",
+    "createAccount": "アカウント作成",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "firstName": "名",
+    "lastName": "姓",
+    "myAccount": "マイアカウント",
+    "orderHistory": "ご注文履歴",
+    "noOrders": "ご注文履歴はまだございません"
+  },
+  "common": {
+    "home": "ホーム",
+    "loading": "読み込み中…",
+    "error": "エラーが発生しました",
+    "close": "閉じる",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "viewAll": "すべて見る",
+    "readMore": "詳しく見る",
+    "collections": "コレクション",
+    "language": "言語",
+    "currency": "通貨"
+  },
+  "announcement": {
+    "freeShipping": "300ドル以上のご注文で送料無料",
+    "certified": "SGS認定 天然繊維100%",
+    "returns": "30日間 返品無料"
+  },
+  "search": {
+    "placeholder": "商品を検索…",
+    "noResults": "該当する商品が見つかりませんでした",
+    "tryDifferent": "別のキーワードをお試しいただくか、コレクションをご覧ください。"
+  },
+  "newsletter": {
+    "title": "VIONIS·XYの世界へ",
+    "subtitle": "新作コレクション、限定オファー、そしてナチュラルラグジュアリーの美学をいち早くお届けいたします。",
+    "placeholder": "メールアドレス",
+    "subscribe": "登録する",
+    "noThanks": "登録しない",
+    "success": "VIONIS·XYへようこそ"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Kasjmir",
+    "merinoWool": "Merinoull",
+    "newArrivals": "Nyheter",
+    "springSummer": "Vår/Sommer 2026",
+    "ourStory": "Vår historie",
+    "craftsmanship": "Håndverk",
+    "journal": "Journal",
+    "search": "Søk",
+    "wishlist": "Ønskeliste",
+    "account": "Konto",
+    "cart": "Handlekurv"
+  },
+  "product": {
+    "addToBag": "Legg i handlekurv",
+    "adding": "Legger til…",
+    "buyNow": "Kjøp nå",
+    "soldOut": "Utsolgt",
+    "color": "Farge",
+    "size": "Størrelse",
+    "quantity": "Antall",
+    "sizeGuide": "Størrelsesguide",
+    "description": "Beskrivelse",
+    "materialsCare": "Materialer og stell",
+    "careGuide": "Stellguide",
+    "sizeFit": "Størrelse og passform",
+    "shippingReturns": "Frakt og retur",
+    "shippingText": "Gratis frakt på alle bestillinger. Levering innen 5–10 virkedager.",
+    "returnsText": "Gratis retur innen 30 dager. Plagg må være ubrukte med merkelapper intakt.",
+    "youMayAlsoLike": "Du vil kanskje også like"
+  },
+  "reviews": {
+    "title": "Hva våre kunder sier",
+    "reviews": "Anmeldelser",
+    "review": "Anmeldelse",
+    "verifiedPurchase": "Verifisert kjøp",
+    "loadMore": "Vis flere anmeldelser",
+    "loading": "Laster…",
+    "writeReview": "Skriv en anmeldelse",
+    "noReviews": "Ingen anmeldelser ennå"
+  },
+  "cart": {
+    "yourBag": "Din handlekurv",
+    "empty": "Handlekurven din er tom",
+    "continueShopping": "Fortsett å handle",
+    "subtotal": "Subtotal",
+    "checkout": "Gå til kassen",
+    "remove": "Fjern",
+    "size": "Størrelse",
+    "color": "Farge",
+    "quantity": "Antall"
+  },
+  "footer": {
+    "shop": "Butikk",
+    "help": "Kundeservice",
+    "about": "Om oss",
+    "newsletter": "Nyhetsbrev",
+    "newsletterText": "Motta eksklusive oppdateringer om nye kolleksjoner og private arrangementer.",
+    "emailPlaceholder": "Din e-postadresse",
+    "subscribe": "Abonner",
+    "subscribed": "Takk for din påmelding",
+    "privacyPolicy": "Personvernerklæring",
+    "termsOfService": "Vilkår og betingelser",
+    "refundPolicy": "Returvilkår",
+    "shippingPolicy": "Fraktvilkår",
+    "contact": "Kontakt",
+    "faq": "FAQ",
+    "wholesale": "Engros",
+    "copyright": "© {year} VIONIS·XY. Alle rettigheter forbeholdt."
+  },
+  "serviceBar": {
+    "freeShipping": "Gratis frakt",
+    "freeShippingDesc": "Fri levering verden over",
+    "freeReturns": "Gratis retur",
+    "freeReturnsDesc": "30 dagers enkel returordning",
+    "quality": "Kvalitetsgaranti",
+    "qualityDesc": "100 % naturfibre, sertifisert",
+    "contact": "Kontakt",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Ønskeliste",
+    "empty": "Ønskelisten din er tom",
+    "explore": "Utforsk kolleksjonen",
+    "clearAll": "Fjern alle"
+  },
+  "account": {
+    "signIn": "Logg inn",
+    "signOut": "Logg ut",
+    "createAccount": "Opprett konto",
+    "email": "E-post",
+    "password": "Passord",
+    "firstName": "Fornavn",
+    "lastName": "Etternavn",
+    "myAccount": "Min konto",
+    "orderHistory": "Ordrehistorikk",
+    "noOrders": "Ingen bestillinger ennå"
+  },
+  "common": {
+    "home": "Hjem",
+    "loading": "Laster…",
+    "error": "Noe gikk galt",
+    "close": "Lukk",
+    "back": "Tilbake",
+    "next": "Neste",
+    "previous": "Forrige",
+    "viewAll": "Se alle",
+    "readMore": "Les mer",
+    "collections": "Kolleksjoner",
+    "language": "Språk",
+    "currency": "Valuta"
+  },
+  "announcement": {
+    "freeShipping": "Gratis frakt ved bestillinger over 3 000 kr",
+    "certified": "SGS-sertifiserte 100 % naturfibre",
+    "returns": "Gratis retur innen 30 dager"
+  },
+  "search": {
+    "placeholder": "Søk etter produkter…",
+    "noResults": "Ingen resultater funnet",
+    "tryDifferent": "Prøv et annet søkeord eller utforsk våre kolleksjoner."
+  },
+  "newsletter": {
+    "title": "Bli en del av VIONIS·XY",
+    "subtitle": "Vær den første til å oppdage nye kolleksjoner, eksklusive fordeler og kunsten bak naturlig luksus.",
+    "placeholder": "Din e-postadresse",
+    "subscribe": "Abonner",
+    "noThanks": "Nei takk",
+    "success": "Velkommen til VIONIS·XY"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Kaszmir",
+    "merinoWool": "Wełna Merynos",
+    "newArrivals": "Nowości",
+    "springSummer": "Wiosna/Lato 2026",
+    "ourStory": "Nasza Historia",
+    "craftsmanship": "Rzemiosło",
+    "journal": "Dziennik",
+    "search": "Szukaj",
+    "wishlist": "Ulubione",
+    "account": "Konto",
+    "cart": "Koszyk"
+  },
+  "product": {
+    "addToBag": "Dodaj do Koszyka",
+    "adding": "Dodawanie…",
+    "buyNow": "Kup Teraz",
+    "soldOut": "Wyprzedane",
+    "color": "Kolor",
+    "size": "Rozmiar",
+    "quantity": "Ilość",
+    "sizeGuide": "Przewodnik po Rozmiarach",
+    "description": "Opis",
+    "materialsCare": "Materiały i Pielęgnacja",
+    "careGuide": "Wskazówki Pielęgnacji",
+    "sizeFit": "Rozmiar i Krój",
+    "shippingReturns": "Dostawa i Zwroty",
+    "shippingText": "Bezpłatna dostawa na wszystkie zamówienia. Realizacja w ciągu 5–10 dni roboczych.",
+    "returnsText": "Bezpłatny zwrot w ciągu 30 dni od dostawy. Produkty muszą być nienoszone, z dołączonymi metkami.",
+    "youMayAlsoLike": "Może Państwu Się Spodobać"
+  },
+  "reviews": {
+    "title": "Opinie Naszych Klientów",
+    "reviews": "Opinie",
+    "review": "Opinia",
+    "verifiedPurchase": "Zweryfikowany Zakup",
+    "loadMore": "Więcej Opinii",
+    "loading": "Ładowanie…",
+    "writeReview": "Napisz Opinię",
+    "noReviews": "Brak opinii"
+  },
+  "cart": {
+    "yourBag": "Państwa Koszyk",
+    "empty": "Państwa koszyk jest pusty",
+    "continueShopping": "Kontynuuj Zakupy",
+    "subtotal": "Suma Częściowa",
+    "checkout": "Zamówienie",
+    "remove": "Usuń",
+    "size": "Rozmiar",
+    "color": "Kolor",
+    "quantity": "Ilość"
+  },
+  "footer": {
+    "shop": "Kolekcje",
+    "help": "Obsługa Klienta",
+    "about": "O Nas",
+    "newsletter": "Newsletter",
+    "newsletterText": "Otrzymuj ekskluzywne informacje o nowych kolekcjach i prywatnych wydarzeniach.",
+    "emailPlaceholder": "Państwa adres e-mail",
+    "subscribe": "Subskrybuj",
+    "subscribed": "Dziękujemy za subskrypcję",
+    "privacyPolicy": "Polityka Prywatności",
+    "termsOfService": "Regulamin",
+    "refundPolicy": "Zasady Zwrotów",
+    "shippingPolicy": "Zasady Dostawy",
+    "contact": "Kontakt",
+    "faq": "Pytania i Odpowiedzi",
+    "wholesale": "Sprzedaż Hurtowa",
+    "copyright": "© {year} VIONIS·XY. Wszelkie prawa zastrzeżone."
+  },
+  "serviceBar": {
+    "freeShipping": "Bezpłatna Dostawa",
+    "freeShippingDesc": "Darmowa wysyłka na cały świat",
+    "freeReturns": "Bezpłatne Zwroty",
+    "freeReturnsDesc": "30 dni na bezproblemowy zwrot",
+    "quality": "Gwarancja Jakości",
+    "qualityDesc": "100% włókna naturalne, certyfikowane",
+    "contact": "Kontakt",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Ulubione",
+    "empty": "Lista ulubionych jest pusta",
+    "explore": "Odkryj Kolekcję",
+    "clearAll": "Wyczyść Wszystko"
+  },
+  "account": {
+    "signIn": "Zaloguj Się",
+    "signOut": "Wyloguj Się",
+    "createAccount": "Utwórz Konto",
+    "email": "E-mail",
+    "password": "Hasło",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "myAccount": "Moje Konto",
+    "orderHistory": "Historia Zamówień",
+    "noOrders": "Brak zamówień"
+  },
+  "common": {
+    "home": "Strona Główna",
+    "loading": "Ładowanie…",
+    "error": "Coś poszło nie tak",
+    "close": "Zamknij",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "previous": "Wstecz",
+    "viewAll": "Zobacz Wszystko",
+    "readMore": "Czytaj Więcej",
+    "collections": "Kolekcje",
+    "language": "Język",
+    "currency": "Waluta"
+  },
+  "announcement": {
+    "freeShipping": "Bezpłatna Dostawa przy Zamówieniach Powyżej 1 200 zł",
+    "certified": "Certyfikat SGS — 100% Włókna Naturalne",
+    "returns": "Bezpłatny Zwrot w Ciągu 30 Dni"
+  },
+  "search": {
+    "placeholder": "Szukaj w kolekcji…",
+    "noResults": "Nie znaleziono wyników",
+    "tryDifferent": "Proszę spróbować innego słowa kluczowego lub przejrzeć nasze kolekcje."
+  },
+  "newsletter": {
+    "title": "Dołącz do Świata VIONIS·XY",
+    "subtitle": "Jako pierwsi odkryjcie Państwo nowe kolekcje, ekskluzywne oferty i sztukę naturalnego luksusu.",
+    "placeholder": "Państwa adres e-mail",
+    "subscribe": "Subskrybuj",
+    "noThanks": "Nie, dziękuję",
+    "success": "Witamy w VIONIS·XY"
+  }
+}

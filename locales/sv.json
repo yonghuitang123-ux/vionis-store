@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Kashmir",
+    "merinoWool": "Merinoull",
+    "newArrivals": "Nyheter",
+    "springSummer": "Vår/Sommar 2026",
+    "ourStory": "Vår berättelse",
+    "craftsmanship": "Hantverk",
+    "journal": "Journal",
+    "search": "Sök",
+    "wishlist": "Önskelista",
+    "account": "Konto",
+    "cart": "Varukorg"
+  },
+  "product": {
+    "addToBag": "Lägg i varukorgen",
+    "adding": "Lägger till…",
+    "buyNow": "Köp nu",
+    "soldOut": "Slutsåld",
+    "color": "Färg",
+    "size": "Storlek",
+    "quantity": "Antal",
+    "sizeGuide": "Storleksguide",
+    "description": "Beskrivning",
+    "materialsCare": "Material och skötsel",
+    "careGuide": "Skötselråd",
+    "sizeFit": "Storlek och passform",
+    "shippingReturns": "Frakt och retur",
+    "shippingText": "Fri frakt på alla beställningar. Leverans inom 5–10 arbetsdagar.",
+    "returnsText": "Fri retur inom 30 dagar. Plaggen ska vara oanvända med etiketter kvar.",
+    "youMayAlsoLike": "Du kanske också gillar"
+  },
+  "reviews": {
+    "title": "Vad våra kunder säger",
+    "reviews": "Omdömen",
+    "review": "Omdöme",
+    "verifiedPurchase": "Verifierat köp",
+    "loadMore": "Visa fler omdömen",
+    "loading": "Laddar…",
+    "writeReview": "Skriv ett omdöme",
+    "noReviews": "Inga omdömen ännu"
+  },
+  "cart": {
+    "yourBag": "Din varukorg",
+    "empty": "Din varukorg är tom",
+    "continueShopping": "Fortsätt handla",
+    "subtotal": "Delsumma",
+    "checkout": "Till kassan",
+    "remove": "Ta bort",
+    "size": "Storlek",
+    "color": "Färg",
+    "quantity": "Antal"
+  },
+  "footer": {
+    "shop": "Shoppa",
+    "help": "Kundservice",
+    "about": "Om oss",
+    "newsletter": "Nyhetsbrev",
+    "newsletterText": "Få exklusiva uppdateringar om nya kollektioner och privata evenemang.",
+    "emailPlaceholder": "Din e-postadress",
+    "subscribe": "Prenumerera",
+    "subscribed": "Tack för din prenumeration",
+    "privacyPolicy": "Integritetspolicy",
+    "termsOfService": "Allmänna villkor",
+    "refundPolicy": "Returvillkor",
+    "shippingPolicy": "Fraktvillkor",
+    "contact": "Kontakt",
+    "faq": "Vanliga frågor",
+    "wholesale": "Grossist",
+    "copyright": "© {year} VIONIS·XY. Alla rättigheter förbehållna."
+  },
+  "serviceBar": {
+    "freeShipping": "Fri frakt",
+    "freeShippingDesc": "Kostnadsfri leverans världen över",
+    "freeReturns": "Fri retur",
+    "freeReturnsDesc": "30 dagars enkel returrätt",
+    "quality": "Kvalitetsgaranti",
+    "qualityDesc": "100 % naturfibrer, certifierade",
+    "contact": "Kontakt",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Önskelista",
+    "empty": "Din önskelista är tom",
+    "explore": "Utforska kollektionen",
+    "clearAll": "Rensa alla"
+  },
+  "account": {
+    "signIn": "Logga in",
+    "signOut": "Logga ut",
+    "createAccount": "Skapa konto",
+    "email": "E-post",
+    "password": "Lösenord",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "myAccount": "Mitt konto",
+    "orderHistory": "Orderhistorik",
+    "noOrders": "Inga beställningar ännu"
+  },
+  "common": {
+    "home": "Hem",
+    "loading": "Laddar…",
+    "error": "Något gick fel",
+    "close": "Stäng",
+    "back": "Tillbaka",
+    "next": "Nästa",
+    "previous": "Föregående",
+    "viewAll": "Visa alla",
+    "readMore": "Läs mer",
+    "collections": "Kollektioner",
+    "language": "Språk",
+    "currency": "Valuta"
+  },
+  "announcement": {
+    "freeShipping": "Fri frakt vid beställningar över 3 000 kr",
+    "certified": "SGS-certifierade 100 % naturfibrer",
+    "returns": "Fri retur inom 30 dagar"
+  },
+  "search": {
+    "placeholder": "Sök produkter…",
+    "noResults": "Inga resultat hittades",
+    "tryDifferent": "Prova ett annat sökord eller utforska våra kollektioner."
+  },
+  "newsletter": {
+    "title": "Välkommen till VIONIS·XY",
+    "subtitle": "Bli först med att upptäcka nya kollektioner, exklusiva erbjudanden och konsten bakom naturlig lyx.",
+    "placeholder": "Din e-postadress",
+    "subscribe": "Prenumerera",
+    "noThanks": "Nej tack",
+    "success": "Välkommen till VIONIS·XY"
+  }
+}

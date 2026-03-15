@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Cashmere",
+    "merinoWool": "Merino Wool",
+    "newArrivals": "New Arrivals",
+    "springSummer": "Spring/Summer 2026",
+    "ourStory": "Our Story",
+    "craftsmanship": "Craftsmanship",
+    "journal": "Journal",
+    "search": "Search",
+    "wishlist": "Wishlist",
+    "account": "Account",
+    "cart": "Cart"
+  },
+  "product": {
+    "addToBag": "Add to Bag",
+    "adding": "Adding…",
+    "buyNow": "Buy Now",
+    "soldOut": "Sold Out",
+    "color": "Color",
+    "size": "Size",
+    "quantity": "Quantity",
+    "sizeGuide": "Size Guide",
+    "description": "Description",
+    "materialsCare": "Materials & Care",
+    "careGuide": "Care Guide",
+    "sizeFit": "Size & Fit",
+    "shippingReturns": "Shipping & Returns",
+    "shippingText": "Complimentary shipping on all orders. Delivery within 5–10 business days.",
+    "returnsText": "Free returns within 30 days of delivery. Items must be unworn with tags attached.",
+    "youMayAlsoLike": "You May Also Like"
+  },
+  "reviews": {
+    "title": "What Our Clients Say",
+    "reviews": "Reviews",
+    "review": "Review",
+    "verifiedPurchase": "Verified Purchase",
+    "loadMore": "Load More Reviews",
+    "loading": "Loading…",
+    "writeReview": "Write a Review",
+    "noReviews": "No reviews yet"
+  },
+  "cart": {
+    "yourBag": "Your Bag",
+    "empty": "Your bag is empty",
+    "continueShopping": "Continue Shopping",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "size": "Size",
+    "color": "Color",
+    "quantity": "Quantity"
+  },
+  "footer": {
+    "shop": "Shop",
+    "help": "Help",
+    "about": "About",
+    "newsletter": "Newsletter",
+    "newsletterText": "Receive exclusive updates on new collections and private events.",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe",
+    "subscribed": "Thank you for subscribing",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "refundPolicy": "Refund Policy",
+    "shippingPolicy": "Shipping Policy",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "wholesale": "Wholesale",
+    "copyright": "© {year} VIONIS·XY. All rights reserved."
+  },
+  "serviceBar": {
+    "freeShipping": "Free Shipping",
+    "freeShippingDesc": "Complimentary worldwide delivery",
+    "freeReturns": "Free Returns",
+    "freeReturnsDesc": "30-day hassle-free returns",
+    "quality": "Quality Guarantee",
+    "qualityDesc": "100% natural fibres, certified",
+    "contact": "Contact",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "empty": "Your wishlist is empty",
+    "explore": "Explore Collection",
+    "clearAll": "Clear All"
+  },
+  "account": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "createAccount": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "myAccount": "My Account",
+    "orderHistory": "Order History",
+    "noOrders": "No orders yet"
+  },
+  "common": {
+    "home": "Home",
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "collections": "Collections",
+    "language": "Language",
+    "currency": "Currency"
+  },
+  "announcement": {
+    "freeShipping": "Complimentary Shipping on Orders Over $300",
+    "certified": "SGS Certified 100% Natural Fibres",
+    "returns": "Free Returns Within 30 Days"
+  },
+  "search": {
+    "placeholder": "Search products…",
+    "noResults": "No results found",
+    "tryDifferent": "Try a different keyword or browse our collections."
+  },
+  "newsletter": {
+    "title": "Join the VIONIS·XY World",
+    "subtitle": "Be the first to discover new collections, exclusive offers and the art of natural luxury.",
+    "placeholder": "Your email address",
+    "subscribe": "Subscribe",
+    "noThanks": "No, thank you",
+    "success": "Welcome to VIONIS·XY"
+  }
+}

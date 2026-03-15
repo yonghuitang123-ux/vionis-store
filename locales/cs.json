@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "cashmere": "Kašmír",
+    "merinoWool": "Merino Vlna",
+    "newArrivals": "Novinky",
+    "springSummer": "Jaro/Léto 2026",
+    "ourStory": "Náš Příběh",
+    "craftsmanship": "Řemeslné Zpracování",
+    "journal": "Žurnál",
+    "search": "Hledat",
+    "wishlist": "Oblíbené",
+    "account": "Účet",
+    "cart": "Nákupní Taška"
+  },
+  "product": {
+    "addToBag": "Přidat do Tašky",
+    "adding": "Přidávání…",
+    "buyNow": "Koupit Nyní",
+    "soldOut": "Vyprodáno",
+    "color": "Barva",
+    "size": "Velikost",
+    "quantity": "Množství",
+    "sizeGuide": "Průvodce Velikostmi",
+    "description": "Popis",
+    "materialsCare": "Materiály a Péče",
+    "careGuide": "Průvodce Péčí",
+    "sizeFit": "Velikost a Střih",
+    "shippingReturns": "Doručení a Vrácení",
+    "shippingText": "Bezplatné doručení u všech objednávek. Dodání do 5–10 pracovních dnů.",
+    "returnsText": "Bezplatné vrácení do 30 dnů od doručení. Zboží musí být nepoužité s původními visačkami.",
+    "youMayAlsoLike": "Mohlo by Vás Zaujmout"
+  },
+  "reviews": {
+    "title": "Ohlasy Našich Klientů",
+    "reviews": "Recenze",
+    "review": "Recenze",
+    "verifiedPurchase": "Ověřený Nákup",
+    "loadMore": "Načíst Další Recenze",
+    "loading": "Načítání…",
+    "writeReview": "Napsat Recenzi",
+    "noReviews": "Zatím žádné recenze"
+  },
+  "cart": {
+    "yourBag": "Vaše Nákupní Taška",
+    "empty": "Vaše nákupní taška je prázdná",
+    "continueShopping": "Pokračovat v Nákupu",
+    "subtotal": "Mezisoučet",
+    "checkout": "K Pokladně",
+    "remove": "Odebrat",
+    "size": "Velikost",
+    "color": "Barva",
+    "quantity": "Množství"
+  },
+  "footer": {
+    "shop": "Kolekce",
+    "help": "Zákaznický Servis",
+    "about": "O Nás",
+    "newsletter": "Newsletter",
+    "newsletterText": "Přijímejte exkluzivní novinky o nových kolekcích a soukromých akcích.",
+    "emailPlaceholder": "Vaše e-mailová adresa",
+    "subscribe": "Odebírat",
+    "subscribed": "Děkujeme za přihlášení",
+    "privacyPolicy": "Zásady Ochrany Soukromí",
+    "termsOfService": "Obchodní Podmínky",
+    "refundPolicy": "Reklamační Řád",
+    "shippingPolicy": "Podmínky Doručení",
+    "contact": "Kontakt",
+    "faq": "Časté Dotazy",
+    "wholesale": "Velkoobchod",
+    "copyright": "© {year} VIONIS·XY. Všechna práva vyhrazena."
+  },
+  "serviceBar": {
+    "freeShipping": "Doprava Zdarma",
+    "freeShippingDesc": "Bezplatné doručení po celém světě",
+    "freeReturns": "Vrácení Zdarma",
+    "freeReturnsDesc": "30 dní na bezstarostné vrácení",
+    "quality": "Záruka Kvality",
+    "qualityDesc": "100% přírodní vlákna, certifikováno",
+    "contact": "Kontakt",
+    "contactDesc": "support@vionisxy.com"
+  },
+  "wishlist": {
+    "title": "Oblíbené",
+    "empty": "Seznam oblíbených je prázdný",
+    "explore": "Prozkoumat Kolekci",
+    "clearAll": "Vymazat Vše"
+  },
+  "account": {
+    "signIn": "Přihlásit Se",
+    "signOut": "Odhlásit Se",
+    "createAccount": "Vytvořit Účet",
+    "email": "E-mail",
+    "password": "Heslo",
+    "firstName": "Jméno",
+    "lastName": "Příjmení",
+    "myAccount": "Můj Účet",
+    "orderHistory": "Historie Objednávek",
+    "noOrders": "Zatím žádné objednávky"
+  },
+  "common": {
+    "home": "Domů",
+    "loading": "Načítání…",
+    "error": "Něco se pokazilo",
+    "close": "Zavřít",
+    "back": "Zpět",
+    "next": "Další",
+    "previous": "Předchozí",
+    "viewAll": "Zobrazit Vše",
+    "readMore": "Číst Dále",
+    "collections": "Kolekce",
+    "language": "Jazyk",
+    "currency": "Měna"
+  },
+  "announcement": {
+    "freeShipping": "Doprava Zdarma u Objednávek nad 7 000 Kč",
+    "certified": "Certifikace SGS — 100% Přírodní Vlákna",
+    "returns": "Bezplatné Vrácení do 30 Dnů"
+  },
+  "search": {
+    "placeholder": "Hledat v kolekci…",
+    "noResults": "Žádné výsledky",
+    "tryDifferent": "Zkuste jiné klíčové slovo nebo prozkoumejte naše kolekce."
+  },
+  "newsletter": {
+    "title": "Vstupte do Světa VIONIS·XY",
+    "subtitle": "Buďte první, kdo objeví nové kolekce, exkluzivní nabídky a umění přírodního luxusu.",
+    "placeholder": "Vaše e-mailová adresa",
+    "subscribe": "Odebírat",
+    "noThanks": "Ne, děkuji",
+    "success": "Vítejte ve světě VIONIS·XY"
+  }
+}
