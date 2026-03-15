@@ -2,24 +2,30 @@
 
 import { useId } from 'react';
 import StarRating from './StarRating';
-import type { Review } from './ReviewList';
+import type { PublicReview } from '@/hooks/useReviews';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface ReviewSummaryProps {
-  reviews: Review[];
+  productId: string;
+  reviews?: PublicReview[];
+  loading?: boolean;
 }
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
-export default function ReviewSummary({ reviews }: ReviewSummaryProps) {
+export default function ReviewSummary({
+  reviews = [],
+  loading,
+}: ReviewSummaryProps) {
   const scopeId = `rs${useId().replace(/:/g, '')}`;
 
   // ── Calculate stats ─────────────────────────────────────────────────────
   const total = reviews.length;
-  const avg = total > 0
-    ? reviews.reduce((sum, r) => sum + r.rating, 0) / total
-    : 0;
+  const avg =
+    total > 0
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / total
+      : 0;
   const avgDisplay = avg.toFixed(1);
 
   // Distribution: count per star
@@ -74,6 +80,12 @@ export default function ReviewSummary({ reviews }: ReviewSummaryProps) {
     `  color:#bbb;width:32px;text-align:right;flex-shrink:0`,
     `}`,
 
+    /* Loading */
+    `#${scopeId} .rs-loading{`,
+    `  text-align:center;padding:40px 0;`,
+    `  font-family:var(--font-montserrat);font-weight:300;font-size:12px;color:#bbb`,
+    `}`,
+
     /* Mobile: stack vertically */
     `@media(max-width:768px){`,
     `  #${scopeId} .rs-grid{flex-direction:column;gap:36px;align-items:stretch}`,
@@ -81,6 +93,16 @@ export default function ReviewSummary({ reviews }: ReviewSummaryProps) {
     `  #${scopeId} .rs-bars{width:100%}`,
     `}`,
   ].join('\n');
+
+  if (loading) {
+    return (
+      <div id={scopeId}>
+        <style dangerouslySetInnerHTML={{ __html: css }} />
+        <p className="rs-heading">What Our Clients Say</p>
+        <div className="rs-loading">Loading reviews…</div>
+      </div>
+    );
+  }
 
   if (total === 0) return null;
 
@@ -106,12 +128,16 @@ export default function ReviewSummary({ reviews }: ReviewSummaryProps) {
         <div className="rs-bars">
           {[5, 4, 3, 2, 1].map((star) => {
             const count = dist[star];
-            const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+            const pct =
+              total > 0 ? Math.round((count / total) * 100) : 0;
             return (
               <div key={star} className="rs-bar-row">
                 <span className="rs-bar-label">{star}</span>
                 <div className="rs-bar-track">
-                  <div className="rs-bar-fill" style={{ width: `${pct}%` }} />
+                  <div
+                    className="rs-bar-fill"
+                    style={{ width: `${pct}%` }}
+                  />
                 </div>
                 <span className="rs-bar-pct">{pct}%</span>
               </div>

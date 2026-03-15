@@ -1,0 +1,61 @@
+[
+  {
+    "id": "seed-001",
+    "productId": "",
+    "productTitle": "",
+    "author": "Camille Dupont",
+    "displayName": "C*** D.",
+    "email": "",
+    "country": "France",
+    "countryFlag": "\ud83c\uddeb\ud83c\uddf7",
+    "rating": 5,
+    "title": "Softer than anything I own",
+    "body": "The cashmere is incredibly soft and the fit is exactly as described. I ordered my usual size and it drapes beautifully. The oatmeal colour is warm and versatile \u2014 I have worn it every day since it arrived.",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0961/1965/2627/files/2_b5b746b0-b008-4593-9da3-f06952603f17.webp?v=1769206938"
+    ],
+    "verified": true,
+    "status": "approved",
+    "productInfo": "The Classic Cashmere Crew \u2014 Oatmeal / S",
+    "createdAt": "2026-03-02T10:00:00.000Z"
+  },
+  {
+    "id": "seed-002",
+    "productId": "",
+    "productTitle": "",
+    "author": "Yuki Tanaka",
+    "displayName": "Y*** T.",
+    "email": "",
+    "country": "Japan",
+    "countryFlag": "\ud83c\uddef\ud83c\uddf5",
+    "rating": 4,
+    "title": "",
+    "body": "Very high quality merino. Lightweight yet warm. The only reason for 4 stars is the delivery took a bit longer than expected to Tokyo, but the product itself is perfect.",
+    "images": [],
+    "verified": true,
+    "status": "approved",
+    "productInfo": "The Cloud-Soft Merino Layer \u2014 Ivory / M",
+    "createdAt": "2026-02-18T10:00:00.000Z"
+  },
+  {
+    "id": "seed-003",
+    "productId": "",
+    "productTitle": "",
+    "author": "Sarah Mitchell",
+    "displayName": "S*** M.",
+    "email": "",
+    "country": "United States",
+    "countryFlag": "\ud83c\uddfa\ud83c\uddf8",
+    "rating": 5,
+    "title": "My new everyday essential",
+    "body": "I was skeptical about spending this much on a base layer but it is worth every penny. The merino regulates temperature beautifully and it feels luxurious against the skin. Already planning my next order.",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0961/1965/2627/files/1_449b9768-3f31-4671-ac0c-c5bbc73d9f2e.webp?v=1769206854",
+      "https://cdn.shopify.com/s/files/1/0961/1965/2627/files/d2d364e9304d84eac1f3f4037b6f3638.webp?v=1768383731"
+    ],
+    "verified": true,
+    "status": "approved",
+    "productInfo": "The Signature Cashmere Base Layer \u2014 Charcoal / S",
+    "createdAt": "2026-01-29T10:00:00.000Z"
+  }
+]

@@ -1,26 +1,15 @@
 'use client';
 
-import { useId, useState, useCallback } from 'react';
+import { useId, useState } from 'react';
 import StarRating from './StarRating';
+import type { PublicReview } from '@/hooks/useReviews';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-export interface Review {
-  id: string;
-  author: string;
-  country: string;
-  countryFlag: string;
-  rating: number;
-  title?: string;
-  body: string;
-  date: string;
-  verified: boolean;
-  images?: string[];
-  productInfo?: string;
-}
+// ─── Props ───────────────────────────────────────────────────────────────────
 
 export interface ReviewListProps {
-  reviews: Review[];
+  productId: string;
+  reviews?: PublicReview[];
+  loading?: boolean;
 }
 
 // ─── Lightbox ────────────────────────────────────────────────────────────────
@@ -61,9 +50,23 @@ function Lightbox({
   );
 }
 
+// ─── Format Date ─────────────────────────────────────────────────────────────
+
+function formatDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return iso;
+  }
+}
+
 // ─── Single Review Card ──────────────────────────────────────────────────────
 
-function ReviewItem({ review }: { review: Review }) {
+function ReviewItem({ review }: { review: PublicReview }) {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   return (
@@ -77,8 +80,7 @@ function ReviewItem({ review }: { review: Review }) {
         <div className="rl-row1">
           <StarRating rating={review.rating} size="small" />
           <div className="rl-author">
-            <span className="rl-author-name">{review.author}</span>
-            {' '}
+            <span className="rl-author-name">{review.displayName}</span>{' '}
             <span className="rl-author-country">
               {review.countryFlag} {review.country}
             </span>
@@ -86,9 +88,7 @@ function ReviewItem({ review }: { review: Review }) {
         </div>
 
         {/* Row 2: Title */}
-        {review.title && (
-          <h3 className="rl-title">{review.title}</h3>
-        )}
+        {review.title && <h3 className="rl-title">{review.title}</h3>}
 
         {/* Row 3: Body */}
         <p className="rl-body">{review.body}</p>
@@ -96,9 +96,9 @@ function ReviewItem({ review }: { review: Review }) {
         {/* Row 4: Verified + Date */}
         <div className="rl-meta">
           {review.verified && (
-            <span className="rl-verified">VERIFIED PURCHASE</span>
+            <span className="rl-verified">Verified Purchase</span>
           )}
-          <span className="rl-date">{review.date}</span>
+          <span className="rl-date">{formatDate(review.createdAt)}</span>
         </div>
 
         {/* Row 5: Images */}
@@ -130,7 +130,10 @@ function ReviewItem({ review }: { review: Review }) {
 
 const PAGE_SIZE = 3;
 
-export default function ReviewList({ reviews }: ReviewListProps) {
+export default function ReviewList({
+  reviews = [],
+  loading,
+}: ReviewListProps) {
   const scopeId = `rl${useId().replace(/:/g, '')}`;
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
@@ -211,11 +214,26 @@ export default function ReviewList({ reviews }: ReviewListProps) {
     `}`,
     `#${scopeId} .rl-load-more:hover{border-color:#1a1a1a}`,
 
+    /* Loading */
+    `#${scopeId} .rl-loading{`,
+    `  text-align:center;padding:40px 0;`,
+    `  font-family:var(--font-montserrat);font-weight:300;font-size:12px;color:#bbb`,
+    `}`,
+
     /* Mobile */
     `@media(max-width:768px){`,
     `  #${scopeId} .rl-item{padding:28px 0}`,
     `}`,
   ].join('\n');
+
+  if (loading) {
+    return (
+      <div id={scopeId}>
+        <style dangerouslySetInnerHTML={{ __html: css }} />
+        <div className="rl-loading">Loading reviews…</div>
+      </div>
+    );
+  }
 
   if (reviews.length === 0) return null;
 
@@ -240,50 +258,3 @@ export default function ReviewList({ reviews }: ReviewListProps) {
     </div>
   );
 }
-
-// ─── Mock Data ───────────────────────────────────────────────────────────────
-
-export const mockReviews: Review[] = [
-  {
-    id: '1',
-    author: 'Camille D.',
-    country: 'France',
-    countryFlag: '🇫🇷',
-    rating: 5,
-    title: 'Softer than anything I own',
-    body: 'The cashmere is incredibly soft and the fit is exactly as described. I ordered my usual size and it drapes beautifully. The oatmeal colour is warm and versatile — I have worn it every day since it arrived.',
-    date: 'March 2, 2026',
-    verified: true,
-    images: [
-      'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/2_b5b746b0-b008-4593-9da3-f06952603f17.webp?v=1769206938',
-    ],
-    productInfo: 'The Classic Cashmere Crew — Oatmeal / S',
-  },
-  {
-    id: '2',
-    author: 'Yuki T.',
-    country: 'Japan',
-    countryFlag: '🇯🇵',
-    rating: 4,
-    body: 'Very high quality merino. Lightweight yet warm. The only reason for 4 stars is the delivery took a bit longer than expected to Tokyo, but the product itself is perfect.',
-    date: 'February 18, 2026',
-    verified: true,
-    productInfo: 'The Cloud-Soft Merino Layer — Ivory / M',
-  },
-  {
-    id: '3',
-    author: 'Sarah M.',
-    country: 'United States',
-    countryFlag: '🇺🇸',
-    rating: 5,
-    title: 'My new everyday essential',
-    body: 'I was skeptical about spending this much on a base layer but it is worth every penny. The merino regulates temperature beautifully and it feels luxurious against the skin. Already planning my next order.',
-    date: 'January 29, 2026',
-    verified: true,
-    images: [
-      'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/1_449b9768-3f31-4671-ac0c-c5bbc73d9f2e.webp?v=1769206854',
-      'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/d2d364e9304d84eac1f3f4037b6f3638.webp?v=1768383731',
-    ],
-    productInfo: 'The Signature Cashmere Base Layer — Charcoal / S',
-  },
-];

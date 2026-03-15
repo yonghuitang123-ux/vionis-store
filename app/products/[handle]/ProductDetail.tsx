@@ -19,9 +19,10 @@ import { useProductVariant } from '@/hooks/useProductVariant';
 import ProductGallery from '@/components/product/ProductGallery';
 import ColorSelector from '@/components/product/ColorSelector';
 import ReviewSummary from '@/components/reviews/ReviewSummary';
-import ReviewList, { mockReviews } from '@/components/reviews/ReviewList';
+import ReviewList from '@/components/reviews/ReviewList';
 import SizeSelector from '@/components/product/SizeSelector';
 import { getAvailableColors } from '@/utils/getAvailableColors';
+import { useReviews } from '@/hooks/useReviews';
 
 // ─── 类型定义 ──────────────────────────────────────────────────────────────────
 
@@ -182,6 +183,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   const { addItem, loading: cartLoading, checkoutUrl } = useCart();
 
   const variantIdFromUrl = searchParams.get('variant');
+  const { reviews, loading: reviewsLoading } = useReviews(product.id);
   const media = product.media ?? product.images;
   const availableColors = useMemo(
     () => getAvailableColors(media),
@@ -563,9 +565,9 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
       {/* ── Reviews ── */}
       <section style={{ paddingTop: 64, paddingBottom: 80 }}>
-        <ReviewSummary reviews={mockReviews} />
+        <ReviewSummary productId={product.id} reviews={reviews} loading={reviewsLoading} />
         <div style={{ marginTop: 48 }}>
-          <ReviewList reviews={mockReviews} />
+          <ReviewList productId={product.id} reviews={reviews} loading={reviewsLoading} />
         </div>
       </section>
 
