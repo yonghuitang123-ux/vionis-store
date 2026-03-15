@@ -236,7 +236,7 @@ function NewsletterForm({
       setEmail('');
     } catch (err) {
       setStatus('error');
-      setErrorMsg(err instanceof Error ? err.message : '订阅失败，请重试');
+      setErrorMsg(err instanceof Error ? err.message : 'Subscription failed. Please try again.');
     }
   }
 
@@ -279,13 +279,13 @@ function NewsletterForm({
         </div>
 
         {status === 'error' && (
-          <p className="mt-2 text-xs" style={{ color: '#ff6b6b' }}>
+          <p className="mt-2 text-xs" style={{ color: '#c47070' }}>
             {errorMsg}
           </p>
         )}
         {status === 'success' && (
-          <p className="mt-2 text-xs" style={{ color: '#6bff9e' }}>
-            感谢订阅！
+          <p className="mt-2 text-xs" style={{ color: '#C8B69E' }}>
+            Thank you for subscribing!
           </p>
         )}
       </form>

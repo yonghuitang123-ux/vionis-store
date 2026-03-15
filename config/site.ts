@@ -104,12 +104,12 @@ export const siteConfig = {
     轮播4_产品链接:         '',
 
     // ── 男装 Men（轮播 5–8）──────────────────────────────────────────
-    轮播5_模特大图_电脑端: '',
+    轮播5_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-heather-grey-460g-heavyweight-cashmere-sweater-texture7.webp?v=1770624664',
     轮播5_模特大图_手机端: '',
-    轮播5_右侧小图:         '',
-    轮播5_产品名称:         '',
-    轮播5_产品价格:         '',
-    轮播5_产品链接:         '',
+    轮播5_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-heather-grey-460g-heavyweight-cashmere-sweater-texture7.webp?v=1770624664',
+    轮播5_产品名称:         'Heavyweight Turtleneck Sweater - 100% Thick Cashmere (460g)',
+    轮播5_产品价格:         '$295.00',
+    轮播5_产品链接:         '/products/the-460g-heavyweight-cashmere-turtle-neck',
 
     轮播6_模特大图_电脑端: '',
     轮播6_模特大图_手机端: '',
