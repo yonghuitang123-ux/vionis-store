@@ -128,8 +128,14 @@ function ReviewItem({ review }: { review: Review }) {
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
+const PAGE_SIZE = 3;
+
 export default function ReviewList({ reviews }: ReviewListProps) {
   const scopeId = `rl${useId().replace(/:/g, '')}`;
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  const visibleReviews = reviews.slice(0, visibleCount);
+  const hasMore = visibleCount < reviews.length;
 
   const css = [
     `#${scopeId}{padding:0 30px;max-width:800px;margin:0 auto}`,
@@ -193,6 +199,18 @@ export default function ReviewList({ reviews }: ReviewListProps) {
     `  color:#888;letter-spacing:0.06em;margin:8px 0 0`,
     `}`,
 
+    /* Load more button */
+    `#${scopeId} .rl-load-more{`,
+    `  display:block;margin:40px auto 0;`,
+    `  font-family:var(--font-montserrat);font-weight:500;font-size:11px;`,
+    `  letter-spacing:0.2em;text-transform:uppercase;`,
+    `  color:#1a1a1a;background:transparent;`,
+    `  border:1px solid rgba(0,0,0,0.15);`,
+    `  border-radius:0;padding:14px 40px;`,
+    `  cursor:pointer;transition:border-color 0.2s`,
+    `}`,
+    `#${scopeId} .rl-load-more:hover{border-color:#1a1a1a}`,
+
     /* Mobile */
     `@media(max-width:768px){`,
     `  #${scopeId} .rl-item{padding:28px 0}`,
@@ -204,11 +222,21 @@ export default function ReviewList({ reviews }: ReviewListProps) {
   return (
     <div id={scopeId}>
       <style dangerouslySetInnerHTML={{ __html: css }} />
-      {reviews.map((review) => (
+      {visibleReviews.map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}
       {/* Bottom divider */}
       <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }} />
+
+      {hasMore && (
+        <button
+          type="button"
+          className="rl-load-more"
+          onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+        >
+          LOAD MORE REVIEWS
+        </button>
+      )}
     </div>
   );
 }

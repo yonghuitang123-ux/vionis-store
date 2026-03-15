@@ -296,7 +296,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         }
       `}</style>
 
-      <section className={`pdp-grid-${CSS.escape(scopeId)}`} style={{ paddingBottom: 60, overflow: 'hidden' }}>
+      <section className={`pdp-grid-${CSS.escape(scopeId)}`} style={{ paddingBottom: 60, overflow: 'hidden' }} id={`pdp-${scopeId}`}>
         {/* ═══ 左侧：图片画廊（按颜色过滤，无放大镜） ═══ */}
         <ProductGallery
           media={media}
@@ -564,6 +564,90 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           <ReviewList reviews={mockReviews} />
         </div>
       </section>
+
+      {/* ── Mobile fixed bottom buy bar ── */}
+      <div className="pdp-mobile-bar">
+        <div className="pdp-mobile-bar-inner">
+          <div className="pdp-mobile-bar-left">
+            <span className="pdp-mobile-bar-price">
+              {formatMoney(displayPrice)}
+            </span>
+            <span className="pdp-mobile-bar-variant">
+              {[selectedColor, selectedSize].filter(Boolean).join(' / ')}
+            </span>
+          </div>
+          <button
+            type="button"
+            className="pdp-mobile-bar-btn"
+            onClick={handleAddToBag}
+            disabled={!isAvailable || cartLoading}
+          >
+            {cartLoading ? 'ADDING…' : !isAvailable ? 'SOLD OUT' : 'ADD TO BAG'}
+          </button>
+        </div>
+      </div>
+
+      <style>{`
+        .pdp-mobile-bar{display:none}
+        @media(max-width:768px){
+          .pdp-mobile-bar{
+            display:block;
+            position:fixed;
+            bottom:0;left:0;right:0;
+            z-index:100;
+            background:#FAF8F4;
+            border-top:1px solid rgba(0,0,0,0.08);
+            padding:12px 20px;
+            padding-bottom:calc(12px + env(safe-area-inset-bottom));
+          }
+          .pdp-mobile-bar-inner{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+          }
+          .pdp-mobile-bar-left{
+            display:flex;
+            flex-direction:column;
+            gap:2px;
+          }
+          .pdp-mobile-bar-price{
+            font-family:var(--font-cormorant);
+            font-style:italic;
+            font-size:20px;
+            color:#1a1a1a;
+            line-height:1.2;
+          }
+          .pdp-mobile-bar-variant{
+            font-family:var(--font-montserrat);
+            font-weight:300;
+            font-size:11px;
+            color:#888;
+          }
+          .pdp-mobile-bar-btn{
+            width:160px;
+            height:44px;
+            background:#1a1a1a;
+            color:#fff;
+            border:none;
+            font-family:var(--font-montserrat);
+            font-weight:500;
+            font-size:11px;
+            letter-spacing:0.16em;
+            text-transform:uppercase;
+            cursor:pointer;
+            flex-shrink:0;
+            transition:opacity 0.2s;
+          }
+          .pdp-mobile-bar-btn:disabled{
+            opacity:0.5;
+            cursor:not-allowed;
+          }
+          /* Add bottom padding to prevent content being hidden behind bar */
+          .pdp-grid-${CSS.escape(scopeId)}{
+            padding-bottom:80px!important;
+          }
+        }
+      `}</style>
 
       {/* 尺寸指南弹窗 */}
       <SizeGuideModal isOpen={sizeGuideOpen} onClose={() => setSizeGuideOpen(false)} />
