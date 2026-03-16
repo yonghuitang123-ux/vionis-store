@@ -1,16 +1,19 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import LiquidBanner from '@/components/LiquidBanner';
-import EditorialPanel from '@/components/EditorialPanel';
 import type { ProductCard } from '@/components/EditorialPanel';
-import MastermindShowcase from '@/components/MastermindShowcase';
 import type { SlideItem } from '@/components/MastermindShowcase';
-import BlogScroll from '@/components/BlogScroll';
-import BrandStory from '@/components/BrandStory';
-import ServiceBar from '@/components/ServiceBar';
-import SiteFooter from '@/components/SiteFooter';
 import { siteConfig, 占位图 } from '@/config/site';
+
+// ─── 懒加载首屏以下组件（减少初始 JS ~500KB） ────────────────────────────────
+const EditorialPanel = dynamic(() => import('@/components/EditorialPanel'), { ssr: true });
+const MastermindShowcase = dynamic(() => import('@/components/MastermindShowcase'), { ssr: true });
+const BlogScroll = dynamic(() => import('@/components/BlogScroll'), { ssr: true });
+const BrandStory = dynamic(() => import('@/components/BrandStory'), { ssr: true });
+const ServiceBar = dynamic(() => import('@/components/ServiceBar'), { ssr: true });
+const SiteFooter = dynamic(() => import('@/components/SiteFooter'), { ssr: true });
 
 // ─── 便捷解构 ─────────────────────────────────────────────────────────────────
 const { banner, grid, featuredLook, blog, brandStory, serviceBar, footer } = siteConfig;
@@ -110,7 +113,7 @@ interface HomeContentProps {
 export default function HomeContent({ initialProducts }: HomeContentProps) {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
 
-  // 产品卡片（服务端预取，不再需要 useEffect）
+  // 产品卡片（服务端预取）
   const cards       = initialProducts.length >= 4 ? initialProducts.map(toProductCard) : SKELETON_PRODUCTS;
   const panel1Cards = cards.slice(0, 4);
   const panel2Cards = cards.slice(4, 8).length === 4 ? cards.slice(4, 8) : SKELETON_PRODUCTS;
@@ -123,7 +126,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
   return (
     <main>
 
-      {/* 1. LiquidBanner — 首屏横幅 */}
+      {/* 1. LiquidBanner — 首屏横幅（直接加载，不懒加载） */}
       <LiquidBanner
         leftImageDesktop={banner.电脑端左图}
         leftImageMobile={banner.手机端左图 || undefined}
