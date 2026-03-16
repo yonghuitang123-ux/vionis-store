@@ -250,6 +250,7 @@ export default function Header() {
               alt="VIONIS·XY"
               width={160}
               height={90}
+              sizes="160px"
               priority
             />
           </Link>

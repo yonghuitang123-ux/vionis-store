@@ -183,7 +183,7 @@ export default function BrandStory({
               alt={mainImageAlt}
               fill
               loading="lazy"
-              sizes="(max-width: 900px) 100vw, 40vw"
+              sizes="(max-width: 900px) 90vw, 500px"
               className="bs-img object-cover"
             />
           </div>
@@ -212,7 +212,7 @@ export default function BrandStory({
               alt={subImageAlt}
               fill
               loading="lazy"
-              sizes="(max-width: 900px) 80vw, 27vw"
+              sizes="(max-width: 900px) 80vw, 350px"
               className="bs-img object-cover"
             />
           </div>
