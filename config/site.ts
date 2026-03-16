@@ -255,7 +255,7 @@ export const siteConfig = {
     文章列表: [
       {
         图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-alashan-cashmere-goats-inner-mongolia-source.webp?v=1773412607',              // 建议上传 3:4 竖图，宽 680px 以上
-        图片_手机端: '',              // 不填则自动使用电脑端图片
+        图片_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/29a72414bf184c6268db152e0c0ce709.webp?v=1773665432',              // 不填则自动使用电脑端图片
         文章标题: 'The Origin of Cashmere',
         文章正文: 'Inner Mongolia, -30°C. The world\'s finest cashmere is born from extreme cold.',
         链接: '/blog/cashmere-origin',
