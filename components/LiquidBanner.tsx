@@ -193,7 +193,7 @@ export default function LiquidBanner({
         rightRef.current.style.transform = `translate3d(${offset}%,0,0)`;
 
       if (overlayRef.current) {
-        const startTop = st.mobile ? 60 : 65;
+        const startTop = st.mobile ? 55 : 65;
         overlayRef.current.style.top = `${startTop - 10 * p}%`;
       }
 
@@ -258,7 +258,7 @@ export default function LiquidBanner({
     `  background:${c.btnHoverBg};color:${c.btnHoverText}!important;`,
     `  border-color:${c.btnHoverBorder}}`,
     `@media(max-width:749px){`,
-    `  #${scopeId} .lb-overlay{top:60%;max-width:94%}`,
+    `  #${scopeId} .lb-overlay{top:55%;max-width:94%}`,
     `  #${scopeId} .lb-box{padding:30px 15px;max-height:85vh;overflow-y:auto}`,
     `  #${scopeId} .lb-heading{font-size:clamp(24px,7vw,36px);margin-bottom:20px}`,
     `  #${scopeId} .lb-btn{font-size:10px;padding:10px 18px}}`,
