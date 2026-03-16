@@ -56,10 +56,12 @@ export const siteConfig = {
     男装大图_手机端: '',   // 留空则自动用电脑端图片
 
     // 图片下方的文字叠层
-    女装标题:   'The Cashmere Origin',
-    女装副标题: 'Inner Mongolia, -30°C',
+    女装标题:   'The Spring Cashmere',
+    女装副标题: 'ALXA, INNER MONGOLIA · 100% CASHMERE',
+    女装正文:   'Every fibre is sourced from white cashmere goats roaming the Alxa desert of Inner Mongolia. Our spring edit selects only the finest first-clip fleece at around 14.5 microns, crafted into lighter weights that preserve the natural softness and warmth cashmere is known for. Same origin, gentler touch.',
     男装标题:   'The Cashmere Structure',
-    男装副标题: 'Engineered for Warmth',
+    男装副标题: 'ALXA, INNER MONGOLIA · SPRING EDITION',
+    男装正文:   'The Alxa white cashmere goat produces some of the world\'s finest fibres. Our spring collection carries the same structured silhouettes and uncompromising quality, re-engineered in lighter gauges for the transitional season. Less weight, nothing lost.',
 
     // Shopify collection handle（用于 API 按系列取产品，暂保留备用）
     女装产品系列: 'women',

@@ -168,6 +168,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
           imageAlt:     'VIONIS·XY Women Collection',
           title:        grid.女装标题,
           description:  grid.女装副标题,
+          body:         grid.女装正文,
           products:     panel1Cards,
         }}
         panel2={{
@@ -176,6 +177,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
           imageAlt:     'VIONIS·XY Men Collection',
           title:        grid.男装标题,
           description:  grid.男装副标题,
+          body:         grid.男装正文,
           products:     panel2Cards,
         }}
         colors={{ accentColor: '#A05E46' }}

@@ -25,6 +25,8 @@ export interface PanelConfig {
   title: string;
   /** 大图上的副标题 */
   description?: string;
+  /** 大图下方的正文段落 */
+  body?: string;
   /** 右侧产品卡片列表（最多4张，2列×2行） */
   products: ProductCard[];
 }
@@ -223,6 +225,21 @@ function ContentPanel({
               }}
             >
               {config.description}
+            </p>
+          )}
+          {config.body && (
+            <p
+              style={{
+                fontFamily: textFont,
+                fontSize: `${textSize}px`,
+                color: '#555555',
+                lineHeight: 1.8,
+                margin: '12px auto 0',
+                maxWidth: '520px',
+                padding: '0 16px',
+              }}
+            >
+              {config.body}
             </p>
           )}
         </div>
