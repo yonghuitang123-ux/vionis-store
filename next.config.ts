@@ -7,6 +7,19 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'cdn.shopify.com' },
     ],
   },
+
+  async headers() {
+    return [
+      {
+        // All routes: tell Cloudflare to vary cache by RSC header
+        // so HTML and RSC payloads are cached separately
+        source: '/:path*',
+        headers: [
+          { key: 'Vary', value: 'RSC, Next-Router-State-Tree, Next-Router-Prefetch' },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
