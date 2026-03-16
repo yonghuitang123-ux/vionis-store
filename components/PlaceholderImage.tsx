@@ -75,15 +75,31 @@ export default function PlaceholderImage({
   const defaultBlur =
     'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBEQACEQADAP/Z';
   const useBlur = !props.priority && props.placeholder !== 'empty';
+  const isPriority = !!props.priority;
   const imageProps = {
     ...props,
     placeholder: useBlur ? ('blur' as const) : props.placeholder,
     blurDataURL: useBlur ? (props.blurDataURL ?? defaultBlur) : props.blurDataURL,
-    loading: props.loading ?? (props.priority ? 'eager' : 'lazy'),
+    ...(isPriority
+      ? { loading: 'eager' as const, fetchPriority: 'high' as const }
+      : { loading: props.loading ?? ('lazy' as const) }),
   };
 
   // ── fill 模式 ──────────────────────────────────────────────────────────────
   if (fill) {
+    // Priority images: skip overlay entirely to eliminate render delay (LCP fix)
+    if (isPriority) {
+      return (
+        <NextImage
+          ref={imgRef}
+          fill
+          {...imageProps}
+          style={mergedStyle}
+          onLoad={handleLoad}
+          onError={handleError}
+        />
+      );
+    }
     return (
       <>
         <div aria-hidden className={overlayClassName} style={overlayStyle} />
@@ -100,6 +116,19 @@ export default function PlaceholderImage({
   }
 
   // ── 尺寸确定模式 ────────────────────────────────────────────────────────────
+  if (isPriority) {
+    return (
+      <NextImage
+        ref={imgRef}
+        width={width}
+        height={height}
+        {...imageProps}
+        style={mergedStyle}
+        onLoad={handleLoad}
+        onError={handleError}
+      />
+    );
+  }
   return (
     <div style={{ position: 'relative', width, height, display: 'inline-block' }}>
       <div aria-hidden className={overlayClassName} style={overlayStyle} />
