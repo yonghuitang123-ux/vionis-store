@@ -32,7 +32,7 @@ const navStyle: CSSProperties = {
   fontWeight: 400,
   textTransform: 'uppercase',
   letterSpacing: '0.1em',
-  color: '#888',
+  color: '#666',
   display: 'flex',
   alignItems: 'center',
   flexWrap: 'wrap',
@@ -40,7 +40,7 @@ const navStyle: CSSProperties = {
 };
 
 const linkStyle: CSSProperties = {
-  color: '#888',
+  color: '#666',
   textDecoration: 'none',
   transition: 'color 0.2s ease',
 };

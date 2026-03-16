@@ -58,7 +58,7 @@ const labelStyle: CSSProperties = {
   fontWeight: 500,
   textTransform: 'uppercase',
   letterSpacing: '0.08em',
-  color: '#888',
+  color: '#666',
 };
 
 const selectStyle: CSSProperties = {
@@ -117,7 +117,7 @@ export default function CollectionGrid({ products }: CollectionGridProps) {
           style={{
             fontFamily: 'var(--font-montserrat)',
             fontSize: 15,
-            color: '#888',
+            color: '#666',
             textAlign: 'center',
             padding: '60px 0',
           }}

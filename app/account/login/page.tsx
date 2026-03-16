@@ -46,7 +46,7 @@ const subtitleStyle: CSSProperties = {
   fontSize: 13,
   fontWeight: 300,
   textAlign: 'center',
-  color: '#888',
+  color: '#666',
   marginBottom: 40,
 };
 
@@ -105,7 +105,7 @@ const linkRowStyle: CSSProperties = {
   fontFamily: 'var(--font-montserrat)',
   fontSize: 13,
   fontWeight: 300,
-  color: '#888',
+  color: '#666',
 };
 
 const linkStyle: CSSProperties = {

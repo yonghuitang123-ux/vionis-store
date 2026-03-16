@@ -135,7 +135,7 @@ const metaRowStyle: CSSProperties = {
   fontSize: 12,
   fontWeight: 400,
   letterSpacing: '0.06em',
-  color: '#888',
+  color: '#666',
   textAlign: 'center',
   marginBottom: 40,
   display: 'flex',

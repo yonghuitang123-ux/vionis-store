@@ -43,7 +43,7 @@ export default function SizeSelector({
                     ? '1.5px solid #1a1a1a'
                     : '1px solid rgba(0,0,0,0.15)',
                 backgroundColor: outOfStock ? '#e8e8e8' : active ? '#1a1a1a' : 'transparent',
-                color: outOfStock ? '#999' : active ? '#fff' : '#1a1a1a',
+                color: outOfStock ? '#767676' : active ? '#fff' : '#1a1a1a',
                 cursor: outOfStock ? 'not-allowed' : 'pointer',
                 textDecoration: outOfStock ? 'line-through' : 'none',
                 opacity: outOfStock ? 0.7 : 1,

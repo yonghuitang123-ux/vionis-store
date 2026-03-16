@@ -95,7 +95,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
             style={{
               fontFamily: 'var(--font-montserrat)',
               fontSize: 13,
-              color: '#888',
+              color: '#666',
               textAlign: 'center',
               margin: '0 0 40px',
             }}
@@ -128,7 +128,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                 style={{
                   fontFamily: 'var(--font-montserrat)',
                   fontSize: 15,
-                  color: '#888',
+                  color: '#666',
                   lineHeight: 1.6,
                 }}
               >
@@ -141,7 +141,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                 style={{
                   fontFamily: 'var(--font-montserrat)',
                   fontSize: 15,
-                  color: '#888',
+                  color: '#666',
                 }}
               >
                 Enter a search term to find products.

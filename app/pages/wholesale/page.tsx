@@ -190,7 +190,7 @@ export default function WholesalePage() {
               wholesale@vionisxy.com
             </a>
           </p>
-          <p style={{ ...body, marginTop: 8, fontSize: 13, color: '#888' }}>
+          <p style={{ ...body, marginTop: 8, fontSize: 13, color: '#666' }}>
             We typically respond within 1–2 business days.
           </p>
         </section>

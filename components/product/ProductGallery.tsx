@@ -1,15 +1,15 @@
 'use client';
 
 /**
- * ProductGallery — 产品图片画廊（按颜色过滤）
+ * ProductGallery — 双图并排布局（参考 Loro Piana）
  * ─────────────────────────────────────────────────────────────────
- * 根据 selectedColor 过滤图片，主图 + 缩略图横排，点击切换，无放大镜。
+ * 左窄右宽（1:1.8），aspectRatio 3/4，objectFit cover，objectPosition top center。
+ * 颜色切换时两张图同时更换。移动端上下堆叠。
  */
 
-import { useMemo, useState } from 'react';
-import PlaceholderImage from '@/components/PlaceholderImage';
+import { useMemo } from 'react';
+import Image from 'next/image';
 import { filterImagesByColor, type MediaItem } from '@/utils/filterImages';
-import type { CSSProperties } from 'react';
 
 export interface ProductGalleryMedia extends MediaItem {
   url: string;
@@ -29,114 +29,99 @@ export default function ProductGallery({
   selectedColor,
   productTitle,
 }: ProductGalleryProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const filteredMedia = useMemo(
     () => filterImagesByColor(media, selectedColor),
     [media, selectedColor],
   );
 
-  const displayIndex =
-    filteredMedia.length > 0
-      ? Math.min(activeIndex, filteredMedia.length - 1)
-      : 0;
-  const displayImage = filteredMedia[displayIndex] ?? filteredMedia[0];
+  const leftImage = filteredMedia[0] ?? null;
+  const rightImage = filteredMedia[1] ?? null;
 
   return (
-    <div style={galleryWrapperStyle}>
+    <>
       <style>{`
-        .product-gallery-thumbs::-webkit-scrollbar { display: none; }
-        @keyframes productGalleryFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+        .pg-grid {
+          display: flex;
+          gap: 4px;
+          width: 100%;
         }
-        .product-gallery-main img {
-          animation: productGalleryFadeIn 0.3s ease;
+        .pg-left {
+          flex: 1;
+          min-width: 0;
+        }
+        .pg-right {
+          flex: 1.8;
+          min-width: 0;
+        }
+        @media (max-width: 768px) {
+          .pg-grid {
+            flex-direction: column;
+          }
+          .pg-left,
+          .pg-right {
+            flex: none;
+            width: 100%;
+          }
         }
       `}</style>
-      {/* 主图 */}
-      <div
-        className="product-gallery-main"
-        style={{
-          ...mainImageStyle,
-          cursor: 'default',
-        }}
-      >
-        {displayImage?.url && (
-          <PlaceholderImage
-            src={displayImage.url}
-            alt={displayImage.altText ?? productTitle}
-            fill
-            sizes="(max-width: 768px) 100vw, 55vw"
-            style={{
-              objectFit: 'cover',
-              transition: 'opacity 0.3s ease',
-            }}
-            priority
-          />
-        )}
-      </div>
 
-      {/* 缩略图条 */}
-      {filteredMedia.length > 1 && (
-        <div className="product-gallery-thumbs" style={thumbStripStyle}>
-          {filteredMedia.map((img, idx) => (
-            <button
-              key={img.url}
-              type="button"
-              onClick={() => setActiveIndex(idx)}
-              aria-label={`查看图片 ${idx + 1}`}
-              style={{
-                ...thumbBtnStyle,
-                border:
-                  idx === displayIndex
-                    ? '2px solid #1a1a1a'
-                    : '2px solid transparent',
-              }}
-            >
-              <PlaceholderImage
-                src={img.url}
-                alt={img.altText ?? `${productTitle} - ${idx + 1}`}
+      <div className="pg-grid">
+        {/* 左图 */}
+        <div className="pg-left">
+          <div style={imageContainerStyle}>
+            {leftImage ? (
+              <Image
+                src={leftImage.url}
+                alt={leftImage.altText ?? productTitle}
                 fill
-                sizes="60px"
-                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 768px) 100vw, 35vw"
+                style={imageStyle}
+                priority
               />
-            </button>
-          ))}
+            ) : (
+              <div style={placeholderStyle} />
+            )}
+          </div>
         </div>
-      )}
-    </div>
+
+        {/* 右图 */}
+        <div className="pg-right">
+          <div style={imageContainerStyle}>
+            {rightImage ? (
+              <Image
+                src={rightImage.url}
+                alt={rightImage.altText ?? `${productTitle} - 2`}
+                fill
+                sizes="(max-width: 768px) 100vw, 65vw"
+                style={imageStyle}
+                priority
+              />
+            ) : (
+              <div style={placeholderStyle} />
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
-const galleryWrapperStyle: CSSProperties = {
-  width: '100%',
-};
-
-const mainImageStyle: CSSProperties = {
+const imageContainerStyle: React.CSSProperties = {
   position: 'relative',
   width: '100%',
-  aspectRatio: '4 / 5',
+  aspectRatio: '3 / 4',
   overflow: 'hidden',
-  backgroundColor: '#f0ebe4',
+  backgroundColor: '#F5F0E8',
+  cursor: 'default',
 };
 
-const thumbStripStyle: CSSProperties = {
-  display: 'flex',
-  gap: 8,
-  marginTop: 12,
-  overflowX: 'auto',
-  scrollbarWidth: 'none',
+const imageStyle: React.CSSProperties = {
+  objectFit: 'cover',
+  objectPosition: 'top center',
 };
 
-const thumbBtnStyle: CSSProperties = {
-  position: 'relative',
-  width: 60,
-  height: 75,
-  flexShrink: 0,
-  overflow: 'hidden',
-  padding: 0,
-  background: '#f0ebe4',
-  cursor: 'pointer',
-  transition: 'border-color 0.2s ease',
+const placeholderStyle: React.CSSProperties = {
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#F5F0E8',
 };

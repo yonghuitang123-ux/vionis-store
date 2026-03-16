@@ -108,7 +108,7 @@ function ImageSlot({
           src={src}
           alt={alt}
           fill
-          sizes="100vw"
+          sizes="(max-width: 749px) 100vw, 50vw"
           priority
           className="object-cover"
           style={{ background: bg }}

@@ -89,7 +89,7 @@ const breadcrumbStyle: CSSProperties = {
   fontWeight: 400,
   letterSpacing: '0.06em',
   textTransform: 'uppercase' as const,
-  color: '#888',
+  color: '#666',
   padding: '28px 0 20px',
   display: 'flex',
   alignItems: 'center',
@@ -98,7 +98,7 @@ const breadcrumbStyle: CSSProperties = {
 };
 
 const breadcrumbLinkStyle: CSSProperties = {
-  color: '#888',
+  color: '#666',
   textDecoration: 'none',
   transition: 'color 0.2s',
 };
