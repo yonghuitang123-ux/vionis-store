@@ -1,17 +1,11 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { Cormorant, Cormorant_Garamond, Montserrat } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import { CartProvider } from '@/lib/cart-context';
 import { WishlistProvider } from '@/lib/wishlist-context';
-import CartDrawer from '@/components/CartDrawer';
-import NewsletterPopup from '@/components/NewsletterPopup';
-import ScrollToTop from '@/components/ScrollToTop';
 import { ToastProvider } from '@/components/Toast';
-import NProgress from '@/components/NProgress';
-import CookieConsent from '@/components/CookieConsent';
-import Analytics from '@/components/Analytics';
+import ClientShell from './ClientShell';
 
 const cormorant = Cormorant({
   variable: '--font-cormorant',
@@ -75,16 +69,9 @@ export default function RootLayout({
         <ToastProvider>
           <CartProvider>
             <WishlistProvider>
-              <NProgress />
               <Header />
               <div style={{ paddingTop: 200 }}>{children}</div>
-              <CartDrawer />
-              <NewsletterPopup />
-              <ScrollToTop />
-              <CookieConsent />
-              <Suspense fallback={null}>
-                <Analytics />
-              </Suspense>
+              <ClientShell />
             </WishlistProvider>
           </CartProvider>
         </ToastProvider>
