@@ -160,7 +160,7 @@ function Accordion({
     transition: 'transform 0.3s ease',
     transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
     fontSize: 14,
-    color: '#888',
+    color: '#666',
   };
 
   return (
@@ -354,7 +354,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               <div>
                 <p style={optionLabelStyle}>
                   Color
-                  <span style={{ fontWeight: 400, marginLeft: 8, color: '#888' }}>
+                  <span style={{ fontWeight: 400, marginLeft: 8, color: '#666' }}>
                     — {selectedColor || ''}
                   </span>
                 </p>
@@ -370,7 +370,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               <div>
                 <p style={optionLabelStyle}>
                   Size
-                  <span style={{ fontWeight: 400, marginLeft: 8, color: '#888' }}>
+                  <span style={{ fontWeight: 400, marginLeft: 8, color: '#666' }}>
                     — {selectedSize ?? ''}
                   </span>
                 </p>
@@ -396,7 +396,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                 <div key={opt.id} style={{ marginBottom: 24 }}>
                   <p style={optionLabelStyle}>
                     {opt.name}
-                    <span style={{ fontWeight: 400, marginLeft: 8, color: '#888' }}>
+                    <span style={{ fontWeight: 400, marginLeft: 8, color: '#666' }}>
                       — {selectedOptions[opt.name]}
                     </span>
                   </p>
@@ -426,7 +426,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                                 ? '1.5px solid #1a1a1a'
                                 : '1px solid rgba(0,0,0,0.15)',
                             backgroundColor: outOfStock ? '#e8e8e8' : active ? '#1a1a1a' : 'transparent',
-                            color: outOfStock ? '#999' : active ? '#fff' : '#1a1a1a',
+                            color: outOfStock ? '#767676' : active ? '#fff' : '#1a1a1a',
                             cursor: outOfStock ? 'not-allowed' : 'pointer',
                             textDecoration: outOfStock ? 'line-through' : 'none',
                             opacity: outOfStock ? 0.7 : 1,
@@ -693,7 +693,7 @@ const vendorStyle: CSSProperties = {
   fontWeight: 500,
   letterSpacing: '0.12em',
   textTransform: 'uppercase',
-  color: '#888',
+  color: '#666',
   margin: '0 0 8px',
 };
 
@@ -723,7 +723,7 @@ const salePriceStyle: CSSProperties = {
 
 const compareAtStyle: CSSProperties = {
   textDecoration: 'line-through',
-  color: '#999',
+  color: '#767676',
   fontSize: 14,
 };
 
@@ -742,7 +742,7 @@ const sizeGuideBtnStyle: CSSProperties = {
   fontSize: 11,
   fontWeight: 400,
   letterSpacing: '0.06em',
-  color: '#999',
+  color: '#767676',
   background: 'none',
   border: 'none',
   padding: 0,

@@ -58,7 +58,7 @@ const tableHeaderStyle: CSSProperties = {
   fontWeight: 600,
   textTransform: 'uppercase',
   letterSpacing: '0.08em',
-  color: '#888',
+  color: '#666',
   borderBottom: '1px solid rgba(0,0,0,0.1)',
   paddingBottom: 12,
   marginBottom: 0,
@@ -94,7 +94,7 @@ const titleStyle: CSSProperties = {
 const variantStyle: CSSProperties = {
   fontFamily: 'var(--font-montserrat)',
   fontSize: 12,
-  color: '#888',
+  color: '#666',
   margin: '4px 0 0',
 };
 
@@ -153,7 +153,7 @@ const removeBtnStyle: CSSProperties = {
   border: 'none',
   cursor: 'pointer',
   fontSize: 18,
-  color: '#999',
+  color: '#767676',
   padding: 4,
   lineHeight: 1,
   transition: 'color 0.2s',
@@ -212,7 +212,7 @@ const emptyStyle: CSSProperties = {
 const emptyTextStyle: CSSProperties = {
   fontFamily: 'var(--font-montserrat)',
   fontSize: 15,
-  color: '#888',
+  color: '#666',
   marginBottom: 24,
 };
 
@@ -366,7 +366,7 @@ export default function CartPageContent() {
                   (e.currentTarget as HTMLElement).style.color = '#1a1a1a';
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.color = '#999';
+                  (e.currentTarget as HTMLElement).style.color = '#767676';
                 }}
                 aria-label={`Remove ${line.title}`}
               >
@@ -391,7 +391,7 @@ export default function CartPageContent() {
             style={{
               fontFamily: 'var(--font-montserrat)',
               fontSize: 12,
-              color: '#888',
+              color: '#666',
               margin: 0,
               textAlign: 'right',
             }}

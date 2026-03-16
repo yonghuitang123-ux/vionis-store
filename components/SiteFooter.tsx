@@ -102,7 +102,7 @@ const DEFAULT_COLORS: FooterColors = {
   bgColor: '#E8DFD6',
   textColor: '#555555',
   headingColor: '#1a1a1a',
-  mutedColor: '#888888',
+  mutedColor: '#666666',
   borderColor: 'rgba(0,0,0,0.1)',
   linkColor: '#333333',
   inputBorderColor: 'rgba(0,0,0,0.2)',

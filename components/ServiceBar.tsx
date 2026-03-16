@@ -106,7 +106,7 @@ export default function ServiceBar({
   items = DEFAULT_ITEMS,
   bgColor = '#E8DFD6',
   textColor = '#1a1a1a',
-  mutedColor = '#888888',
+  mutedColor = '#666666',
   borderColor = 'rgba(0,0,0,0.1)',
   headingFont = 'var(--font-cormorant), "Cormorant", serif',
   textFont = 'var(--font-montserrat), "Montserrat", sans-serif',

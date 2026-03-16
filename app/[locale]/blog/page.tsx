@@ -84,7 +84,7 @@ const dateStyle: CSSProperties = {
   fontWeight: 400,
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
-  color: '#888',
+  color: '#666',
   marginTop: 16,
   marginBottom: 6,
 };

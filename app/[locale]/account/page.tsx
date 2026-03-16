@@ -51,7 +51,7 @@ const subtitleStyle: CSSProperties = {
   fontFamily: 'var(--font-montserrat)',
   fontSize: 14,
   fontWeight: 300,
-  color: '#888',
+  color: '#666',
   textAlign: 'center',
   marginBottom: 48,
 };
@@ -103,7 +103,7 @@ const thStyle: CSSProperties = {
   fontSize: 11,
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
-  color: '#888',
+  color: '#666',
   borderBottom: '1px solid rgba(0,0,0,0.08)',
 };
 
@@ -131,7 +131,7 @@ const loadingStyle: CSSProperties = {
   fontFamily: 'var(--font-montserrat)',
   fontSize: 14,
   fontWeight: 300,
-  color: '#888',
+  color: '#666',
   textAlign: 'center',
   paddingTop: 120,
 };
@@ -140,7 +140,7 @@ const emptyStyle: CSSProperties = {
   fontFamily: 'var(--font-montserrat)',
   fontSize: 14,
   fontWeight: 300,
-  color: '#888',
+  color: '#666',
   padding: '24px 0',
 };
 

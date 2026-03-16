@@ -97,7 +97,7 @@ const priceWrapperStyle: CSSProperties = {
 
 const compareAtStyle: CSSProperties = {
   textDecoration: 'line-through',
-  color: '#999',
+  color: '#767676',
 };
 
 const salePriceStyle: CSSProperties = {
