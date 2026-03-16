@@ -60,8 +60,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://cdn.shopify.com" />
-        <link rel="dns-prefetch" href="https://cdn.shopify.com" />
+        <link rel="preconnect" href="https://vionisxy.myshopify.com" />
+        <link rel="dns-prefetch" href="https://vionisxy.myshopify.com" />
       </head>
       <body
         className={`${cormorant.variable} ${cormorantGaramond.variable} ${montserrat.variable} antialiased`}

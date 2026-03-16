@@ -215,8 +215,7 @@ function ContentPanel({
               style={{
                 fontFamily: textFont,
                 fontSize: `calc(${textSize}px * 0.85)`,
-                color: colors.textColor,
-                opacity: 0.6,
+                color: '#555555',
                 textTransform: 'uppercase',
                 letterSpacing: '2px',
                 lineHeight: 1.6,
@@ -338,8 +337,7 @@ export default function EditorialPanel({
                 style={{
                   fontFamily: textFont,
                   fontSize: `calc(${textSize}px * 1.1)`,
-                  color: c.textColor,
-                  opacity: isActive ? 1 : 0.5,
+                  color: isActive ? c.textColor : '#555555',
                   fontWeight: isActive ? 600 : 400,
                   letterSpacing: '1px',
                   lineHeight: 1.6,

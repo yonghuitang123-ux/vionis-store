@@ -225,7 +225,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         bgColor="#E8DFD6"
         headingColor="#1a1a1a"
         textColor="#555555"
-        mutedColor="#666666"
+        mutedColor="#555555"
       />
 
       {/* 6. ServiceBar — 服务承诺栏 */}
@@ -237,7 +237,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         }))}
         bgColor="#E8DFD6"
         textColor="#1a1a1a"
-        mutedColor="#666666"
+        mutedColor="#555555"
         borderColor="rgba(0,0,0,0.1)"
       />
 
@@ -268,7 +268,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
           bgColor:          '#E8DFD6',
           textColor:        '#555555',
           headingColor:     '#1a1a1a',
-          mutedColor:       '#666666',
+          mutedColor:       '#555555',
           borderColor:      'rgba(0,0,0,0.1)',
           linkColor:        '#333333',
           inputBorderColor: 'rgba(0,0,0,0.2)',

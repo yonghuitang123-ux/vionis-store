@@ -169,7 +169,7 @@ function GenderGroup({
                           alt={slide.modelImageAlt ?? ''}
                           fill
                           priority={isFirstGroup && idx === 0}
-                          sizes="100vw"
+                          sizes="(max-width: 480px) 100vw, 50vw"
                           className={`object-${modelFit}`}
                         />
                       </div>

@@ -86,7 +86,8 @@ export default function PlaceholderImage({
     ...props,
     placeholder: useBlur ? ('blur' as const) : props.placeholder,
     blurDataURL: useBlur ? (props.blurDataURL ?? defaultBlur) : props.blurDataURL,
-    loading: props.loading ?? (props.priority ? 'eager' : 'lazy'),
+    // priority 时让 Next.js 自行处理 loading + fetchpriority，不手动覆盖
+    ...(props.priority ? {} : { loading: props.loading ?? ('lazy' as const) }),
   };
 
   // ── fill 模式 ──────────────────────────────────────────────────────────────

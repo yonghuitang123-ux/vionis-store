@@ -45,7 +45,7 @@ export default function BlogScroll({
   bgColor = '#E8DFD6',
   headingColor = '#1a1a1a',
   textColor = '#555555',
-  mutedColor = '#666666',
+  mutedColor = '#555555',
   headingFont = 'var(--font-cormorant), "Cormorant", serif',
   textFont = 'var(--font-montserrat), "Montserrat", sans-serif',
   cardWidth = 340,
