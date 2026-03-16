@@ -13,11 +13,12 @@ import { getProductByHandle, getProductRecommendations } from '@/lib/shopify';
 import ProductCard from '@/components/ProductCard';
 import ProductDetail from './ProductDetail';
 import type { CSSProperties } from 'react';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── 类型 ──────────────────────────────────────────────────────────────────────
 
 interface PageProps {
-  params: Promise<{ handle: string }>;
+  params: Promise<{ locale: string; handle: string }>;
 }
 
 // ─── 数据规范化 ────────────────────────────────────────────────────────────────
@@ -49,6 +50,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${product.title} — VIONIS·XY`,
     description,
+    alternates: buildAlternates(`/products/${handle}`),
     openGraph: {
       title: `${product.title} — VIONIS·XY`,
       description,
@@ -56,7 +58,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: 'VIONIS·XY',
       images: image
         ? [{ url: image.url, width: image.width, height: image.height }]
-        : [],
+        : [defaultOgImage],
     },
   };
 }

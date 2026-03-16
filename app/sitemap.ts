@@ -1,104 +1,88 @@
 /**
  * 自动生成 sitemap.xml
  * ─────────────────────────────────────────────────────────────────
- * 包含：首页、产品页、系列页、博客、静态内容页
- * 利于 SEO 和搜索引擎抓取
+ * 所有页面 × 14 种语言 hreflang alternates
+ * 动态拉取产品、系列、博客
  */
 
 import { MetadataRoute } from 'next';
 import { getProducts, getCollections, getBlogArticles } from '@/lib/shopify';
-import { siteConfig } from '@/config/site';
+import { locales } from '@/lib/i18n/config';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com';
+
+/** 为路径生成 14 种语言 alternates 的 sitemap 条目 */
+function entry(
+  path: string,
+  freq: MetadataRoute.Sitemap[number]['changeFrequency'],
+  priority: number,
+): MetadataRoute.Sitemap[number] {
+  const languages: Record<string, string> = {};
+  for (const locale of locales) {
+    languages[locale] = `${BASE}/${locale}${path}`;
+  }
+  languages['x-default'] = `${BASE}/en${path}`;
+  return {
+    url: `${BASE}/en${path}`,
+    lastModified: new Date(),
+    changeFrequency: freq,
+    priority,
+    alternates: { languages },
+  };
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages: MetadataRoute.Sitemap = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
-    { url: `${BASE_URL}/cart`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.5 },
-    { url: `${BASE_URL}/search`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.5 },
-    { url: `${BASE_URL}/account`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.5 },
-    { url: `${BASE_URL}/account/login`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
-    { url: `${BASE_URL}/account/register`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
-    { url: `${BASE_URL}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE_URL}/pages/our-story`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/pages/sustainability`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/pages/size-guide`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/pages/shipping`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/pages/returns`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/pages/wholesale`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+  // ── 静态页面 ──────────────────────────────────────────────────────────────
+  const staticEntries = [
+    entry('',                           'daily',   1.0),
+    entry('/collections',               'daily',   0.9),
+    entry('/blog',                      'weekly',  0.8),
+    entry('/pages/our-story',           'monthly', 0.6),
+    entry('/pages/sustainability',      'monthly', 0.6),
+    entry('/pages/craftsmanship',       'monthly', 0.6),
+    entry('/pages/size-guide',          'monthly', 0.6),
+    entry('/pages/shipping',            'monthly', 0.6),
+    entry('/pages/returns',             'monthly', 0.6),
+    entry('/pages/wholesale',           'monthly', 0.5),
+    entry('/pages/careers',             'monthly', 0.4),
+    entry('/pages/contact',             'monthly', 0.5),
+    entry('/policies/privacy-policy',   'yearly',  0.3),
+    entry('/policies/refund-policy',    'yearly',  0.3),
+    entry('/policies/shipping-policy',  'yearly',  0.3),
+    entry('/policies/terms-of-service', 'yearly',  0.3),
+    entry('/cart',                      'weekly',  0.4),
+    entry('/wishlist',                  'weekly',  0.4),
   ];
 
-  // 产品页
-  let productPages: MetadataRoute.Sitemap = [];
+  // ── 产品页（从 Shopify 动态拉取） ─────────────────────────────────────────
+  let productEntries: MetadataRoute.Sitemap = [];
   try {
-    const products = await getProducts(100);
-    productPages = products.map((p: { handle: string }) => ({
-      url: `${BASE_URL}/products/${p.handle}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    }));
+    const products = await getProducts(250);
+    productEntries = products.map((p: { handle: string }) =>
+      entry(`/products/${p.handle}`, 'weekly', 0.9),
+    );
+  } catch { /* Shopify API 失败时跳过 */ }
+
+  // ── 系列页 ────────────────────────────────────────────────────────────────
+  let collectionEntries: MetadataRoute.Sitemap = [];
+  try {
+    const collections = await getCollections(50);
+    collectionEntries = collections.map((c: { handle: string }) =>
+      entry(`/collections/${c.handle}`, 'weekly', 0.85),
+    );
   } catch {
-    // API 失败时跳过
+    const fallback = ['cashmere', 'merino', 'new-arrivals', 'gifts'];
+    collectionEntries = fallback.map((h) => entry(`/collections/${h}`, 'weekly', 0.85));
   }
 
-  // 系列页（从 API 获取所有 collection）
-  let collectionPages: MetadataRoute.Sitemap = [];
+  // ── 博客文章 ──────────────────────────────────────────────────────────────
+  let blogEntries: MetadataRoute.Sitemap = [];
   try {
-    const collections = await getCollections(30);
-    collectionPages = collections.map((c: { handle: string }) => ({
-      url: `${BASE_URL}/collections/${c.handle}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.85,
-    }));
-  } catch {
-    // API 失败时使用 nav 中的 handle
-    const handles = ['cashmere', 'merino', 'new-arrivals', 'gifts'];
-    collectionPages = handles.map((handle) => ({
-      url: `${BASE_URL}/collections/${handle}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.85,
-    }));
-  }
+    const articles = await getBlogArticles('news', 100);
+    blogEntries = articles.map((a: { handle: string }) =>
+      entry(`/blog/${a.handle}`, 'monthly', 0.7),
+    );
+  } catch { /* 跳过 */ }
 
-  // 博客文章
-  let blogPages: MetadataRoute.Sitemap = [];
-  try {
-    const articles = await getBlogArticles('news', 50);
-    if (articles.length > 0) {
-      blogPages = articles.map((a: { handle: string }) => ({
-        url: `${BASE_URL}/blog/${a.handle}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-      }));
-    } else {
-      // 回退 config
-      const posts = siteConfig.blog?.文章列表 ?? [];
-      blogPages = posts.map((p) => {
-        const slug = (p.链接 || '').replace(/^\/blog\//, '') || 'article';
-        return {
-          url: `${BASE_URL}/blog/${slug}`,
-          lastModified: new Date(),
-          changeFrequency: 'monthly' as const,
-          priority: 0.7,
-        };
-      });
-    }
-  } catch {
-    const posts = siteConfig.blog?.文章列表 ?? [];
-    blogPages = posts.map((p) => {
-      const slug = (p.链接 || '').replace(/^\/blog\//, '') || 'article';
-      return {
-        url: `${BASE_URL}/blog/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-      };
-    });
-  }
-
-  return [...staticPages, ...productPages, ...collectionPages, ...blogPages];
+  return [...staticEntries, ...productEntries, ...collectionEntries, ...blogEntries];
 }

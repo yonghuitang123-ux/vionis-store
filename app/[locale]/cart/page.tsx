@@ -6,11 +6,21 @@
 
 import type { Metadata } from 'next';
 import CartPageContent from './CartPageContent';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Shopping Cart — VIONIS·XY',
-  description: 'Review your shopping cart and proceed to checkout.',
-};
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Shopping Cart — VIONIS·XY',
+    description: 'Review your shopping cart and proceed to checkout.',
+    alternates: buildAlternates('/cart'),
+    openGraph: {
+      title: 'Shopping Cart — VIONIS·XY',
+      description: 'Review your shopping cart and proceed to checkout.',
+      siteName: 'VIONIS·XY',
+      images: [defaultOgImage],
+    },
+  };
+}
 
 export default function CartPage() {
   return <CartPageContent />;

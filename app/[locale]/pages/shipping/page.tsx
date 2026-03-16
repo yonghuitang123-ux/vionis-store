@@ -6,6 +6,7 @@
 
 import { type Metadata } from 'next';
 import { type CSSProperties } from 'react';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
 export function generateMetadata(): Metadata {
@@ -13,10 +14,13 @@ export function generateMetadata(): Metadata {
     title: 'Shipping — VIONIS·XY',
     description:
       'Complimentary worldwide shipping on orders over $300. Learn about delivery times, tracking, and international shipping for VIONIS·XY luxury knitwear.',
+    alternates: buildAlternates('/pages/shipping'),
     openGraph: {
       title: 'Shipping — VIONIS·XY',
       description:
         'Free shipping on orders over $300. Worldwide delivery in 2–5 business days.',
+      siteName: 'VIONIS·XY',
+      images: [defaultOgImage],
     },
   };
 }

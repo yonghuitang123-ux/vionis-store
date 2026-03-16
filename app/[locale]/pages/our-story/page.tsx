@@ -6,6 +6,7 @@
 
 import { type Metadata } from 'next';
 import { type CSSProperties } from 'react';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
 export function generateMetadata(): Metadata {
@@ -13,10 +14,13 @@ export function generateMetadata(): Metadata {
     title: 'Our Story — VIONIS·XY',
     description:
       'Founded with the belief that true luxury is felt, not seen. Discover how VIONIS·XY sources the world\'s finest cashmere and merino from Inner Mongolia.',
+    alternates: buildAlternates('/pages/our-story'),
     openGraph: {
       title: 'Our Story — VIONIS·XY',
       description:
         'Rare cashmere and seamless merino — crafted for quiet confidence.',
+      siteName: 'VIONIS·XY',
+      images: [defaultOgImage],
     },
   };
 }

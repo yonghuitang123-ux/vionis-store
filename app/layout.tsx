@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { Cormorant, Cormorant_Garamond, Montserrat } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
@@ -77,7 +78,9 @@ export default function RootLayout({
               <NewsletterPopup />
               <ScrollToTop />
               <CookieConsent />
-              <Analytics />
+              <Suspense fallback={null}>
+                <Analytics />
+              </Suspense>
             </WishlistProvider>
           </CartProvider>
         </ToastProvider>

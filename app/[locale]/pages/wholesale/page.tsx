@@ -6,6 +6,7 @@
 
 import { type Metadata } from 'next';
 import { type CSSProperties } from 'react';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
 export function generateMetadata(): Metadata {
@@ -13,10 +14,13 @@ export function generateMetadata(): Metadata {
     title: 'Wholesale — VIONIS·XY',
     description:
       'Partner with VIONIS·XY for wholesale cashmere and merino knitwear. Premium quality, competitive pricing, and dedicated account support.',
+    alternates: buildAlternates('/pages/wholesale'),
     openGraph: {
       title: 'Wholesale — VIONIS·XY',
       description:
         'B2B wholesale partnerships for luxury cashmere and merino knitwear.',
+      siteName: 'VIONIS·XY',
+      images: [defaultOgImage],
     },
   };
 }

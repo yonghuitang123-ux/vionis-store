@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getPageByHandle } from '@/lib/shopify/getPageByHandle';
 import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 export const revalidate = 86400;
 
@@ -11,7 +12,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageByHandle(HANDLE);
   const title = page?.seo?.title ?? page?.title ?? 'Sustainability';
   const description = page?.seo?.description ?? undefined;
-  return { title: `${title} — VIONIS·XY`, description };
+  return {
+    title: `${title} — VIONIS·XY`,
+    description,
+    alternates: buildAlternates(PATH),
+    openGraph: {
+      title: `${title} — VIONIS·XY`,
+      description,
+      siteName: 'VIONIS·XY',
+      images: [defaultOgImage],
+    },
+  };
 }
 
 export default async function SustainabilityPage() {

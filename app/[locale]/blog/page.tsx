@@ -12,21 +12,26 @@ import Breadcrumb from '@/components/Breadcrumb';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticles } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ────────────────────────────────────────────────────────────────
 
-export const metadata: Metadata = {
-  title: 'Journal — VIONIS·XY',
-  description:
-    'Explore stories of rare cashmere, merino craftsmanship, and quiet luxury from VIONIS·XY.',
-  openGraph: {
+export function generateMetadata(): Metadata {
+  return {
     title: 'Journal — VIONIS·XY',
     description:
-      'Explore stories of rare cashmere, merino craftsmanship, and quiet luxury.',
-    siteName: 'VIONIS·XY',
-    type: 'website',
-  },
-};
+      'Explore stories of rare cashmere, merino craftsmanship, and quiet luxury from VIONIS·XY.',
+    alternates: buildAlternates('/blog'),
+    openGraph: {
+      title: 'Journal — VIONIS·XY',
+      description:
+        'Explore stories of rare cashmere, merino craftsmanship, and quiet luxury.',
+      siteName: 'VIONIS·XY',
+      type: 'website',
+      images: [defaultOgImage],
+    },
+  };
+}
 
 // ─── 样式常量 ──────────────────────────────────────────────────────────────────
 

@@ -11,6 +11,7 @@ import { getCollectionByHandle } from '@/lib/shopify';
 import Breadcrumb from '@/components/Breadcrumb';
 import CollectionGrid from './CollectionGrid';
 import type { ShopifyProduct } from '@/components/ProductCard';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── Shopify edges → 扁平产品数组 ──────────────────────────────────────────────
 
@@ -33,9 +34,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { handle } = await params;
   const collection = await getCollectionByHandle(handle);
   if (!collection) return { title: 'Collection Not Found — VIONIS·XY' };
+  const title = collection.seo?.title || `${collection.title} — VIONIS·XY`;
+  const description = collection.seo?.description || collection.description || '';
   return {
-    title: collection.seo?.title || `${collection.title} — VIONIS·XY`,
-    description: collection.seo?.description || collection.description || '',
+    title,
+    description,
+    alternates: buildAlternates(`/collections/${handle}`),
+    openGraph: { title, description, siteName: 'VIONIS·XY', images: [defaultOgImage] },
   };
 }
 

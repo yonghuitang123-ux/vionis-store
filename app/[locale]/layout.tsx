@@ -3,8 +3,7 @@ import type { Metadata } from 'next';
 import { locales, type Locale, isValidLocale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { I18nProvider } from '@/lib/i18n/client';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -17,17 +16,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  // hreflang alternates
-  const languages: Record<string, string> = {};
-  for (const l of locales) {
-    languages[l] = `${SITE_URL}/${l}`;
-  }
-  languages['x-default'] = `${SITE_URL}/en`;
-
   return {
-    alternates: {
-      canonical: `${SITE_URL}/${locale}`,
-      languages,
+    title: 'VIONIS·XY — Rare Cashmere & Seamless Merino',
+    description:
+      'Handcrafted luxury knitwear from the finest natural fibres. Premium cashmere and merino wool.',
+    alternates: buildAlternates(''),
+    openGraph: {
+      title: 'VIONIS·XY — Rare Cashmere & Seamless Merino',
+      description: 'Handcrafted luxury knitwear from the finest natural fibres.',
+      siteName: 'VIONIS·XY',
+      locale,
+      images: [defaultOgImage],
     },
   };
 }

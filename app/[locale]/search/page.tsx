@@ -10,6 +10,7 @@ import { searchProducts } from '@/lib/shopify';
 import Breadcrumb from '@/components/Breadcrumb';
 import ProductCard from '@/components/ProductCard';
 import type { ShopifyProduct } from '@/components/ProductCard';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── Shopify 原始产品数据标准化 ──────────────────────────────────────────────
 
@@ -35,6 +36,14 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     title: query
       ? `"${query}" Search Results — VIONIS·XY`
       : 'Search — VIONIS·XY',
+    alternates: buildAlternates('/search'),
+    openGraph: {
+      title: query
+        ? `"${query}" Search Results — VIONIS·XY`
+        : 'Search — VIONIS·XY',
+      siteName: 'VIONIS·XY',
+      images: [defaultOgImage],
+    },
   };
 }
 

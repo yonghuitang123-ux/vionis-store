@@ -5,11 +5,21 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCollections } from '@/lib/shopify';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Collections — VIONIS·XY',
-  description: 'Explore our curated collections of luxury cashmere and merino wool.',
-};
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Collections — VIONIS·XY',
+    description: 'Explore our curated collections of luxury cashmere and merino wool.',
+    alternates: buildAlternates('/collections'),
+    openGraph: {
+      title: 'Collections — VIONIS·XY',
+      description: 'Explore our curated collections of luxury cashmere and merino wool.',
+      siteName: 'VIONIS·XY',
+      images: [defaultOgImage],
+    },
+  };
+}
 
 export default async function CollectionsPage() {
   const collections = await getCollections();

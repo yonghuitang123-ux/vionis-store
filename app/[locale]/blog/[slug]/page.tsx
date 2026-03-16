@@ -13,6 +13,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticleByHandle } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── 类型 ─────────────────────────────────────────────────────────────────────
 
@@ -31,12 +32,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${article.title} — VIONIS·XY`,
     description: article.excerpt || article.title,
+    alternates: buildAlternates(`/blog/${slug}`),
     openGraph: {
       title: `${article.title} — VIONIS·XY`,
       description: article.excerpt || article.title,
       siteName: 'VIONIS·XY',
       type: 'article',
-      ...(article.image ? { images: [{ url: article.image }] } : {}),
+      images: article.image ? [{ url: article.image }] : [defaultOgImage],
     },
   };
 }

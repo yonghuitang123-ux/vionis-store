@@ -1,13 +1,22 @@
 import type { Metadata } from 'next';
 import { getPolicies } from '@/lib/shopify/getPolicies';
 import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
+import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { termsOfService } = await getPolicies();
   const title = termsOfService?.title ?? 'Terms of Service';
-  return { title: `${title} — VIONIS·XY` };
+  return {
+    title: `${title} — VIONIS·XY`,
+    alternates: buildAlternates('/policies/terms-of-service'),
+    openGraph: {
+      title: `${title} — VIONIS·XY`,
+      siteName: 'VIONIS·XY',
+      images: [defaultOgImage],
+    },
+  };
 }
 
 export default async function TermsOfServicePage() {
