@@ -81,7 +81,7 @@ export default function BrandStory({
   mainImgHeight = 650,
   subImgHeight = 400,
   subImgOffset = 50,
-  pcGutter = 30,
+  pcGutter = 40,
   mobGutter = 20,
   paddingTop = 100,
   paddingBottom = 100,
@@ -134,7 +134,7 @@ export default function BrandStory({
     // ── 小标题 overline ──
     `#${scopeId} .bs-overline{`,
     `  display:block;letter-spacing:3px;text-transform:uppercase;`,
-    `  margin-bottom:20px;font-size:calc(${textSize}px * 0.85)`,
+    `  opacity:0.7;margin-bottom:20px;font-size:calc(${textSize}px * 0.85)`,
     `}`,
 
     // ── 正文 ──
@@ -212,7 +212,7 @@ export default function BrandStory({
               alt={subImageAlt}
               fill
               loading="lazy"
-              sizes="(max-width: 900px) 80vw, 350px"
+              sizes="(max-width: 900px) 70vw, 350px"
               className="bs-img object-cover"
             />
           </div>
