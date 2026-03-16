@@ -82,16 +82,33 @@ export default function PlaceholderImage({
   const defaultBlur =
     'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBEQACEQADAP/Z';
   const useBlur = !props.priority && props.placeholder !== 'empty';
+  const isPriority = !!props.priority;
+
   const imageProps = {
     ...props,
     placeholder: useBlur ? ('blur' as const) : props.placeholder,
     blurDataURL: useBlur ? (props.blurDataURL ?? defaultBlur) : props.blurDataURL,
-    // priority 时让 Next.js 自行处理 loading + fetchpriority，不手动覆盖
-    ...(props.priority ? {} : { loading: props.loading ?? ('lazy' as const) }),
+    // priority 时显式设置 loading + fetchPriority（custom loader 不自动处理）
+    ...(isPriority
+      ? { loading: 'eager' as const, fetchPriority: 'high' as const }
+      : { loading: props.loading ?? ('lazy' as const) }),
   };
 
   // ── fill 模式 ──────────────────────────────────────────────────────────────
   if (fill) {
+    // priority 图片：跳过遮罩层，避免 hydration 前遮住 LCP 图片
+    if (isPriority) {
+      return (
+        <NextImage
+          ref={imgRef}
+          fill
+          {...imageProps}
+          style={mergedStyle}
+          onLoad={handleLoad}
+          onError={handleError}
+        />
+      );
+    }
     return (
       <>
         <div aria-hidden className={overlayClassName} style={overlayStyle}>
@@ -111,6 +128,19 @@ export default function PlaceholderImage({
   }
 
   // ── 尺寸确定模式 ────────────────────────────────────────────────────────────
+  if (isPriority) {
+    return (
+      <NextImage
+        ref={imgRef}
+        width={width}
+        height={height}
+        {...imageProps}
+        style={mergedStyle}
+        onLoad={handleLoad}
+        onError={handleError}
+      />
+    );
+  }
   return (
     <div style={{ position: 'relative', width, height, display: 'inline-block' }}>
       <div aria-hidden className={overlayClassName} style={overlayStyle}>
