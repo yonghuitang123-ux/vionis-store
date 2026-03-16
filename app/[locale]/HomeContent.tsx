@@ -184,6 +184,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
       />
 
       {/* 3. MastermindShowcase — 轮播看款 */}
+      <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 700px' }}>
       <MastermindShowcase
         womenSlides={womenSlidesFromConfig.length > 0 ? womenSlidesFromConfig : [SKELETON_SLIDE]}
         menSlides={menSlidesFromConfig.length > 0 ? menSlidesFromConfig : [SKELETON_SLIDE]}
@@ -192,8 +193,10 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         desktopHeight={700}
         modelWidthPct={55}
       />
+      </div>
 
       {/* 4. BrandStory — 品牌叙事 */}
+      <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 800px' }}>
       <BrandStory
         mainImage={brandStory.主图_电脑端 || 占位图.竖版}
         mainImageAlt="VIONIS·XY Brand Story"
@@ -213,8 +216,10 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         subImgHeight={400}
         subImgOffset={50}
       />
+      </div>
 
       {/* 5. BlogScroll — 博客横向滚动 */}
+      <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
       <BlogScroll
         heading={blog.标题}
         posts={blog.文章列表.map((a) => ({
@@ -229,8 +234,10 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         textColor="#555555"
         mutedColor="#555555"
       />
+      </div>
 
       {/* 6. ServiceBar — 服务承诺栏 */}
+      <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 100px' }}>
       <ServiceBar
         items={serviceBar.服务列表.map((s) => ({
           icon:     s.图标,
@@ -242,8 +249,10 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         mutedColor="#555555"
         borderColor="rgba(0,0,0,0.1)"
       />
+      </div>
 
       {/* 7. SiteFooter — 页脚 */}
+      <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 400px' }}>
       <SiteFooter
         shopName={footer.品牌名称}
         shopUrl={footer.首页链接}
@@ -280,6 +289,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         paddingTop={80}
         paddingBottom={40}
       />
+      </div>
 
     </main>
   );

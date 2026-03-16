@@ -63,8 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://cdn.shopify.com" />
-        <link rel="dns-prefetch" href="https://cdn.shopify.com" />
+        {/* Images now go through /_next/image proxy, no direct CDN connection needed */}
         <link rel="preconnect" href="https://vionisxy.myshopify.com" />
         <link rel="dns-prefetch" href="https://vionisxy.myshopify.com" />
       </head>
