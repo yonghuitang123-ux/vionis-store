@@ -33,7 +33,10 @@ export const metadata: Metadata = {
     'Handcrafted luxury knitwear from the finest natural fibres. Premium cashmere and merino wool.',
   metadataBase: new URL(SITE_URL),
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: '48x48' },
+      { url: '/favicon.png', type: 'image/png', sizes: '32x32' },
+    ],
     apple: '/apple-touch-icon.png',
   },
   openGraph: {
