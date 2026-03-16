@@ -134,7 +134,7 @@ export default function BrandStory({
     // ── 小标题 overline ──
     `#${scopeId} .bs-overline{`,
     `  display:block;letter-spacing:3px;text-transform:uppercase;`,
-    `  opacity:0.7;margin-bottom:20px;font-size:calc(${textSize}px * 0.85)`,
+    `  color:#555555;margin-bottom:20px;font-size:calc(${textSize}px * 0.85)`,
     `}`,
 
     // ── 正文 ──

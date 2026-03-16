@@ -198,7 +198,7 @@ function ContentPanel({
 
         {/* 标题文字（图片下方，居中，统一文字颜色） */}
         <div style={{ textAlign: 'center', padding: '18px 0 0' }}>
-          <h3
+          <h2
             className="ep-hero-title"
             style={{
               fontFamily: headingFont,
@@ -211,7 +211,7 @@ function ContentPanel({
             }}
           >
             {config.title}
-          </h3>
+          </h2>
           {config.description && (
             <p
               style={{

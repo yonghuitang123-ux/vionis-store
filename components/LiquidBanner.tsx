@@ -104,6 +104,8 @@ function ImageSlot({
           fill
           sizes="(max-width: 749px) 100vw, 50vw"
           priority
+          loading="eager"
+          fetchPriority="high"
           className="object-cover"
           style={{ color: 'transparent', background: bg }}
         />
