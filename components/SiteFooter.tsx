@@ -58,6 +58,7 @@ export interface SiteFooterProps {
 
   showNewsletter?: boolean;
   newsletterHeading?: string;
+  newsletterSubtitle?: string;
   newsletterPlaceholder?: string;
   /** 接收 email 字符串，返回 Promise（成功 resolve，失败 reject 并带错误信息） */
   onNewsletterSubmit?: (email: string) => Promise<void>;
@@ -212,11 +213,13 @@ function SocialRow({ links, linkColor }: { links: SocialLinks; linkColor: string
 
 function NewsletterForm({
   heading,
+  subtitle,
   placeholder,
   onSubmit,
   colors: c,
 }: {
   heading?: string;
+  subtitle?: string;
   placeholder?: string;
   onSubmit?: (email: string) => Promise<void>;
   colors: FooterColors;
@@ -243,9 +246,14 @@ function NewsletterForm({
   return (
     <div>
       {heading && (
-        <h2 className="text-sm font-medium uppercase tracking-widest mb-4" style={{ color: c.headingColor }}>
+        <h2 className="text-sm font-medium uppercase tracking-widest mb-1" style={{ color: c.headingColor }}>
           {heading}
         </h2>
+      )}
+      {subtitle && (
+        <p className="text-xs mb-4" style={{ color: c.mutedColor, lineHeight: 1.5 }}>
+          {subtitle}
+        </p>
       )}
       <form onSubmit={handleSubmit} noValidate>
         <div className="flex gap-0 relative">
@@ -410,6 +418,7 @@ export default function SiteFooter({
   brandInfo,
   showNewsletter = true,
   newsletterHeading = 'Stay in touch',
+  newsletterSubtitle,
   newsletterPlaceholder = 'Email address',
   onNewsletterSubmit,
   showSocial = true,
@@ -449,10 +458,28 @@ export default function SiteFooter({
         >
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
 
+            {/* Newsletter + Social — mobile: first (order-first), desktop: right side (order-last) */}
+            {(showNewsletter || (showSocial && socialLinks)) && (
+              <div className="shrink-0 lg:w-72 space-y-6 order-first lg:order-last">
+                {showNewsletter && (
+                  <NewsletterForm
+                    heading={newsletterHeading}
+                    subtitle={newsletterSubtitle}
+                    placeholder={newsletterPlaceholder}
+                    onSubmit={onNewsletterSubmit}
+                    colors={c}
+                  />
+                )}
+                {showSocial && socialLinks && Object.values(socialLinks).some(Boolean) && (
+                  <SocialRow links={socialLinks} linkColor={c.linkColor} />
+                )}
+              </div>
+            )}
+
             {/* Block grid */}
             {blocks.length > 0 && (
               <div
-                className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 min-w-0"
+                className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 min-w-0"
               >
                 {blocks.map((block, idx) => (
                   <BlockRenderer
@@ -463,23 +490,6 @@ export default function SiteFooter({
                     colors={c}
                   />
                 ))}
-              </div>
-            )}
-
-            {/* Newsletter + Social column */}
-            {(showNewsletter || (showSocial && socialLinks)) && (
-              <div className="shrink-0 lg:w-72 space-y-6">
-                {showNewsletter && (
-                  <NewsletterForm
-                    heading={newsletterHeading}
-                    placeholder={newsletterPlaceholder}
-                    onSubmit={onNewsletterSubmit}
-                    colors={c}
-                  />
-                )}
-                {showSocial && socialLinks && Object.values(socialLinks).some(Boolean) && (
-                  <SocialRow links={socialLinks} linkColor={c.linkColor} />
-                )}
               </div>
             )}
           </div>

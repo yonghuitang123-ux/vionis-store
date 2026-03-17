@@ -57,14 +57,14 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  // 切换语言
+  // 切换语言（full reload 确保翻译内容完全刷新）
   const switchLocale = (newLocale: Locale) => {
     const segments = pathname.split('/');
     segments[1] = newLocale;
     const newPath = segments.join('/');
     setCookie('NEXT_LOCALE', newLocale);
     setOpen(false);
-    router.push(newPath);
+    window.location.href = newPath;
   };
 
   // 切换货币

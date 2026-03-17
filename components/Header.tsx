@@ -162,23 +162,25 @@ export default function Header() {
         }
         .hdr-link:hover::after { width: 100%; }
         .hdr-nav-center {
-          flex: 1;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
           display: flex;
           justify-content: center;
           align-items: center;
           gap: 36px;
-          padding: 0 140px;
-          min-width: 0;
+          white-space: nowrap;
         }
         @media (max-width: 1280px) {
-          .hdr-nav-center { gap: 24px; padding: 0 120px; }
+          .hdr-nav-center { gap: 24px; }
         }
         @media (max-width: 1100px) {
-          .hdr-nav-center { gap: 16px; padding: 0 100px; }
+          .hdr-nav-center { gap: 16px; }
           .hdr-link { font-size: 10px !important; letter-spacing: 0.1em !important; }
         }
         @media (max-width: 960px) {
-          .hdr-nav-center { gap: 12px; padding: 0 90px; }
+          .hdr-nav-center { gap: 12px; }
           .hdr-link { font-size: 9px !important; letter-spacing: 0.08em !important; }
         }
       `}</style>
@@ -234,11 +236,11 @@ export default function Header() {
           </div>
         </div>
 
-        {/* ═══ 第二行：Logo 居中大图 ════════════════════════════════════════════ */}
+        {/* ═══ 第二行：Logo 居中大图（仅桌面端显示独立行） ═════════════════════ */}
         <div
+          className="hidden md:flex"
           style={{
             backgroundColor: '#E8DFD6',
-            display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             padding: '10px 0',
@@ -339,33 +341,67 @@ export default function Header() {
             </div>
           </div>
 
-          {/* 手机端：汉堡左 | 空中 | 购物车右 */}
-          <div className="flex md:hidden items-center justify-between px-5" style={{ height: 52 }}>
-            <button
-              className="p-2 transition-opacity hover:opacity-60"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
-              onClick={() => setMobileOpen((o) => !o)}
-              aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
-            >
-              {mobileOpen ? <IconX size={22} /> : <IconMenu size={24} />}
-            </button>
-
-            <div className="flex items-center" style={{ gap: 20 }}>
+          {/* 手机端：[汉堡 搜索] — Logo居中 — [账户 购物车] */}
+          <div className="flex md:hidden items-center justify-between px-4" style={{ height: 56, position: 'relative' }}>
+            {/* 左：汉堡 + 搜索 */}
+            <div className="flex items-center" style={{ gap: 8, zIndex: 1 }}>
               <button
-                className="p-2 transition-opacity hover:opacity-60"
+                className="p-1.5 transition-opacity hover:opacity-60"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
+                onClick={() => setMobileOpen((o) => !o)}
+                aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
+              >
+                {mobileOpen ? <IconX size={20} /> : <IconMenu size={22} />}
+              </button>
+              <button
+                className="p-1.5 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="搜索"
                 onClick={() => setSearchOpen(true)}
               >
-                <IconSearch size={22} />
+                <IconSearch size={19} />
               </button>
+            </div>
+
+            {/* 中：Logo（绝对居中） */}
+            <Link
+              href="/"
+              aria-label="VIONIS·XY 首页"
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                lineHeight: 0,
+              }}
+            >
+              <Image
+                src="/logo1.png"
+                alt="VIONIS·XY"
+                width={80}
+                height={45}
+                sizes="80px"
+                priority
+              />
+            </Link>
+
+            {/* 右：账户 + 购物车 */}
+            <div className="flex items-center" style={{ gap: 8, zIndex: 1 }}>
+              <Link
+                href="/account"
+                className="p-1.5 transition-opacity hover:opacity-60"
+                style={{ color: '#1a1a1a', lineHeight: 0 }}
+                aria-label="账户"
+              >
+                <IconUser size={19} />
+              </Link>
               <button
-                className="p-2 transition-opacity hover:opacity-60"
+                className="p-1.5 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="购物车"
                 onClick={openDrawer}
               >
-                <IconBag count={totalQuantity} size={22} />
+                <IconBag count={totalQuantity} size={19} />
               </button>
             </div>
           </div>

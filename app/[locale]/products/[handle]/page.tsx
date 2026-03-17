@@ -12,6 +12,8 @@ import type { Metadata } from 'next';
 import { getProductByHandle, getProductRecommendations } from '@/lib/shopify';
 import ProductCard from '@/components/ProductCard';
 import ProductDetail from './ProductDetail';
+import ServiceBar from '@/components/ServiceBar';
+import { siteConfig } from '@/config/site';
 import type { CSSProperties } from 'react';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
@@ -205,6 +207,19 @@ export default async function ProductPage({ params }: PageProps) {
           </section>
         )}
       </div>
+
+      {/* 服务保障栏 */}
+      <ServiceBar
+        items={siteConfig.serviceBar.服务列表.map((s) => ({
+          icon:     s.图标 as 'shipping' | 'return' | 'quality' | 'contact',
+          title:    s.标题,
+          subtitle: s.副标题,
+        }))}
+        bgColor="#E8DFD6"
+        textColor="#1a1a1a"
+        mutedColor="#555555"
+        borderColor="rgba(0,0,0,0.1)"
+      />
     </div>
   );
 }

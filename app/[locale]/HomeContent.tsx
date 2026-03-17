@@ -258,6 +258,7 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         shopUrl={footer.首页链接}
         showNewsletter
         newsletterHeading={footer.订阅栏标题}
+        newsletterSubtitle="First look at every new drop. No spam, just cashmere."
         newsletterPlaceholder={footer.订阅栏占位文字}
         onNewsletterSubmit={async (email) => {
           const res = await fetch('/api/newsletter', {
@@ -276,13 +277,13 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         showPolicies
         policies={footer.政策链接}
         colors={{
-          bgColor:          '#E8DFD6',
-          textColor:        '#555555',
+          bgColor:          '#C8B69E',
+          textColor:        '#3a3024',
           headingColor:     '#1a1a1a',
-          mutedColor:       '#555555',
-          borderColor:      'rgba(0,0,0,0.1)',
-          linkColor:        '#333333',
-          inputBorderColor: 'rgba(0,0,0,0.2)',
+          mutedColor:       '#4a3f32',
+          borderColor:      'rgba(0,0,0,0.12)',
+          linkColor:        '#2a2318',
+          inputBorderColor: 'rgba(0,0,0,0.25)',
           btnBg:            '#1a1a1a',
           btnColor:         '#FFFFFF',
         }}
