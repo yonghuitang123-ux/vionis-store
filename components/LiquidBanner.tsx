@@ -74,7 +74,6 @@ const DEFAULT_COLORS: LiquidBannerColors = {
 const SYSTEM_FONT_STACK =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
 
-// Fixed scope ID — no useId() needed in Server Component
 const SCOPE_ID = 'lb-hero';
 
 // ─── Sub-component: image slot inside each half ──────────────────────────────
@@ -114,7 +113,7 @@ function ImageSlot({
   );
 }
 
-// ─── Main Component (Server Component — no 'use client') ─────────────────────
+// ─── Main Component (Server Component) ───────────────────────────────────────
 
 export default function LiquidBanner({
   leftImageDesktop,
@@ -144,7 +143,6 @@ export default function LiquidBanner({
     ? SYSTEM_FONT_STACK
     : `var(--font-cormorant), "${headingFont}", serif`;
 
-  // ── Scoped CSS ──
   const css = [
     `#${SCOPE_ID} a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}`,
     `#${SCOPE_ID} .lb-overlay{top:65%;max-width:600px}`,
@@ -191,7 +189,6 @@ export default function LiquidBanner({
     >
       <style dangerouslySetInnerHTML={{ __html: css }} />
 
-      {/* Client component for scroll animation — renders null, just attaches event listeners */}
       <BannerScrollEffect
         scopeId={SCOPE_ID}
         contentBg={c.contentBg}
@@ -199,12 +196,10 @@ export default function LiquidBanner({
         dampingFactor={dampingFactor}
       />
 
-      {/* 3D stage wrapper — all static HTML, SSR直出 */}
       <div
         className="relative w-full h-full"
         style={{ transform: 'translate3d(0,0,0)', willChange: 'transform' }}
       >
-        {/* Image halves */}
         <div className="relative w-full h-full flex">
           {/* ── Left ── */}
           <div

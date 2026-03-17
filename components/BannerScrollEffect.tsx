@@ -3,13 +3,9 @@
 import { useEffect, useRef } from 'react';
 
 interface BannerScrollEffectProps {
-  /** 用于 querySelector 定位 DOM 元素的 scope ID */
   scopeId: string;
-  /** 内容框背景色 */
   contentBg?: string;
-  /** 滚动动画完成所需的滚动距离（px） */
   animationRange?: number;
-  /** 电脑端惯性阻尼系数（0.01–0.1，越小越滑） */
   dampingFactor?: number;
 }
 
@@ -101,6 +97,5 @@ export default function BannerScrollEffect({
     };
   }, [scopeId, animationRange, dampingFactor, contentBg]);
 
-  // 纯逻辑组件，不渲染额外 DOM
   return null;
 }
