@@ -65,6 +65,13 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://vionisxy.myshopify.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://vionisxy.myshopify.com" />
+        {/* Preload LCP hero image — mobile (most traffic) */}
+        <link
+          rel="preload"
+          as="image"
+          href="/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0961%2F1965%2F2627%2Ffiles%2FVIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_12.webp%3Fv%3D1770369630&w=828&q=70"
+          fetchPriority="high"
+        />
       </head>
       <body
         className={`${cormorant.variable} ${cormorantGaramond.variable} ${montserrat.variable} antialiased`}
