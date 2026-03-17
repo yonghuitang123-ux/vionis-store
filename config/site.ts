@@ -23,11 +23,11 @@ export const siteConfig = {
   banner: {
     // 左侧图片（建议竖版，800×1200 以上）
     电脑端左图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606',
-    手机端左图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_12.webp?v=1770369630',   // 留空则自动用电脑端左图
+    手机端左图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionisxy.webp?v=1773730622',   // 9:16 竖版 864×1536
 
     // 右侧图片（建议竖版，800×1200 以上）
     电脑端右图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606',
-    手机端右图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_12.webp?v=1770369630',   // 留空则自动用电脑端右图
+    手机端右图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionisxy.webp?v=1773730622',   // 9:16 竖版 864×1536
 
     标题:       'THE SPRING COLLECTION',
     副标题:     '100% ALXA CASHMERE & AUSTRALIAN MERINO',
