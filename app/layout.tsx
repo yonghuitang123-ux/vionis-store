@@ -89,7 +89,7 @@ export default function RootLayout({
           <CartProvider>
             <WishlistProvider>
               <Header />
-              <div style={{ paddingTop: 200 }}>{children}</div>
+              <div style={{ paddingTop: 184 }}>{children}</div>
               <ClientShell />
             </WishlistProvider>
           </CartProvider>

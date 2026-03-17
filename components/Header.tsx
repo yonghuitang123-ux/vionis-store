@@ -241,16 +241,16 @@ export default function Header() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '16px 0',
+            padding: '10px 0',
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
             <Image
               src="/logo1.png"
               alt="VIONIS·XY"
-              width={160}
-              height={90}
-              sizes="160px"
+              width={120}
+              height={68}
+              sizes="120px"
               priority
             />
           </Link>
