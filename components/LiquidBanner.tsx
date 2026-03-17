@@ -110,7 +110,7 @@ function ImageSlot({
           src={src}
           alt={alt}
           fill
-          sizes="(max-width: 749px) 100vw, 50vw"
+          sizes="50vw"
           {...loadProps}
           className="object-cover"
           style={{ color: 'transparent', background: bg }}

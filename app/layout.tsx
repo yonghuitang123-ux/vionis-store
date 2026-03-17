@@ -65,11 +65,20 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://vionisxy.myshopify.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://vionisxy.myshopify.com" />
-        {/* Preload LCP hero image — mobile (most traffic) */}
+        {/* Preload LCP hero image — mobile only (sizes=50vw → DPR picks w=640) */}
         <link
           rel="preload"
           as="image"
           href="/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0961%2F1965%2F2627%2Ffiles%2FVIONIS_XY_4.webp%3Fv%3D1773731718&w=640&q=70"
+          media="(max-width: 749px)"
+          fetchPriority="high"
+        />
+        {/* Preload LCP hero image — desktop */}
+        <link
+          rel="preload"
+          as="image"
+          href="/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0961%2F1965%2F2627%2Ffiles%2FVIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp%3Fv%3D1770369606&w=640&q=70"
+          media="(min-width: 750px)"
           fetchPriority="high"
         />
       </head>
