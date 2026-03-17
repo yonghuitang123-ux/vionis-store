@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizeCss: true,
+  },
   images: {
     qualities: [70],
     remotePatterns: [
