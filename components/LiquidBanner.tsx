@@ -84,12 +84,14 @@ function ImageSlot({
   align,
   bg,
   visibility,
+  isPriority = true,
 }: {
   src: string;
   alt: string;
   align: 'left' | 'right';
   bg: string;
   visibility?: string;
+  isPriority?: boolean;
 }) {
   const pos = align === 'left' ? 'left-0' : 'right-0';
   return (
@@ -102,9 +104,9 @@ function ImageSlot({
           alt={alt}
           fill
           sizes="(max-width: 749px) 100vw, 50vw"
-          priority
-          loading="eager"
-          fetchPriority="high"
+          {...(isPriority
+            ? { priority: true, loading: 'eager' as const, fetchPriority: 'high' as const }
+            : { loading: 'lazy' as const })}
           className="object-cover"
           style={{ color: 'transparent', background: bg }}
         />
@@ -218,6 +220,7 @@ export default function LiquidBanner({
                   align="left"
                   bg={c.outerBg}
                   visibility="hidden min-[750px]:block"
+                  isPriority={false}
                 />
                 <ImageSlot
                   src={leftImageMobile!}
@@ -254,6 +257,7 @@ export default function LiquidBanner({
                   align="right"
                   bg={c.outerBg}
                   visibility="hidden min-[750px]:block"
+                  isPriority={false}
                 />
                 <ImageSlot
                   src={rightImageMobile!}
