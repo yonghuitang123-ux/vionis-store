@@ -300,9 +300,9 @@ export const siteConfig = {
     显示: true,          // false = 永久关闭公告栏
     // 说明：3条文字每5秒自动轮播，淡入淡出切换
     轮播列表: [
-      'Complimentary Shipping on Orders Over $300',
-      'Free 30-Day Returns — No Questions Asked',
-      'SGS Certified 100% Natural Fibres',
+      { 文字: 'Complimentary Shipping on Orders Over $300', 翻译键: 'announcement.freeShipping' },
+      { 文字: 'Free 30-Day Returns — No Questions Asked',   翻译键: 'announcement.returns'      },
+      { 文字: 'SGS Certified 100% Natural Fibres',          翻译键: 'announcement.certified'    },
     ],
   },
 
@@ -312,13 +312,13 @@ export const siteConfig = {
   nav: {
     // 说明：颜色字段可选，留空默认 #1a1a1a（深色）
     菜单: [
-      { 文字: 'Cashmere',           链接: '/collections/cashmere'                       },
-      { 文字: 'Merino Wool',        链接: '/collections/merino'                         },
-      { 文字: 'New Arrivals',       链接: '/collections/new-arrivals'                   },
-      { 文字: 'Spring/Summer 2026', 链接: '/', 颜色: '#C8B69E' },
-      { 文字: 'Our Story',          链接: '/pages/our-story'                            },
-      { 文字: 'Craftsmanship',      链接: '/pages/craftsmanship'                        },
-      { 文字: 'Journal',            链接: '/blog'                                       },
+      { 文字: 'Cashmere',           链接: '/collections/cashmere',      翻译键: 'nav.cashmere'     },
+      { 文字: 'Merino Wool',        链接: '/collections/merino',        翻译键: 'nav.merinoWool'   },
+      { 文字: 'New Arrivals',       链接: '/collections/new-arrivals',  翻译键: 'nav.newArrivals'  },
+      { 文字: 'Spring/Summer 2026', 链接: '/', 颜色: '#C8B69E',         翻译键: 'nav.springSummer' },
+      { 文字: 'Our Story',          链接: '/pages/our-story',           翻译键: 'nav.ourStory'     },
+      { 文字: 'Craftsmanship',      链接: '/pages/craftsmanship',       翻译键: 'nav.craftsmanship'},
+      { 文字: 'Journal',            链接: '/blog',                      翻译键: 'nav.journal'      },
     ],
   },
 

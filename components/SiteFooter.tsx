@@ -74,6 +74,8 @@ export interface SiteFooterProps {
   shopUrl?: string;
 
   colors?: Partial<FooterColors>;
+  /** 链接块区域的独立背景色（不设置则与整体背景一致） */
+  blocksBgColor?: string;
   paddingTop?: number;
   paddingBottom?: number;
   marginTop?: number;
@@ -430,6 +432,7 @@ export default function SiteFooter({
   shopName = 'Store',
   shopUrl = '/',
   colors: colorsProp,
+  blocksBgColor,
   paddingTop = 60,
   paddingBottom = 36,
   marginTop = 0,
@@ -450,48 +453,47 @@ export default function SiteFooter({
         marginTop,
       }}
     >
-      {/* ── Top: Blocks + Newsletter ── */}
-      {hasTop && (
+      {/* ── Newsletter + Social ── */}
+      {(showNewsletter || (showSocial && socialLinks)) && (
         <div
           className="max-w-[1400px] mx-auto px-6 md:px-[30px]"
-          style={{ paddingTop, paddingBottom }}
+          style={{ paddingTop, paddingBottom: 40 }}
         >
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-
-            {/* Newsletter + Social — mobile: first (order-first), desktop: right side (order-last) */}
-            {(showNewsletter || (showSocial && socialLinks)) && (
-              <div className="shrink-0 lg:w-72 space-y-6 order-first lg:order-last">
-                {showNewsletter && (
-                  <NewsletterForm
-                    heading={newsletterHeading}
-                    subtitle={newsletterSubtitle}
-                    placeholder={newsletterPlaceholder}
-                    onSubmit={onNewsletterSubmit}
-                    colors={c}
-                  />
-                )}
-                {showSocial && socialLinks && Object.values(socialLinks).some(Boolean) && (
-                  <SocialRow links={socialLinks} linkColor={c.linkColor} />
-                )}
-              </div>
+          <div className="max-w-sm space-y-6">
+            {showNewsletter && (
+              <NewsletterForm
+                heading={newsletterHeading}
+                subtitle={newsletterSubtitle}
+                placeholder={newsletterPlaceholder}
+                onSubmit={onNewsletterSubmit}
+                colors={c}
+              />
             )}
-
-            {/* Block grid */}
-            {blocks.length > 0 && (
-              <div
-                className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 min-w-0"
-              >
-                {blocks.map((block, idx) => (
-                  <BlockRenderer
-                    key={idx}
-                    block={block}
-                    brandInfo={brandInfo}
-                    socialLinks={socialLinks}
-                    colors={c}
-                  />
-                ))}
-              </div>
+            {showSocial && socialLinks && Object.values(socialLinks).some(Boolean) && (
+              <SocialRow links={socialLinks} linkColor={c.linkColor} />
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ── Link blocks — separate bg ── */}
+      {blocks.length > 0 && (
+        <div style={{ backgroundColor: blocksBgColor ?? c.bgColor }}>
+          <div
+            className="max-w-[1400px] mx-auto px-6 md:px-[30px]"
+            style={{ paddingTop: 48, paddingBottom: 48 }}
+          >
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {blocks.map((block, idx) => (
+                <BlockRenderer
+                  key={idx}
+                  block={block}
+                  brandInfo={brandInfo}
+                  socialLinks={socialLinks}
+                  colors={c}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}

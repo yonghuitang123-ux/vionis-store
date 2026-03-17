@@ -89,7 +89,8 @@ export default function RootLayout({
           <CartProvider>
             <WishlistProvider>
               <Header />
-              <div style={{ paddingTop: 184 }}>{children}</div>
+              {/* Mobile: announcement(44) + nav(56) = 100px; Desktop: + logo(88) = 188px */}
+              <div className="pt-[100px] md:pt-[188px]">{children}</div>
               <ClientShell />
             </WishlistProvider>
           </CartProvider>

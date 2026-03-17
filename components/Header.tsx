@@ -8,6 +8,7 @@ import { useCart } from '@/lib/cart-context';
 import { useWishlist } from '@/lib/wishlist-context';
 import SearchModal from '@/components/SearchModal';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
+import { useTranslation } from '@/lib/i18n/client';
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
 
@@ -89,6 +90,7 @@ export default function Header() {
   const slides = announcement.轮播列表 ?? [];
   const { totalQuantity, openDrawer } = useCart();
   const { count: wishlistCount } = useWishlist();
+  const { t } = useTranslation();
   const [searchOpen, setSearchOpen] = useState(false);
 
   // ── 公告轮播 ────────────────────────────────────────────────────────────────
@@ -222,7 +224,12 @@ export default function Header() {
                 display: 'inline-block',
               }}
             >
-              {slides[slideIdx] ?? ''}
+              {(() => {
+                const slide = slides[slideIdx];
+                if (!slide) return '';
+                if (typeof slide === 'string') return slide;
+                return slide.翻译键 ? t(slide.翻译键) : slide.文字;
+              })()}
             </span>
 
             <button
@@ -296,7 +303,7 @@ export default function Header() {
                     textDecoration: 'none',
                   }}
                 >
-                  {item.文字}
+                  {item.翻译键 ? t(item.翻译键) : item.文字}
                 </Link>
               ))}
             </nav>
@@ -344,22 +351,22 @@ export default function Header() {
           {/* 手机端：[汉堡 搜索] — Logo居中 — [账户 购物车] */}
           <div className="flex md:hidden items-center justify-between px-4" style={{ height: 56, position: 'relative' }}>
             {/* 左：汉堡 + 搜索 */}
-            <div className="flex items-center" style={{ gap: 8, zIndex: 1 }}>
+            <div className="flex items-center" style={{ gap: 14, zIndex: 1 }}>
               <button
-                className="p-1.5 transition-opacity hover:opacity-60"
+                className="p-2 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 onClick={() => setMobileOpen((o) => !o)}
                 aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
               >
-                {mobileOpen ? <IconX size={20} /> : <IconMenu size={22} />}
+                {mobileOpen ? <IconX size={22} /> : <IconMenu size={26} />}
               </button>
               <button
-                className="p-1.5 transition-opacity hover:opacity-60"
+                className="p-2 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="搜索"
                 onClick={() => setSearchOpen(true)}
               >
-                <IconSearch size={19} />
+                <IconSearch size={22} />
               </button>
             </div>
 
@@ -378,30 +385,30 @@ export default function Header() {
               <Image
                 src="/logo1.png"
                 alt="VIONIS·XY"
-                width={80}
-                height={45}
-                sizes="80px"
+                width={100}
+                height={56}
+                sizes="100px"
                 priority
               />
             </Link>
 
             {/* 右：账户 + 购物车 */}
-            <div className="flex items-center" style={{ gap: 8, zIndex: 1 }}>
+            <div className="flex items-center" style={{ gap: 14, zIndex: 1 }}>
               <Link
                 href="/account"
-                className="p-1.5 transition-opacity hover:opacity-60"
+                className="p-2 transition-opacity hover:opacity-60"
                 style={{ color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="账户"
               >
-                <IconUser size={19} />
+                <IconUser size={22} />
               </Link>
               <button
-                className="p-1.5 transition-opacity hover:opacity-60"
+                className="p-2 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 aria-label="购物车"
                 onClick={openDrawer}
               >
-                <IconBag count={totalQuantity} size={19} />
+                <IconBag count={totalQuantity} size={22} />
               </button>
             </div>
           </div>
@@ -435,14 +442,14 @@ export default function Header() {
                   display: 'block',
                 }}
               >
-                {item.文字}
+                {item.翻译键 ? t(item.翻译键) : item.文字}
               </Link>
             ))}
 
             <div className="flex items-center gap-6 mt-5 pt-5">
               {[
-                { icon: <IconHeart />, label: 'Wishlist', href: '/wishlist' },
-                { icon: <IconUser />,  label: 'Account',  href: '/account' },
+                { icon: <IconHeart />, label: t('nav.wishlist'), href: '/wishlist' },
+                { icon: <IconUser />,  label: t('nav.account'),  href: '/account' },
               ].map(({ icon, label, href }) => (
                 <Link
                   key={label}
@@ -456,7 +463,7 @@ export default function Header() {
                   }}
                 >
                   {icon}
-                  <span>{label}{label === 'Wishlist' && wishlistCount > 0 ? ` (${wishlistCount})` : ''}</span>
+                  <span>{label}{href === '/wishlist' && wishlistCount > 0 ? ` (${wishlistCount})` : ''}</span>
                 </Link>
               ))}
             </div>

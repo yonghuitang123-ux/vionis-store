@@ -6,6 +6,7 @@ import LiquidBanner from '@/components/LiquidBanner';
 import type { ProductCard } from '@/components/EditorialPanel';
 import type { SlideItem } from '@/components/MastermindShowcase';
 import { siteConfig, 占位图 } from '@/config/site';
+import { useTranslation } from '@/lib/i18n/client';
 
 // ─── 懒加载首屏以下组件（减少初始 JS ~500KB） ────────────────────────────────
 const EditorialPanel = dynamic(() => import('@/components/EditorialPanel'), { ssr: true });
@@ -112,6 +113,7 @@ interface HomeContentProps {
 
 export default function HomeContent({ initialProducts }: HomeContentProps) {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
+  const { t } = useTranslation();
 
   // 产品卡片（服务端预取）
   const cards       = initialProducts.length >= 4 ? initialProducts.map(toProductCard) : SKELETON_PRODUCTS;
@@ -239,11 +241,20 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
       {/* 6. ServiceBar — 服务承诺栏 */}
       <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 100px' }}>
       <ServiceBar
-        items={serviceBar.服务列表.map((s) => ({
-          icon:     s.图标,
-          title:    s.标题,
-          subtitle: s.副标题,
-        }))}
+        items={serviceBar.服务列表.map((s) => {
+          const keyMap: Record<string, [string, string]> = {
+            shipping: ['serviceBar.freeShipping', 'serviceBar.freeShippingDesc'],
+            return:   ['serviceBar.freeReturns',  'serviceBar.freeReturnsDesc'],
+            quality:  ['serviceBar.quality',      'serviceBar.qualityDesc'],
+            contact:  ['serviceBar.contact',      'serviceBar.contactDesc'],
+          };
+          const keys = keyMap[s.图标];
+          return {
+            icon:     s.图标,
+            title:    keys ? t(keys[0]) : s.标题,
+            subtitle: keys ? t(keys[1]) : s.副标题,
+          };
+        })}
         bgColor="#E8DFD6"
         textColor="#1a1a1a"
         mutedColor="#555555"
@@ -257,9 +268,9 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         shopName={footer.品牌名称}
         shopUrl={footer.首页链接}
         showNewsletter
-        newsletterHeading={footer.订阅栏标题}
-        newsletterSubtitle="First look at every new drop. No spam, just cashmere."
-        newsletterPlaceholder={footer.订阅栏占位文字}
+        newsletterHeading={t('footer.newsletter') !== 'footer.newsletter' ? t('footer.newsletter') : footer.订阅栏标题}
+        newsletterSubtitle={t('footer.newsletterText') !== 'footer.newsletterText' ? t('footer.newsletterText') : 'First look at every new drop. No spam, just cashmere.'}
+        newsletterPlaceholder={t('footer.emailPlaceholder') !== 'footer.emailPlaceholder' ? t('footer.emailPlaceholder') : footer.订阅栏占位文字}
         onNewsletterSubmit={async (email) => {
           const res = await fetch('/api/newsletter', {
             method: 'POST',
@@ -273,17 +284,32 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         }}
         showSocial
         socialLinks={activeSocial}
-        blocks={footer.导航列}
+        blocks={footer.导航列.map((block) => {
+          const headingKeyMap: Record<string, string> = {
+            Shop: 'footer.shop', About: 'footer.about', Help: 'footer.help',
+          };
+          const tKey = headingKeyMap[block.heading];
+          return { ...block, heading: tKey ? t(tKey) : block.heading };
+        })}
         showPolicies
-        policies={footer.政策链接}
+        policies={footer.政策链接.map((p) => {
+          const policyKeyMap: Record<string, string> = {
+            'Privacy Policy': 'footer.privacyPolicy',
+            'Terms of Service': 'footer.termsOfService',
+            'Refund Policy': 'footer.refundPolicy',
+          };
+          const tKey = policyKeyMap[p.title];
+          return { ...p, title: tKey ? t(tKey) : p.title };
+        })}
+        blocksBgColor="#C4A882"
         colors={{
-          bgColor:          '#C8B69E',
-          textColor:        '#3a3024',
+          bgColor:          '#E8DFD6',
+          textColor:        '#555555',
           headingColor:     '#1a1a1a',
-          mutedColor:       '#4a3f32',
-          borderColor:      'rgba(0,0,0,0.12)',
-          linkColor:        '#2a2318',
-          inputBorderColor: 'rgba(0,0,0,0.25)',
+          mutedColor:       '#555555',
+          borderColor:      'rgba(0,0,0,0.1)',
+          linkColor:        '#333333',
+          inputBorderColor: 'rgba(0,0,0,0.2)',
           btnBg:            '#1a1a1a',
           btnColor:         '#FFFFFF',
         }}
