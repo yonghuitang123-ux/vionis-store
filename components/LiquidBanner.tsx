@@ -84,16 +84,23 @@ function ImageSlot({
   align,
   bg,
   visibility,
-  isPriority = true,
+  loadMode = 'priority' as 'priority' | 'eager' | 'lazy',
 }: {
   src: string;
   alt: string;
   align: 'left' | 'right';
   bg: string;
   visibility?: string;
-  isPriority?: boolean;
+  /** 'priority' = preload+eager+high (LCP), 'eager' = eager without preload, 'lazy' = lazy */
+  loadMode?: 'priority' | 'eager' | 'lazy';
 }) {
   const pos = align === 'left' ? 'left-0' : 'right-0';
+  const loadProps =
+    loadMode === 'priority'
+      ? { priority: true, loading: 'eager' as const, fetchPriority: 'high' as const }
+      : loadMode === 'eager'
+        ? { loading: 'eager' as const }
+        : { loading: 'lazy' as const };
   return (
     <div
       className={`absolute top-0 ${pos} w-[200%] h-full pointer-events-none select-none ${visibility ?? ''}`}
@@ -104,9 +111,7 @@ function ImageSlot({
           alt={alt}
           fill
           sizes="(max-width: 749px) 100vw, 50vw"
-          {...(isPriority
-            ? { priority: true, loading: 'eager' as const, fetchPriority: 'high' as const }
-            : { loading: 'lazy' as const })}
+          {...loadProps}
           className="object-cover"
           style={{ color: 'transparent', background: bg }}
         />
@@ -220,7 +225,7 @@ export default function LiquidBanner({
                   align="left"
                   bg={c.outerBg}
                   visibility="hidden min-[750px]:block"
-                  isPriority={false}
+                  loadMode="eager"
                 />
                 <ImageSlot
                   src={leftImageMobile!}
@@ -257,7 +262,7 @@ export default function LiquidBanner({
                   align="right"
                   bg={c.outerBg}
                   visibility="hidden min-[750px]:block"
-                  isPriority={false}
+                  loadMode="eager"
                 />
                 <ImageSlot
                   src={rightImageMobile!}

@@ -168,7 +168,6 @@ function ContentPanel({
                   src={config.imageDesktop}
                   alt={config.imageAlt ?? ''}
                   fill
-                  priority={isActive}
                   sizes="50vw"
                   className="object-cover object-top"
                 />
@@ -178,7 +177,6 @@ function ContentPanel({
                   src={config.imageMobile!}
                   alt={config.imageAlt ?? ''}
                   fill
-                  priority={isActive}
                   sizes="100vw"
                   className="object-cover object-top"
                 />
@@ -189,7 +187,6 @@ function ContentPanel({
               src={config.imageDesktop}
               alt={config.imageAlt ?? ''}
               fill
-              priority={isActive}
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover object-top"
             />
