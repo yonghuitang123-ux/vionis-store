@@ -153,11 +153,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
     return segments[0] && SHOPIFY_LOCALE_MAP[segments[0]] ? segments[0] : 'en';
   }, [pathname]);
 
-  // 给 checkoutUrl 附加 locale 参数
+  // 给 checkoutUrl 附加 locale 参数，并确保指向 myshopify.com
+  // (Shopify 会把 checkoutUrl 设为 primary domain vionisxy.com，
+  //  但 DNS 指向 Vercel，所以必须替换回 myshopify.com)
   const localizedCheckoutUrl = useMemo(() => {
     if (!state.checkoutUrl) return null;
     try {
       const url = new URL(state.checkoutUrl);
+      // 强制使用 myshopify.com 域名，避免 checkout 请求到 Vercel
+      if (url.hostname === 'vionisxy.com' || url.hostname === 'www.vionisxy.com') {
+        url.hostname = 'vionisxy.myshopify.com';
+      }
       const shopifyLocale = SHOPIFY_LOCALE_MAP[currentLocale] ?? 'en';
       if (shopifyLocale !== 'en') {
         url.searchParams.set('locale', shopifyLocale);

@@ -31,18 +31,12 @@ function getPreferredLocale(request: NextRequest): string {
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname, search } = request.nextUrl;
+  const { pathname } = request.nextUrl;
 
-  // Shopify checkout paths → redirect to myshopify.com so checkout works
-  if (pathname.startsWith('/cart/c/') || pathname.startsWith('/checkouts/')) {
-    return NextResponse.redirect(
-      `https://vionisxy.myshopify.com${pathname}${search}`,
-      307,
-    );
-  }
-
-  // 跳过：API、静态文件、admin、_next、uploads 等
+  // 跳过：Shopify checkout paths, API、静态文件、admin、_next、uploads 等
   if (
+    pathname.startsWith('/cart/c/') ||
+    pathname.startsWith('/checkouts/') ||
     pathname.startsWith('/api/') ||
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/admin/') ||
