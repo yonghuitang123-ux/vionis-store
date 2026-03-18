@@ -256,7 +256,7 @@ export default function Header() {
             backgroundColor: '#E8DFD6',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '10px 0',
+            padding: '16px 0 20px',
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
@@ -272,7 +272,7 @@ export default function Header() {
         </div>
 
         {/* ═══ 第三行：导航菜单 ════════════════════════════════════════════════ */}
-        <div style={{ backgroundColor: '#E8DFD6' }}>
+        <div style={{ backgroundColor: '#E8DFD6', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
 
           {/* 桌面端：search 左 | 菜单居中 | 图标右 */}
           <div
