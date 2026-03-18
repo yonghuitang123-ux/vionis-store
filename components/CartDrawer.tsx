@@ -123,7 +123,7 @@ export default function CartDrawer() {
       <div className="cd-backdrop" onClick={closeDrawer} aria-hidden />
 
       {/* 抽屉面板 */}
-      <aside className="cd-panel" role="dialog" aria-label="Shopping cart">
+      <div className="cd-panel" role="dialog" aria-modal="true" aria-label="Shopping cart">
 
         {/* 加载中遮罩 */}
         {loading && (
@@ -180,11 +180,11 @@ export default function CartDrawer() {
           {lines.length === 0 ? (
             <div style={{
               textAlign: 'center', paddingTop: 80,
-              fontFamily: BODY, fontSize: 14, color: TEXT, opacity: 0.55,
+              fontFamily: BODY, fontSize: 14, color: '#666666',
               letterSpacing: '0.04em',
             }}>
               <p style={{ marginBottom: 8 }}>Your cart is empty.</p>
-              <p style={{ fontSize: 12 }}>Discover our curated collection.</p>
+              <p style={{ fontSize: 12, color: '#888888' }}>Discover our curated collection.</p>
             </div>
           ) : (
             lines.map((line) => (
@@ -393,7 +393,7 @@ export default function CartDrawer() {
             </button>
           </div>
         )}
-      </aside>
+      </div>
     </div>
   );
 }

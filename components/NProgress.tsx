@@ -33,14 +33,15 @@ export default function NProgress() {
         height: 2,
         zIndex: 9999,
         background: 'linear-gradient(90deg, #A05E46 0%, #A05E46 50%, transparent 100%)',
+        transformOrigin: 'left',
         animation: 'nprog 0.4s ease-out forwards',
       }}
     >
       <style>{`
         @keyframes nprog {
-          0% { transform: scaleX(0); transform-origin: left; }
-          50% { transform: scaleX(0.7); transform-origin: left; }
-          100% { transform: scaleX(1); transform-origin: right; opacity: 0; }
+          0% { transform: scaleX(0); }
+          50% { transform: scaleX(0.7); }
+          100% { transform: scaleX(1); opacity: 0; }
         }
       `}</style>
     </div>
