@@ -250,16 +250,16 @@ export default function Header() {
             backgroundColor: '#E8DFD6',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '10px 0',
+            padding: '14px 0',
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
             <Image
               src="/logo1.png"
               alt="VIONIS·XY"
-              width={120}
-              height={68}
-              sizes="120px"
+              width={90}
+              height={51}
+              sizes="90px"
               priority
             />
           </Link>
@@ -385,9 +385,9 @@ export default function Header() {
               <Image
                 src="/logo1.png"
                 alt="VIONIS·XY"
-                width={100}
-                height={56}
-                sizes="100px"
+                width={72}
+                height={40}
+                sizes="72px"
                 priority
               />
             </Link>
