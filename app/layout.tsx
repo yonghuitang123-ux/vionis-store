@@ -92,8 +92,8 @@ export default function RootLayout({
           <CartProvider>
             <WishlistProvider>
               <Header />
-              {/* Mobile: announcement(44) + nav(56) = 100px; Desktop: + logo(88) = 188px */}
-              <div className="pt-[100px] md:pt-[188px]">{children}</div>
+              {/* Mobile: announcement(36) + nav(56) = 92px; Desktop: + logo(~96) = 188px */}
+              <div className="pt-[92px] xl:pt-[188px]">{children}</div>
               <ClientShell />
             </WishlistProvider>
           </CartProvider>
