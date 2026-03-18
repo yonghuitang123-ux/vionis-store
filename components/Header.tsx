@@ -165,15 +165,13 @@ export default function Header() {
         }
         .hdr-link:hover::after { width: 100%; }
         .hdr-nav-center {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
           display: flex;
           justify-content: center;
           align-items: center;
           gap: 36px;
           white-space: nowrap;
+          flex: 1;
+          min-width: 0;
         }
         @media (max-width: 1400px) {
           .hdr-nav-center { gap: 28px; }
@@ -209,14 +207,14 @@ export default function Header() {
         <div
           style={{
             backgroundColor: '#E8DFD6',
-            maxHeight: announcementVisible ? '44px' : '0',
+            maxHeight: announcementVisible ? '36px' : '0',
             overflow: 'hidden',
             transition: 'max-height 0.4s ease',
           }}
         >
           <div
             className="flex items-center justify-center relative px-10"
-            style={{ height: 44, borderBottom: '1px solid #C8B69E' }}
+            style={{ height: 36, borderBottom: '1px solid rgba(0,0,0,0.06)' }}
           >
             <span
               style={{
@@ -276,11 +274,11 @@ export default function Header() {
 
           {/* 桌面端：search 左 | 菜单居中 | 图标右 */}
           <div
-            className="hidden md:flex items-center px-[30px]"
-            style={{ height: 52, position: 'relative' }}
+            className="hidden md:flex items-center justify-between px-[30px]"
+            style={{ height: 52 }}
           >
             {/* 左：搜索 */}
-            <div style={{ position: 'absolute', left: 30, display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
               <button
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
@@ -291,7 +289,7 @@ export default function Header() {
               </button>
             </div>
 
-            {/* 中：导航链接（严格居中） */}
+            {/* 中：导航链接 */}
             <nav className="hdr-nav-center">
               {nav.菜单.map((item) => (
                 <Link
@@ -317,7 +315,7 @@ export default function Header() {
             {/* 右：图标组 */}
             <div
               className="hdr-icons-right"
-              style={{ position: 'absolute', right: 30, display: 'flex', alignItems: 'center', gap: 20 }}
+              style={{ display: 'flex', alignItems: 'center', gap: 20, flexShrink: 0 }}
             >
               <Link
                 href="/wishlist"
