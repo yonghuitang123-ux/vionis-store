@@ -157,9 +157,9 @@ export default function LiquidBanner({
     : `var(--font-cormorant), "${headingFont}", serif`;
 
   const css = [
-    /* 淡入过渡：模糊色块 → 缓缓显现油画 */
-    `#${SCOPE_ID} .lb-img-fade{animation:lbReveal 1.2s ease-out both}`,
-    `@keyframes lbReveal{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:blur(0)}}`,
+    /* 淡入过渡：模糊色块 → 缓缓显现油画（保持 opacity:1 让 LCP 记录占位图） */
+    `#${SCOPE_ID} .lb-img-fade{animation:lbReveal 1.4s ease-out both}`,
+    `@keyframes lbReveal{from{filter:blur(12px) saturate(1.2)}to{filter:blur(0) saturate(1)}}`,
     `#${SCOPE_ID} a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}`,
     `#${SCOPE_ID} .lb-overlay{top:65%;max-width:600px}`,
     `#${SCOPE_ID} .lb-box{`,
