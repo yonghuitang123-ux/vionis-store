@@ -165,13 +165,16 @@ export default function Header() {
         }
         .hdr-link:hover::after { width: 100%; }
         .hdr-nav-center {
+          position: absolute;
+          left: 60px;
+          right: 240px;
+          top: 50%;
+          transform: translateY(-50%);
           display: flex;
           justify-content: center;
           align-items: center;
           gap: 36px;
           white-space: nowrap;
-          flex: 1;
-          min-width: 0;
         }
         @media (max-width: 1400px) {
           .hdr-nav-center { gap: 28px; }
@@ -181,11 +184,11 @@ export default function Header() {
           .hdr-link { font-size: 10.5px !important; letter-spacing: 0.12em !important; }
         }
         @media (max-width: 1100px) {
-          .hdr-nav-center { gap: 14px; }
+          .hdr-nav-center { gap: 14px; right: 200px; }
           .hdr-link { font-size: 9.5px !important; letter-spacing: 0.08em !important; }
         }
         @media (max-width: 960px) {
-          .hdr-nav-center { gap: 10px; }
+          .hdr-nav-center { gap: 10px; right: 180px; }
           .hdr-link { font-size: 8.5px !important; letter-spacing: 0.06em !important; }
           .hdr-icons-right { gap: 12px !important; right: 16px !important; }
         }
@@ -274,11 +277,11 @@ export default function Header() {
 
           {/* 桌面端：search 左 | 菜单居中 | 图标右 */}
           <div
-            className="hidden md:flex items-center justify-between px-[30px]"
-            style={{ height: 52 }}
+            className="hidden md:flex items-center px-[30px]"
+            style={{ height: 52, position: 'relative' }}
           >
             {/* 左：搜索 */}
-            <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+            <div style={{ position: 'absolute', left: 30, display: 'flex', alignItems: 'center', zIndex: 1 }}>
               <button
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
@@ -315,7 +318,7 @@ export default function Header() {
             {/* 右：图标组 */}
             <div
               className="hdr-icons-right"
-              style={{ display: 'flex', alignItems: 'center', gap: 20, flexShrink: 0 }}
+              style={{ position: 'absolute', right: 30, display: 'flex', alignItems: 'center', gap: 20, zIndex: 1 }}
             >
               <Link
                 href="/wishlist"
