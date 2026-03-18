@@ -41,7 +41,7 @@ export default function NewsletterPopup() {
   const scopeId  = `nl${uid.replace(/:/g, '')}`;
 
   const cfg   = siteConfig.newsletter;
-  const delay = cfg.显示延迟 ?? 5000;
+  const delay = cfg.显示延迟 ?? 60000;
 
   // 挂载时检测 cookie，延迟弹出
   useEffect(() => {

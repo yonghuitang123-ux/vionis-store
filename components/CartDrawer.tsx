@@ -184,7 +184,7 @@ export default function CartDrawer() {
               letterSpacing: '0.04em',
             }}>
               <p style={{ marginBottom: 8 }}>Your cart is empty.</p>
-              <p style={{ fontSize: 12, color: '#888888' }}>Discover our curated collection.</p>
+              <p style={{ fontSize: 12, color: '#666666' }}>Discover our curated collection.</p>
             </div>
           ) : (
             lines.map((line) => (

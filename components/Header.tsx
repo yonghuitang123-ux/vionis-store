@@ -151,6 +151,7 @@ export default function Header() {
           position: relative;
           display: inline-block;
           white-space: nowrap;
+          padding: 8px 0;
         }
         .hdr-link::after {
           content: '';
@@ -314,7 +315,7 @@ export default function Header() {
             >
               <Link
                 href="/wishlist"
-                className="p-1 transition-opacity hover:opacity-60"
+                className="p-2 transition-opacity hover:opacity-60"
                 style={{ color: '#1a1a1a', lineHeight: 0, position: 'relative', display: 'inline-flex' }}
                 aria-label="收藏夹"
               >
@@ -385,9 +386,9 @@ export default function Header() {
               <Image
                 src="/logo1.png"
                 alt="VIONIS·XY"
-                width={100}
-                height={56}
-                sizes="100px"
+                width={72}
+                height={40}
+                sizes="72px"
                 priority
               />
             </Link>

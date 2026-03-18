@@ -315,7 +315,7 @@ export const siteConfig = {
       { 文字: 'Cashmere',           链接: '/collections/cashmere',      翻译键: 'nav.cashmere'     },
       { 文字: 'Merino Wool',        链接: '/collections/merino',        翻译键: 'nav.merinoWool'   },
       { 文字: 'New Arrivals',       链接: '/collections/new-arrivals',  翻译键: 'nav.newArrivals'  },
-      { 文字: 'Spring/Summer 2026', 链接: '/', 颜色: '#C8B69E',         翻译键: 'nav.springSummer' },
+      { 文字: 'Spring/Summer 2026', 链接: '/', 颜色: '#7A6548',         翻译键: 'nav.springSummer' },
       { 文字: 'Our Story',          链接: '/pages/our-story',           翻译键: 'nav.ourStory'     },
       { 文字: 'Craftsmanship',      链接: '/pages/craftsmanship',       翻译键: 'nav.craftsmanship'},
       { 文字: 'Journal',            链接: '/blog',                      翻译键: 'nav.journal'      },
@@ -342,7 +342,7 @@ export const siteConfig = {
     副标题:   'Be the first to know about new arrivals and exclusive offers.',
     按钮:     'Subscribe',
     占位文字: 'Enter your email',
-    显示延迟: 5000,       // 进入网站后延迟多少毫秒弹出（5000 = 5秒）
+    显示延迟: 60000,      // 进入网站后延迟多少毫秒弹出（60000 = 60秒）
   },
 
   // ═══════════════════════════════════════════════════════════════════
