@@ -175,16 +175,21 @@ export default function Header() {
           gap: 36px;
           white-space: nowrap;
         }
+        @media (max-width: 1400px) {
+          .hdr-nav-center { gap: 28px; }
+        }
         @media (max-width: 1280px) {
-          .hdr-nav-center { gap: 24px; }
+          .hdr-nav-center { gap: 20px; }
+          .hdr-link { font-size: 10.5px !important; letter-spacing: 0.12em !important; }
         }
         @media (max-width: 1100px) {
-          .hdr-nav-center { gap: 16px; }
-          .hdr-link { font-size: 10px !important; letter-spacing: 0.1em !important; }
+          .hdr-nav-center { gap: 14px; }
+          .hdr-link { font-size: 9.5px !important; letter-spacing: 0.08em !important; }
         }
         @media (max-width: 960px) {
-          .hdr-nav-center { gap: 12px; }
-          .hdr-link { font-size: 9px !important; letter-spacing: 0.08em !important; }
+          .hdr-nav-center { gap: 10px; }
+          .hdr-link { font-size: 8.5px !important; letter-spacing: 0.06em !important; }
+          .hdr-icons-right { gap: 12px !important; right: 16px !important; }
         }
       `}</style>
 
@@ -311,6 +316,7 @@ export default function Header() {
 
             {/* 右：图标组 */}
             <div
+              className="hdr-icons-right"
               style={{ position: 'absolute', right: 30, display: 'flex', alignItems: 'center', gap: 20 }}
             >
               <Link
