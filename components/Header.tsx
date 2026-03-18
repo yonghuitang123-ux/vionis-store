@@ -138,7 +138,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 768) setMobileOpen(false); };
+    const onResize = () => { if (window.innerWidth >= 1280) setMobileOpen(false); };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -178,19 +178,6 @@ export default function Header() {
         }
         @media (max-width: 1400px) {
           .hdr-nav-center { gap: 28px; }
-        }
-        @media (max-width: 1280px) {
-          .hdr-nav-center { gap: 20px; }
-          .hdr-link { font-size: 10.5px !important; letter-spacing: 0.12em !important; }
-        }
-        @media (max-width: 1100px) {
-          .hdr-nav-center { gap: 14px; max-width: calc(100% - 400px); }
-          .hdr-link { font-size: 9.5px !important; letter-spacing: 0.08em !important; }
-        }
-        @media (max-width: 960px) {
-          .hdr-nav-center { gap: 10px; max-width: calc(100% - 360px); }
-          .hdr-link { font-size: 8.5px !important; letter-spacing: 0.06em !important; }
-          .hdr-icons-right { gap: 12px !important; right: 16px !important; }
         }
       `}</style>
 
@@ -252,7 +239,7 @@ export default function Header() {
 
         {/* ═══ 第二行：Logo 居中大图（仅桌面端显示独立行） ═════════════════════ */}
         <div
-          className="hidden md:flex"
+          className="hidden xl:flex"
           style={{
             backgroundColor: '#E8DFD6',
             justifyContent: 'center',
@@ -277,7 +264,7 @@ export default function Header() {
 
           {/* 桌面端：search 左 | 菜单居中 | 图标右 */}
           <div
-            className="hidden md:flex items-center px-[30px]"
+            className="hidden xl:flex items-center px-[30px]"
             style={{ height: 52, position: 'relative' }}
           >
             {/* 左：搜索 */}
@@ -357,7 +344,7 @@ export default function Header() {
           </div>
 
           {/* 手机端：[汉堡 搜索] — Logo居中 — [账户 购物车] */}
-          <div className="flex md:hidden items-center justify-between px-4" style={{ height: 56, position: 'relative' }}>
+          <div className="flex xl:hidden items-center justify-between px-4" style={{ height: 56, position: 'relative' }}>
             {/* 左：汉堡 + 搜索 */}
             <div className="flex items-center" style={{ gap: 14, zIndex: 1 }}>
               <button
