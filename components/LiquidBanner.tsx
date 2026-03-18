@@ -118,7 +118,7 @@ function ImageSlot({
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
           {...loadProps}
-          className="object-cover"
+          className="object-cover lb-img-fade"
           style={{ color: 'transparent', background: bg }}
         />
       </div>
@@ -157,6 +157,9 @@ export default function LiquidBanner({
     : `var(--font-cormorant), "${headingFont}", serif`;
 
   const css = [
+    /* 淡入过渡：模糊色块 → 缓缓显现油画 */
+    `#${SCOPE_ID} .lb-img-fade{animation:lbReveal 1.2s ease-out both}`,
+    `@keyframes lbReveal{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:blur(0)}}`,
     `#${SCOPE_ID} a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}`,
     `#${SCOPE_ID} .lb-overlay{top:65%;max-width:600px}`,
     `#${SCOPE_ID} .lb-box{`,
