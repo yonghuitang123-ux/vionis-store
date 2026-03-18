@@ -267,8 +267,8 @@ export default function Header() {
             className="hidden xl:flex items-center px-[30px]"
             style={{ height: 52, position: 'relative' }}
           >
-            {/* 左：搜索 */}
-            <div style={{ position: 'absolute', left: 30, display: 'flex', alignItems: 'center', zIndex: 1 }}>
+            {/* 左：搜索 + 收藏 */}
+            <div style={{ position: 'absolute', left: 30, display: 'flex', alignItems: 'center', gap: 18, zIndex: 1 }}>
               <button
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
@@ -277,6 +277,22 @@ export default function Header() {
               >
                 <IconSearch />
               </button>
+              <Link
+                href="/wishlist"
+                className="p-1 transition-opacity hover:opacity-60"
+                style={{ color: '#1a1a1a', lineHeight: 0, position: 'relative', display: 'inline-flex' }}
+                aria-label="收藏夹"
+              >
+                <IconHeart />
+                {wishlistCount > 0 && (
+                  <span
+                    className="absolute -top-1.5 -right-2 min-w-[15px] h-[15px] rounded-full text-[9px] font-medium flex items-center justify-center px-0.5"
+                    style={{ backgroundColor: '#C8B69E', color: '#fff' }}
+                  >
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
             </div>
 
             {/* 中：导航链接 */}
@@ -307,22 +323,6 @@ export default function Header() {
               className="hdr-icons-right"
               style={{ position: 'absolute', right: 30, display: 'flex', alignItems: 'center', gap: 20, zIndex: 1 }}
             >
-              <Link
-                href="/wishlist"
-                className="p-2 transition-opacity hover:opacity-60"
-                style={{ color: '#1a1a1a', lineHeight: 0, position: 'relative', display: 'inline-flex' }}
-                aria-label="收藏夹"
-              >
-                <IconHeart />
-                {wishlistCount > 0 && (
-                  <span
-                    className="absolute -top-1.5 -right-2 min-w-[15px] h-[15px] rounded-full text-[9px] font-medium flex items-center justify-center px-0.5"
-                    style={{ backgroundColor: '#C8B69E', color: '#fff' }}
-                  >
-                    {wishlistCount}
-                  </span>
-                )}
-              </Link>
               <Link
                 href="/account"
                 className="p-1 transition-opacity hover:opacity-60"
