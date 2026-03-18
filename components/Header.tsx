@@ -166,15 +166,15 @@ export default function Header() {
         .hdr-link:hover::after { width: 100%; }
         .hdr-nav-center {
           position: absolute;
-          left: 60px;
-          right: 240px;
+          left: 50%;
           top: 50%;
-          transform: translateY(-50%);
+          transform: translate(-50%, -50%);
           display: flex;
           justify-content: center;
           align-items: center;
           gap: 36px;
           white-space: nowrap;
+          max-width: calc(100% - 480px);
         }
         @media (max-width: 1400px) {
           .hdr-nav-center { gap: 28px; }
@@ -184,11 +184,11 @@ export default function Header() {
           .hdr-link { font-size: 10.5px !important; letter-spacing: 0.12em !important; }
         }
         @media (max-width: 1100px) {
-          .hdr-nav-center { gap: 14px; right: 200px; }
+          .hdr-nav-center { gap: 14px; max-width: calc(100% - 400px); }
           .hdr-link { font-size: 9.5px !important; letter-spacing: 0.08em !important; }
         }
         @media (max-width: 960px) {
-          .hdr-nav-center { gap: 10px; right: 180px; }
+          .hdr-nav-center { gap: 10px; max-width: calc(100% - 360px); }
           .hdr-link { font-size: 8.5px !important; letter-spacing: 0.06em !important; }
           .hdr-icons-right { gap: 12px !important; right: 16px !important; }
         }
@@ -257,7 +257,7 @@ export default function Header() {
             backgroundColor: '#E8DFD6',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '16px 0 20px',
+            padding: '14px 0',
           }}
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
@@ -393,9 +393,9 @@ export default function Header() {
               <Image
                 src="/logo1.png"
                 alt="VIONIS·XY"
-                width={72}
-                height={40}
-                sizes="72px"
+                width={88}
+                height={49}
+                sizes="88px"
                 priority
               />
             </Link>
