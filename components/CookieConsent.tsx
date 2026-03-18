@@ -71,7 +71,7 @@ export default function CookieConsent() {
       <p style={{ margin: 0, flex: 1, minWidth: 240 }}>
         We use cookies to enhance your experience and analyze site traffic.
         By clicking &ldquo;Accept&rdquo;, you consent to our use of cookies.{' '}
-        <a href="/pages/privacy-policy" target="_blank" rel="noopener noreferrer">
+        <a href="/policies/privacy-policy" target="_blank" rel="noopener noreferrer">
           Privacy Policy
         </a>
       </p>

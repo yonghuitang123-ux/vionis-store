@@ -304,9 +304,9 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         blocksBgColor="#C4A882"
         colors={{
           bgColor:          '#E8DFD6',
-          textColor:        '#555555',
+          textColor:        '#3d3d3d',
           headingColor:     '#1a1a1a',
-          mutedColor:       '#555555',
+          mutedColor:       '#3d3d3d',
           borderColor:      'rgba(0,0,0,0.1)',
           linkColor:        '#333333',
           inputBorderColor: 'rgba(0,0,0,0.2)',
