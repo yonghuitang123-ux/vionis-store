@@ -177,7 +177,7 @@ export const siteConfig = {
     小标题: 'THE PHILOSOPHY',
     标题:   'Quiet Confidence',
     正文:   'True elegance does not need to shout. At VIONIS·XY, we believe in the power of subtraction — removing the excess to reveal the essential quality of Merino and Cashmere. Each piece is crafted to outlast trends and outlive seasons.',
-    签名:   'Viral Momentum',
+    签名:   'VIONIS·XY',
   },
 
   // ═══════════════════════════════════════════════════════════════════
