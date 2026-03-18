@@ -2,6 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import BannerScrollEffect from './BannerScrollEffect';
 
+/* Warm beige LQIP placeholder — matches #E8DFD6 outer bg, tiny SVG avoids extra request */
+const BLUR_DATA_URL =
+  'data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Cfilter id=%27b%27%3E%3CfeGaussianBlur stdDeviation=%2712%27/%3E%3C/filter%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23E8DFD6%27 filter=%27url(%23b)%27/%3E%3C/svg%3E';
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface LiquidBannerColors {
@@ -111,6 +115,8 @@ function ImageSlot({
           alt={alt}
           fill
           sizes="50vw"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
           {...loadProps}
           className="object-cover"
           style={{ color: 'transparent', background: bg }}

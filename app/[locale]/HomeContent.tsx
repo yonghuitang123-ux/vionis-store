@@ -8,12 +8,15 @@ import type { SlideItem } from '@/components/MastermindShowcase';
 import { siteConfig, 占位图 } from '@/config/site';
 import { useTranslation } from '@/lib/i18n/client';
 
-// ─── 懒加载首屏以下组件（减少初始 JS ~500KB） ────────────────────────────────
+// ─── 懒加载首屏以下组件 ─────────────────────────────────────────────────────
+// EditorialPanel 紧接 hero，保留 SSR 保证 SEO
 const EditorialPanel = dynamic(() => import('@/components/EditorialPanel'), { ssr: true });
-const MastermindShowcase = dynamic(() => import('@/components/MastermindShowcase'), { ssr: true });
-const BlogScroll = dynamic(() => import('@/components/BlogScroll'), { ssr: true });
+// Swiper 组件不需要 SSR，延迟加载省 50KB+ JS
+const MastermindShowcase = dynamic(() => import('@/components/MastermindShowcase'), { ssr: false });
+const BlogScroll = dynamic(() => import('@/components/BlogScroll'), { ssr: false });
+// 其余折叠线以下组件
 const BrandStory = dynamic(() => import('@/components/BrandStory'), { ssr: true });
-const ServiceBar = dynamic(() => import('@/components/ServiceBar'), { ssr: true });
+const ServiceBar = dynamic(() => import('@/components/ServiceBar'), { ssr: false });
 const SiteFooter = dynamic(() => import('@/components/SiteFooter'), { ssr: true });
 
 // ─── 便捷解构 ─────────────────────────────────────────────────────────────────

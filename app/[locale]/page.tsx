@@ -9,6 +9,16 @@
 import { getProducts } from '@/lib/shopify';
 import HomeContent from './HomeContent';
 
+/* ISR: 每小时重新验证一次，避免每次请求都调 Shopify API */
+export const revalidate = 3600;
+
+/* 预生成所有语言版本的首页（SSG） */
+export function generateStaticParams() {
+  return [
+    'en', 'fr', 'de', 'ja', 'it', 'es', 'pt', 'nl', 'pl', 'cs', 'da', 'fi', 'no', 'sv',
+  ].map((locale) => ({ locale }));
+}
+
 export default async function Home() {
   let products = [];
   try {

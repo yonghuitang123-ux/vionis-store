@@ -10,19 +10,22 @@ import ClientShell from './ClientShell';
 const cormorant = Cormorant({
   variable: '--font-cormorant',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '600'],
+  display: 'swap',
 });
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: '--font-cormorant-garamond',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400'],
+  display: 'swap',
 });
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500'],
+  display: 'swap',
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com';
