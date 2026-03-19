@@ -136,7 +136,7 @@ export async function createReview(
 
 /** 后台手动创建评论（可直接设定状态和日期） */
 export async function createManualReview(
-  data: Omit<ReviewRecord, 'id'> & { createdAt?: string },
+  data: Omit<ReviewRecord, 'id' | 'createdAt'> & { createdAt?: string },
 ): Promise<ReviewRecord> {
   const reviews = await readAll();
   const review: ReviewRecord = {
