@@ -62,6 +62,7 @@ export async function POST(req: NextRequest) {
       verified: body.verified ?? true,
       status: body.status || 'approved',
       productInfo: body.productInfo || '',
+      ...(body.createdAt ? { createdAt: body.createdAt } : {}),
     });
 
     return NextResponse.json(review, { status: 201 });

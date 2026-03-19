@@ -134,15 +134,15 @@ export async function createReview(
   return review;
 }
 
-/** 后台手动创建评论（可直接设定状态） */
+/** 后台手动创建评论（可直接设定状态和日期） */
 export async function createManualReview(
-  data: Omit<ReviewRecord, 'id' | 'createdAt'>,
+  data: Omit<ReviewRecord, 'id'> & { createdAt?: string },
 ): Promise<ReviewRecord> {
   const reviews = await readAll();
   const review: ReviewRecord = {
     ...data,
     id: crypto.randomUUID(),
-    createdAt: new Date().toISOString(),
+    createdAt: data.createdAt || new Date().toISOString(),
   };
   reviews.push(review);
   await writeAll(reviews);

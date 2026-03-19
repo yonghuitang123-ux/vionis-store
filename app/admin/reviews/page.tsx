@@ -400,6 +400,13 @@ export default function AdminReviewsPage() {
 
 // ─── Add Review Modal ────────────────────────────────────────────────────────
 
+interface SimpleProduct {
+  id: string;
+  title: string;
+  handle: string;
+  image: string;
+}
+
 function AddReviewModal({
   scopeId,
   password,
@@ -421,27 +428,66 @@ function AddReviewModal({
     body: '',
     verified: true,
     productInfo: '',
+    createdAt: '',
   });
   const [submitting, setSubmitting] = useState(false);
+  const [products, setProducts] = useState<SimpleProduct[]>([]);
+  const [productsLoading, setProductsLoading] = useState(true);
+
+  // 加载产品列表
+  useEffect(() => {
+    fetch('/api/reviews/products', {
+      headers: { 'x-admin-password': password },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) setProducts(data);
+      })
+      .catch(() => {})
+      .finally(() => setProductsLoading(false));
+  }, [password]);
 
   const update = (key: string, value: any) =>
     setForm((f) => ({ ...f, [key]: value }));
+
+  const handleProductSelect = (productId: string) => {
+    const p = products.find((x) => x.id === productId);
+    if (p) {
+      setForm((f) => ({
+        ...f,
+        productId: p.id,
+        productTitle: p.title,
+      }));
+    } else {
+      setForm((f) => ({ ...f, productId: '', productTitle: '' }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.author || !form.country || !form.body) return;
     setSubmitting(true);
     try {
+      const payload: any = {
+        ...form,
+        status: 'approved',
+      };
+      // 如果填了自定义日期，传给后端
+      if (form.createdAt) {
+        payload.createdAt = new Date(form.createdAt).toISOString();
+      }
+      delete payload.createdAt; // 先删掉，下面重新加
+      if (form.createdAt) {
+        payload.createdAt = new Date(form.createdAt).toISOString();
+      }
+
       await fetch('/api/reviews/admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-admin-password': password,
         },
-        body: JSON.stringify({
-          ...form,
-          status: 'approved',
-        }),
+        body: JSON.stringify(payload),
       });
       onCreated();
     } catch {
@@ -456,15 +502,22 @@ function AddReviewModal({
       <div className="ar-modal" onClick={(e) => e.stopPropagation()}>
         <h2>Add Review Manually</h2>
         <form onSubmit={handleSubmit}>
-          {/* Product */}
+          {/* Product Selector */}
           <div className="ar-modal-field">
-            <label className="ar-modal-label">Product Name</label>
-            <input
-              type="text"
-              value={form.productTitle}
-              onChange={(e) => update('productTitle', e.target.value)}
-              placeholder="The Classic Cashmere Crew"
-            />
+            <label className="ar-modal-label">Select Product</label>
+            <select
+              value={form.productId}
+              onChange={(e) => handleProductSelect(e.target.value)}
+            >
+              <option value="">
+                {productsLoading ? 'Loading products…' : '— Select a product —'}
+              </option>
+              {products.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.title}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="ar-modal-row">
@@ -534,7 +587,7 @@ function AddReviewModal({
             />
           </div>
 
-          {/* Product Info */}
+          {/* Product Variant Info */}
           <div className="ar-modal-field">
             <label className="ar-modal-label">
               Product Variant (Optional)
@@ -543,7 +596,19 @@ function AddReviewModal({
               type="text"
               value={form.productInfo}
               onChange={(e) => update('productInfo', e.target.value)}
-              placeholder="The Classic Cashmere Crew — Oatmeal / S"
+              placeholder="Oatmeal / S"
+            />
+          </div>
+
+          {/* Date */}
+          <div className="ar-modal-field">
+            <label className="ar-modal-label">
+              Review Date (leave empty for now)
+            </label>
+            <input
+              type="datetime-local"
+              value={form.createdAt}
+              onChange={(e) => update('createdAt', e.target.value)}
             />
           </div>
 
