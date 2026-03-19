@@ -20,6 +20,7 @@ import ProductGallery from '@/components/product/ProductGallery';
 import ColorSelector from '@/components/product/ColorSelector';
 import ReviewSummary from '@/components/reviews/ReviewSummary';
 import ReviewList from '@/components/reviews/ReviewList';
+import ReviewForm from '@/components/reviews/ReviewForm';
 import SizeSelector from '@/components/product/SizeSelector';
 import { getAvailableColors } from '@/utils/getAvailableColors';
 import { useReviews } from '@/hooks/useReviews';
@@ -583,6 +584,9 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         <ReviewSummary productId={product.id} reviews={reviews} loading={reviewsLoading} />
         <div style={{ marginTop: 48 }}>
           <ReviewList productId={product.id} reviews={reviews} loading={reviewsLoading} />
+        </div>
+        <div style={{ marginTop: 64 }}>
+          <ReviewForm productId={product.id} productTitle={product.title} />
         </div>
       </section>
 
