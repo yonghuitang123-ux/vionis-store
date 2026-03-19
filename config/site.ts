@@ -88,7 +88,7 @@ export const siteConfig = {
     // 2. The Merino Tie-Bonnet — Scarlet
     轮播2_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XYTheMerinoTie-Bonnet_80g_100_merinowoolScarlet3.webp?v=1770621952',
     轮播2_模特大图_手机端: '',
-    轮播2_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XYTheMerinoTie-Bonnet_80g_100_merinowoolScarlet4.webp?v=1770621974',
+    轮播2_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XYTheMerinoTie-Bonnet_80g_100_merinowoolScarlet2.webp?v=1770621974',
     轮播2_产品名称:         'The Merino Tie-Bonnet — Scarlet',
     轮播2_产品价格:         '$56.00',
     轮播2_产品链接:         '/products/the-merino-tie-bonnet-100-wool-80g',
@@ -96,7 +96,7 @@ export const siteConfig = {
     // 3. The Contrast Trim Cardigan — Black
     轮播3_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XYFrontviewofmodelwearingmerinowoolcontrasttrimcardiganinblackwithcamelsuedetrim7.webp?v=1770306765',
     轮播3_模特大图_手机端: '',
-    轮播3_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XYFrontviewofmodelwearingmerinowoolcontrasttrimcardiganinblackwithcamelsuedetrim6.webp?v=1770306765',
+    轮播3_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_Frontviewofmodelwearingmerinowoolcontrasttrimcardiganinblackwithcamelsuedetrim5.webp?v=1770307050',
     轮播3_产品名称:         'The Contrast Trim Cardigan（390g）',
     轮播3_产品价格:         '$138.00',
     轮播3_产品链接:         '/products/the-heritage-contrast-knit-cardigan',
@@ -128,7 +128,7 @@ export const siteConfig = {
     // 7. The 650g Cashmere Open Front Cardigan — Oatmeal
     轮播7_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XYwomens-650g-100-cashmere-open-front-cardigan-oatmeal-inner-mongolia3.webp?v=1773045607',
     轮播7_模特大图_手机端: '',
-    轮播7_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XYwomens-650g-100-cashmere-open-front-cardigan-oatmeal-inner-mongolia2.webp?v=1773045607',
+    轮播7_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XYwomens-650g-100-cashmere-open-front-cardigan-oatmeal-inner-mongolia6.webp?v=1773043895',
     轮播7_产品名称:         '650g Cashmere Open Front Cardigan',
     轮播7_产品价格:         '$398.00',
     轮播7_产品链接:         '/products/vionis-xy-650g-100-inner-mongolia-cashmere-open-front-cardigan',
@@ -206,32 +206,32 @@ export const siteConfig = {
     轮播16_产品价格:         '$117.00',
     轮播16_产品链接:         '/products/the-16µm-superfine-merino-skipper-polo-spun-by-xinao-100-wool-225g',
 
-    // 17. The Heavyweight Cable Knit — Ivory
-    轮播17_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_heavyweight-cable-knit-cashmere-ivory-front2.webp?v=1770607764',
+    // 17. The Heavyweight Turtleneck — Black
+    轮播17_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/black-pure-cashmere-heavy-knit-turtleneck4.webp?v=1770624664',
     轮播17_模特大图_手机端: '',
-    轮播17_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_heavyweight-cable-knit-cashmere-ivory-front3.webp?v=1770607764',
-    轮播17_产品名称:         'The Heavyweight Cable Knit（500g）',
-    轮播17_产品价格:         '$397.00',
-    轮播17_产品链接:         '/products/the-500g-heavyweight-cable-knit-100-inner-mongolia-cashmere',
+    轮播17_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/black-pure-cashmere-heavy-knit-turtleneck2.webp?v=1770624664',
+    轮播17_产品名称:         'The Heavyweight Turtleneck — Black',
+    轮播17_产品价格:         '$295.00',
+    轮播17_产品链接:         '/products/the-460g-heavyweight-cashmere-turtle-neck',
 
-    // 18. The Heritage Cable Turtleneck — Ecru
-    轮播18_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_Heritage_Cable_Turtleneck_320g_100_Inner_Mongolia_Cashmere_Ecru7.webp?v=1770286004',
+    // 18. The Essential Cashmere Vest — Camel
+    轮播18_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionisxy-100-percent-inner-mongolia-cashmere-v-neck-vest-Camel-front1.webp?v=1770655272',
     轮播18_模特大图_手机端: '',
-    轮播18_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_Heritage_Cable_Turtleneck_320g_100_Inner_Mongolia_Cashmere_Ecru5.webp?v=1770286004',
-    轮播18_产品名称:         'The Heritage Cable Turtleneck（320g）',
-    轮播18_产品价格:         '$248.00',
-    轮播18_产品链接:         '/products/the-heritage-320g-inner-mongolian-cashmere-cable-knit-turtleneck',
+    轮播18_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionisxy-100-percent-inner-mongolia-cashmere-v-neck-vest-Camel-front4.webp?v=1770655290',
+    轮播18_产品名称:         'The Essential Cashmere Vest（180g）',
+    轮播18_产品价格:         '$221.00',
+    轮播18_产品链接:         '/products/the-essential-100-cashmere-v-neck-vest-180g-ultra-fine-knit',
 
-    // 19. The Signature Cashmere Base Layer — Charcoal
-    轮播19_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/The_Signature_Base_Layer_-_100_Pure_Cashmere_Charcoal_VIONIS_XY3.webp?v=1770606154',
+    // 19. The Cashmere-Merino Vest — Classic Camel
+    轮播19_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_cashmere_merino_vest_made_from_70_fine_merino_wool_and_30_Grade_A_cashmere_sleeveless_knit_vest_with_polo_collar23.webp?v=1770644947',
     轮播19_模特大图_手机端: '',
-    轮播19_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/The_Signature_Base_Layer_-_100_Pure_Cashmere_Charcoal_VIONIS_XY15.webp?v=1770606154',
-    轮播19_产品名称:         'The Signature Cashmere Base Layer（220g-310g）',
-    轮播19_产品价格:         '$259.00',
-    轮播19_产品链接:         '/products/the-signature-cashmere-base-layer-charcoal-220g-310g',
+    轮播19_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_cashmere_merino_vest_made_from_70_fine_merino_wool_and_30_Grade_A_cashmere_sleeveless_knit_vest_with_polo_collar3.webp?v=1770644947',
+    轮播19_产品名称:         'The Cashmere-Merino Vest（210g）',
+    轮播19_产品价格:         '$229.00',
+    轮播19_产品链接:         '/products/the-30-cashmere-polo-vest',
 
-    // 20. The 16µm Worsted Crewneck
-    轮播20_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_16_m_100s_Worsted_Merino_Wool_Crewneck_Sweater.webp?v=1770805920',
+    // 20. The 16µm Worsted Crewneck — Camel
+    轮播20_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_16_m_100s_Worsted_Merino_Wool_Crewneck_Sweater_camel.webp?v=1770806046',
     轮播20_模特大图_手机端: '',
     轮播20_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_16_m_100s_Worsted_Merino_Wool_Crewneck_Sweater_2.webp?v=1770805976',
     轮播20_产品名称:         'The 16µm Worsted Crewneck（350g）',
