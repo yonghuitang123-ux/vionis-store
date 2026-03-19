@@ -207,15 +207,20 @@ export default function Header() {
             style={{ height: 36, borderBottom: '1px solid rgba(0,0,0,0.06)' }}
           >
             <span
+              className="announcement-slide-text"
               style={{
                 color: '#1a1a1a',
                 fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
-                fontSize: 11,
-                letterSpacing: '0.2em',
+                fontSize: 10.5,
+                letterSpacing: '0.15em',
                 textTransform: 'uppercase',
                 opacity: slideVisible ? 1 : 0,
                 transition: 'opacity 0.35s ease',
                 display: 'inline-block',
+                whiteSpace: 'nowrap',
+                maxWidth: 'calc(100% - 40px)',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
               {(() => {

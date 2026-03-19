@@ -404,9 +404,9 @@ export const siteConfig = {
     显示: true,          // false = 永久关闭公告栏
     // 说明：3条文字每5秒自动轮播，淡入淡出切换
     轮播列表: [
-      { 文字: 'Complimentary Shipping on Orders Over $300', 翻译键: 'announcement.freeShipping' },
-      { 文字: 'Free 30-Day Returns — No Questions Asked',   翻译键: 'announcement.returns'      },
-      { 文字: 'SGS Certified 100% Natural Fibres',          翻译键: 'announcement.certified'    },
+      { 文字: 'CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber',                         翻译键: 'announcement.certified'     },
+      { 文字: 'SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders', 翻译键: 'announcement.newArrivals'   },
+      { 文字: 'FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable',       翻译键: 'announcement.craftsmanship' },
     ],
   },
 
