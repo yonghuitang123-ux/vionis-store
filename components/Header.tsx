@@ -249,7 +249,7 @@ export default function Header() {
         >
           <Link href="/" aria-label="VIONIS·XY 首页" style={{ lineHeight: 0, display: 'block' }}>
             <Image
-              src="/logo.webp"
+              src="/logo1.png"
               alt="VIONIS·XY"
               width={120}
               height={68}
@@ -378,7 +378,7 @@ export default function Header() {
               }}
             >
               <Image
-                src="/logo.webp"
+                src="/logo1.png"
                 alt="VIONIS·XY"
                 width={88}
                 height={49}
