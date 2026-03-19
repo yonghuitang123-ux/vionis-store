@@ -113,6 +113,41 @@ function findVariant(
 
 // ─── 折叠面板组件 ──────────────────────────────────────────────────────────────
 
+function WriteReviewToggle({ productId, productTitle }: { productId: string; productTitle: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ marginTop: 64, textAlign: 'center' }}>
+      {!open && (
+        <button
+          onClick={() => setOpen(true)}
+          style={{
+            fontFamily: 'var(--font-montserrat)',
+            fontWeight: 500,
+            fontSize: 12,
+            letterSpacing: '0.16em',
+            textTransform: 'uppercase',
+            color: '#1a1a1a',
+            background: 'none',
+            border: '1.5px solid #1a1a1a',
+            padding: '14px 48px',
+            cursor: 'pointer',
+            transition: 'background 0.2s, color 0.2s',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = '#1a1a1a'; e.currentTarget.style.color = '#fff'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#1a1a1a'; }}
+        >
+          Write a Review
+        </button>
+      )}
+      {open && (
+        <div style={{ textAlign: 'left' }}>
+          <ReviewForm productId={productId} productTitle={productTitle} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Accordion({
   title,
   children,
@@ -585,9 +620,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         <div style={{ marginTop: 48 }}>
           <ReviewList productId={product.id} reviews={reviews} loading={reviewsLoading} />
         </div>
-        <div style={{ marginTop: 64 }}>
-          <ReviewForm productId={product.id} productTitle={product.title} />
-        </div>
+        <WriteReviewToggle productId={product.id} productTitle={product.title} />
       </section>
 
       {/* ── Mobile fixed bottom buy bar ── */}
