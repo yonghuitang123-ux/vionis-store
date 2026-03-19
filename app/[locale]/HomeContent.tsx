@@ -74,7 +74,7 @@ const SKELETON_SLIDE: SlideItem = {
 };
 
 // ─── featuredLook config → SlideItem 数组 ─────────────────────────────────────
-type SlideKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+type SlideKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20;
 
 function buildSlideItem(n: SlideKey): SlideItem | null {
   const modelPc  = featuredLook[`轮播${n}_模特大图_电脑端`];
@@ -100,11 +100,11 @@ function buildSlideItem(n: SlideKey): SlideItem | null {
   };
 }
 
-const womenSlidesFromConfig = ([1, 2, 3, 4] as SlideKey[])
+const womenSlidesFromConfig = ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as SlideKey[])
   .map(buildSlideItem)
   .filter((s): s is SlideItem => s !== null);
 
-const menSlidesFromConfig = ([5, 6, 7, 8] as SlideKey[])
+const menSlidesFromConfig = ([11, 12, 13, 14, 15, 16, 17, 18, 19, 20] as SlideKey[])
   .map(buildSlideItem)
   .filter((s): s is SlideItem => s !== null);
 
