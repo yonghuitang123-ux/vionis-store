@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const reviews = getApprovedReviews(productId);
+  const reviews = await getApprovedReviews(productId);
 
   // 不暴露内部字段
   const publicReviews = reviews.map(
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const review = createReview({
+    const review = await createReview({
       productId,
       productTitle: productTitle || '',
       author,

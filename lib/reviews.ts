@@ -1,24 +1,24 @@
 /**
- * Review 数据层 — JSON 文件存储
+ * Review 数据层 — Upstash Redis 存储
  * ─────────────────────────────────────────────────────────────────
- * 开发/小规模使用 JSON 文件存储评论。
- * 生产环境如部署到 Vercel 需替换为数据库（Supabase / PlanetScale 等）。
+ * 使用 Upstash Redis 存储评论数据，适用于 Vercel serverless 部署。
+ *
+ * 环境变量（由 Vercel Upstash 集成自动注入）：
+ *   UPSTASH_REDIS_REST_KV_REST_API_URL
+ *   UPSTASH_REDIS_REST_KV_REST_API_TOKEN
  */
 
-import fs from 'fs';
-import path from 'path';
+import { Redis } from '@upstash/redis';
 import crypto from 'crypto';
 
-// ─── 路径 ───────────────────────────────────────────────────────────────────────
+// ─── Redis 客户端 ────────────────────────────────────────────────────────────
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-const REVIEWS_FILE = path.join(DATA_DIR, 'reviews.json');
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_KV_REST_API_URL!,
+  token: process.env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN!,
+});
 
-function ensureDataDir() {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
-  if (!fs.existsSync(REVIEWS_FILE))
-    fs.writeFileSync(REVIEWS_FILE, '[]', 'utf8');
-}
+const REVIEWS_KEY = 'reviews:all';
 
 // ─── 类型定义 ───────────────────────────────────────────────────────────────────
 
@@ -43,19 +43,17 @@ export interface ReviewRecord {
 
 // ─── 读写 ───────────────────────────────────────────────────────────────────────
 
-function readAll(): ReviewRecord[] {
-  ensureDataDir();
+async function readAll(): Promise<ReviewRecord[]> {
   try {
-    const raw = fs.readFileSync(REVIEWS_FILE, 'utf8');
-    return JSON.parse(raw);
+    const data = await redis.get<ReviewRecord[]>(REVIEWS_KEY);
+    return data || [];
   } catch {
     return [];
   }
 }
 
-function writeAll(reviews: ReviewRecord[]) {
-  ensureDataDir();
-  fs.writeFileSync(REVIEWS_FILE, JSON.stringify(reviews, null, 2), 'utf8');
+async function writeAll(reviews: ReviewRecord[]): Promise<void> {
+  await redis.set(REVIEWS_KEY, reviews);
 }
 
 // ─── 工具函数 ───────────────────────────────────────────────────────────────────
@@ -96,8 +94,9 @@ export function decodeToken(token: string): {
 // ─── CRUD 操作 ──────────────────────────────────────────────────────────────────
 
 /** 获取某产品的已发布评论 */
-export function getApprovedReviews(productId: string): ReviewRecord[] {
-  return readAll()
+export async function getApprovedReviews(productId: string): Promise<ReviewRecord[]> {
+  const all = await readAll();
+  return all
     .filter((r) => r.productId === productId && r.status === 'approved')
     .sort(
       (a, b) =>
@@ -106,8 +105,8 @@ export function getApprovedReviews(productId: string): ReviewRecord[] {
 }
 
 /** 按状态获取评论（后台用） */
-export function getReviewsByStatus(status?: string): ReviewRecord[] {
-  const all = readAll();
+export async function getReviewsByStatus(status?: string): Promise<ReviewRecord[]> {
+  const all = await readAll();
   const filtered =
     !status || status === 'all'
       ? all
@@ -119,10 +118,10 @@ export function getReviewsByStatus(status?: string): ReviewRecord[] {
 }
 
 /** 客户提交评论（默认 pending 状态） */
-export function createReview(
+export async function createReview(
   data: Omit<ReviewRecord, 'id' | 'displayName' | 'status' | 'createdAt'>,
-): ReviewRecord {
-  const reviews = readAll();
+): Promise<ReviewRecord> {
+  const reviews = await readAll();
   const review: ReviewRecord = {
     ...data,
     id: crypto.randomUUID(),
@@ -131,53 +130,57 @@ export function createReview(
     createdAt: new Date().toISOString(),
   };
   reviews.push(review);
-  writeAll(reviews);
+  await writeAll(reviews);
   return review;
 }
 
 /** 后台手动创建评论（可直接设定状态） */
-export function createManualReview(
+export async function createManualReview(
   data: Omit<ReviewRecord, 'id' | 'createdAt'>,
-): ReviewRecord {
-  const reviews = readAll();
+): Promise<ReviewRecord> {
+  const reviews = await readAll();
   const review: ReviewRecord = {
     ...data,
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
   };
   reviews.push(review);
-  writeAll(reviews);
+  await writeAll(reviews);
   return review;
 }
 
 /** 更新评论状态 */
-export function updateReviewStatus(
+export async function updateReviewStatus(
   id: string,
   status: 'approved' | 'rejected',
-): ReviewRecord | null {
-  const reviews = readAll();
+): Promise<ReviewRecord | null> {
+  const reviews = await readAll();
   const index = reviews.findIndex((r) => r.id === id);
   if (index === -1) return null;
   reviews[index].status = status;
-  writeAll(reviews);
+  await writeAll(reviews);
   return reviews[index];
 }
 
 /** 删除评论 */
-export function deleteReview(id: string): boolean {
-  const reviews = readAll();
+export async function deleteReview(id: string): Promise<boolean> {
+  const reviews = await readAll();
   const index = reviews.findIndex((r) => r.id === id);
   if (index === -1) return false;
   reviews.splice(index, 1);
-  writeAll(reviews);
+  await writeAll(reviews);
   return true;
 }
 
-/** 保存上传的图片到 public 目录 */
+/** 保存上传的图片 — Vercel 环境不支持本地文件写入，返回 base64 data URL */
 export function saveUploadedImage(buffer: Buffer, ext: string): string {
-  const dir = path.join(process.cwd(), 'public', 'uploads', 'reviews');
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const filename = `${crypto.randomUUID()}.${ext}`;
-  fs.writeFileSync(path.join(dir, filename), buffer);
-  return `/uploads/reviews/${filename}`;
+  const mimeMap: Record<string, string> = {
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png',
+    webp: 'image/webp',
+    gif: 'image/gif',
+  };
+  const mime = mimeMap[ext] || 'image/jpeg';
+  return `data:${mime};base64,${buffer.toString('base64')}`;
 }

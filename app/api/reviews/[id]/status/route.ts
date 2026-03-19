@@ -32,7 +32,7 @@ export async function PATCH(
     );
   }
 
-  const review = updateReviewStatus(id, status);
+  const review = await updateReviewStatus(id, status);
   if (!review) {
     return NextResponse.json(
       { error: 'Review not found' },

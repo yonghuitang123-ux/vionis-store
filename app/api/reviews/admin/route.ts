@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
   }
 
   const status = req.nextUrl.searchParams.get('status') || 'all';
-  const reviews = getReviewsByStatus(status);
+  const reviews = await getReviewsByStatus(status);
   return NextResponse.json(reviews);
 }
 
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const review = createManualReview({
+    const review = await createManualReview({
       productId: body.productId || '',
       productTitle: body.productTitle || '',
       author: body.author,
