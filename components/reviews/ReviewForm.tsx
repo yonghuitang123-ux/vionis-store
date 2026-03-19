@@ -18,6 +18,7 @@ export interface ReviewFormProps {
   productId: string;
   productTitle: string;
   email?: string;
+  verified?: boolean;
 }
 
 // ─── Main Component ──────────────────────────────────────────────────────────
@@ -26,6 +27,7 @@ export default function ReviewForm({
   productId,
   productTitle,
   email: initialEmail,
+  verified = false,
 }: ReviewFormProps) {
   const scopeId = `rf${useId().replace(/:/g, '')}`;
 
@@ -115,6 +117,7 @@ export default function ReviewForm({
             title: title.trim(),
             body: body.trim(),
             images,
+            verified,
           }),
         });
 

@@ -79,6 +79,7 @@ function ReviewPageContent() {
         productId={decoded.productId}
         productTitle={decoded.productTitle}
         email={decoded.email}
+        verified={!!decoded.email}
       />
     </div>
   );

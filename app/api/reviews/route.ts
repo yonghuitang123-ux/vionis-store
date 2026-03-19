@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
       title: title || '',
       body: reviewBody,
       images: savedImages,
-      verified: false,
+      verified: !!body.verified,
       productInfo: productInfo || '',
     });
 
