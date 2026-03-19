@@ -339,7 +339,7 @@ export default function AdminReviewsPage() {
                 )}
                 {r.verified && (
                   <div className="ar-card-verified">
-                    Verified Purchase
+                    Verified Buyer
                   </div>
                 )}
                 <div className="ar-card-date">{formatDate(r.createdAt)}</div>
@@ -555,7 +555,7 @@ function AddReviewModal({
                 checked={form.verified}
                 onChange={(e) => update('verified', e.target.checked)}
               />
-              Show &quot;Verified Purchase&quot; badge
+              Show &quot;Verified Buyer&quot; badge
             </label>
           </div>
 

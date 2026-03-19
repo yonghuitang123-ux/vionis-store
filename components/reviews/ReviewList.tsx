@@ -96,7 +96,12 @@ function ReviewItem({ review }: { review: PublicReview }) {
         {/* Row 4: Verified + Date */}
         <div className="rl-meta">
           {review.verified && (
-            <span className="rl-verified">Verified Purchase</span>
+            <span className="rl-verified">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: -1, marginRight: 4 }}>
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Verified Buyer
+            </span>
           )}
           <span className="rl-date">{formatDate(review.createdAt)}</span>
         </div>
