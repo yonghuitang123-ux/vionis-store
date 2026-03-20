@@ -77,7 +77,7 @@
     "quality": "Garantia de Qualidade",
     "qualityDesc": "Fibras 100% naturais, certificadas",
     "contact": "Contacto",
-    "contactDesc": "support@vionisxy.com"
+    "contactDesc": "support@vionisy.com"
   },
   "wishlist": {
     "title": "Favoritos",
@@ -107,6 +107,8 @@
     "previous": "Anterior",
     "viewAll": "Ver Tudo",
     "readMore": "Saber Mais",
+    "shop": "Loja",
+    "journal": "Diário",
     "collections": "Coleções",
     "language": "Idioma",
     "currency": "Moeda"

@@ -3,7 +3,7 @@
  * GET  /api/reviews/admin?status=pending  — 按状态获取评论
  * POST /api/reviews/admin                 — 手动添加评论
  *
- * 所有请求需在 Header 中携带 x-admin-password
+ * 认证方式：x-admin-password header（环境变量配置，不使用默认值）
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -13,16 +13,33 @@ import {
   anonymizeName,
 } from '@/lib/reviews';
 import { getCountryFlag } from '@/lib/countries';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
-const ADMIN_PASSWORD =
-  process.env.REVIEW_ADMIN_PASSWORD || 'vionis2026';
+const ADMIN_PASSWORD = process.env.REVIEW_ADMIN_PASSWORD;
 
 function checkAuth(req: NextRequest): boolean {
+  if (!ADMIN_PASSWORD) {
+    // 未配置密码时禁止所有访问
+    return false;
+  }
   const password = req.headers.get('x-admin-password');
-  return password === ADMIN_PASSWORD;
+  if (!password || !ADMIN_PASSWORD) return false;
+
+  // 使用恒定时间比较防止时序攻击
+  if (password.length !== ADMIN_PASSWORD.length) return false;
+  let mismatch = 0;
+  for (let i = 0; i < password.length; i++) {
+    mismatch |= password.charCodeAt(i) ^ ADMIN_PASSWORD.charCodeAt(i);
+  }
+  return mismatch === 0;
 }
 
 export async function GET(req: NextRequest) {
+  const ip = getClientIp(req.headers);
+  if (!checkRateLimit(`admin-get:${ip}`, 30, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
   if (!checkAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -33,6 +50,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req.headers);
+  if (!checkRateLimit(`admin-post:${ip}`, 10, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
   if (!checkAuth(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -66,7 +88,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(review, { status: 201 });
-  } catch (err) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to create review' },
       { status: 500 },

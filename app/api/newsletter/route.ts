@@ -7,8 +7,9 @@
  * 你可以在 Shopify 后台 → Customers 看到这些订阅者（标记为 Email subscribed）。
  */
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -52,7 +53,16 @@ async function shopifyStorefrontFetch(query: string, variables: Record<string, u
   return res.json();
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const ip = getClientIp(request.headers);
+  if (!checkRateLimit(`newsletter:${ip}`, 3, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
+  }
+
+  if (!SHOPIFY_DOMAIN || !STOREFRONT_TOKEN) {
+    return NextResponse.json({ error: 'Service not configured' }, { status: 503 });
+  }
+
   try {
     const body = await request.json();
     const email = typeof body?.email === 'string' ? body.email.trim().toLowerCase() : '';

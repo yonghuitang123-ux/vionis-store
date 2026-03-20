@@ -25,6 +25,14 @@ import SizeSelector from '@/components/product/SizeSelector';
 import { getAvailableColors } from '@/utils/getAvailableColors';
 import { useReviews } from '@/hooks/useReviews';
 import WishlistButton from '@/components/WishlistButton';
+import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
+
+// ─── Shopify Metafield Keys ──────────────────────────────────────────────────
+const METAFIELD_KEYS = {
+  FABRIC: '1234',
+  CARE: '123456',
+  SIZE: '1123',
+} as const;
 
 // ─── 类型定义 ──────────────────────────────────────────────────────────────────
 
@@ -555,18 +563,18 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             {product.descriptionHtml && (
               <Accordion title="Description" defaultOpen>
                 <div
-                  dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(product.descriptionHtml) }}
                   style={{ fontFamily: 'var(--font-montserrat)' }}
                 />
               </Accordion>
             )}
 
             {(() => {
-              const fabricMeta = product.metafields?.find((m) => m.key === '1234');
+              const fabricMeta = product.metafields?.find((m) => m.key === METAFIELD_KEYS.FABRIC);
               return fabricMeta?.html ? (
                 <Accordion title="Materials & Care">
                   <div
-                    dangerouslySetInnerHTML={{ __html: fabricMeta.html }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(fabricMeta.html) }}
                     style={metafieldHtmlStyle}
                   />
                 </Accordion>
@@ -574,11 +582,11 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             })()}
 
             {(() => {
-              const careMeta = product.metafields?.find((m) => m.key === '123456');
+              const careMeta = product.metafields?.find((m) => m.key === METAFIELD_KEYS.CARE);
               return careMeta?.html ? (
                 <Accordion title="Care Guide">
                   <div
-                    dangerouslySetInnerHTML={{ __html: careMeta.html }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(careMeta.html) }}
                     style={metafieldHtmlStyle}
                   />
                 </Accordion>
@@ -586,11 +594,11 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             })()}
 
             {(() => {
-              const sizeMeta = product.metafields?.find((m) => m.key === '1123');
+              const sizeMeta = product.metafields?.find((m) => m.key === METAFIELD_KEYS.SIZE);
               return sizeMeta?.html ? (
                 <Accordion title="Size & Fit">
                   <div
-                    dangerouslySetInnerHTML={{ __html: sizeMeta.html }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(sizeMeta.html) }}
                     style={metafieldHtmlStyle}
                   />
                 </Accordion>

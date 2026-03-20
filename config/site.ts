@@ -118,9 +118,9 @@ export const siteConfig = {
     轮播5_产品链接:         '/products/vionis-xy-vintage-floral-argyle-wool-cardigan-midnight-navy',
 
     // 6. The Off-Duty Cashmere Set — Oatmeal
-    轮播6_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-off-duty-cashmere-set-630g-oatmeal.webp7.webp?v=1770281426',
+    轮播6_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-off-duty-cashmere-set-630g-oatmeal.webp?v=1770281426',
     轮播6_模特大图_手机端: '',
-    轮播6_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-off-duty-cashmere-set-630g-oatmeal.webp2.webp?v=1770281426',
+    轮播6_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-off-duty-cashmere-set-630g-oatmeal.webp?v=1770281426',
     轮播6_产品名称:         'The Off-Duty Cashmere Set（630g）',
     轮播6_产品价格:         '$578.00',
     轮播6_产品链接:         '/products/630g-heavyweight-cashmere-set-the-ultimate-off-duty-look',
@@ -377,7 +377,7 @@ export const siteConfig = {
         图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-sgs-certified-100-percent-cashmere-lab-report.webp?v=1773412943',
         图片_手机端: '',
         文章标题: 'Independently Certified Purity',
-        文章正文: ' Every VIONIS·XY piece undergoes SGS laboratory testing to confirm 100% natural fiber composition. No blends. No shortcuts.',
+        文章正文: 'Every VIONIS·XY piece undergoes SGS laboratory testing to confirm 100% natural fiber composition. No blends. No shortcuts.',
         链接: '/blog/handcraft',
       },
       {
@@ -434,7 +434,7 @@ export const siteConfig = {
       { 图标: 'shipping' as const, 标题: 'Free Shipping',    副标题: 'Complimentary worldwide delivery' },
       { 图标: 'return'   as const, 标题: 'Free Returns',     副标题: '30-day hassle-free returns'       },
       { 图标: 'quality'  as const, 标题: 'Quality Guarantee',副标题: '100% natural fibres, certified'   },
-      { 图标: 'contact'  as const, 标题: 'Contact',          副标题: 'support@vionisxy.com'              },
+      { 图标: 'contact'  as const, 标题: 'Contact',          副标题: 'support@vionisy.com'              },
     ],
   },
 

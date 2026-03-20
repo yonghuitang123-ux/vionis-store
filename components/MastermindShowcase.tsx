@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import Link from 'next/link';
 import { useId, useRef, useState } from 'react';
+import { useTranslation } from '@/lib/i18n/client';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -123,6 +124,7 @@ function GenderGroup({
   /** 女装组为 true，影响首张图的加载优先级 */
   isFirstGroup: boolean;
 }) {
+  const { t: gt } = useTranslation();
   // useRef for left swiper instance (synced by right swiper's onSlideChange)
   const leftRef = useRef<SwiperType | null>(null);
   const prevRef = useRef<HTMLDivElement>(null);
@@ -193,10 +195,10 @@ function GenderGroup({
         {/* ── 右侧：信息卡轮播（loop + autoplay + navigation + pagination） ── */}
         <div className="mm-info-area">
           {/* 自定义导航箭头；onBeforeInit 时 refs 已挂载，Swiper 可正确拿到 DOM 节点 */}
-          <div ref={prevRef} className="mm-nav mm-nav-prev" role="button" aria-label="上一张">
+          <div ref={prevRef} className="mm-nav mm-nav-prev" role="button" aria-label={gt('common.previous') || 'Previous'}>
             <ChevronLeft />
           </div>
-          <div ref={nextRef} className="mm-nav mm-nav-next" role="button" aria-label="下一张">
+          <div ref={nextRef} className="mm-nav mm-nav-next" role="button" aria-label={gt('common.next') || 'Next'}>
             <ChevronRight />
           </div>
 

@@ -77,7 +77,7 @@
     "quality": "Laatutakuu",
     "qualityDesc": "100 % luonnonkuituja, sertifioitu",
     "contact": "Yhteystiedot",
-    "contactDesc": "support@vionisxy.com"
+    "contactDesc": "support@vionisy.com"
   },
   "wishlist": {
     "title": "Toivelista",
@@ -107,6 +107,8 @@
     "previous": "Edellinen",
     "viewAll": "Näytä kaikki",
     "readMore": "Lue lisää",
+    "shop": "Kauppa",
+    "journal": "Päiväkirja",
     "collections": "Mallistot",
     "language": "Kieli",
     "currency": "Valuutta"

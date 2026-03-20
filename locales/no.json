@@ -77,7 +77,7 @@
     "quality": "Kvalitetsgaranti",
     "qualityDesc": "100 % naturfibre, sertifisert",
     "contact": "Kontakt",
-    "contactDesc": "support@vionisxy.com"
+    "contactDesc": "support@vionisy.com"
   },
   "wishlist": {
     "title": "Ønskeliste",
@@ -107,6 +107,8 @@
     "previous": "Forrige",
     "viewAll": "Se alle",
     "readMore": "Les mer",
+    "shop": "Butikk",
+    "journal": "Journal",
     "collections": "Kolleksjoner",
     "language": "Språk",
     "currency": "Valuta"

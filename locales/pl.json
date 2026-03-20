@@ -77,7 +77,7 @@
     "quality": "Gwarancja Jakości",
     "qualityDesc": "100% włókna naturalne, certyfikowane",
     "contact": "Kontakt",
-    "contactDesc": "support@vionisxy.com"
+    "contactDesc": "support@vionisy.com"
   },
   "wishlist": {
     "title": "Ulubione",
@@ -107,6 +107,8 @@
     "previous": "Wstecz",
     "viewAll": "Zobacz Wszystko",
     "readMore": "Czytaj Więcej",
+    "shop": "Sklep",
+    "journal": "Dziennik",
     "collections": "Kolekcje",
     "language": "Język",
     "currency": "Waluta"

@@ -9,7 +9,7 @@ interface HreflangTagsProps {
   currentPath: string; // 不含 locale 前缀的路径，如 /products/xxx
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisy.com';
 
 export default function HreflangTags({ currentPath }: HreflangTagsProps) {
   const path = currentPath.startsWith('/') ? currentPath : `/${currentPath}`;

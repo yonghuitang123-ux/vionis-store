@@ -14,6 +14,7 @@ import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticleByHandle } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
+import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
 
 // ─── 类型 ─────────────────────────────────────────────────────────────────────
 
@@ -251,7 +252,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
         {article.isApi && article.contentHtml ? (
           <div
             style={bodyStyle}
-            dangerouslySetInnerHTML={{ __html: article.contentHtml }}
+            dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(article.contentHtml) }}
           />
         ) : (
           <div style={bodyStyle}>

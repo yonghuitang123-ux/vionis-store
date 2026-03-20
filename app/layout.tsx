@@ -28,7 +28,7 @@ const montserrat = Montserrat({
   display: 'swap',
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisy.com';
 
 export const metadata: Metadata = {
   title: 'VIONIS·XY — Rare Cashmere & Seamless Merino',

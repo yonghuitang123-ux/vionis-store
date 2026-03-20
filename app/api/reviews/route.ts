@@ -7,6 +7,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getApprovedReviews, createReview, saveUploadedImage } from '@/lib/reviews';
 import { getCountryFlag } from '@/lib/countries';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+
+const MAX_BASE64_SIZE = 5 * 1024 * 1024; // 5MB per image
 
 export async function GET(req: NextRequest) {
   const productId = req.nextUrl.searchParams.get('productId');
@@ -28,6 +31,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req.headers);
+  if (!checkRateLimit(`review-post:${ip}`, 5, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
+  }
+
   try {
     const body = await req.json();
     const {
@@ -57,10 +65,14 @@ export async function POST(req: NextRequest) {
       for (const img of images.slice(0, 4)) {
         try {
           if (typeof img === 'string' && img.startsWith('data:image/')) {
-            const match = img.match(/^data:image\/(\w+);base64,/);
-            const ext = match?.[1] === 'jpeg' ? 'jpg' : (match?.[1] ?? 'jpg');
+            // Validate base64 size before processing
+            if (img.length > MAX_BASE64_SIZE * 1.37) continue; // base64 ~37% overhead
+            const match = img.match(/^data:image\/(png|jpe?g|webp|gif);base64,/);
+            if (!match) continue; // reject unsupported image types
+            const ext = match[1] === 'jpeg' ? 'jpg' : (match[1] ?? 'jpg');
             const base64 = img.replace(/^data:image\/\w+;base64,/, '');
             const buffer = Buffer.from(base64, 'base64');
+            if (buffer.length > MAX_BASE64_SIZE) continue;
             const url = saveUploadedImage(buffer, ext);
             savedImages.push(url);
           } else if (typeof img === 'string' && img.startsWith('/')) {

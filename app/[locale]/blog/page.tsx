@@ -13,6 +13,8 @@ import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticles } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
+import { getDictionary } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/config';
 
 // ─── SEO 元数据 ────────────────────────────────────────────────────────────────
 
@@ -60,7 +62,6 @@ const titleStyle: CSSProperties = {
 
 const gridStyle: CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
   gap: 32,
 };
 
@@ -122,7 +123,9 @@ function formatDate(dateStr: string) {
 
 // ─── 页面组件 ──────────────────────────────────────────────────────────────────
 
-export default async function BlogPage() {
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const dict = await getDictionary((locale || 'en') as Locale);
   // 尝试从 Shopify API 获取文章
   let apiArticles: any[] = [];
   try {
@@ -156,11 +159,18 @@ export default async function BlogPage() {
         <div style={{ paddingTop: 24, marginBottom: 24 }}>
           <Breadcrumb
             items={[
-              { label: 'Home', href: '/' },
-              { label: 'Journal' },
+              { label: dict.common?.home || 'Home', href: '/' },
+              { label: dict.common?.journal || 'Journal' },
             ]}
           />
         </div>
+
+        {/* 响应式网格样式 */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          .blog-grid{grid-template-columns:1fr}
+          @media(min-width:640px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
+          @media(min-width:1024px){.blog-grid{grid-template-columns:repeat(3,1fr)}}
+        ` }} />
 
         {/* 标题 */}
         <h1 style={titleStyle}>JOURNAL</h1>

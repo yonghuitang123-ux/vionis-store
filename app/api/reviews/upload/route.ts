@@ -8,10 +8,17 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { saveUploadedImage } from '@/lib/reviews';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
+const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'];
 
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req.headers);
+  if (!checkRateLimit(`upload:${ip}`, 10, 60_000)) {
+    return NextResponse.json({ error: 'Too many uploads. Please try again later.' }, { status: 429 });
+  }
+
   try {
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
@@ -20,9 +27,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
-    if (!file.type.startsWith('image/')) {
+    if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { error: 'File must be an image' },
+        { error: 'File must be an image (PNG, JPEG, WebP, or GIF)' },
         { status: 400 },
       );
     }

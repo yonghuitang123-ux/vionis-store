@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { type CSSProperties } from 'react';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import WishlistButton from '@/components/WishlistButton';
+import { useTranslation } from '@/lib/i18n/client';
 
 // ─── 类型定义 ────────────────────────────────────────────────────────────────
 
@@ -43,11 +44,18 @@ interface ProductCardProps {
 
 // ─── 工具函数 ────────────────────────────────────────────────────────────────
 
+/** Locale → Intl locale 映射 */
+const INTL_LOCALE_MAP: Record<string, string> = {
+  en: 'en-US', fr: 'fr-FR', de: 'de-DE', ja: 'ja-JP', it: 'it-IT',
+  es: 'es-ES', pt: 'pt-PT', nl: 'nl-NL', pl: 'pl-PL', cs: 'cs-CZ',
+  da: 'da-DK', fi: 'fi-FI', no: 'nb-NO', sv: 'sv-SE',
+};
+
 /** 将 Shopify MoneyV2 格式化为本地化货币字符串 */
-function formatMoney({ amount, currencyCode }: MoneyV2): string {
+function formatMoney({ amount, currencyCode }: MoneyV2, locale = 'en'): string {
   const value = parseFloat(amount);
   if (Number.isNaN(value)) return '';
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat(INTL_LOCALE_MAP[locale] || 'en-US', {
     style: 'currency',
     currency: currencyCode,
     minimumFractionDigits: value % 1 === 0 ? 0 : 2,
@@ -107,6 +115,7 @@ const salePriceStyle: CSSProperties = {
 // ─── 组件 ────────────────────────────────────────────────────────────────────
 
 export default function ProductCard({ product, className, priority = false }: ProductCardProps) {
+  const { locale } = useTranslation();
   const { handle, title, images, priceRange, compareAtPriceRange } = product;
 
   const imgSrc = images[0]?.url ?? '';
@@ -155,11 +164,11 @@ export default function ProductCard({ product, className, priority = false }: Pr
         <div style={priceWrapperStyle}>
           {hasDiscount ? (
             <>
-              <span style={salePriceStyle}>{formatMoney(price)}</span>
-              <span style={compareAtStyle}>{formatMoney(compareAt)}</span>
+              <span style={salePriceStyle}>{formatMoney(price, locale)}</span>
+              <span style={compareAtStyle}>{formatMoney(compareAt, locale)}</span>
             </>
           ) : (
-            <span>{formatMoney(price)}</span>
+            <span>{formatMoney(price, locale)}</span>
           )}
         </div>
       </Link>

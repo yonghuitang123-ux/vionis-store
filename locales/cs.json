@@ -77,7 +77,7 @@
     "quality": "Záruka Kvality",
     "qualityDesc": "100% přírodní vlákna, certifikováno",
     "contact": "Kontakt",
-    "contactDesc": "support@vionisxy.com"
+    "contactDesc": "support@vionisy.com"
   },
   "wishlist": {
     "title": "Oblíbené",
@@ -107,6 +107,8 @@
     "previous": "Předchozí",
     "viewAll": "Zobrazit Vše",
     "readMore": "Číst Dále",
+    "shop": "Obchod",
+    "journal": "Žurnál",
     "collections": "Kolekce",
     "language": "Jazyk",
     "currency": "Měna"

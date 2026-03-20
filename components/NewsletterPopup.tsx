@@ -28,7 +28,7 @@ function getCookie(name: string): string | null {
 
 function setCookie(name: string, value: string, hours: number) {
   const expires = new Date(Date.now() + hours * 3600_000).toUTCString();
-  document.cookie = `${name}=${encodeURIComponent(value)};path=/;expires=${expires}`;
+  document.cookie = `${name}=${encodeURIComponent(value)};path=/;expires=${expires};SameSite=Lax`;
 }
 
 // ─── 主组件 ──────────────────────────────────────────────────────────────────

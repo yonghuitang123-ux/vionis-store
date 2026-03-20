@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function SustainabilityPage() {
   const page = await getPageByHandle(HANDLE);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vionisxy.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vionisy.com';
 
   const jsonLd = page
     ? {

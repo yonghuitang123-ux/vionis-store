@@ -77,7 +77,7 @@
     "quality": "品質保証",
     "qualityDesc": "認定済み天然繊維100%使用",
     "contact": "お問い合わせ",
-    "contactDesc": "support@vionisxy.com"
+    "contactDesc": "support@vionisy.com"
   },
   "wishlist": {
     "title": "ウィッシュリスト",
@@ -107,6 +107,8 @@
     "previous": "前へ",
     "viewAll": "すべて見る",
     "readMore": "詳しく見る",
+    "shop": "ショップ",
+    "journal": "ジャーナル",
     "collections": "コレクション",
     "language": "言語",
     "currency": "通貨"

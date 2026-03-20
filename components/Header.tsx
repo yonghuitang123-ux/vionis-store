@@ -235,7 +235,7 @@ export default function Header() {
               className="absolute right-5 top-1/2 -translate-y-1/2 opacity-40 hover:opacity-80 transition-opacity"
               style={{ color: '#1a1a1a', background: 'none', border: 'none', cursor: 'pointer', padding: 4, lineHeight: 0 }}
               onClick={() => setAnnouncementVisible(false)}
-              aria-label="关闭公告"
+              aria-label={t('common.close') || 'Close announcement'}
             >
               <IconX size={11} />
             </button>
@@ -277,7 +277,7 @@ export default function Header() {
               <button
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
-                aria-label="搜索"
+                aria-label={t('nav.search') || 'Search'}
                 onClick={() => setSearchOpen(true)}
               >
                 <IconSearch />
@@ -286,7 +286,7 @@ export default function Header() {
                 href="/wishlist"
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ color: '#1a1a1a', lineHeight: 0, position: 'relative', display: 'inline-flex' }}
-                aria-label="收藏夹"
+                aria-label={t('nav.wishlist') || 'Wishlist'}
               >
                 <IconHeart />
                 {wishlistCount > 0 && (
@@ -332,14 +332,14 @@ export default function Header() {
                 href="/account"
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ color: '#1a1a1a', lineHeight: 0 }}
-                aria-label="账户"
+                aria-label={t('nav.account') || 'Account'}
               >
                 <IconUser />
               </Link>
               <button
                 className="p-1 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
-                aria-label="购物车"
+                aria-label={t('nav.cart') || 'Cart'}
                 onClick={openDrawer}
               >
                 <IconBag count={totalQuantity} />
@@ -356,14 +356,14 @@ export default function Header() {
                 className="p-2 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
                 onClick={() => setMobileOpen((o) => !o)}
-                aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
+                aria-label={mobileOpen ? (t('common.close') || 'Close menu') : 'Open menu'}
               >
                 {mobileOpen ? <IconX size={22} /> : <IconMenu size={26} />}
               </button>
               <button
                 className="p-2 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
-                aria-label="搜索"
+                aria-label={t('nav.search') || 'Search'}
                 onClick={() => setSearchOpen(true)}
               >
                 <IconSearch size={22} />
@@ -398,14 +398,14 @@ export default function Header() {
                 href="/account"
                 className="p-2 transition-opacity hover:opacity-60"
                 style={{ color: '#1a1a1a', lineHeight: 0 }}
-                aria-label="账户"
+                aria-label={t('nav.account') || 'Account'}
               >
                 <IconUser size={22} />
               </Link>
               <button
                 className="p-2 transition-opacity hover:opacity-60"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#1a1a1a', lineHeight: 0 }}
-                aria-label="购物车"
+                aria-label={t('nav.cart') || 'Cart'}
                 onClick={openDrawer}
               >
                 <IconBag count={totalQuantity} size={22} />

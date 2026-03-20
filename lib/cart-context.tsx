@@ -161,7 +161,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       const url = new URL(state.checkoutUrl);
       // 强制使用 myshopify.com 域名，避免 checkout 请求到 Vercel
-      if (url.hostname === 'vionisxy.com' || url.hostname === 'www.vionisxy.com') {
+      if (url.hostname === 'vionisy.com' || url.hostname === 'www.vionisy.com' || url.hostname === 'vionisxy.com' || url.hostname === 'www.vionisxy.com') {
         url.hostname = 'vionisxy.myshopify.com';
       }
       const shopifyLocale = SHOPIFY_LOCALE_MAP[currentLocale] ?? 'en';

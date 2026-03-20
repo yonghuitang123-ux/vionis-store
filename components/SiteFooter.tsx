@@ -5,6 +5,7 @@ import PlaceholderImage from '@/components/PlaceholderImage';
 import Link from 'next/link';
 import { FormEvent, useId, useState } from 'react';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
+import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -351,7 +352,7 @@ function BlockRenderer({
           <div
             className="text-sm leading-relaxed"
             style={{ color: c.textColor }}
-            dangerouslySetInnerHTML={{ __html: block.content }}
+            dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(block.content) }}
           />
         </div>
       );

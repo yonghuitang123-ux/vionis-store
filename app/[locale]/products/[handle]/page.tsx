@@ -16,6 +16,8 @@ import ServiceBar from '@/components/ServiceBar';
 import { siteConfig } from '@/config/site';
 import type { CSSProperties } from 'react';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
+import { getDictionary } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/config';
 
 // ─── 类型 ──────────────────────────────────────────────────────────────────────
 
@@ -119,14 +121,14 @@ const recsTitleStyle: CSSProperties = {
 
 const recsGridStyle: CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
   gap: 20,
 };
 
 // ─── 页面组件 ──────────────────────────────────────────────────────────────────
 
 export default async function ProductPage({ params }: PageProps) {
-  const { handle } = await params;
+  const { handle, locale } = await params;
+  const dict = await getDictionary((locale || 'en') as Locale);
 
   // 获取产品数据（getProductByHandle 已返回规范化结构，含 media）
   const product = await getProductByHandle(handle);
@@ -161,7 +163,7 @@ export default async function ProductPage({ params }: PageProps) {
     },
     offers: {
       '@type': 'Offer',
-      url: `https://vionisxy.com/products/${handle}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisy.com'}/products/${handle}`,
       priceCurrency: price?.currencyCode ?? 'USD',
       price: price?.amount ?? '0',
       availability: hasVariantsInStock
@@ -182,11 +184,11 @@ export default async function ProductPage({ params }: PageProps) {
         {/* 面包屑导航 */}
         <nav aria-label="Breadcrumb" style={breadcrumbStyle}>
           <Link href="/" style={breadcrumbLinkStyle}>
-            Home
+            {dict.common?.home || 'Home'}
           </Link>
           <span aria-hidden>／</span>
           <Link href="/collections" style={breadcrumbLinkStyle}>
-            Shop
+            {dict.common?.shop || 'Shop'}
           </Link>
           <span aria-hidden>／</span>
           <span style={breadcrumbCurrentStyle}>{product.title}</span>
@@ -198,7 +200,7 @@ export default async function ProductPage({ params }: PageProps) {
         {/* 推荐产品 */}
         {recommendations.length > 0 && (
           <section style={recsWrapperStyle}>
-            <h2 style={recsTitleStyle}>You May Also Like</h2>
+            <h2 style={recsTitleStyle}>{dict.product?.youMayAlsoLike || 'You May Also Like'}</h2>
             <div style={recsGridStyle} className="!grid-cols-2 md:!grid-cols-4">
               {recommendations.map((rec: any) => (
                 <ProductCard key={rec.id || rec.handle} product={rec} />
