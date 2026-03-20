@@ -10,7 +10,8 @@
     "search": "Suche",
     "wishlist": "Wunschliste",
     "account": "Konto",
-    "cart": "Warenkorb"
+    "cart": "Warenkorb",
+    "shopAll": "Alle Produkte"
   },
   "product": {
     "addToBag": "In den Warenkorb",
@@ -131,7 +132,14 @@
   "search": {
     "placeholder": "Produkte suchen…",
     "noResults": "Keine Ergebnisse",
-    "tryDifferent": "Versuchen Sie einen anderen Suchbegriff oder entdecken Sie unsere Kollektionen."
+    "tryDifferent": "Versuchen Sie einen anderen Suchbegriff oder stöbern Sie in unseren Kollektionen.",
+    "resultsFor": "Ergebnisse für",
+    "searchTitle": "Suche",
+    "searchResults": "Suchergebnisse",
+    "productsFound": "Produkte gefunden",
+    "productFound": "Produkt gefunden",
+    "enterSearch": "Geben Sie einen Suchbegriff ein, um Produkte zu finden.",
+    "noProductsFor": "Keine Produkte gefunden für"
   },
   "newsletter": {
     "title": "Die Welt von VIONIS·XY",

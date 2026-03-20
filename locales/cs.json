@@ -10,7 +10,8 @@
     "search": "Hledat",
     "wishlist": "Obl\u00edben\u00e9",
     "account": "\u00da\u010det",
-    "cart": "N\u00e1kupn\u00ed Ta\u0161ka"
+    "cart": "N\u00e1kupn\u00ed Ta\u0161ka",
+    "shopAll": "V\u0161e"
   },
   "product": {
     "addToBag": "P\u0159idat do Ta\u0161ky",
@@ -129,9 +130,16 @@
     "craftsmanship": "OD VL\u00c1KNA KE TKANIN\u011a \u2014 Sledovateln\u00e9 \u0158emeslo \u00b7 Etick\u00e9 Zdroje \u00b7 P\u0159irozen\u011b Udr\u017eiteln\u00e9"
   },
   "search": {
-    "placeholder": "Hledat v kolekci\u2026",
+    "placeholder": "Hledat produkty\u2026",
     "noResults": "\u017d\u00e1dn\u00e9 v\u00fdsledky",
-    "tryDifferent": "Zkuste jin\u00e9 kl\u00ed\u010dov\u00e9 slovo nebo prozkoumejte na\u0161e kolekce."
+    "tryDifferent": "Zkuste jin\u00e9 kl\u00ed\u010dov\u00e9 slovo nebo si prohl\u00e9dn\u011bte na\u0161e kolekce.",
+    "resultsFor": "V\u00fdsledky pro",
+    "searchTitle": "Vyhled\u00e1v\u00e1n\u00ed",
+    "searchResults": "V\u00fdsledky vyhled\u00e1v\u00e1n\u00ed",
+    "productsFound": "produkt\u016f nalezeno",
+    "productFound": "produkt nalezen",
+    "enterSearch": "Zadejte hledan\u00fd v\u00fdraz pro vyhled\u00e1n\u00ed produkt\u016f.",
+    "noProductsFor": "Nebyly nalezeny \u017e\u00e1dn\u00e9 produkty pro"
   },
   "newsletter": {
     "title": "Vstupte do Sv\u011bta VIONIS\u00b7XY",

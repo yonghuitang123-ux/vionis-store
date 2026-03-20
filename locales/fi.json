@@ -10,7 +10,8 @@
     "search": "Haku",
     "wishlist": "Toivelista",
     "account": "Tili",
-    "cart": "Ostoskori"
+    "cart": "Ostoskori",
+    "shopAll": "Kaikki Tuotteet"
   },
   "product": {
     "addToBag": "Lisää ostoskoriin",
@@ -129,9 +130,16 @@
     "craftsmanship": "KUIDUSTA KANKAAKSI — Jäljitettävää Käsityötaitoa · Eettisesti Hankittua · Luonnostaan Kestävää"
   },
   "search": {
-    "placeholder": "Etsi tuotteita…",
-    "noResults": "Tuloksia ei löytynyt",
-    "tryDifferent": "Kokeile toista hakusanaa tai selaa mallistojamme."
+    "placeholder": "Hae tuotteita…",
+    "noResults": "Ei tuloksia",
+    "tryDifferent": "Kokeile toista hakusanaa tai selaa kokoelmiamme.",
+    "resultsFor": "Tulokset haulle",
+    "searchTitle": "Haku",
+    "searchResults": "Hakutulokset",
+    "productsFound": "tuotetta löytyi",
+    "productFound": "tuote löytyi",
+    "enterSearch": "Kirjoita hakusana löytääksesi tuotteita.",
+    "noProductsFor": "Tuotteita ei löytynyt haulle"
   },
   "newsletter": {
     "title": "Liity VIONIS·XY:n maailmaan",

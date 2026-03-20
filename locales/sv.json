@@ -10,7 +10,8 @@
     "search": "Sök",
     "wishlist": "Önskelista",
     "account": "Konto",
-    "cart": "Varukorg"
+    "cart": "Varukorg",
+    "shopAll": "Visa Alla"
   },
   "product": {
     "addToBag": "Lägg i varukorgen",
@@ -130,8 +131,15 @@
   },
   "search": {
     "placeholder": "Sök produkter…",
-    "noResults": "Inga resultat hittades",
-    "tryDifferent": "Prova ett annat sökord eller utforska våra kollektioner."
+    "noResults": "Inga resultat",
+    "tryDifferent": "Prova ett annat sökord eller utforska våra kollektioner.",
+    "resultsFor": "Resultat för",
+    "searchTitle": "Sök",
+    "searchResults": "Sökresultat",
+    "productsFound": "produkter hittade",
+    "productFound": "produkt hittad",
+    "enterSearch": "Ange ett sökord för att hitta produkter.",
+    "noProductsFor": "Inga produkter hittade för"
   },
   "newsletter": {
     "title": "Välkommen till VIONIS·XY",

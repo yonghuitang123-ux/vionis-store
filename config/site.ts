@@ -423,6 +423,7 @@ export const siteConfig = {
       { 文字: 'Our Story',          链接: '/pages/our-story',           翻译键: 'nav.ourStory'     },
       { 文字: 'Craftsmanship',      链接: '/pages/craftsmanship',       翻译键: 'nav.craftsmanship'},
       { 文字: 'Journal',            链接: '/blog',                      翻译键: 'nav.journal'      },
+      { 文字: 'Shop All',           链接: '/collections/shop-all',      翻译键: 'nav.shopAll'      },
     ],
   },
 

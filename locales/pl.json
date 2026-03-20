@@ -10,7 +10,8 @@
     "search": "Szukaj",
     "wishlist": "Ulubione",
     "account": "Konto",
-    "cart": "Koszyk"
+    "cart": "Koszyk",
+    "shopAll": "Wszystkie Produkty"
   },
   "product": {
     "addToBag": "Dodaj do Koszyka",
@@ -129,9 +130,16 @@
     "craftsmanship": "OD W\u0141\u00d3KNA DO TKANINY \u2014 Identyfikowalne Rzemios\u0142o \u00b7 Etyczne \u0179r\u00f3d\u0142a \u00b7 Naturalnie Zr\u00f3wnowa\u017cone"
   },
   "search": {
-    "placeholder": "Szukaj w kolekcji\u2026",
-    "noResults": "Nie znaleziono wynik\u00f3w",
-    "tryDifferent": "Prosz\u0119 spr\u00f3bowa\u0107 innego s\u0142owa kluczowego lub przejrze\u0107 nasze kolekcje."
+    "placeholder": "Szukaj produkt\u00f3w\u2026",
+    "noResults": "Brak wynik\u00f3w",
+    "tryDifferent": "Spr\u00f3buj innego s\u0142owa kluczowego lub przejrzyj nasze kolekcje.",
+    "resultsFor": "Wyniki dla",
+    "searchTitle": "Wyszukiwanie",
+    "searchResults": "Wyniki wyszukiwania",
+    "productsFound": "produkt\u00f3w znaleziono",
+    "productFound": "produkt znaleziono",
+    "enterSearch": "Wpisz fraz\u0119, aby znale\u017a\u0107 produkty.",
+    "noProductsFor": "Nie znaleziono produkt\u00f3w dla"
   },
   "newsletter": {
     "title": "Do\u0142\u0105cz do \u015awiata VIONIS\u00b7XY",

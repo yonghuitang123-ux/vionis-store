@@ -10,7 +10,8 @@
     "search": "Pesquisar",
     "wishlist": "Favoritos",
     "account": "Conta",
-    "cart": "Sacola"
+    "cart": "Sacola",
+    "shopAll": "Ver Tudo"
   },
   "product": {
     "addToBag": "Adicionar à Sacola",
@@ -130,8 +131,15 @@
   },
   "search": {
     "placeholder": "Pesquisar produtos…",
-    "noResults": "Nenhum resultado encontrado",
-    "tryDifferent": "Experimente outra palavra-chave ou explore as nossas coleções."
+    "noResults": "Nenhum resultado",
+    "tryDifferent": "Tente outra palavra-chave ou explore as nossas coleções.",
+    "resultsFor": "Resultados para",
+    "searchTitle": "Pesquisa",
+    "searchResults": "Resultados da pesquisa",
+    "productsFound": "produtos encontrados",
+    "productFound": "produto encontrado",
+    "enterSearch": "Insira um termo para encontrar produtos.",
+    "noProductsFor": "Nenhum produto encontrado para"
   },
   "newsletter": {
     "title": "Entre no Universo VIONIS·XY",

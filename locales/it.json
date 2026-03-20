@@ -10,7 +10,8 @@
     "search": "Cerca",
     "wishlist": "Lista Desideri",
     "account": "Account",
-    "cart": "Borsa"
+    "cart": "Borsa",
+    "shopAll": "Vedi Tutto"
   },
   "product": {
     "addToBag": "Aggiungi alla Borsa",
@@ -129,9 +130,16 @@
     "craftsmanship": "DALLA FIBRA AL TESSUTO — Artigianalità Tracciabile · Provenienza Etica · Naturalmente Sostenibile"
   },
   "search": {
-    "placeholder": "Cerca tra i prodotti…",
-    "noResults": "Nessun risultato trovato",
-    "tryDifferent": "Prova con una parola chiave diversa o esplora le nostre collezioni."
+    "placeholder": "Cerca prodotti…",
+    "noResults": "Nessun risultato",
+    "tryDifferent": "Prova con un'altra parola chiave o esplora le nostre collezioni.",
+    "resultsFor": "Risultati per",
+    "searchTitle": "Ricerca",
+    "searchResults": "Risultati di ricerca",
+    "productsFound": "prodotti trovati",
+    "productFound": "prodotto trovato",
+    "enterSearch": "Inserisci un termine per trovare i prodotti.",
+    "noProductsFor": "Nessun prodotto trovato per"
   },
   "newsletter": {
     "title": "Entra nel Mondo VIONIS·XY",

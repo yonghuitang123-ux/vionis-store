@@ -10,7 +10,8 @@
     "search": "Rechercher",
     "wishlist": "Favoris",
     "account": "Mon Compte",
-    "cart": "Panier"
+    "cart": "Panier",
+    "shopAll": "Tout Voir"
   },
   "product": {
     "addToBag": "Ajouter au Panier",
@@ -129,9 +130,16 @@
     "craftsmanship": "DE LA FIBRE AU TISSU — Savoir-Faire Traçable · Approvisionnement Éthique · Naturellement Durable"
   },
   "search": {
-    "placeholder": "Rechercher un produit…",
+    "placeholder": "Rechercher…",
     "noResults": "Aucun résultat",
-    "tryDifferent": "Essayez un autre terme ou explorez nos collections."
+    "tryDifferent": "Essayez un autre mot-clé ou parcourez nos collections.",
+    "resultsFor": "Résultats pour",
+    "searchTitle": "Recherche",
+    "searchResults": "Résultats de recherche",
+    "productsFound": "produits trouvés",
+    "productFound": "produit trouvé",
+    "enterSearch": "Saisissez un terme pour trouver des produits.",
+    "noProductsFor": "Aucun produit trouvé pour"
   },
   "newsletter": {
     "title": "Entrez dans l'Univers VIONIS·XY",

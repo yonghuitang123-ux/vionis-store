@@ -12,6 +12,8 @@ import Breadcrumb from '@/components/Breadcrumb';
 import CollectionGrid from './CollectionGrid';
 import type { ShopifyProduct } from '@/components/ProductCard';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
+import { getDictionary } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/config';
 
 // ─── Shopify edges → 扁平产品数组 ──────────────────────────────────────────────
 
@@ -25,7 +27,7 @@ function normalizeProducts(edges: any[]): ShopifyProduct[] {
 // ─── 类型 ────────────────────────────────────────────────────────────────────
 
 interface PageProps {
-  params: Promise<{ handle: string }>;
+  params: Promise<{ handle: string; locale: string }>;
 }
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
@@ -47,7 +49,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // ─── 页面组件 ────────────────────────────────────────────────────────────────
 
 export default async function CollectionPage({ params }: PageProps) {
-  const { handle } = await params;
+  const { handle, locale } = await params;
+  const dict = await getDictionary((locale || 'en') as Locale);
   const collection = await getCollectionByHandle(handle);
   if (!collection) notFound();
 
@@ -59,8 +62,8 @@ export default async function CollectionPage({ params }: PageProps) {
         {/* 面包屑导航 */}
         <Breadcrumb
           items={[
-            { label: 'Home', href: '/' },
-            { label: 'Collections', href: '/collections' },
+            { label: dict.common?.home || 'Home', href: '/' },
+            { label: dict.common?.collections || 'Collections', href: '/collections' },
             { label: collection.title },
           ]}
         />

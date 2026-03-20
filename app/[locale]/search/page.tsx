@@ -11,6 +11,8 @@ import Breadcrumb from '@/components/Breadcrumb';
 import ProductCard from '@/components/ProductCard';
 import type { ShopifyProduct } from '@/components/ProductCard';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
+import { getDictionary } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/config';
 
 // ─── Shopify 原始产品数据标准化 ──────────────────────────────────────────────
 
@@ -24,6 +26,7 @@ function normalizeProduct(raw: any): ShopifyProduct {
 // ─── 类型 ────────────────────────────────────────────────────────────────────
 
 interface PageProps {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ q?: string }>;
 }
 
@@ -49,7 +52,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 
 // ─── 页面组件 ────────────────────────────────────────────────────────────────
 
-export default async function SearchPage({ searchParams }: PageProps) {
+export default async function SearchPage({ params, searchParams }: PageProps) {
+  const { locale } = await params;
+  const dict = await getDictionary((locale || 'en') as Locale);
   const { q } = await searchParams;
   const query = q?.trim() || '';
 
@@ -68,8 +73,8 @@ export default async function SearchPage({ searchParams }: PageProps) {
         {/* 面包屑导航 */}
         <Breadcrumb
           items={[
-            { label: 'Home', href: '/' },
-            { label: 'Search Results' },
+            { label: dict.common?.home || 'Home', href: '/' },
+            { label: dict.search?.searchResults || 'Search Results' },
           ]}
         />
 
@@ -88,13 +93,13 @@ export default async function SearchPage({ searchParams }: PageProps) {
         >
           {query ? (
             <>
-              Results for{' '}
+              {dict.search?.resultsFor || 'Results for'}{' '}
               <span style={{ fontStyle: 'italic', fontWeight: 500 }}>
                 &ldquo;{query}&rdquo;
               </span>
             </>
           ) : (
-            'Search'
+            dict.search?.searchTitle || 'Search'
           )}
         </h1>
 
@@ -109,7 +114,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
               margin: '0 0 40px',
             }}
           >
-            {totalCount} {totalCount === 1 ? 'product' : 'products'} found
+            {totalCount} {totalCount === 1 ? (dict.search?.productFound || 'product found') : (dict.search?.productsFound || 'products found')}
           </p>
         )}
 
@@ -141,9 +146,9 @@ export default async function SearchPage({ searchParams }: PageProps) {
                   lineHeight: 1.6,
                 }}
               >
-                No products found for &ldquo;{query}&rdquo;.
+                {dict.search?.noProductsFor || 'No products found for'} &ldquo;{query}&rdquo;.
                 <br />
-                Try a different keyword or browse our collections.
+                {dict.search?.tryDifferent || 'Try a different keyword or browse our collections.'}
               </p>
             ) : (
               <p
@@ -153,7 +158,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                   color: '#666',
                 }}
               >
-                Enter a search term to find products.
+                {dict.search?.enterSearch || 'Enter a search term to find products.'}
               </p>
             )}
           </div>

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Cormorant, Cormorant_Garamond, Montserrat } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/Header';
 import { CartProvider } from '@/lib/cart-context';
 import { WishlistProvider } from '@/lib/wishlist-context';
 import { ToastProvider } from '@/components/Toast';
@@ -91,9 +90,8 @@ export default function RootLayout({
         <ToastProvider>
           <CartProvider>
             <WishlistProvider>
-              <Header />
-              {/* Mobile: announcement(36) + nav(56) = 92px; Desktop: + logo(~96) = 188px */}
-              <div className="pt-[92px] xl:pt-[188px]">{children}</div>
+              {/* Header is rendered inside [locale]/layout.tsx so it has access to I18nProvider */}
+              {children}
               <ClientShell />
             </WishlistProvider>
           </CartProvider>
