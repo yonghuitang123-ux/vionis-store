@@ -14,7 +14,6 @@ import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticleByHandle } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
-import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/config';
 
@@ -180,6 +179,20 @@ const backLinkStyle: CSSProperties = {
   transition: 'opacity 0.2s',
 };
 
+// ─── HTML 内容组件（延迟加载 sanitizer 避免 serverless 环境问题） ──────────────
+
+async function ArticleHtml({ html, style }: { html: string; style: CSSProperties }) {
+  let cleanHtml = html;
+  try {
+    const { sanitizeShopifyHtml } = await import('@/utils/sanitizeShopifyHtml');
+    cleanHtml = sanitizeShopifyHtml(html);
+  } catch {
+    // sanitizer 加载失败时使用基本的标签过滤
+    cleanHtml = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  }
+  return <div style={style} dangerouslySetInnerHTML={{ __html: cleanHtml }} />;
+}
+
 // ─── 页面组件 ──────────────────────────────────────────────────────────────────
 
 export default async function BlogArticlePage({ params }: PageProps) {
@@ -253,10 +266,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
         {/* 正文内容 */}
         {article.isApi && article.contentHtml ? (
-          <div
-            style={bodyStyle}
-            dangerouslySetInnerHTML={{ __html: sanitizeShopifyHtml(article.contentHtml) }}
-          />
+          <ArticleHtml html={article.contentHtml} style={bodyStyle} />
         ) : (
           <div style={bodyStyle}>
             <p>{article.excerpt}</p>
