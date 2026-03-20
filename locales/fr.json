@@ -67,7 +67,17 @@
     "contact": "Nous Contacter",
     "faq": "Questions Fréquentes",
     "wholesale": "Vente en Gros",
-    "copyright": "© {year} VIONIS·XY. Tous droits réservés."
+    "copyright": "© {year} VIONIS·XY. Tous droits réservés.",
+    "cashmere": "Cashmere",
+    "merinoWool": "Laine Mérinos",
+    "bestSellers": "Meilleures Ventes",
+    "ourStory": "Notre Histoire",
+    "sustainability": "Développement Durable",
+    "sizeGuide": "Guide des Tailles",
+    "shipping": "Livraison",
+    "returns": "Retours",
+    "brand": "La Maison",
+    "brandDesc": "VIONIS·XY — Cachemire Rare & Mérinos Sans Couture.<br/>Conçu pour un luxe discret."
   },
   "serviceBar": {
     "freeShipping": "Livraison Offerte",
@@ -114,9 +124,9 @@
     "currency": "Devise"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "CACHEMIRE CERTIFIÉ HAUTE QUALITÉ | Origine Mongolie Intérieure · Fibre Grade A",
+    "newArrivals": "PRINTEMPS/ÉTÉ 2026 — Nouvelle Collection Disponible · Livraison Offerte dans le Monde Entier",
+    "craftsmanship": "DE LA FIBRE AU TISSU — Savoir-Faire Traçable · Approvisionnement Éthique · Naturellement Durable"
   },
   "search": {
     "placeholder": "Rechercher un produit…",
@@ -130,5 +140,36 @@
     "subscribe": "S'inscrire",
     "noThanks": "Non, merci",
     "success": "Bienvenue chez VIONIS·XY"
+  },
+  "home": {
+    "bannerHeading": "LA COLLECTION PRINTEMPS",
+    "bannerSubtitle": "100% ALXA CASHMERE & AUSTRALIAN MERINO",
+    "bannerBtn1": "LAINE MÉRINOS",
+    "bannerBtn2": "CASHMERE",
+    "womenTab": "Femme",
+    "menTab": "Homme",
+    "womenTitle": "Le Cachemire Printanier",
+    "womenSubtitle": "ALXA, INNER MONGOLIA · 100% CASHMERE",
+    "womenBody": "Chaque fibre provient de chèvres cachemire blanches parcourant le désert d'Alxa, en Mongolie Intérieure. Notre sélection printanière ne retient que la toison de première tonte la plus fine, d'environ 14,5 microns, façonnée en grammages plus légers qui préservent la douceur naturelle et la chaleur propres au cachemire. Même origine, toucher plus délicat.",
+    "menTitle": "La Structure Cachemire",
+    "menSubtitle": "ALXA, INNER MONGOLIA · SPRING EDITION",
+    "menBody": "La chèvre cachemire blanche d'Alxa produit l'une des fibres les plus nobles au monde. Notre collection printemps conserve les mêmes silhouettes structurées et la même exigence sans compromis, réinterprétées dans des jauges plus légères pour la saison de transition. Moins de poids, rien de perdu.",
+    "theLook": "LE LOOK",
+    "viewProduct": "VOIR LE PRODUIT",
+    "storySubtitle": "LA PHILOSOPHIE",
+    "storyTitle": "L'Élégance Discrète",
+    "storyBody": "La véritable élégance n'a pas besoin de s'imposer. Chez VIONIS·XY, nous croyons au pouvoir de la soustraction — retirer le superflu pour révéler la qualité essentielle du Mérinos et du Cachemire. Chaque pièce est conçue pour traverser les tendances et défier les saisons.",
+    "storySignature": "VIONIS·XY",
+    "blogHeading": "INSIDE VIONIS·XY",
+    "blogTitle1": "L'Origine du Cachemire",
+    "blogBody1": "Mongolie Intérieure, -30 °C. Le cachemire le plus fin au monde naît d'un froid extrême.",
+    "blogTitle2": "Le Secret du Mérinos",
+    "blogBody2": "18,5 microns — trois fois plus fin qu'un cheveu humain. Chaque fibre est sélectionnée avec précision.",
+    "blogTitle3": "Pureté Certifiée de Manière Indépendante",
+    "blogBody3": "Chaque pièce VIONIS·XY est soumise à des analyses en laboratoire SGS pour garantir une composition 100 % fibres naturelles. Aucun mélange. Aucun compromis.",
+    "blogTitle4": "Le Luxe Discret, Défini",
+    "blogBody4": "Le vrai luxe se murmure. VIONIS·XY s'adresse à ceux qui savent faire la différence.",
+    "blogTitle5": "Ingénierie de Maille de Précision",
+    "blogBody5": "Chaque vêtement VIONIS·XY est construit avec un tricotage à tension équilibrée — conçu pour la durabilité, pensé pour la longévité."
   }
 }

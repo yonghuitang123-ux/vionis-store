@@ -14,7 +14,7 @@
   },
   "product": {
     "addToBag": "In Winkeltas",
-    "adding": "Toevoegen…",
+    "adding": "Toevoegen...",
     "buyNow": "Direct Bestellen",
     "soldOut": "Uitverkocht",
     "color": "Kleur",
@@ -26,7 +26,7 @@
     "careGuide": "Verzorgingsadvies",
     "sizeFit": "Maat & Pasvorm",
     "shippingReturns": "Verzending & Retour",
-    "shippingText": "Gratis verzending op alle bestellingen. Levering binnen 5–10 werkdagen.",
+    "shippingText": "Gratis verzending op alle bestellingen. Levering binnen 5\u201310 werkdagen.",
     "returnsText": "Kosteloos retourneren binnen 30 dagen na levering. Artikelen dienen ongedragen te zijn met labels bevestigd.",
     "youMayAlsoLike": "Dit Past Wellicht Bij U"
   },
@@ -36,7 +36,7 @@
     "review": "Beoordeling",
     "verifiedPurchase": "Geverifieerde Aankoop",
     "loadMore": "Meer Beoordelingen Laden",
-    "loading": "Laden…",
+    "loading": "Laden\u2026",
     "writeReview": "Schrijf een Beoordeling",
     "noReviews": "Nog geen beoordelingen"
   },
@@ -56,7 +56,7 @@
     "help": "Klantenservice",
     "about": "Over Ons",
     "newsletter": "Nieuwsbrief",
-    "newsletterText": "Ontvang exclusieve updates over nieuwe collecties en privé-evenementen.",
+    "newsletterText": "Ontvang exclusieve updates over nieuwe collecties en priv\u00e9-evenementen.",
     "emailPlaceholder": "Uw e-mailadres",
     "subscribe": "Inschrijven",
     "subscribed": "Dank voor uw inschrijving",
@@ -67,7 +67,17 @@
     "contact": "Contact",
     "faq": "Veelgestelde Vragen",
     "wholesale": "Wholesale",
-    "copyright": "© {year} VIONIS·XY. Alle rechten voorbehouden."
+    "copyright": "\u00a9 {year} VIONIS\u00b7XY. Alle rechten voorbehouden.",
+    "cashmere": "Kasjmier",
+    "merinoWool": "Merinowol",
+    "bestSellers": "Bestverkocht",
+    "ourStory": "Ons Verhaal",
+    "sustainability": "Duurzaamheid",
+    "sizeGuide": "Maatadvies",
+    "shipping": "Verzending",
+    "returns": "Retourneren",
+    "brand": "Merk",
+    "brandDesc": "VIONIS\u00b7XY \u2014 Zeldzaam Kasjmier & Naadloos Merino.<br/>Vervaardigd voor ingetogen luxe."
   },
   "serviceBar": {
     "freeShipping": "Gratis Verzending",
@@ -99,7 +109,7 @@
   },
   "common": {
     "home": "Home",
-    "loading": "Laden…",
+    "loading": "Laden\u2026",
     "error": "Er is iets misgegaan",
     "close": "Sluiten",
     "back": "Terug",
@@ -114,21 +124,52 @@
     "currency": "Valuta"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "GECERTIFICEERD HOOGWAARDIG KASJMIER | Oorsprong Binnen-Mongoli\u00eb \u00b7 Graad A Vezel",
+    "newArrivals": "LENTE/ZOMER 2026 \u2014 Nieuwe Collectie Nu Beschikbaar \u00b7 Gratis Wereldwijde Verzending op Alle Bestellingen",
+    "craftsmanship": "VAN VEZEL TOT STOF \u2014 Traceerbaar Vakmanschap \u00b7 Ethisch Verkregen \u00b7 Natuurlijk Duurzaam"
   },
   "search": {
-    "placeholder": "Zoek in onze collectie…",
+    "placeholder": "Zoek in onze collectie\u2026",
     "noResults": "Geen resultaten gevonden",
     "tryDifferent": "Probeer een ander zoekwoord of ontdek onze collecties."
   },
   "newsletter": {
-    "title": "Ontdek de Wereld van VIONIS·XY",
+    "title": "Ontdek de Wereld van VIONIS\u00b7XY",
     "subtitle": "Wees de eerste die nieuwe collecties, exclusieve aanbiedingen en de kunst van natuurlijke luxe ontdekt.",
     "placeholder": "Uw e-mailadres",
     "subscribe": "Inschrijven",
     "noThanks": "Nee, dank u",
-    "success": "Welkom bij VIONIS·XY"
+    "success": "Welkom bij VIONIS\u00b7XY"
+  },
+  "home": {
+    "bannerHeading": "DE LENTECOLLECTIE",
+    "bannerSubtitle": "100% ALXA CASHMERE & AUSTRALIAN MERINO",
+    "bannerBtn1": "MERINOWOL",
+    "bannerBtn2": "KASJMIER",
+    "womenTab": "Dames",
+    "menTab": "Heren",
+    "womenTitle": "Het Lentekasjmier",
+    "womenSubtitle": "ALXA, INNER MONGOLIA \u00b7 100% CASHMERE",
+    "womenBody": "Elke vezel is afkomstig van witte kasjmiergeiten die vrij rondtrekken in de Alxa-woestijn van Binnen-Mongoli\u00eb. Onze lenteselectie bevat uitsluitend de fijnste eerste schering van circa 14,5 micron, verwerkt tot lichtere weefsels die de natuurlijke zachtheid en warmte van kasjmier behouden. Dezelfde oorsprong, een zachtere toets.",
+    "menTitle": "De Kasjmierstructuur",
+    "menSubtitle": "ALXA, INNER MONGOLIA \u00b7 SPRING EDITION",
+    "menBody": "De witte kasjmiergeit uit Alxa levert enkele van de fijnste vezels ter wereld. Onze lentecollectie draagt dezelfde gestructureerde silhouetten en compromisloze kwaliteit, opnieuw vormgegeven in lichtere breiwijdtes voor het overgangsseizoen. Minder gewicht, niets verloren.",
+    "theLook": "DE LOOK",
+    "viewProduct": "BEKIJK PRODUCT",
+    "storySubtitle": "DE FILOSOFIE",
+    "storyTitle": "Stille Elegantie",
+    "storyBody": "Ware elegantie hoeft niet te schreeuwen. Bij VIONIS\u00b7XY geloven wij in de kracht van weglating \u2014 het overtollige verwijderen om de wezenlijke kwaliteit van Merino en Kasjmier te onthullen. Elk stuk is vervaardigd om trends te overstijgen en seizoenen te overleven.",
+    "storySignature": "VIONIS\u00b7XY",
+    "blogHeading": "INSIDE VIONIS\u00b7XY",
+    "blogTitle1": "De Oorsprong van Kasjmier",
+    "blogBody1": "Binnen-Mongoli\u00eb, -30\u00b0C. Het fijnste kasjmier ter wereld wordt geboren uit extreme koude.",
+    "blogTitle2": "Het Geheim van Merino",
+    "blogBody2": "18,5 micron \u2014 drie keer fijner dan mensenhaar. Elke vezel met precisie geselecteerd.",
+    "blogTitle3": "Onafhankelijk Gecertificeerde Zuiverheid",
+    "blogBody3": "Elk VIONIS\u00b7XY-stuk ondergaat SGS-laboratoriumtesten ter bevestiging van 100% natuurlijke vezelsamenstelling. Geen mengsels. Geen compromissen.",
+    "blogTitle4": "Ingetogen Luxe, Gedefinieerd",
+    "blogBody4": "Ware luxe fluistert. VIONIS\u00b7XY is voor hen die het verschil kennen.",
+    "blogTitle5": "Precisiebreien als Ambacht",
+    "blogBody5": "Elk VIONIS\u00b7XY-kledingstuk wordt vervaardigd met spanningsgebalanceerd breiwerk \u2014 ontworpen voor duurzaamheid, vormgegeven voor een lang leven."
   }
 }

@@ -67,7 +67,17 @@
     "contact": "Kontakt",
     "faq": "FAQ",
     "wholesale": "Engros",
-    "copyright": "© {year} VIONIS·XY. Alle rettigheter forbeholdt."
+    "copyright": "© {year} VIONIS·XY. Alle rettigheter forbeholdt.",
+    "cashmere": "Kasjmir",
+    "merinoWool": "Merinoull",
+    "bestSellers": "Bestselgere",
+    "ourStory": "Vår Historie",
+    "sustainability": "Bærekraft",
+    "sizeGuide": "Størrelsesguide",
+    "shipping": "Frakt",
+    "returns": "Retur",
+    "brand": "VIONIS·XY",
+    "brandDesc": "VIONIS·XY — Sjelden Kasjmir & Sømløs Merino.<br/>Skapt for stille luksus."
   },
   "serviceBar": {
     "freeShipping": "Gratis frakt",
@@ -114,9 +124,9 @@
     "currency": "Valuta"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "SERTIFISERT KASJMIR AV HØYESTE KVALITET | Opprinnelse: Indre Mongolia · Grade A-fiber",
+    "newArrivals": "VÅR/SOMMER 2026 — Nye Stiler Nå Tilgjengelig · Gratis Frakt på Alle Bestillinger Verden Over",
+    "craftsmanship": "FRA FIBER TIL TEKSTIL — Sporbart Håndverk · Etisk Innkjøpt · Naturlig Bærekraftig"
   },
   "search": {
     "placeholder": "Søk etter produkter…",
@@ -130,5 +140,36 @@
     "subscribe": "Abonner",
     "noThanks": "Nei takk",
     "success": "Velkommen til VIONIS·XY"
+  },
+  "home": {
+    "bannerHeading": "VÅRKOLLEKSJONEN",
+    "bannerSubtitle": "100% ALXA CASHMERE & AUSTRALIAN MERINO",
+    "bannerBtn1": "MERINOULL",
+    "bannerBtn2": "KASJMIR",
+    "womenTab": "Kvinner",
+    "menTab": "Menn",
+    "womenTitle": "Vårens Kasjmir",
+    "womenSubtitle": "ALXA, INNER MONGOLIA · 100% CASHMERE",
+    "womenBody": "Hver eneste fiber stammer fra hvite kasjmirgeiter som streifer fritt i Alxa-ørkenen i Indre Mongolia. Vårt vårutvalg velger kun den fineste førstegangsklippingen på rundt 14,5 mikron, og foredler den til lettere kvaliteter som bevarer den naturlige mykheten og varmen kasjmir er kjent for. Samme opprinnelse, mykere berøring.",
+    "menTitle": "Den Strukturerte Kasjmiren",
+    "menSubtitle": "ALXA, INNER MONGOLIA · SPRING EDITION",
+    "menBody": "Den hvite kasjmirgeiten fra Alxa produserer noen av verdens fineste fibre. Vårkolleksjonen vår bærer de samme strukturerte siluettene og kompromissløse kvaliteten — nyutviklet i lettere strikkede strukturer for overgangsesongen. Mindre vekt, ingenting tapt.",
+    "theLook": "STILEN",
+    "viewProduct": "SE PRODUKT",
+    "storySubtitle": "FILOSOFIEN",
+    "storyTitle": "Stille Selvtillit",
+    "storyBody": "Ekte eleganse trenger ikke å rope. Hos VIONIS·XY tror vi på subtraksjonens kraft — å fjerne det overflødige for å avdekke den essensielle kvaliteten i merino og kasjmir. Hvert plagg er skapt for å overleve trender og overgå sesonger.",
+    "storySignature": "VIONIS·XY",
+    "blogHeading": "INSIDE VIONIS·XY",
+    "blogTitle1": "Kasjmirens Opprinnelse",
+    "blogBody1": "Indre Mongolia, -30 °C. Verdens fineste kasjmir fødes av ekstrem kulde.",
+    "blogTitle2": "Merinos Hemmelighet",
+    "blogBody2": "18,5 mikron — tre ganger finere enn et menneskehår. Hver fiber er valgt med presisjon.",
+    "blogTitle3": "Uavhengig Sertifisert Renhet",
+    "blogBody3": "Hvert VIONIS·XY-produkt gjennomgår SGS-laboratorietesting for å bekrefte 100 % naturlig fibersammensetning. Ingen blandinger. Ingen snarveier.",
+    "blogTitle4": "Stille Luksus, Definert",
+    "blogBody4": "Ekte luksus hvisker. VIONIS·XY er for dem som kjenner forskjellen.",
+    "blogTitle5": "Presisjonsstrikket Konstruksjon",
+    "blogBody5": "Hvert VIONIS·XY-plagg er konstruert med spenningsbalansert strikk — utviklet for holdbarhet, designet for lang levetid."
   }
 }

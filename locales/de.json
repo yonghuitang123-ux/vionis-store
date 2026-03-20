@@ -67,7 +67,17 @@
     "contact": "Kontakt",
     "faq": "Häufige Fragen",
     "wholesale": "Großhandel",
-    "copyright": "© {year} VIONIS·XY. Alle Rechte vorbehalten."
+    "copyright": "© {year} VIONIS·XY. Alle Rechte vorbehalten.",
+    "cashmere": "Kaschmir",
+    "merinoWool": "Merinowolle",
+    "bestSellers": "Bestseller",
+    "ourStory": "Unsere Geschichte",
+    "sustainability": "Nachhaltigkeit",
+    "sizeGuide": "Größenberatung",
+    "shipping": "Versand",
+    "returns": "Retouren",
+    "brand": "Marke",
+    "brandDesc": "VIONIS·XY — Edler Kaschmir & Nahtloses Merino.<br/>Gefertigt für leisen Luxus."
   },
   "serviceBar": {
     "freeShipping": "Kostenfreier Versand",
@@ -114,9 +124,9 @@
     "currency": "Währung"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "ZERTIFIZIERTER PREMIUM-KASCHMIR | Herkunft Innere Mongolei · Faser der Güteklasse A",
+    "newArrivals": "FRÜHJAHR/SOMMER 2026 — Neuheiten jetzt verfügbar · Kostenfreier weltweiter Versand für alle Bestellungen",
+    "craftsmanship": "VON DER FASER ZUM STOFF — Rückverfolgbare Handwerkskunst · Ethisch gewonnen · Natürlich nachhaltig"
   },
   "search": {
     "placeholder": "Produkte suchen…",
@@ -130,5 +140,36 @@
     "subscribe": "Anmelden",
     "noThanks": "Nein, danke",
     "success": "Willkommen bei VIONIS·XY"
+  },
+  "home": {
+    "bannerHeading": "DIE FRÜHLINGSKOLLEKTION",
+    "bannerSubtitle": "100% ALXA-KASCHMIR & AUSTRALISCHES MERINO",
+    "bannerBtn1": "MERINOWOLLE",
+    "bannerBtn2": "KASCHMIR",
+    "womenTab": "Damen",
+    "menTab": "Herren",
+    "womenTitle": "Frühlingskaschmir",
+    "womenSubtitle": "ALXA, INNER MONGOLIA · 100% CASHMERE",
+    "womenBody": "Jede Faser stammt von weißen Kaschmirziegen, die in der Alxa-Wüste der Inneren Mongolei beheimatet sind. Unsere Frühlingsauswahl verwendet ausschließlich das feinste Vlies der ersten Schur — rund 14,5 Mikron — verarbeitet zu leichteren Qualitäten, die die natürliche Weichheit und Wärme bewahren, für die Kaschmir geschätzt wird. Gleicher Ursprung, sanfterer Griff.",
+    "menTitle": "Die Kaschmir-Struktur",
+    "menSubtitle": "ALXA, INNER MONGOLIA · SPRING EDITION",
+    "menBody": "Die weiße Kaschmirziege aus Alxa liefert einige der edelsten Fasern der Welt. Unsere Frühlingskollektion trägt dieselben strukturierten Silhouetten und kompromisslose Qualität — neu konstruiert in leichteren Strickstärken für die Übergangszeit. Weniger Gewicht, ohne Einbußen.",
+    "theLook": "DER LOOK",
+    "viewProduct": "PRODUKT ANSEHEN",
+    "storySubtitle": "DIE PHILOSOPHIE",
+    "storyTitle": "Stille Souveränität",
+    "storyBody": "Wahre Eleganz muss nicht laut sein. Bei VIONIS·XY glauben wir an die Kraft der Reduktion — das Überflüssige weglassen, um die wesentliche Qualität von Merino und Kaschmir zu enthüllen. Jedes Stück ist gefertigt, um Trends zu überdauern und Saisons zu überleben.",
+    "storySignature": "VIONIS·XY",
+    "blogHeading": "INSIDE VIONIS·XY",
+    "blogTitle1": "Der Ursprung des Kaschmirs",
+    "blogBody1": "Innere Mongolei, −30 °C. Der edelste Kaschmir der Welt entsteht in extremer Kälte.",
+    "blogTitle2": "Das Geheimnis des Merinos",
+    "blogBody2": "18,5 Mikron — dreimal feiner als menschliches Haar. Jede Faser mit Präzision ausgewählt.",
+    "blogTitle3": "Unabhängig zertifizierte Reinheit",
+    "blogBody3": "Jedes Stück von VIONIS·XY durchläuft SGS-Laborprüfungen, die eine 100 % natürliche Faserzusammensetzung bestätigen. Keine Mischungen. Keine Kompromisse.",
+    "blogTitle4": "Stiller Luxus, definiert",
+    "blogBody4": "Wahrer Luxus flüstert. VIONIS·XY ist für jene, die den Unterschied kennen.",
+    "blogTitle5": "Präzisionsgestrickte Konstruktion",
+    "blogBody5": "Jedes VIONIS·XY-Kleidungsstück wird mit spannungsbalancierter Stricktechnik gefertigt — konstruiert für Strapazierfähigkeit, gestaltet für Langlebigkeit."
   }
 }

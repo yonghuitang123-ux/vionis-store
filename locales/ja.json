@@ -67,7 +67,17 @@
     "contact": "お問い合わせ",
     "faq": "よくあるご質問",
     "wholesale": "卸売りについて",
-    "copyright": "© {year} VIONIS·XY. All rights reserved."
+    "copyright": "© {year} VIONIS·XY. All rights reserved.",
+    "cashmere": "カシミヤ",
+    "merinoWool": "メリノウール",
+    "bestSellers": "ベストセラー",
+    "ourStory": "ブランドストーリー",
+    "sustainability": "サステナビリティ",
+    "sizeGuide": "サイズガイド",
+    "shipping": "配送について",
+    "returns": "返品について",
+    "brand": "ブランド",
+    "brandDesc": "VIONIS·XY — 希少なカシミヤとシームレスメリノ。<br/>静かなる贅沢のために。"
   },
   "serviceBar": {
     "freeShipping": "送料無料",
@@ -114,9 +124,9 @@
     "currency": "通貨"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "認定高品質カシミヤ｜内モンゴル産 · グレードAファイバー",
+    "newArrivals": "2026年 春夏コレクション — 新作入荷｜全商品 送料無料でお届け",
+    "craftsmanship": "繊維から生地へ — トレーサブルなものづくり · エシカル調達 · 自然と共に"
   },
   "search": {
     "placeholder": "商品を検索…",
@@ -130,5 +140,36 @@
     "subscribe": "登録する",
     "noThanks": "登録しない",
     "success": "VIONIS·XYへようこそ"
+  },
+  "home": {
+    "bannerHeading": "スプリングコレクション",
+    "bannerSubtitle": "100% アルシャンカシミヤ & オーストラリアンメリノ",
+    "bannerBtn1": "メリノウール",
+    "bannerBtn2": "カシミヤ",
+    "womenTab": "ウィメンズ",
+    "menTab": "メンズ",
+    "womenTitle": "春のカシミヤ",
+    "womenSubtitle": "ALXA, INNER MONGOLIA · 100% CASHMERE",
+    "womenBody": "すべての繊維は、内モンゴル・アルシャン砂漠に暮らす白カシミヤ山羊から採取されます。春のコレクションでは、約14.5ミクロンの最も繊細なファーストクリップフリースのみを厳選。軽やかな仕立てでありながら、カシミヤ本来の柔らかさと温もりを余すことなく宿しています。同じ産地から、より優しい肌触りを。",
+    "menTitle": "カシミヤの構築美",
+    "menSubtitle": "ALXA, INNER MONGOLIA · SPRING EDITION",
+    "menBody": "内モンゴル・アルシャンの厳しい大地が育んだカシミヤを、春の装いにふさわしい構築的なシルエットへ。繊維一本一本の質感を活かしながら、端正なフォルムと着心地の良さを両立させました。季節を越えて愛される、揺るぎない一着を。",
+    "theLook": "THE LOOK",
+    "viewProduct": "詳細を見る",
+    "storySubtitle": "フィロソフィー",
+    "storyTitle": "静かなる自信",
+    "storyBody": "真のエレガンスは、声高に主張する必要がありません。VIONIS·XYは「引き算」の力を信じています。余分なものを削ぎ落とし、メリノとカシミヤが持つ本質的な美しさだけを浮かび上がらせること。一着一着が、トレンドを超え、季節を越えて、長く寄り添える存在であるように。",
+    "storySignature": "VIONIS·XY",
+    "blogHeading": "INSIDE VIONIS·XY",
+    "blogTitle1": "カシミヤの起源",
+    "blogBody1": "内モンゴル、氷点下30℃。世界最高峰のカシミヤは、極寒の大地から生まれます。",
+    "blogTitle2": "メリノの秘密",
+    "blogBody2": "18.5ミクロン — 人の髪の毛の3分の1の細さ。一本一本を精緻に選び抜いています。",
+    "blogTitle3": "第三者機関による品質認証",
+    "blogBody3": "すべてのVIONIS·XY製品は、SGS研究所による検査を経て天然繊維100%であることが証明されています。混紡なし、妥協なし。",
+    "blogTitle4": "静かなる贅沢の定義",
+    "blogBody4": "真の贅沢は、囁くように語りかけます。VIONIS·XYは、その違いがわかる方のために。",
+    "blogTitle5": "精密ニットエンジニアリング",
+    "blogBody5": "すべてのVIONIS·XYの製品は、テンションバランスニッティングで仕立てられています。耐久性を追求した技術と、永く愛せるデザインの融合です。"
   }
 }
