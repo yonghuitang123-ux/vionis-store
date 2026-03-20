@@ -118,9 +118,9 @@ export const siteConfig = {
     轮播5_产品链接:         '/products/vionis-xy-vintage-floral-argyle-wool-cardigan-midnight-navy',
 
     // 6. The Off-Duty Cashmere Set — Oatmeal
-    轮播6_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-off-duty-cashmere-set-630g-oatmeal.webp?v=1770281426',
+    轮播6_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-off-duty-cashmere-set-630g-oatmeal.webp7.webp?v=1770281426',
     轮播6_模特大图_手机端: '',
-    轮播6_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-off-duty-cashmere-set-630g-oatmeal.webp?v=1770281426',
+    轮播6_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-off-duty-cashmere-set-630g-oatmeal.webp2.webp?v=1770281426',
     轮播6_产品名称:         'The Off-Duty Cashmere Set（630g）',
     轮播6_产品价格:         '$578.00',
     轮播6_产品链接:         '/products/630g-heavyweight-cashmere-set-the-ultimate-off-duty-look',
