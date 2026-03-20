@@ -434,7 +434,7 @@ export const siteConfig = {
       { 图标: 'shipping' as const, 标题: 'Free Shipping',    副标题: 'Complimentary worldwide delivery' },
       { 图标: 'return'   as const, 标题: 'Free Returns',     副标题: '30-day hassle-free returns'       },
       { 图标: 'quality'  as const, 标题: 'Quality Guarantee',副标题: '100% natural fibres, certified'   },
-      { 图标: 'contact'  as const, 标题: 'Contact',          副标题: 'support@vionisy.com'              },
+      { 图标: 'contact'  as const, 标题: 'Contact',          副标题: 'support@vionisxy.com'              },
     ],
   },
 

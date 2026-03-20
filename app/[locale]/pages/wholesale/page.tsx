@@ -152,8 +152,8 @@ export default function WholesalePage() {
           <p style={body}>
             If you are interested in becoming a VIONIS·XY stockist, please send
             an email to{' '}
-            <a href="mailto:wholesale@vionisy.com" style={emailLink}>
-              wholesale@vionisy.com
+            <a href="mailto:wholesale@vionisxy.com" style={emailLink}>
+              wholesale@vionisxy.com
             </a>{' '}
             with the following information:
           </p>
@@ -180,8 +180,8 @@ export default function WholesalePage() {
             For all wholesale-related enquiries, please contact us directly:
           </p>
           <p style={{ ...body, marginTop: 20 }}>
-            <a href="mailto:wholesale@vionisy.com" style={emailLink}>
-              wholesale@vionisy.com
+            <a href="mailto:wholesale@vionisxy.com" style={emailLink}>
+              wholesale@vionisxy.com
             </a>
           </p>
           <p style={{ ...body, marginTop: 8, fontSize: 13, color: '#666' }}>

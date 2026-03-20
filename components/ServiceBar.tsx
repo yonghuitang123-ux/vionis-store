@@ -97,7 +97,7 @@ const DEFAULT_ITEMS: ServiceItem[] = [
   { icon: 'shipping', title: 'Free Shipping',       subtitle: 'Complimentary worldwide delivery' },
   { icon: 'return',   title: 'Free Returns',         subtitle: '30-day hassle-free returns' },
   { icon: 'quality',  title: 'Quality Guarantee',    subtitle: '100% natural fibres, certified' },
-  { icon: 'contact',  title: 'Contact',              subtitle: 'support@vionisy.com' },
+  { icon: 'contact',  title: 'Contact',              subtitle: 'support@vionisxy.com' },
 ];
 
 // ─── Main Component ───────────────────────────────────────────────────────────

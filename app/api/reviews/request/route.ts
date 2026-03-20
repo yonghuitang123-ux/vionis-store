@@ -24,8 +24,8 @@ import { generateToken } from '@/lib/reviews';
 
 const WEBHOOK_SECRET = process.env.REVIEW_WEBHOOK_SECRET || 'vionis-review-2026';
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const FROM_EMAIL = process.env.REVIEW_FROM_EMAIL || 'VIONIS·XY <reviews@vionisy.com>';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisy.com';
+const FROM_EMAIL = process.env.REVIEW_FROM_EMAIL || 'VIONIS·XY <reviews@vionisxy.com>';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com';
 
 export async function POST(req: NextRequest) {
   // 验证 webhook 密钥

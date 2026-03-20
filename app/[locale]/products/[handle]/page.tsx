@@ -163,7 +163,7 @@ export default async function ProductPage({ params }: PageProps) {
     },
     offers: {
       '@type': 'Offer',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisy.com'}/products/${handle}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com'}/products/${handle}`,
       priceCurrency: price?.currencyCode ?? 'USD',
       price: price?.amount ?? '0',
       availability: hasVariantsInStock

@@ -126,10 +126,10 @@ export default function ShippingPage() {
             We currently ship to over 50 countries. If your country is not
             available at checkout, please contact us at{' '}
             <a
-              href="mailto:hello@vionisy.com"
+              href="mailto:hello@vionisxy.com"
               style={{ color: '#A05E46', textDecoration: 'none' }}
             >
-              hello@vionisy.com
+              hello@vionisxy.com
             </a>{' '}
             and we will do our best to accommodate your order.
           </p>
@@ -150,10 +150,10 @@ export default function ShippingPage() {
             If you have any questions about your delivery, our customer care
             team is available at{' '}
             <a
-              href="mailto:hello@vionisy.com"
+              href="mailto:hello@vionisxy.com"
               style={{ color: '#A05E46', textDecoration: 'none' }}
             >
-              hello@vionisy.com
+              hello@vionisxy.com
             </a>{' '}
             — we are happy to help.
           </p>
