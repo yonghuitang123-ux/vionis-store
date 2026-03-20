@@ -5,7 +5,7 @@
 
 import { locales } from '@/lib/i18n/config';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com';
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com').replace(/\/+$/, '');
 
 /**
  * 为给定路径生成 alternates（canonical + hreflang）
