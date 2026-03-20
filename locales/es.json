@@ -10,7 +10,8 @@
     "search": "Buscar",
     "wishlist": "Favoritos",
     "account": "Cuenta",
-    "cart": "Bolsa"
+    "cart": "Bolsa",
+    "shopAll": "Ver Todo"
   },
   "product": {
     "addToBag": "Añadir a la Bolsa",
@@ -130,8 +131,15 @@
   },
   "search": {
     "placeholder": "Buscar productos…",
-    "noResults": "No se han encontrado resultados",
-    "tryDifferent": "Prueba con otra palabra clave o explora nuestras colecciones."
+    "noResults": "Sin resultados",
+    "tryDifferent": "Prueba con otra palabra clave o explora nuestras colecciones.",
+    "resultsFor": "Resultados para",
+    "searchTitle": "Búsqueda",
+    "searchResults": "Resultados de búsqueda",
+    "productsFound": "productos encontrados",
+    "productFound": "producto encontrado",
+    "enterSearch": "Introduce un término para buscar productos.",
+    "noProductsFor": "No se encontraron productos para"
   },
   "newsletter": {
     "title": "Descubre el Universo VIONIS·XY",

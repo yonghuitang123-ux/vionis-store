@@ -15,11 +15,13 @@ import { getBlogArticleByHandle } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 import { sanitizeShopifyHtml } from '@/utils/sanitizeShopifyHtml';
+import { getDictionary } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/config';
 
 // ─── 类型 ─────────────────────────────────────────────────────────────────────
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 // ─── SEO 元数据 ────────────────────────────────────────────────────────────────
@@ -181,7 +183,8 @@ const backLinkStyle: CSSProperties = {
 // ─── 页面组件 ──────────────────────────────────────────────────────────────────
 
 export default async function BlogArticlePage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  const dict = await getDictionary((locale || 'en') as Locale);
   const article = await resolveArticle(slug);
 
   if (!article) {
@@ -216,8 +219,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
         <div style={{ paddingTop: 24, marginBottom: 24 }}>
           <Breadcrumb
             items={[
-              { label: 'Home', href: '/' },
-              { label: 'Journal', href: '/blog' },
+              { label: dict.common?.home || 'Home', href: '/' },
+              { label: dict.common?.journal || 'Journal', href: '/blog' },
               { label: article.title },
             ]}
           />
@@ -262,7 +265,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
         {/* 返回链接 */}
         <Link href="/blog" style={backLinkStyle}>
-          ← Back to Journal
+          ← {dict.common?.journal || 'Journal'}
         </Link>
       </div>
     </div>

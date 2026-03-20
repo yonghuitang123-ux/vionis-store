@@ -10,7 +10,8 @@
     "search": "Zoeken",
     "wishlist": "Favorieten",
     "account": "Account",
-    "cart": "Winkeltas"
+    "cart": "Winkeltas",
+    "shopAll": "Alles Bekijken"
   },
   "product": {
     "addToBag": "In Winkeltas",
@@ -129,9 +130,16 @@
     "craftsmanship": "VAN VEZEL TOT STOF \u2014 Traceerbaar Vakmanschap \u00b7 Ethisch Verkregen \u00b7 Natuurlijk Duurzaam"
   },
   "search": {
-    "placeholder": "Zoek in onze collectie\u2026",
-    "noResults": "Geen resultaten gevonden",
-    "tryDifferent": "Probeer een ander zoekwoord of ontdek onze collecties."
+    "placeholder": "Producten zoeken\u2026",
+    "noResults": "Geen resultaten",
+    "tryDifferent": "Probeer een ander zoekwoord of bekijk onze collecties.",
+    "resultsFor": "Resultaten voor",
+    "searchTitle": "Zoeken",
+    "searchResults": "Zoekresultaten",
+    "productsFound": "producten gevonden",
+    "productFound": "product gevonden",
+    "enterSearch": "Voer een zoekterm in om producten te vinden.",
+    "noProductsFor": "Geen producten gevonden voor"
   },
   "newsletter": {
     "title": "Ontdek de Wereld van VIONIS\u00b7XY",

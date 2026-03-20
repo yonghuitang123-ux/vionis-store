@@ -10,7 +10,8 @@
     "search": "検索",
     "wishlist": "ウィッシュリスト",
     "account": "アカウント",
-    "cart": "ショッピングバッグ"
+    "cart": "ショッピングバッグ",
+    "shopAll": "すべての商品"
   },
   "product": {
     "addToBag": "バッグに追加する",
@@ -130,8 +131,15 @@
   },
   "search": {
     "placeholder": "商品を検索…",
-    "noResults": "該当する商品が見つかりませんでした",
-    "tryDifferent": "別のキーワードをお試しいただくか、コレクションをご覧ください。"
+    "noResults": "該当する商品が見つかりません",
+    "tryDifferent": "別のキーワードをお試しいただくか、コレクションをご覧ください。",
+    "resultsFor": "検索結果：",
+    "searchTitle": "検索",
+    "searchResults": "検索結果",
+    "productsFound": "件の商品が見つかりました",
+    "productFound": "件の商品が見つかりました",
+    "enterSearch": "キーワードを入力して商品を検索してください。",
+    "noProductsFor": "該当する商品が見つかりません："
   },
   "newsletter": {
     "title": "VIONIS·XYの世界へ",

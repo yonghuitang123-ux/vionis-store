@@ -6,6 +6,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCollections } from '@/lib/shopify';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
+import { getDictionary } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/config';
 
 export function generateMetadata(): Metadata {
   return {
@@ -21,7 +23,13 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default async function CollectionsPage() {
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function CollectionsPage({ params }: PageProps) {
+  const { locale } = await params;
+  const dict = await getDictionary((locale || 'en') as Locale);
   const collections = await getCollections();
 
   const visibleCollections = (collections ?? []).filter(
@@ -60,7 +68,7 @@ export default async function CollectionsPage() {
           letterSpacing: '0.02em',
         }}
       >
-        Collections
+        {dict.common?.collections || 'Collections'}
       </h1>
 
       <div

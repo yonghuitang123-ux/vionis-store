@@ -10,7 +10,8 @@
     "search": "Søg",
     "wishlist": "Ønskeliste",
     "account": "Konto",
-    "cart": "Indkøbskurv"
+    "cart": "Indkøbskurv",
+    "shopAll": "Se Alt"
   },
   "product": {
     "addToBag": "Læg i kurv",
@@ -129,9 +130,16 @@
     "craftsmanship": "FRA FIBER TIL STOF — Sporbart Håndværk · Etisk Indkøbt · Naturligt Bæredygtigt"
   },
   "search": {
-    "placeholder": "Søg efter produkter…",
-    "noResults": "Ingen resultater fundet",
-    "tryDifferent": "Prøv et andet søgeord eller udforsk vores kollektioner."
+    "placeholder": "Søg produkter…",
+    "noResults": "Ingen resultater",
+    "tryDifferent": "Prøv et andet søgeord, eller udforsk vores kollektioner.",
+    "resultsFor": "Resultater for",
+    "searchTitle": "Søg",
+    "searchResults": "Søgeresultater",
+    "productsFound": "produkter fundet",
+    "productFound": "produkt fundet",
+    "enterSearch": "Indtast et søgeord for at finde produkter.",
+    "noProductsFor": "Ingen produkter fundet for"
   },
   "newsletter": {
     "title": "Bliv en del af VIONIS·XY",

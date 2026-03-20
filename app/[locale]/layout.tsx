@@ -4,6 +4,7 @@ import { locales, type Locale, isValidLocale } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { I18nProvider } from '@/lib/i18n/client';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
+import Header from '@/components/Header';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -47,7 +48,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   return (
     <I18nProvider locale={locale as Locale} dict={dict}>
-      {children}
+      <Header />
+      {/* Mobile: announcement(36) + nav(56) = 92px; Desktop: + logo(~96) = 188px */}
+      <div className="pt-[92px] xl:pt-[188px]">{children}</div>
     </I18nProvider>
   );
 }
