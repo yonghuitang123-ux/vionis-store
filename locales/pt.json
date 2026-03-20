@@ -67,7 +67,17 @@
     "contact": "Contacto",
     "faq": "Perguntas Frequentes",
     "wholesale": "Wholesale",
-    "copyright": "© {year} VIONIS·XY. Todos os direitos reservados."
+    "copyright": "© {year} VIONIS·XY. Todos os direitos reservados.",
+    "cashmere": "Caxemira",
+    "merinoWool": "Lã Merino",
+    "bestSellers": "Os Mais Desejados",
+    "ourStory": "A Nossa História",
+    "sustainability": "Sustentabilidade",
+    "sizeGuide": "Guia de Tamanhos",
+    "shipping": "Envio",
+    "returns": "Devoluções",
+    "brand": "VIONIS·XY",
+    "brandDesc": "VIONIS·XY — Caxemira Rara & Merino Seamless.<br/>Concebido para um luxo discreto."
   },
   "serviceBar": {
     "freeShipping": "Envio Gratuito",
@@ -114,9 +124,9 @@
     "currency": "Moeda"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "CAXEMIRA CERTIFICADA DE ALTA QUALIDADE | Origem Mongólia Interior · Fibra de Grau A",
+    "newArrivals": "PRIMAVERA/VERÃO 2026 — Novidades Disponíveis · Envio Gratuito para Todo o Mundo em Todas as Encomendas",
+    "craftsmanship": "DA FIBRA AO TECIDO — Manufactura Rastreável · Origem Ética · Naturalmente Sustentável"
   },
   "search": {
     "placeholder": "Pesquisar produtos…",
@@ -130,5 +140,36 @@
     "subscribe": "Subscrever",
     "noThanks": "Não, obrigado",
     "success": "Bem-vindo ao mundo VIONIS·XY"
+  },
+  "home": {
+    "bannerHeading": "A COLEÇÃO DE PRIMAVERA",
+    "bannerSubtitle": "100% ALXA CASHMERE & AUSTRALIAN MERINO",
+    "bannerBtn1": "LÃ MERINO",
+    "bannerBtn2": "CAXEMIRA",
+    "womenTab": "Mulher",
+    "menTab": "Homem",
+    "womenTitle": "A Caxemira de Primavera",
+    "womenSubtitle": "ALXA, INNER MONGOLIA · 100% CASHMERE",
+    "womenBody": "Cada fibra provém das cabras brancas de caxemira que percorrem o deserto de Alxa, na Mongólia Interior. A nossa seleção de primavera utiliza exclusivamente o velo mais nobre da primeira tosquia, com uma finura de cerca de 14,5 microns, trabalhado em gramaturas mais leves que preservam a suavidade natural e o calor pelos quais a caxemira é reconhecida. A mesma origem, um toque mais delicado.",
+    "menTitle": "A Estrutura da Caxemira",
+    "menSubtitle": "ALXA, INNER MONGOLIA · SPRING EDITION",
+    "menBody": "A cabra branca de caxemira de Alxa produz algumas das fibras mais nobres do mundo. A nossa coleção de primavera mantém as mesmas silhuetas estruturadas e a mesma qualidade intransigente, reinterpretadas em calibres mais leves para a estação de transição. Menos peso, nada perdido.",
+    "theLook": "O LOOK",
+    "viewProduct": "VER PRODUTO",
+    "storySubtitle": "A FILOSOFIA",
+    "storyTitle": "Elegância Silenciosa",
+    "storyBody": "A verdadeira elegância não precisa de se anunciar. Na VIONIS·XY acreditamos no poder da subtração — remover o excesso para revelar a qualidade essencial do Merino e da Caxemira. Cada peça é concebida para transcender tendências e perdurar além das estações.",
+    "storySignature": "VIONIS·XY",
+    "blogHeading": "INSIDE VIONIS·XY",
+    "blogTitle1": "A Origem da Caxemira",
+    "blogBody1": "Mongólia Interior, -30 °C. A caxemira mais nobre do mundo nasce do frio extremo.",
+    "blogTitle2": "O Segredo do Merino",
+    "blogBody2": "18,5 microns — três vezes mais fina do que o cabelo humano. Cada fibra é escolhida com precisão.",
+    "blogTitle3": "Pureza Certificada de Forma Independente",
+    "blogBody3": "Cada peça VIONIS·XY é submetida a testes laboratoriais SGS para confirmar uma composição de fibra 100% natural. Sem misturas. Sem atalhos.",
+    "blogTitle4": "O Luxo Discreto, Definido",
+    "blogBody4": "O verdadeiro luxo sussurra. VIONIS·XY é para quem sabe reconhecer a diferença.",
+    "blogTitle5": "Engenharia de Malha de Precisão",
+    "blogBody5": "Cada peça VIONIS·XY é construída com uma malha de tensão equilibrada — projetada para a durabilidade, concebida para a longevidade."
   }
 }

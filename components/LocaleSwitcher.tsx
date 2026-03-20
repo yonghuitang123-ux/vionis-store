@@ -37,7 +37,7 @@ interface LocaleSwitcherProps {
 }
 
 export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherProps) {
-  const { locale } = useTranslation();
+  const { locale, t: tl } = useTranslation();
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -138,7 +138,7 @@ export default function LocaleSwitcher({ variant = 'compact' }: LocaleSwitcherPr
                     marginBottom: -1,
                   }}
                 >
-                  {t === 'language' ? 'Language' : 'Currency'}
+                  {t === 'language' ? tl('common.language') : tl('common.currency')}
                 </button>
               ))}
             </div>

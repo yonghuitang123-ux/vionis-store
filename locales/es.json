@@ -67,7 +67,17 @@
     "contact": "Contacto",
     "faq": "Preguntas Frecuentes",
     "wholesale": "Wholesale",
-    "copyright": "© {year} VIONIS·XY. Todos los derechos reservados."
+    "copyright": "© {year} VIONIS·XY. Todos los derechos reservados.",
+    "cashmere": "Cachemira",
+    "merinoWool": "Lana Merino",
+    "bestSellers": "Los Más Deseados",
+    "ourStory": "Nuestra Historia",
+    "sustainability": "Sostenibilidad",
+    "sizeGuide": "Guía de Tallas",
+    "shipping": "Envío",
+    "returns": "Devoluciones",
+    "brand": "VIONIS·XY",
+    "brandDesc": "VIONIS·XY — Cachemira Excepcional & Merino Seamless.<br/>Creado para un lujo discreto."
   },
   "serviceBar": {
     "freeShipping": "Envío Gratuito",
@@ -114,9 +124,9 @@
     "currency": "Moneda"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "CACHEMIRA CERTIFICADA DE ALTA CALIDAD | Origen Mongolia Interior · Fibra de Grado A",
+    "newArrivals": "PRIMAVERA/VERANO 2026 — Nuevas Llegadas Disponibles · Envío Gratuito a Todo el Mundo en Cada Pedido",
+    "craftsmanship": "DE LA FIBRA AL TEJIDO — Artesanía Trazable · Origen Ético · Naturalmente Sostenible"
   },
   "search": {
     "placeholder": "Buscar productos…",
@@ -130,5 +140,36 @@
     "subscribe": "Suscribirse",
     "noThanks": "No, gracias",
     "success": "Bienvenido al mundo VIONIS·XY"
+  },
+  "home": {
+    "bannerHeading": "LA COLECCIÓN DE PRIMAVERA",
+    "bannerSubtitle": "100% ALXA CASHMERE & AUSTRALIAN MERINO",
+    "bannerBtn1": "LANA MERINO",
+    "bannerBtn2": "CACHEMIRA",
+    "womenTab": "Mujer",
+    "menTab": "Hombre",
+    "womenTitle": "La Cachemira de Primavera",
+    "womenSubtitle": "ALXA, INNER MONGOLIA · 100% CASHMERE",
+    "womenBody": "Cada fibra proviene de las cabras blancas de cachemira que habitan el desierto de Alxa, en Mongolia Interior. Nuestra selección de primavera emplea exclusivamente el vellón más noble de la primera esquila, con una finura de aproximadamente 14,5 micras, elaborado en gramajes más ligeros que preservan la suavidad natural y la calidez por las que la cachemira es célebre. Mismo origen, tacto más sutil.",
+    "menTitle": "La Estructura de la Cachemira",
+    "menSubtitle": "ALXA, INNER MONGOLIA · SPRING EDITION",
+    "menBody": "La cabra blanca de cachemira de Alxa produce algunas de las fibras más nobles del mundo. Nuestra colección de primavera conserva las mismas siluetas estructuradas y la misma calidad sin concesiones, reinterpretadas en calibres más ligeros para la temporada de transición. Menos peso, nada sacrificado.",
+    "theLook": "EL LOOK",
+    "viewProduct": "VER PRODUCTO",
+    "storySubtitle": "LA FILOSOFÍA",
+    "storyTitle": "Elegancia Serena",
+    "storyBody": "La verdadera elegancia no necesita proclamarse. En VIONIS·XY creemos en el poder de la sustracción — eliminar lo superfluo para revelar la calidad esencial del Merino y la Cachemira. Cada pieza está concebida para trascender tendencias y perdurar más allá de las estaciones.",
+    "storySignature": "VIONIS·XY",
+    "blogHeading": "INSIDE VIONIS·XY",
+    "blogTitle1": "El Origen de la Cachemira",
+    "blogBody1": "Mongolia Interior, -30 °C. La cachemira más noble del mundo nace del frío extremo.",
+    "blogTitle2": "El Secreto del Merino",
+    "blogBody2": "18,5 micras — tres veces más fina que el cabello humano. Cada fibra es seleccionada con precisión.",
+    "blogTitle3": "Pureza Certificada de Forma Independiente",
+    "blogBody3": "Cada prenda VIONIS·XY se somete a análisis de laboratorio SGS para confirmar una composición de fibra 100% natural. Sin mezclas. Sin atajos.",
+    "blogTitle4": "El Lujo Discreto, Definido",
+    "blogBody4": "El verdadero lujo susurra. VIONIS·XY es para quienes saben apreciar la diferencia.",
+    "blogTitle5": "Ingeniería de Tejido de Punto de Precisión",
+    "blogBody5": "Cada prenda VIONIS·XY se confecciona con un tejido de punto de tensión equilibrada — diseñado para resistir, concebido para perdurar."
   }
 }

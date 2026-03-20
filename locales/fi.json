@@ -67,7 +67,17 @@
     "contact": "Yhteystiedot",
     "faq": "UKK",
     "wholesale": "Tukkumyynti",
-    "copyright": "© {year} VIONIS·XY. Kaikki oikeudet pidätetään."
+    "copyright": "© {year} VIONIS·XY. Kaikki oikeudet pidätetään.",
+    "cashmere": "Kashmira",
+    "merinoWool": "Merinovilla",
+    "bestSellers": "Suosituimmat",
+    "ourStory": "Tarinamme",
+    "sustainability": "Vastuullisuus",
+    "sizeGuide": "Kokoopas",
+    "shipping": "Toimitus",
+    "returns": "Palautus",
+    "brand": "VIONIS·XY",
+    "brandDesc": "VIONIS·XY — Harvinaista Kashmiraa & Saumatonta Merinovillaa.<br/>Luotu hiljaiseen ylellisyyteen."
   },
   "serviceBar": {
     "freeShipping": "Maksuton toimitus",
@@ -114,9 +124,9 @@
     "currency": "Valuutta"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "SERTIFIOITU KORKEALAATUINEN KASHMIRA | Alkuperä: Sisä-Mongolia · Grade A -kuitu",
+    "newArrivals": "KEVÄT/KESÄ 2026 — Uutuudet Nyt Saatavilla · Maksuton Toimitus Kaikkialle Maailmaan",
+    "craftsmanship": "KUIDUSTA KANKAAKSI — Jäljitettävää Käsityötaitoa · Eettisesti Hankittua · Luonnostaan Kestävää"
   },
   "search": {
     "placeholder": "Etsi tuotteita…",
@@ -130,5 +140,36 @@
     "subscribe": "Tilaa",
     "noThanks": "Ei kiitos",
     "success": "Tervetuloa VIONIS·XY:n pariin"
+  },
+  "home": {
+    "bannerHeading": "KEVÄTMALLISTO",
+    "bannerSubtitle": "100% ALXA CASHMERE & AUSTRALIAN MERINO",
+    "bannerBtn1": "MERINOVILLA",
+    "bannerBtn2": "KASHMIRA",
+    "womenTab": "Naiset",
+    "menTab": "Miehet",
+    "womenTitle": "Kevään Kashmira",
+    "womenSubtitle": "ALXA, INNER MONGOLIA · 100% CASHMERE",
+    "womenBody": "Jokainen kuitu on peräisin valkoisista kashmiravuohista, jotka laiduntavat vapaasti Sisä-Mongolian Alxa-autiomaassa. Kevätmallistomme valikoi ainoastaan hienointa ensikerrintää noin 14,5 mikronin vahvuudella ja työstää sen kevyemmiksi laaduiksi, jotka säilyttävät kashmiralle ominaisen luonnollisen pehmeyden ja lämmön. Sama alkuperä, hellempi tuntu.",
+    "menTitle": "Rakenteellinen Kashmira",
+    "menSubtitle": "ALXA, INNER MONGOLIA · SPRING EDITION",
+    "menBody": "Alxan valkoinen kashmiravuohi tuottaa maailman hienoimpiin kuuluvia kuituja. Kevätmallistomme tuo samat jäsennellyt siluetit ja tinkimättömän laadun — uudelleen suunniteltuna kevyempinä neulosrakenteina siirtymäkaudelle. Vähemmän painoa, mitään menettämättä.",
+    "theLook": "TYYLI",
+    "viewProduct": "NÄYTÄ TUOTE",
+    "storySubtitle": "FILOSOFIA",
+    "storyTitle": "Hiljainen Itsevarmuus",
+    "storyBody": "Todellisen eleganssin ei tarvitse huutaa. VIONIS·XY:llä uskomme vähentämisen voimaan — ylimääräisen poistamiseen, jotta merinon ja kashmiran olennainen laatu paljastuu. Jokainen tuote on luotu kestämään trendejä pidempään ja ylittämään sesonkien rajat.",
+    "storySignature": "VIONIS·XY",
+    "blogHeading": "INSIDE VIONIS·XY",
+    "blogTitle1": "Kashmiran Alkuperä",
+    "blogBody1": "Sisä-Mongolia, -30 °C. Maailman hienoin kashmira syntyy äärimmäisessä kylmyydessä.",
+    "blogTitle2": "Merinon Salaisuus",
+    "blogBody2": "18,5 mikronia — kolme kertaa ohuempaa kuin ihmishius. Jokainen kuitu on valittu tarkoin.",
+    "blogTitle3": "Riippumattomasti Sertifioitu Puhtaus",
+    "blogBody3": "Jokainen VIONIS·XY-tuote läpikäy SGS-laboratoriotestauksen, joka vahvistaa 100 % luonnonkuitukoostumuksen. Ei sekoitteita. Ei oikoteitä.",
+    "blogTitle4": "Hiljainen Ylellisyys, Määriteltynä",
+    "blogBody4": "Todellinen ylellisyys kuiskaa. VIONIS·XY on niille, jotka tuntevat eron.",
+    "blogTitle5": "Tarkkuusneulottu Rakenne",
+    "blogBody5": "Jokainen VIONIS·XY-vaate on rakennettu jännitystasapainotetulla neulostekniikalla — suunniteltu kestävyydelle, muotoiltu pitkäikäisyydelle."
   }
 }

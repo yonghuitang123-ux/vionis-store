@@ -67,7 +67,17 @@
     "contact": "Contatti",
     "faq": "Domande Frequenti",
     "wholesale": "Wholesale",
-    "copyright": "© {year} VIONIS·XY. Tutti i diritti riservati."
+    "copyright": "© {year} VIONIS·XY. Tutti i diritti riservati.",
+    "cashmere": "Cashmere",
+    "merinoWool": "Lana Merino",
+    "bestSellers": "I Più Amati",
+    "ourStory": "La Nostra Storia",
+    "sustainability": "Sostenibilità",
+    "sizeGuide": "Guida alle Taglie",
+    "shipping": "Spedizione",
+    "returns": "Resi",
+    "brand": "VIONIS·XY",
+    "brandDesc": "VIONIS·XY — Cashmere Pregiato & Merino Seamless.<br/>Creato per un lusso discreto."
   },
   "serviceBar": {
     "freeShipping": "Spedizione Gratuita",
@@ -114,9 +124,9 @@
     "currency": "Valuta"
   },
   "announcement": {
-    "certified": "CERTIFIED HIGH-QUALITY CASHMERE | Inner Mongolia Origin · Grade A Fiber",
-    "newArrivals": "SPRING/SUMMER 2026 — New Arrivals Now Available · Complimentary Worldwide Shipping on All Orders",
-    "craftsmanship": "FROM FIBER TO FABRIC — Traceable Craftsmanship · Ethically Sourced · Naturally Sustainable"
+    "certified": "CASHMERE CERTIFICATO DI ALTA QUALITÀ | Origine Mongolia Interna · Fibra di Grado A",
+    "newArrivals": "PRIMAVERA/ESTATE 2026 — Nuovi Arrivi Disponibili · Spedizione Gratuita in Tutto il Mondo su Ogni Ordine",
+    "craftsmanship": "DALLA FIBRA AL TESSUTO — Artigianalità Tracciabile · Provenienza Etica · Naturalmente Sostenibile"
   },
   "search": {
     "placeholder": "Cerca tra i prodotti…",
@@ -130,5 +140,36 @@
     "subscribe": "Iscriviti",
     "noThanks": "No, grazie",
     "success": "Benvenuto nel mondo VIONIS·XY"
+  },
+  "home": {
+    "bannerHeading": "LA COLLEZIONE PRIMAVERA",
+    "bannerSubtitle": "100% ALXA CASHMERE & AUSTRALIAN MERINO",
+    "bannerBtn1": "LANA MERINO",
+    "bannerBtn2": "CASHMERE",
+    "womenTab": "Donna",
+    "menTab": "Uomo",
+    "womenTitle": "Il Cashmere di Primavera",
+    "womenSubtitle": "ALXA, INNER MONGOLIA · 100% CASHMERE",
+    "womenBody": "Ogni fibra proviene dalle capre bianche di cashmere che vivono nel deserto di Alxa, nella Mongolia Interna. La nostra selezione primaverile utilizza esclusivamente il vello più pregiato della prima tosatura, con una finezza di circa 14,5 micron, lavorato in pesi più leggeri che preservano la morbidezza naturale e il calore per cui il cashmere è rinomato. Stessa origine, tocco più delicato.",
+    "menTitle": "L'Architettura del Cashmere",
+    "menSubtitle": "ALXA, INNER MONGOLIA · SPRING EDITION",
+    "menBody": "La capra bianca di cashmere di Alxa produce alcune delle fibre più pregiate al mondo. La nostra collezione primaverile mantiene le stesse silhouette strutturate e la stessa qualità senza compromessi, reinterpretate in calibri più leggeri per la stagione di transizione. Meno peso, nulla perduto.",
+    "theLook": "IL LOOK",
+    "viewProduct": "SCOPRI IL PRODOTTO",
+    "storySubtitle": "LA FILOSOFIA",
+    "storyTitle": "Eleganza Silenziosa",
+    "storyBody": "La vera eleganza non ha bisogno di ostentare. Da VIONIS·XY crediamo nel potere della sottrazione — eliminare il superfluo per rivelare la qualità essenziale del Merino e del Cashmere. Ogni capo è creato per trascendere le tendenze e attraversare le stagioni.",
+    "storySignature": "VIONIS·XY",
+    "blogHeading": "INSIDE VIONIS·XY",
+    "blogTitle1": "L'Origine del Cashmere",
+    "blogBody1": "Mongolia Interna, -30 °C. Il cashmere più pregiato al mondo nasce dal freddo estremo.",
+    "blogTitle2": "Il Segreto del Merino",
+    "blogBody2": "18,5 micron — tre volte più fine del capello umano. Ogni fibra è scelta con precisione.",
+    "blogTitle3": "Purezza Certificata Indipendente",
+    "blogBody3": "Ogni capo VIONIS·XY è sottoposto a test di laboratorio SGS per confermare la composizione in fibra naturale al 100%. Nessuna miscelazione. Nessuna scorciatoia.",
+    "blogTitle4": "Il Lusso Discreto, Definito",
+    "blogBody4": "Il vero lusso sussurra. VIONIS·XY è per chi sa riconoscere la differenza.",
+    "blogTitle5": "Ingegneria della Maglia di Precisione",
+    "blogBody5": "Ogni capo VIONIS·XY è realizzato con una maglia a tensione bilanciata — progettata per la resistenza, concepita per la longevità."
   }
 }

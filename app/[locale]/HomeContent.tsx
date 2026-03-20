@@ -118,6 +118,18 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const { t } = useTranslation();
 
+  // 轮播文字翻译
+  const translatedWomenSlides = womenSlidesFromConfig.map((s) => ({
+    ...s,
+    subtitle: t('home.theLook'),
+    linkText: t('home.viewProduct'),
+  }));
+  const translatedMenSlides = menSlidesFromConfig.map((s) => ({
+    ...s,
+    subtitle: t('home.theLook'),
+    linkText: t('home.viewProduct'),
+  }));
+
   // 产品卡片（服务端预取）
   const cards       = initialProducts.length >= 4 ? initialProducts.map(toProductCard) : SKELETON_PRODUCTS;
   const panel1Cards = cards.slice(0, 4);
@@ -139,11 +151,11 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         rightImageDesktop={banner.电脑端右图}
         rightImageMobile={banner.手机端右图 || undefined}
         rightImageAlt="VIONIS·XY"
-        heading={banner.标题}
-        description={banner.副标题}
+        heading={t('home.bannerHeading')}
+        description={t('home.bannerSubtitle')}
         buttons={[
-          { text: banner.按钮1文字, href: banner.按钮1链接 },
-          { text: banner.按钮2文字, href: banner.按钮2链接 },
+          { text: t('home.bannerBtn1'), href: banner.按钮1链接 },
+          { text: t('home.bannerBtn2'), href: banner.按钮2链接 },
         ]}
         colors={{
           outerBg:      '#E8DFD6',
@@ -163,26 +175,26 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
 
       {/* 2. EditorialPanel — Women / Men 产品网格 */}
       <EditorialPanel
-        tab1Label={grid.女装Tab标签}
-        tab2Label={grid.男装Tab标签}
+        tab1Label={t('home.womenTab')}
+        tab2Label={t('home.menTab')}
         activeTab={activeTab}
         onTabChange={setActiveTab}
         panel1={{
           imageDesktop: grid.女装大图_电脑端,
           imageMobile:  grid.女装大图_手机端 || undefined,
           imageAlt:     'VIONIS·XY Women Collection',
-          title:        grid.女装标题,
-          description:  grid.女装副标题,
-          body:         grid.女装正文,
+          title:        t('home.womenTitle'),
+          description:  t('home.womenSubtitle'),
+          body:         t('home.womenBody'),
           products:     panel1Cards,
         }}
         panel2={{
           imageDesktop: grid.男装大图_电脑端,
           imageMobile:  grid.男装大图_手机端 || undefined,
           imageAlt:     'VIONIS·XY Men Collection',
-          title:        grid.男装标题,
-          description:  grid.男装副标题,
-          body:         grid.男装正文,
+          title:        t('home.menTitle'),
+          description:  t('home.menSubtitle'),
+          body:         t('home.menBody'),
           products:     panel2Cards,
         }}
         colors={{ accentColor: '#A05E46' }}
@@ -191,8 +203,8 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
       {/* 3. MastermindShowcase — 轮播看款 */}
       <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 700px' }}>
       <MastermindShowcase
-        womenSlides={womenSlidesFromConfig.length > 0 ? womenSlidesFromConfig : [SKELETON_SLIDE]}
-        menSlides={menSlidesFromConfig.length > 0 ? menSlidesFromConfig : [SKELETON_SLIDE]}
+        womenSlides={translatedWomenSlides.length > 0 ? translatedWomenSlides : [SKELETON_SLIDE]}
+        menSlides={translatedMenSlides.length > 0 ? translatedMenSlides : [SKELETON_SLIDE]}
         activeGender={activeTab === 0 ? 'women' : 'men'}
         colors={{ bgColor: '#E8DFD6', headingColor: '#1a1a1a', textColor: '#1a1a1a' }}
         desktopHeight={700}
@@ -207,10 +219,10 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         mainImageAlt="VIONIS·XY Brand Story"
         subImage={brandStory.副图_电脑端 || 占位图.方形}
         subImageAlt="VIONIS·XY Cashmere Detail"
-        subtitle={brandStory.小标题}
-        title={brandStory.标题}
-        text={brandStory.正文}
-        signature={brandStory.签名}
+        subtitle={t('home.storySubtitle')}
+        title={t('home.storyTitle')}
+        text={t('home.storyBody')}
+        signature={t('home.storySignature')}
         colors={{
           bgColor:      '#E8DFD6',
           headingColor: '#1a1a1a',
@@ -226,12 +238,12 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
       {/* 5. BlogScroll — 博客横向滚动 */}
       <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
       <BlogScroll
-        heading={blog.标题}
-        posts={blog.文章列表.map((a) => ({
+        heading={t('home.blogHeading')}
+        posts={blog.文章列表.map((a, i) => ({
           imageDesktop: a.图片_电脑端 || 占位图.竖版,
           imageMobile:  a.图片_手机端 || undefined,
-          title:        a.文章标题,
-          body:         a.文章正文,
+          title:        t(`home.blogTitle${i + 1}` as any) !== `home.blogTitle${i + 1}` ? t(`home.blogTitle${i + 1}` as any) : a.文章标题,
+          body:         t(`home.blogBody${i + 1}` as any) !== `home.blogBody${i + 1}` ? t(`home.blogBody${i + 1}` as any) : a.文章正文,
           href:         a.链接,
         }))}
         bgColor="#E8DFD6"
@@ -289,10 +301,29 @@ export default function HomeContent({ initialProducts }: HomeContentProps) {
         socialLinks={activeSocial}
         blocks={footer.导航列.map((block) => {
           const headingKeyMap: Record<string, string> = {
-            Shop: 'footer.shop', About: 'footer.about', Help: 'footer.help',
+            Shop: 'footer.shop', About: 'footer.about', Help: 'footer.help', Brand: 'footer.brand',
           };
           const tKey = headingKeyMap[block.heading];
-          return { ...block, heading: tKey ? t(tKey) : block.heading };
+          const translatedBlock = { ...block, heading: tKey ? t(tKey) : block.heading };
+          // Translate link titles within blocks
+          if ('links' in translatedBlock && translatedBlock.links) {
+            const linkKeyMap: Record<string, string> = {
+              'Cashmere': 'footer.cashmere', 'Merino Wool': 'footer.merinoWool',
+              'New Arrivals': 'nav.newArrivals', 'Best Sellers': 'footer.bestSellers',
+              'Our Story': 'footer.ourStory', 'Craftsmanship': 'nav.craftsmanship',
+              'Sustainability': 'footer.sustainability', 'Wholesale': 'footer.wholesale',
+              'Size Guide': 'footer.sizeGuide', 'Shipping': 'footer.shipping',
+              'Returns': 'footer.returns', 'Contact': 'footer.contact',
+            };
+            translatedBlock.links = translatedBlock.links.map((link: any) => {
+              const lKey = linkKeyMap[link.title];
+              return lKey ? { ...link, title: t(lKey) } : link;
+            });
+          }
+          if ('content' in translatedBlock && translatedBlock.content) {
+            translatedBlock.content = t('footer.brandDesc');
+          }
+          return translatedBlock;
         })}
         showPolicies
         policies={footer.政策链接.map((p) => {
