@@ -67,12 +67,23 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // 没有 locale 前缀 → 重定向
+  // 没有 locale 前缀
   const locale = getPreferredLocale(request);
   const url = request.nextUrl.clone();
   url.pathname = `/${locale}${pathname}`;
 
-  // 301 永久重定向（SEO 友好）
+  // 根路径 "/" → rewrite（URL 不变，直接展示内容，SEO 友好）
+  if (pathname === '/') {
+    const response = NextResponse.rewrite(url);
+    response.cookies.set('NEXT_LOCALE', locale, {
+      maxAge: 365 * 24 * 60 * 60,
+      path: '/',
+      sameSite: 'lax',
+    });
+    return response;
+  }
+
+  // 其他路径 → 308 永久重定向
   return NextResponse.redirect(url, 308);
 }
 

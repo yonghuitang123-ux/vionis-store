@@ -17,11 +17,12 @@ export function buildAlternates(path: string) {
   for (const locale of locales) {
     languages[locale] = `${SITE_URL}/${locale}${cleanPath === '/' ? '' : cleanPath}`;
   }
-  // x-default 指向英文版
-  languages['x-default'] = `${SITE_URL}/en${cleanPath === '/' ? '' : cleanPath}`;
+  // x-default：首页指向根域名 /，其他页面指向 /en/...
+  const isHome = cleanPath === '/' || cleanPath === '';
+  languages['x-default'] = isHome ? SITE_URL : `${SITE_URL}/en${cleanPath}`;
 
   return {
-    canonical: `${SITE_URL}/en${cleanPath === '/' ? '' : cleanPath}`,
+    canonical: isHome ? SITE_URL : `${SITE_URL}/en${cleanPath}`,
     languages,
   };
 }
