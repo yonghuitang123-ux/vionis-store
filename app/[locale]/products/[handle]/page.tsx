@@ -150,6 +150,8 @@ export default async function ProductPage({ params }: PageProps) {
     (v: any) => v.availableForSale,
   );
 
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com').replace(/\/+$/, '');
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -163,13 +165,39 @@ export default async function ProductPage({ params }: PageProps) {
     },
     offers: {
       '@type': 'Offer',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com'}/products/${handle}`,
+      url: `${siteUrl}/${locale}/products/${handle}`,
       priceCurrency: price?.currencyCode ?? 'USD',
       price: price?.amount ?? '0',
+      priceValidUntil: `${new Date().getFullYear() + 1}-12-31`,
       availability: hasVariantsInStock
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
     },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: dict.common?.home || 'Home',
+        item: `${siteUrl}/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: dict.common?.shop || 'Shop',
+        item: `${siteUrl}/${locale}/collections`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.title,
+        item: `${siteUrl}/${locale}/products/${handle}`,
+      },
+    ],
   };
 
   return (
@@ -178,6 +206,10 @@ export default async function ProductPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <div style={innerStyle} className="max-w-full min-w-0 px-4 sm:px-6">

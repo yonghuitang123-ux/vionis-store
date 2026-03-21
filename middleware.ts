@@ -44,6 +44,8 @@ export function middleware(request: NextRequest) {
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml' ||
+    pathname === '/llms.txt' ||
+    pathname === '/llms-full.txt' ||
     pathname.match(/\.\w+$/) // 任何带扩展名的文件
   ) {
     return NextResponse.next();
@@ -83,6 +85,6 @@ export const config = {
      * - admin (管理后台)
      * - 静态文件
      */
-    '/((?!api|_next|admin|uploads|favicon\\.ico|robots\\.txt|sitemap\\.xml).*)',
+    '/((?!api|_next|admin|uploads|favicon\\.ico|robots\\.txt|sitemap\\.xml|llms\\.txt|llms-full\\.txt).*)',
   ],
 };
