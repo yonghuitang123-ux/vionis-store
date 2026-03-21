@@ -56,6 +56,13 @@ export function middleware(request: NextRequest) {
   const firstSegment = segments[1]; // '' 之后的第一段
 
   if (locales.includes(firstSegment)) {
+    // /en 首页 → 301 重定向到 /（避免重复内容）
+    if (firstSegment === defaultLocale && (pathname === '/en' || pathname === '/en/')) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/';
+      return NextResponse.redirect(url, 301);
+    }
+
     // 已有 locale 前缀，放行
     // 设置 cookie 记住用户选择
     const response = NextResponse.next();

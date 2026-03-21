@@ -1,7 +1,5 @@
 import { MetadataRoute } from 'next'
 
-const BASE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com').replace(/\/+$/, '');
-
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
@@ -17,6 +15,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin', '/api/', '/cart', '/wishlist', '/account'],
       },
     ],
-    sitemap: `${BASE}/sitemap.xml`,
+    sitemap: 'https://www.vionisxy.com/sitemap.xml',
   }
 }
