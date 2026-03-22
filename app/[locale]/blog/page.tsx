@@ -129,7 +129,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   // 尝试从 Shopify API 获取文章
   let apiArticles: any[] = [];
   try {
-    apiArticles = await getBlogArticles('news', 20);
+    apiArticles = await getBlogArticles('journal', 20);
   } catch {
     apiArticles = [];
   }

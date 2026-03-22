@@ -60,7 +60,7 @@ interface ResolvedArticle {
 async function resolveArticle(slug: string): Promise<ResolvedArticle | null> {
   // 优先尝试 Shopify API
   try {
-    const apiArticle = await getBlogArticleByHandle('news', slug);
+    const apiArticle = await getBlogArticleByHandle('journal', slug);
     if (apiArticle) {
       return {
         title: apiArticle.title,

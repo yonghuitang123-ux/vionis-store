@@ -81,15 +81,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     collectionEntries = fallback.map((h) => entry(`/collections/${h}`, 'weekly', 0.85));
   }
 
-  // ── 博客文章 ──────────────────────────────────────────────────────────────
+  // ── 博客文章（Journal 博客 → /blog，News 博客 → /news）─────────────────
   let blogEntries: MetadataRoute.Sitemap = [];
   let newsEntries: MetadataRoute.Sitemap = [];
   try {
-    const articles = await getBlogArticles('news', 100);
-    blogEntries = articles.map((a: { handle: string }) =>
+    const journalArticles = await getBlogArticles('journal', 100);
+    blogEntries = journalArticles.map((a: { handle: string }) =>
       entry(`/blog/${a.handle}`, 'monthly', 0.7),
     );
-    newsEntries = articles.map((a: { handle: string }) =>
+  } catch { /* 跳过 */ }
+  try {
+    const newsArticles = await getBlogArticles('news', 100);
+    newsEntries = newsArticles.map((a: { handle: string }) =>
       entry(`/news/${a.handle}`, 'monthly', 0.7),
     );
   } catch { /* 跳过 */ }
