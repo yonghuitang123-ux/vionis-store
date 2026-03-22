@@ -38,9 +38,11 @@ export const metadata: Metadata = {
     icon: [
       { url: '/favicon.ico', sizes: '48x48' },
       { url: '/favicon.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon-192x192.png', type: 'image/png', sizes: '192x192' },
     ],
     apple: '/apple-touch-icon.png',
   },
+  manifest: '/manifest.json',
   openGraph: {
     title: 'VIONIS·XY — Rare Cashmere & Seamless Merino',
     description:
