@@ -37,6 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry('',                           'daily',   1.0),
     entry('/collections',               'daily',   0.9),
     entry('/blog',                      'weekly',  0.8),
+    entry('/news',                      'weekly',  0.8),
     entry('/pages/our-story',           'monthly', 0.6),
     entry('/pages/sustainability',      'monthly', 0.6),
     entry('/pages/craftsmanship',       'monthly', 0.6),
@@ -84,5 +85,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     );
   } catch { /* 跳过 */ }
 
-  return [...staticEntries, ...productEntries, ...collectionEntries, ...blogEntries];
+  // ── News 文章（同 blog 数据源，映射到 /news/ 路径） ──────────────────────
+  let newsEntries: MetadataRoute.Sitemap = [];
+  try {
+    const newsArticles = await getBlogArticles('news', 100);
+    newsEntries = newsArticles.map((a: { handle: string }) =>
+      entry(`/news/${a.handle}`, 'monthly', 0.7),
+    );
+  } catch { /* 跳过 */ }
+
+  return [...staticEntries, ...productEntries, ...collectionEntries, ...blogEntries, ...newsEntries];
 }
