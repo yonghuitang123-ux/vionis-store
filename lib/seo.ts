@@ -13,16 +13,21 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com').re
  */
 export function buildAlternates(path: string) {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  const isHome = cleanPath === '/' || cleanPath === '';
   const languages: Record<string, string> = {};
   for (const locale of locales) {
-    languages[locale] = `${SITE_URL}/${locale}${cleanPath === '/' ? '' : cleanPath}`;
+    if (locale === 'en') {
+      // 英文是默认语言，不加 /en 前缀
+      languages[locale] = isHome ? SITE_URL : `${SITE_URL}${cleanPath}`;
+    } else {
+      languages[locale] = `${SITE_URL}/${locale}${isHome ? '' : cleanPath}`;
+    }
   }
-  // x-default：首页指向根域名 /，其他页面指向 /en/...
-  const isHome = cleanPath === '/' || cleanPath === '';
-  languages['x-default'] = isHome ? SITE_URL : `${SITE_URL}/en${cleanPath}`;
+  // x-default 指向英文版（无前缀）
+  languages['x-default'] = isHome ? SITE_URL : `${SITE_URL}${cleanPath}`;
 
   return {
-    canonical: isHome ? SITE_URL : `${SITE_URL}/en${cleanPath}`,
+    canonical: isHome ? SITE_URL : `${SITE_URL}${cleanPath}`,
     languages,
   };
 }

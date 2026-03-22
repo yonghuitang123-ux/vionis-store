@@ -1,8 +1,7 @@
 /**
- * News 文章详情页 — Server Component (SSG/SSR)
+ * News 文章详情页 — Server Component (ISR)
  * ─────────────────────────────────────────────────────────────────
- * 从 Shopify Storefront API 获取单篇文章全文，
- * 自动生成 meta title / description，输出 JSON-LD 结构化数据。
+ * 从 Shopify Storefront API 拉取单篇文章全文
  */
 
 import type { Metadata } from 'next';
@@ -16,13 +15,15 @@ import { buildAlternates, defaultOgImage } from '@/lib/seo';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/config';
 
+export const revalidate = 3600; // ISR: 1 小时
+
 // ─── 类型 ─────────────────────────────────────────────────────────────────────
 
 interface PageProps {
   params: Promise<{ handle: string; locale: string }>;
 }
 
-// ─── 数据获取 ──────────────────────────────────────────────────────────────────
+// ─── 数据解析 ──────────────────────────────────────────────────────────────────
 
 interface ResolvedArticle {
   title: string;
@@ -31,30 +32,28 @@ interface ResolvedArticle {
   author: string;
   image: string;
   contentHtml: string;
-  seoTitle: string;
-  seoDescription: string;
 }
 
 async function resolveArticle(handle: string): Promise<ResolvedArticle | null> {
   try {
     const article = await getBlogArticleByHandle('news', handle);
-    if (!article) return null;
-    return {
-      title: article.title,
-      excerpt: article.excerpt || '',
-      date: article.publishedAt || '',
-      author: article.authorV2?.name || 'VIONIS·XY',
-      image: article.image?.url || '',
-      contentHtml: article.contentHtml || '',
-      seoTitle: article.seo?.title || article.title,
-      seoDescription: article.seo?.description || article.excerpt || article.title,
-    };
+    if (article) {
+      return {
+        title: article.title,
+        excerpt: article.excerpt || '',
+        date: article.publishedAt || '',
+        author: article.authorV2?.name || 'VIONIS·XY',
+        image: article.image?.url || '',
+        contentHtml: article.contentHtml || '',
+      };
+    }
   } catch {
-    return null;
+    // API 失败
   }
+  return null;
 }
 
-// ─── SEO 元数据（自动生成） ───────────────────────────────────────────────────
+// ─── SEO 元数据 ────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { handle } = await params;
@@ -62,34 +61,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!article) {
     return { title: 'Article Not Found — VIONIS·XY' };
   }
-  const title = `${article.seoTitle} — VIONIS·XY`;
-  const description = article.seoDescription;
   return {
-    title,
-    description,
+    title: `${article.title} — VIONIS·XY`,
+    description: article.excerpt || article.title,
     alternates: buildAlternates(`/news/${handle}`),
     openGraph: {
-      title,
-      description,
+      title: `${article.title} — VIONIS·XY`,
+      description: article.excerpt || article.title,
       siteName: 'VIONIS·XY',
       type: 'article',
       images: article.image ? [{ url: article.image }] : [defaultOgImage],
-      ...(article.date ? { publishedTime: article.date } : {}),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      ...(article.image ? { images: [article.image] } : {}),
     },
   };
 }
 
 // ─── 日期格式化 ──────────────────────────────────────────────────────────────
 
-function formatDate(dateStr: string) {
+function formatDate(dateStr: string, locale: string) {
   try {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString(locale === 'en' ? 'en-US' : locale, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -169,7 +159,7 @@ const backLinkStyle: CSSProperties = {
   transition: 'opacity 0.2s',
 };
 
-// ─── HTML 内容组件 ────────────────────────────────────────────────────────────
+// ─── HTML 内容组件 ──────────────────────────────────────────────────────────────
 
 async function ArticleHtml({ html, style }: { html: string; style: CSSProperties }) {
   let cleanHtml = html;
@@ -193,29 +183,24 @@ export default async function NewsArticlePage({ params }: PageProps) {
     notFound();
   }
 
-  // JSON-LD 结构化数据（SEO）
+  // JSON-LD 结构化数据
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: article.title,
-    description: article.seoDescription,
+    description: article.excerpt,
     author: { '@type': 'Person', name: article.author },
     publisher: {
       '@type': 'Organization',
       name: 'VIONIS·XY',
-      url: 'https://vionisxy.com',
     },
     ...(article.date ? { datePublished: article.date } : {}),
     ...(article.image ? { image: article.image } : {}),
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://vionisxy.com/news/${handle}`,
-    },
   };
 
   return (
     <div style={pageStyle}>
-      {/* JSON-LD 结构化数据 */}
+      {/* JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -227,7 +212,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
           <Breadcrumb
             items={[
               { label: dict.common?.home || 'Home', href: '/' },
-              { label: 'News', href: '/news' },
+              { label: dict.nav?.news || 'News', href: '/news' },
               { label: article.title },
             ]}
           />
@@ -238,7 +223,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
 
         {/* 日期 & 作者 */}
         <div style={metaRowStyle}>
-          {article.date && <span>{formatDate(article.date)}</span>}
+          {article.date && <span>{formatDate(article.date, locale)}</span>}
           {article.date && article.author && (
             <span style={{ color: '#ccc' }}>·</span>
           )}
@@ -267,9 +252,9 @@ export default async function NewsArticlePage({ params }: PageProps) {
           </div>
         )}
 
-        {/* 返回 News 列表 */}
+        {/* 返回链接 */}
         <Link href="/news" style={backLinkStyle}>
-          ← Back to News
+          ← {dict.nav?.news || 'News'}
         </Link>
       </div>
     </div>

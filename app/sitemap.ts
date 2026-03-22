@@ -17,13 +17,18 @@ function entry(
   freq: MetadataRoute.Sitemap[number]['changeFrequency'],
   priority: number,
 ): MetadataRoute.Sitemap[number] {
+  const isHome = path === '' || path === '/';
   const languages: Record<string, string> = {};
   for (const locale of locales) {
-    languages[locale] = `${BASE}/${locale}${path}`;
+    if (locale === 'en') {
+      languages[locale] = isHome ? BASE : `${BASE}${path}`;
+    } else {
+      languages[locale] = `${BASE}/${locale}${isHome ? '' : path}`;
+    }
   }
-  languages['x-default'] = `${BASE}/en${path}`;
+  languages['x-default'] = isHome ? BASE : `${BASE}${path}`;
   return {
-    url: `${BASE}/en${path}`,
+    url: isHome ? BASE : `${BASE}${path}`,
     lastModified: new Date(),
     changeFrequency: freq,
     priority,
@@ -78,18 +83,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── 博客文章 ──────────────────────────────────────────────────────────────
   let blogEntries: MetadataRoute.Sitemap = [];
+  let newsEntries: MetadataRoute.Sitemap = [];
   try {
     const articles = await getBlogArticles('news', 100);
     blogEntries = articles.map((a: { handle: string }) =>
       entry(`/blog/${a.handle}`, 'monthly', 0.7),
     );
-  } catch { /* 跳过 */ }
-
-  // ── News 文章（同 blog 数据源，映射到 /news/ 路径） ──────────────────────
-  let newsEntries: MetadataRoute.Sitemap = [];
-  try {
-    const newsArticles = await getBlogArticles('news', 100);
-    newsEntries = newsArticles.map((a: { handle: string }) =>
+    newsEntries = articles.map((a: { handle: string }) =>
       entry(`/news/${a.handle}`, 'monthly', 0.7),
     );
   } catch { /* 跳过 */ }

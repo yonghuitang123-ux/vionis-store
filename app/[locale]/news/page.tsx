@@ -1,8 +1,7 @@
 /**
- * News 列表页 — Server Component (SSG)
+ * News 列表页 — Server Component (ISR)
  * ─────────────────────────────────────────────────────────────────
- * 从 Shopify Storefront API 拉取 "News" 博客下的所有文章，
- * 展示为列表：标题 + 配图 + 日期 + 摘要。
+ * 从 Shopify Storefront API 拉取 "News" 博客下的所有文章
  */
 
 import type { Metadata } from 'next';
@@ -13,20 +12,26 @@ import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticles } from '@/lib/shopify';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 import { getDictionary } from '@/lib/i18n/dictionaries';
-import type { Locale } from '@/lib/i18n/config';
+import { locales, type Locale } from '@/lib/i18n/config';
+
+export const revalidate = 3600; // ISR: 1 小时
+
+// ─── 预渲染所有语言版本 ──────────────────────────────────────────────────────
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 // ─── SEO 元数据 ────────────────────────────────────────────────────────────────
-
 export function generateMetadata(): Metadata {
   return {
     title: 'News — VIONIS·XY',
     description:
-      'The latest news and updates from VIONIS·XY. Discover our newest collections, behind-the-scenes stories, and brand announcements.',
+      'Latest news, updates, and stories from VIONIS·XY — rare cashmere and seamless merino knitwear.',
     alternates: buildAlternates('/news'),
     openGraph: {
       title: 'News — VIONIS·XY',
       description:
-        'The latest news and updates from VIONIS·XY.',
+        'Latest news, updates, and stories from VIONIS·XY.',
       siteName: 'VIONIS·XY',
       type: 'website',
       images: [defaultOgImage],
@@ -108,9 +113,9 @@ const excerptStyle: CSSProperties = {
 
 // ─── 日期格式化 ──────────────────────────────────────────────────────────────
 
-function formatDate(dateStr: string) {
+function formatDate(dateStr: string, locale: string) {
   try {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString(locale === 'en' ? 'en-US' : locale, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -126,7 +131,6 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const dict = await getDictionary((locale || 'en') as Locale);
 
-  // 从 Shopify API 获取 "News" 博客文章
   let articles: any[] = [];
   try {
     const apiArticles = await getBlogArticles('news', 50);
@@ -149,34 +153,20 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
           <Breadcrumb
             items={[
               { label: dict.common?.home || 'Home', href: '/' },
-              { label: 'News' },
+              { label: dict.nav?.news || 'News' },
             ]}
           />
         </div>
 
-        {/* 响应式网格样式 */}
+        {/* 响应式网格 */}
         <style dangerouslySetInnerHTML={{ __html: `
           .news-grid{grid-template-columns:1fr}
           @media(min-width:640px){.news-grid{grid-template-columns:repeat(2,1fr)}}
           @media(min-width:1024px){.news-grid{grid-template-columns:repeat(3,1fr)}}
-          @media(max-width:768px){.news-grid{grid-template-columns:1fr!important;gap:40px!important}}
         ` }} />
 
         {/* 标题 */}
         <h1 style={titleStyle}>NEWS</h1>
-
-        {/* 空状态 */}
-        {articles.length === 0 && (
-          <p style={{
-            fontFamily: 'var(--font-montserrat)',
-            fontSize: 14,
-            color: '#888',
-            textAlign: 'center',
-            marginTop: 48,
-          }}>
-            No news articles yet. Check back soon.
-          </p>
-        )}
 
         {/* 文章网格 */}
         <div style={gridStyle} className="news-grid">
@@ -209,7 +199,7 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
 
               {/* 日期 */}
               {article.date && (
-                <p style={dateStyle}>{formatDate(article.date)}</p>
+                <p style={dateStyle}>{formatDate(article.date, locale)}</p>
               )}
 
               {/* 标题 */}
@@ -226,6 +216,19 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
             </Link>
           ))}
         </div>
+
+        {/* 无文章时的提示 */}
+        {articles.length === 0 && (
+          <p style={{
+            fontFamily: 'var(--font-montserrat)',
+            fontSize: 14,
+            color: '#666',
+            textAlign: 'center',
+            marginTop: 40,
+          }}>
+            No news articles yet. Check back soon.
+          </p>
+        )}
       </div>
     </div>
   );
