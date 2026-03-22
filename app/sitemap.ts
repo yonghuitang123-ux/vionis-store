@@ -17,13 +17,18 @@ function entry(
   freq: MetadataRoute.Sitemap[number]['changeFrequency'],
   priority: number,
 ): MetadataRoute.Sitemap[number] {
+  const isHome = path === '' || path === '/';
   const languages: Record<string, string> = {};
   for (const locale of locales) {
-    languages[locale] = `${BASE}/${locale}${path}`;
+    if (locale === 'en') {
+      languages[locale] = isHome ? BASE : `${BASE}${path}`;
+    } else {
+      languages[locale] = `${BASE}/${locale}${isHome ? '' : path}`;
+    }
   }
-  languages['x-default'] = `${BASE}/en${path}`;
+  languages['x-default'] = isHome ? BASE : `${BASE}${path}`;
   return {
-    url: `${BASE}/en${path}`,
+    url: isHome ? BASE : `${BASE}${path}`,
     lastModified: new Date(),
     changeFrequency: freq,
     priority,
@@ -37,6 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry('',                           'daily',   1.0),
     entry('/collections',               'daily',   0.9),
     entry('/blog',                      'weekly',  0.8),
+    entry('/news',                      'weekly',  0.8),
     entry('/pages/our-story',           'monthly', 0.6),
     entry('/pages/sustainability',      'monthly', 0.6),
     entry('/pages/craftsmanship',       'monthly', 0.6),
@@ -77,12 +83,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── 博客文章 ──────────────────────────────────────────────────────────────
   let blogEntries: MetadataRoute.Sitemap = [];
+  let newsEntries: MetadataRoute.Sitemap = [];
   try {
     const articles = await getBlogArticles('news', 100);
     blogEntries = articles.map((a: { handle: string }) =>
       entry(`/blog/${a.handle}`, 'monthly', 0.7),
     );
+    newsEntries = articles.map((a: { handle: string }) =>
+      entry(`/news/${a.handle}`, 'monthly', 0.7),
+    );
   } catch { /* 跳过 */ }
 
-  return [...staticEntries, ...productEntries, ...collectionEntries, ...blogEntries];
+  return [...staticEntries, ...productEntries, ...collectionEntries, ...blogEntries, ...newsEntries];
 }

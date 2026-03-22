@@ -56,14 +56,15 @@ export function middleware(request: NextRequest) {
   const firstSegment = segments[1]; // '' 之后的第一段
 
   if (locales.includes(firstSegment)) {
-    // /en 首页 → 301 重定向到 /（避免重复内容）
-    if (firstSegment === defaultLocale && (pathname === '/en' || pathname === '/en/')) {
+    // /en/* → 301 重定向到 /*（英文是默认语言，不需要前缀）
+    if (firstSegment === defaultLocale) {
       const url = request.nextUrl.clone();
-      url.pathname = '/';
+      const rest = pathname.replace(/^\/en\/?/, '/');
+      url.pathname = rest === '' ? '/' : rest;
       return NextResponse.redirect(url, 301);
     }
 
-    // 已有 locale 前缀，放行
+    // 其他语言已有 locale 前缀，放行
     // 设置 cookie 记住用户选择
     const response = NextResponse.next();
     response.cookies.set('NEXT_LOCALE', firstSegment, {
@@ -74,24 +75,17 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // 没有 locale 前缀
-  const locale = getPreferredLocale(request);
+  // 没有 locale 前缀 → 当作英文默认语言，rewrite 到 /en/path（URL 不变）
   const url = request.nextUrl.clone();
-  url.pathname = `/${locale}${pathname}`;
+  url.pathname = `/${defaultLocale}${pathname}`;
 
-  // 根路径 "/" → rewrite（URL 不变，直接展示内容，SEO 友好）
-  if (pathname === '/') {
-    const response = NextResponse.rewrite(url);
-    response.cookies.set('NEXT_LOCALE', locale, {
-      maxAge: 365 * 24 * 60 * 60,
-      path: '/',
-      sameSite: 'lax',
-    });
-    return response;
-  }
-
-  // 其他路径 → 308 永久重定向
-  return NextResponse.redirect(url, 308);
+  const response = NextResponse.rewrite(url);
+  response.cookies.set('NEXT_LOCALE', defaultLocale, {
+    maxAge: 365 * 24 * 60 * 60,
+    path: '/',
+    sameSite: 'lax',
+  });
+  return response;
 }
 
 export const config = {

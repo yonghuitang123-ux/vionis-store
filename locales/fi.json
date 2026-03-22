@@ -11,7 +11,8 @@
     "wishlist": "Toivelista",
     "account": "Tili",
     "cart": "Ostoskori",
-    "shopAll": "Kaikki Tuotteet"
+    "shopAll": "Kaikki Tuotteet",
+    "news": "Uutiset"
   },
   "product": {
     "addToBag": "Lisää ostoskoriin",

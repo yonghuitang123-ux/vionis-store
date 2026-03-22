@@ -11,7 +11,8 @@
     "wishlist": "ウィッシュリスト",
     "account": "アカウント",
     "cart": "ショッピングバッグ",
-    "shopAll": "すべての商品"
+    "shopAll": "すべての商品",
+    "news": "ニュース"
   },
   "product": {
     "addToBag": "バッグに追加する",
