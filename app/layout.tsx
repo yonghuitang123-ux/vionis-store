@@ -67,8 +67,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://vionisxy.myshopify.com" crossOrigin="anonymous" />
+        {/* Shopify API（GraphQL 请求无 CORS，不加 crossOrigin） */}
+        <link rel="preconnect" href="https://vionisxy.myshopify.com" />
         <link rel="dns-prefetch" href="https://vionisxy.myshopify.com" />
+        {/* Shopify CDN 图片源，需要 crossOrigin 匹配 Next/Image CORS 请求 */}
+        <link rel="preconnect" href="https://cdn.shopify.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.shopify.com" />
         {/* Preload LCP hero image — mobile only (sizes=50vw → DPR picks w=640) */}
         <link
           rel="preload"
@@ -77,11 +81,11 @@ export default function RootLayout({
           media="(max-width: 749px)"
           fetchPriority="high"
         />
-        {/* Preload LCP hero image — desktop */}
+        {/* Preload LCP hero image — desktop (w=1920 覆盖 50vw@2x 桌面视口) */}
         <link
           rel="preload"
           as="image"
-          href="/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0961%2F1965%2F2627%2Ffiles%2FVIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp%3Fv%3D1770369606&w=640&q=70"
+          href="/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0961%2F1965%2F2627%2Ffiles%2FVIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp%3Fv%3D1770369606&w=1920&q=70"
           media="(min-width: 750px)"
           fetchPriority="high"
         />

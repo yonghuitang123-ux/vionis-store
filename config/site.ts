@@ -420,10 +420,14 @@ export const siteConfig = {
       { 文字: 'Cashmere',           链接: '/collections/cashmere',      翻译键: 'nav.cashmere'     },
       { 文字: 'Merino Wool',        链接: '/collections/merino',        翻译键: 'nav.merinoWool'   },
       { 文字: 'New Arrivals',       链接: '/collections/new-arrivals',  翻译键: 'nav.newArrivals'  },
-      { 文字: 'Our Story',          链接: '/pages/our-story',           翻译键: 'nav.ourStory'     },
-      { 文字: 'Craftsmanship',      链接: '/pages/craftsmanship',       翻译键: 'nav.craftsmanship'},
-      { 文字: 'Journal',            链接: '/blog',                      翻译键: 'nav.journal'      },
-      { 文字: 'News',               链接: '/news',                      翻译键: 'nav.news'         },
+      {
+        文字: 'Journal', 链接: '/blog', 翻译键: 'nav.journal',
+        // 说明：悬停时展示下拉子菜单
+        子菜单: [
+          { 文字: 'Latest Articles', 链接: '/blog', 翻译键: 'nav.latestArticles' },
+          { 文字: 'Industry News',   链接: '/news', 翻译键: 'nav.industryNews'   },
+        ],
+      },
       { 文字: 'Shop All',           链接: '/collections/shop-all',      翻译键: 'nav.shopAll'      },
     ],
   },
