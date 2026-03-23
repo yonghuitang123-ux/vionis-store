@@ -6,7 +6,8 @@
  * 交互逻辑委托给客户端组件 HomeContent。
  */
 
-import { getProducts, getBlogArticles } from '@/lib/shopify';
+import { getProductsByHandles, getBlogArticles } from '@/lib/shopify';
+import { siteConfig } from '@/config/site';
 import HomeContent from './HomeContent';
 
 /* ISR: 每小时重新验证一次，避免每次请求都调 Shopify API */
@@ -20,16 +21,26 @@ export function generateStaticParams() {
 }
 
 export default async function Home() {
-  let products = [];
+  const { grid } = siteConfig;
+  let womenProducts: any[] = [];
+  let menProducts: any[] = [];
   let journalArticles: { handle: string; title: string; excerpt: string; image: { url: string } | null }[] = [];
-  try {
-    products = await getProducts();
-  } catch {
-    // Shopify API 失败时降级为空数组，HomeContent 会显示骨架屏
-  }
-  try {
-    journalArticles = await getBlogArticles('journal', 10);
-  } catch { /* 回退到静态配置 */ }
 
-  return <HomeContent initialProducts={products} journalArticles={journalArticles} />;
+  const [womenResult, menResult, journalResult] = await Promise.allSettled([
+    getProductsByHandles(grid.女装产品handles),
+    getProductsByHandles(grid.男装产品handles),
+    getBlogArticles('journal', 10),
+  ]);
+
+  if (womenResult.status === 'fulfilled') womenProducts = womenResult.value ?? [];
+  if (menResult.status === 'fulfilled')   menProducts   = menResult.value   ?? [];
+  if (journalResult.status === 'fulfilled') journalArticles = journalResult.value ?? [];
+
+  return (
+    <HomeContent
+      womenProducts={womenProducts}
+      menProducts={menProducts}
+      journalArticles={journalArticles}
+    />
+  );
 }

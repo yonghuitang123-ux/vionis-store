@@ -63,9 +63,23 @@ export const siteConfig = {
     男装副标题: 'ALXA, INNER MONGOLIA · SPRING EDITION',
     男装正文:   'The Alxa white cashmere goat produces some of the world\'s finest fibres. Our spring collection carries the same structured silhouettes and uncompromising quality, re-engineered in lighter gauges for the transitional season. Less weight, nothing lost.',
 
-    // Shopify collection handle（用于 API 按系列取产品，暂保留备用）
+    // Shopify collection handle（暂保留备用）
     女装产品系列: 'women',
     男装产品系列: 'men',
+
+    // ── 首页产品网格：指定精确展示的产品 handle（顺序即展示顺序）──
+    女装产品handles: [
+      '16µm-the-seamless-merino-layer-190g',                              // 16µm The Seamless Merino Layer (190g)
+      'the-signature-ribbed-midi-skirt-100-inner-mongolia-cashmere-220g', // The Signature Ribbed Midi Skirt (220g)
+      'the-360g-essential-cashmere-maxi-skirt',                           // The 360g Essential Cashmere Maxi Skirt
+      'the-30-cashmere-polo-vest',                                        // The Cashmere-Merino Vest (210g)
+    ],
+    男装产品handles: [
+      'the-essential-100-cashmere-v-neck-vest-180g-ultra-fine-knit',      // The Essential Cashmere Vest (180g)
+      'the-signature-v-neck-100-inner-mongolia-cashmere-cardigan-280g',   // The Signature Cardigan (280g)
+      'the-100-pure-cashmere-crew-280g',                                  // The Classic Cashmere Crew (280g)
+      'the-heritage-cable-knit-quarter-zip-100-inner-mongolian-cashmere', // The Heritage Quarter-Zip (330g)
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════════

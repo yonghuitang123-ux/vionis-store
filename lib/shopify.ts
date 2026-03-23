@@ -154,6 +154,25 @@ const CART_FRAGMENT = `
 
 // ─── 产品查询 ──────────────────────────────────────────────────────────────────
 
+/**
+ * 按 handle 数组批量获取产品（用于首页 EditorialPanel 精准选品）
+ * 使用 GraphQL alias 一次请求取回所有产品，顺序与入参保持一致。
+ */
+export async function getProductsByHandles(handles: string[]) {
+  if (!handles.length) return [];
+  const aliases = handles
+    .map((h, i) => `p${i}: product(handle: "${h}") { ...ProductCard }`)
+    .join('\n');
+  const query = `
+    ${PRODUCT_CARD_FRAGMENT}
+    query GetProductsByHandles {
+      ${aliases}
+    }
+  `;
+  const { data } = await shopify.request(query);
+  return handles.map((_, i) => data[`p${i}`]).filter(Boolean);
+}
+
 /** 获取首页产品列表（简化版，用于首页展示） */
 export async function getProducts(first = 12) {
   const query = `
