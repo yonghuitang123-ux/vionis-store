@@ -157,8 +157,8 @@ export default function LiquidBanner({
     : `var(--font-cormorant), "${headingFont}", serif`;
 
   const css = [
-    /* 淡入过渡：纯 opacity → 始终 GPU 合成，避免 scale 引发的非合成动画警告与 LCP 渲染延迟 */
-    `#${SCOPE_ID} .lb-img-fade{animation:lbReveal 1.2s ease-out both;will-change:opacity}`,
+    /* 淡入过渡：纯 opacity GPU 合成，0.5s 快速淡入减少 LCP 延迟 */
+    `#${SCOPE_ID} .lb-img-fade{animation:lbReveal 0.5s ease-out both;will-change:opacity}`,
     `@keyframes lbReveal{from{opacity:0}to{opacity:1}}`,
     `#${SCOPE_ID} a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}`,
     `#${SCOPE_ID} .lb-overlay{top:65%;max-width:600px}`,
@@ -234,7 +234,7 @@ export default function LiquidBanner({
                   align="left"
                   bg={c.outerBg}
                   visibility="hidden min-[750px]:block"
-                  loadMode="eager"
+                  loadMode="lazy"
                 />
                 <ImageSlot
                   src={leftImageMobile!}
@@ -271,7 +271,7 @@ export default function LiquidBanner({
                   align="right"
                   bg={c.outerBg}
                   visibility="hidden min-[750px]:block"
-                  loadMode="eager"
+                  loadMode="lazy"
                 />
                 <ImageSlot
                   src={rightImageMobile!}
