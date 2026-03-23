@@ -416,18 +416,12 @@ export const siteConfig = {
   nav: {
     // 说明：颜色字段可选，留空默认 #1a1a1a（深色）
     菜单: [
-      { 文字: 'Spring/Summer 2026', 链接: '/', 颜色: '#7A6548',         翻译键: 'nav.springSummer' },
+      { 文字: 'Spring/Summer 2026', 链接: '/', 颜色: '#5C4830',         翻译键: 'nav.springSummer' },
       { 文字: 'Cashmere',           链接: '/collections/cashmere',      翻译键: 'nav.cashmere'     },
       { 文字: 'Merino Wool',        链接: '/collections/merino',        翻译键: 'nav.merinoWool'   },
       { 文字: 'New Arrivals',       链接: '/collections/new-arrivals',  翻译键: 'nav.newArrivals'  },
-      {
-        文字: 'Journal', 链接: '/blog', 翻译键: 'nav.journal',
-        // 说明：悬停时展示下拉子菜单
-        子菜单: [
-          { 文字: 'Insights', 链接: '/blog', 翻译键: 'nav.insights' },
-          { 文字: 'News',     链接: '/news', 翻译键: 'nav.news'     },
-        ],
-      },
+      { 文字: 'Journal',            链接: '/blog',                       翻译键: 'nav.journal'      },
+      { 文字: 'News',               链接: '/news',                       翻译键: 'nav.news'         },
       { 文字: 'Shop All',           链接: '/collections/shop-all',      翻译键: 'nav.shopAll'      },
     ],
   },

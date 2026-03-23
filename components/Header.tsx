@@ -305,97 +305,25 @@ export default function Header() {
 
             {/* 中：导航链接 */}
             <nav className="hdr-nav-center">
-              {nav.菜单.map((item) =>
-                item.子菜单 ? (
-                  /* ── 有下拉子菜单的导航项 ── */
-                  <div
-                    key={item.链接 + item.文字}
-                    style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}
-                    onMouseEnter={() => setHoveredNav(item.文字)}
-                    onMouseLeave={() => setHoveredNav(null)}
-                  >
-                    <Link
-                      href={item.链接}
-                      prefetch
-                      className="hdr-link"
-                      style={{
-                        color: item.颜色 ?? '#1a1a1a',
-                        fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
-                        fontSize: 11,
-                        fontWeight: 400,
-                        letterSpacing: '0.14em',
-                        textTransform: 'uppercase',
-                        textDecoration: 'none',
-                      }}
-                    >
-                      {item.翻译键 ? t(item.翻译键) : item.文字}
-                    </Link>
-                    {/* 下拉菜单 */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: 'calc(100% + 12px)',
-                        left: '50%',
-                        backgroundColor: '#EDE6DC',
-                        border: '1px solid rgba(0,0,0,0.06)',
-                        padding: '10px 0',
-                        minWidth: 170,
-                        zIndex: 200,
-                        pointerEvents: hoveredNav === item.文字 ? 'auto' : 'none',
-                        opacity: hoveredNav === item.文字 ? 1 : 0,
-                        transform: hoveredNav === item.文字
-                          ? 'translateX(-50%) translateY(0)'
-                          : 'translateX(-50%) translateY(-6px)',
-                        transition: 'opacity 0.18s ease, transform 0.18s ease',
-                      }}
-                    >
-                      {item.子菜单.map((sub) => (
-                        <Link
-                          key={sub.链接 + sub.文字}
-                          href={sub.链接}
-                          prefetch
-                          style={{
-                            display: 'block',
-                            padding: '9px 22px',
-                            color: '#1a1a1a',
-                            fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
-                            fontSize: 10,
-                            fontWeight: 400,
-                            letterSpacing: '0.14em',
-                            textTransform: 'uppercase',
-                            textDecoration: 'none',
-                            whiteSpace: 'nowrap',
-                            transition: 'opacity 0.15s',
-                          }}
-                          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.55')}
-                          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-                        >
-                          {sub.翻译键 ? t(sub.翻译键) : sub.文字}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  /* ── 普通导航项 ── */
-                  <Link
-                    key={item.链接 + item.文字}
-                    href={item.链接}
-                    prefetch
-                    className="hdr-link"
-                    style={{
-                      color: item.颜色 ?? '#1a1a1a',
-                      fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
-                      fontSize: 11,
-                      fontWeight: 400,
-                      letterSpacing: '0.14em',
-                      textTransform: 'uppercase',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    {item.翻译键 ? t(item.翻译键) : item.文字}
-                  </Link>
-                )
-              )}
+              {nav.菜单.map((item) => (
+                <Link
+                  key={item.链接 + item.文字}
+                  href={item.链接}
+                  prefetch
+                  className="hdr-link"
+                  style={{
+                    color: item.颜色 ?? '#1a1a1a',
+                    fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
+                    fontSize: 11,
+                    fontWeight: 400,
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {item.翻译键 ? t(item.翻译键) : item.文字}
+                </Link>
+              ))}
             </nav>
 
             {/* 右：图标组 */}
@@ -519,29 +447,6 @@ export default function Header() {
                 >
                   {item.翻译键 ? t(item.翻译键) : item.文字}
                 </Link>
-                {/* 子菜单：缩进展示 */}
-                {item.子菜单?.map((sub) => (
-                  <Link
-                    key={sub.链接 + sub.文字}
-                    href={sub.链接}
-                    prefetch
-                    onClick={() => setMobileOpen(false)}
-                    style={{
-                      color: '#7A6548',
-                      fontFamily: 'var(--font-montserrat), "Montserrat", sans-serif',
-                      fontSize: 10,
-                      fontWeight: 300,
-                      letterSpacing: '0.16em',
-                      textTransform: 'uppercase',
-                      textDecoration: 'none',
-                      padding: '5px 0 5px 18px',
-                      display: 'block',
-                      marginTop: '-6px',
-                    }}
-                  >
-                    {sub.翻译键 ? t(sub.翻译键) : sub.文字}
-                  </Link>
-                ))}
               </div>
             ))}
 
