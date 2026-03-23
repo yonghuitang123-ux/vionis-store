@@ -160,17 +160,20 @@ const CART_FRAGMENT = `
  */
 export async function getProductsByHandles(handles: string[]) {
   if (!handles.length) return [];
-  const aliases = handles
-    .map((h, i) => `p${i}: product(handle: "${h}") { ...ProductCard }`)
-    .join('\n');
-  const query = `
-    ${PRODUCT_CARD_FRAGMENT}
-    query GetProductsByHandles {
-      ${aliases}
-    }
-  `;
-  const { data } = await shopify.request(query);
-  return handles.map((_, i) => data[`p${i}`]).filter(Boolean);
+  // 逐个查询，避免 alias 批量查询在某些 Storefront API 版本下解析失败
+  const results = await Promise.all(
+    handles.map(async (handle) => {
+      const query = `
+        ${PRODUCT_CARD_FRAGMENT}
+        query GetProduct($handle: String!) {
+          product(handle: $handle) { ...ProductCard }
+        }
+      `;
+      const { data } = await shopify.request(query, { variables: { handle } });
+      return data?.product ?? null;
+    }),
+  );
+  return results.filter(Boolean);
 }
 
 /** 获取首页产品列表（简化版，用于首页展示） */

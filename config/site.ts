@@ -207,13 +207,13 @@ export const siteConfig = {
     轮播15_产品价格:         '',
     轮播15_产品链接:         '#',
 
-    // 16. The 16µm Skipper Polo
+    // 16. The 16um Skipper Polo
     轮播16_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY16_mSuperfineMerinoWoolJohnnyCollarPolo9.webp?v=1770806722',
     轮播16_模特大图_手机端: '',
     轮播16_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY16_mSuperfineMerinoWoolJohnnyCollarPolo1_2.webp?v=1770806722',
-    轮播16_产品名称:         'The 16µm Skipper Polo（225g）',
+    轮播16_产品名称:         'The 16um Skipper Polo（225g）',
     轮播16_产品价格:         '$117.00',
-    轮播16_产品链接:         '/products/the-16µm-superfine-merino-skipper-polo-spun-by-xinao-100-wool-225g',
+    轮播16_产品链接:         '/products/the-16um-superfine-merino-skipper-polo-spun-by-xinao-100-wool-225g',
 
     // 17. [预留]
     轮播17_模特大图_电脑端: '',
@@ -239,13 +239,13 @@ export const siteConfig = {
     轮播19_产品价格:         '$229.00',
     轮播19_产品链接:         '/products/the-30-cashmere-polo-vest',
 
-    // 20. The 16µm Worsted Crewneck — Camel
+    // 20. The 16um Worsted Crewneck — Camel
     轮播20_模特大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_16_m_100s_Worsted_Merino_Wool_Crewneck_Sweater_camel.webp?v=1770806046',
     轮播20_模特大图_手机端: '',
     轮播20_右侧小图:         'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_16_m_100s_Worsted_Merino_Wool_Crewneck_Sweater_2.webp?v=1770805976',
-    轮播20_产品名称:         'The 16µm Worsted Crewneck（350g）',
+    轮播20_产品名称:         'The 16um Worsted Crewneck（350g）',
     轮播20_产品价格:         '$143.00',
-    轮播20_产品链接:         '/products/the-16µm-superfine-merino-crewneck-100s-worsted-wool',
+    轮播20_产品链接:         '/products/the-16um-superfine-merino-crewneck-100s-worsted-wool',
 
     // 通用文字（所有轮播条目共用）
     副标签文字:   'THE LOOK',
