@@ -1,7 +1,6 @@
 'use client';
 
-import { useCallback, useId, useRef, useState } from 'react';
-import PlaceholderImage from '@/components/PlaceholderImage';
+import { useCallback, useId, useRef } from 'react';
 import Link from 'next/link';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -100,16 +99,6 @@ export default function BlogScroll({
     if (trackRef.current) trackRef.current.scrollLeft = scrollLeft.current - walk;
   }, []);
 
-  // ── 灯箱 ──────────────────────────────────────────────────────────────────
-  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
-
-  const openLightbox = useCallback((src: string, alt: string) => {
-    if (hasDragged.current) return;
-    if (!src) return;
-    setLightbox({ src, alt });
-  }, []);
-
-  const closeLightbox = useCallback(() => setLightbox(null), []);
 
   // ── 阻止拖拽时的 Link 点击跳转 ────────────────────────────────────────────
   const guardClick = useCallback((e: React.MouseEvent) => {
@@ -130,7 +119,7 @@ export default function BlogScroll({
     `#${scopeId} .bsc-card{width:${cardWidth}px;flex-shrink:0}`,
 
     // 图片容器 3:4 比例
-    `#${scopeId} .bsc-img{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:zoom-in}`,
+    `#${scopeId} .bsc-img{position:relative;aspect-ratio:3/4;overflow:hidden}`,
 
     // 图片 hover 微缩放（目标 next/image 渲染的 img 元素）
     `#${scopeId} .bsc-img img{transition:transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94)!important}`,
@@ -193,30 +182,32 @@ export default function BlogScroll({
       >
         {posts.map((post, idx) => (
           <article key={idx} className="bsc-card">
-
-            {/* 3:4 图片 — 点击放大 */}
-            <div
-              className="bsc-img mb-5"
-              onClick={() => openLightbox(post.imageDesktop, post.imageAlt ?? post.title)}
-            >
-              <PlaceholderImage
-                src={post.imageDesktop}
-                alt={post.imageAlt ?? post.title}
-                fill
-                sizes={`(max-width: 768px) ${cardWidthMob}px, ${cardWidth}px`}
-                className="object-cover object-top"
-                loading={idx === 0 ? 'eager' : 'lazy'}
-                draggable={false}
-              />
-            </div>
-
-            {/* 文字信息 */}
             <Link
               href={post.href}
               onClick={guardClick}
               className="block group"
               style={{ textDecoration: 'none' }}
             >
+              {/* 3:4 图片 */}
+              <div className="bsc-img mb-5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={post.imageDesktop}
+                  alt={post.imageAlt ?? post.title}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                  draggable={false}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'top',
+                  }}
+                />
+              </div>
+
+              {/* 文字信息 */}
               <h3
                 className="mb-2 transition-opacity duration-200 group-hover:opacity-60"
                 style={{
@@ -244,47 +235,9 @@ export default function BlogScroll({
                 <span style={{ display: 'inline-block', width: 20, height: 1, backgroundColor: mutedColor, verticalAlign: 'middle' }} />
               </span>
             </Link>
-
           </article>
         ))}
       </div>
-
-      {/* ── 灯箱 ── */}
-      {lightbox && (
-        <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center"
-          style={{ backgroundColor: 'rgba(10,10,10,0.88)', backdropFilter: 'blur(6px)' }}
-          onClick={closeLightbox}
-        >
-          {/* 关闭按钮 */}
-          <button
-            className="absolute top-6 right-8 text-white opacity-60 hover:opacity-100 transition-opacity"
-            style={{ fontSize: 28, lineHeight: 1, background: 'none', border: 'none', cursor: 'pointer' }}
-            onClick={closeLightbox}
-            aria-label="关闭"
-          >
-            ✕
-          </button>
-
-          {/* 图片容器 — 阻止冒泡，防止点图片本身关闭灯箱 */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '88vw', maxHeight: '88vh', position: 'relative' }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={lightbox.src}
-              alt={lightbox.alt}
-              style={{
-                maxWidth: '88vw',
-                maxHeight: '88vh',
-                objectFit: 'contain',
-                display: 'block',
-              }}
-            />
-          </div>
-        </div>
-      )}
     </section>
   );
 }
