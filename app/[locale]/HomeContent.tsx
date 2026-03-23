@@ -118,11 +118,12 @@ interface JournalArticle {
 }
 
 interface HomeContentProps {
-  initialProducts: ShopifyProduct[];
+  womenProducts: ShopifyProduct[];
+  menProducts: ShopifyProduct[];
   journalArticles?: JournalArticle[];
 }
 
-export default function HomeContent({ initialProducts, journalArticles = [] }: HomeContentProps) {
+export default function HomeContent({ womenProducts, menProducts, journalArticles = [] }: HomeContentProps) {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const { t } = useTranslation();
 
@@ -138,10 +139,9 @@ export default function HomeContent({ initialProducts, journalArticles = [] }: H
     linkText: t('home.viewProduct'),
   }));
 
-  // 产品卡片（服务端预取）
-  const cards       = initialProducts.length >= 4 ? initialProducts.map(toProductCard) : SKELETON_PRODUCTS;
-  const panel1Cards = cards.slice(0, 4);
-  const panel2Cards = cards.slice(4, 8).length === 4 ? cards.slice(4, 8) : SKELETON_PRODUCTS;
+  // 产品卡片（服务端预取，按女装/男装分开）
+  const panel1Cards = womenProducts.length > 0 ? womenProducts.map(toProductCard) : SKELETON_PRODUCTS;
+  const panel2Cards = menProducts.length > 0 ? menProducts.map(toProductCard) : SKELETON_PRODUCTS;
 
   // 页脚社交链接
   const activeSocial = Object.fromEntries(

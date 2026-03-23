@@ -665,6 +665,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         }
         .pdp-mobile-bar{display:none}
         @media(max-width:768px){
+          .scroll-to-top{bottom:100px!important}
           .pdp-mobile-bar{
             display:block;
             position:fixed;
