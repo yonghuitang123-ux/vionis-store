@@ -67,8 +67,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Shopify API（GraphQL 请求无 CORS，不加 crossOrigin） */}
-        <link rel="preconnect" href="https://vionisxy.myshopify.com" />
+        {/* Shopify Storefront API — cross-origin fetch 需要 crossOrigin 才能复用预建连接 */}
+        <link rel="preconnect" href="https://vionisxy.myshopify.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://vionisxy.myshopify.com" />
         {/* Shopify CDN 图片源，需要 crossOrigin 匹配 Next/Image CORS 请求 */}
         <link rel="preconnect" href="https://cdn.shopify.com" crossOrigin="anonymous" />

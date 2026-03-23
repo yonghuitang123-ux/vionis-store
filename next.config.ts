@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   },
   images: {
     qualities: [70],
+    // 增加 520、320 断点，精确匹配 BrandStory 桌面显示尺寸，减少多余像素下载
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 320, 384, 520],
     remotePatterns: [
       { protocol: 'https', hostname: 'placehold.co' },
       { protocol: 'https', hostname: 'cdn.shopify.com' },
