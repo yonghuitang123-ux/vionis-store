@@ -424,8 +424,8 @@ export const siteConfig = {
         文字: 'Journal', 链接: '/blog', 翻译键: 'nav.journal',
         // 说明：悬停时展示下拉子菜单
         子菜单: [
-          { 文字: 'Latest Articles', 链接: '/blog', 翻译键: 'nav.latestArticles' },
-          { 文字: 'Industry News',   链接: '/news', 翻译键: 'nav.industryNews'   },
+          { 文字: 'Insights', 链接: '/blog', 翻译键: 'nav.insights' },
+          { 文字: 'News',     链接: '/news', 翻译键: 'nav.news'     },
         ],
       },
       { 文字: 'Shop All',           链接: '/collections/shop-all',      翻译键: 'nav.shopAll'      },

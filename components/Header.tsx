@@ -336,7 +336,6 @@ export default function Header() {
                         position: 'absolute',
                         top: 'calc(100% + 12px)',
                         left: '50%',
-                        transform: 'translateX(-50%)',
                         backgroundColor: '#EDE6DC',
                         border: '1px solid rgba(0,0,0,0.06)',
                         padding: '10px 0',
@@ -535,12 +534,12 @@ export default function Header() {
                       letterSpacing: '0.16em',
                       textTransform: 'uppercase',
                       textDecoration: 'none',
-                      padding: '6px 0 6px 16px',
+                      padding: '5px 0 5px 18px',
                       display: 'block',
-                      marginTop: '-8px',
+                      marginTop: '-6px',
                     }}
                   >
-                    — {sub.翻译键 ? t(sub.翻译键) : sub.文字}
+                    {sub.翻译键 ? t(sub.翻译键) : sub.文字}
                   </Link>
                 ))}
               </div>
