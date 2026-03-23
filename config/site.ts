@@ -69,7 +69,7 @@ export const siteConfig = {
 
     // ── 首页产品网格：指定精确展示的产品 handle（顺序即展示顺序）──
     女装产品handles: [
-      '16µm-the-seamless-merino-layer-190g',                              // 16µm The Seamless Merino Layer (190g)
+      '100-merino-wool-seamless-base-layer-heather-grey',                  // 16µm The Seamless Merino Layer (190g)
       'the-signature-ribbed-midi-skirt-100-inner-mongolia-cashmere-220g', // The Signature Ribbed Midi Skirt (220g)
       'the-360g-essential-cashmere-maxi-skirt',                           // The 360g Essential Cashmere Maxi Skirt
       'the-30-cashmere-polo-vest',                                        // The Cashmere-Merino Vest (210g)
