@@ -48,12 +48,12 @@ export const siteConfig = {
     男装Tab标签: 'Men',
 
     // 女装 hero 大图（4:5 竖版，模特从顶部展示，建议 800×1000 以上）
-    女装大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/2_b5b746b0-b008-4593-9da3-f06952603f17.webp?v=1769206938',
-    女装大图_手机端: '',   // 留空则自动用电脑端图片
+    女装大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONISXY-cashmere-vest-women-french-style-beige-look-4x5.webp?v=1774341649',
+    女装大图_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONISXY-cashmere-vest-women-minimalist-outfit-16x9_webp.webp?v=1774341648',
 
     // 男装 hero 大图
-    男装大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/1_449b9768-3f31-4671-ac0c-c5bbc73d9f2e.webp?v=1769206854',
-    男装大图_手机端: '',   // 留空则自动用电脑端图片
+    男装大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONISXY-merino-wool-blazer-men-minimalist-4x5.webp?v=1774341649',
+    男装大图_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONISXY-merino-wool-jacket-texture-men-16x9.webp?v=1774341648',
 
     // 图片下方的文字叠层
     女装标题:   'The Spring Cashmere',
