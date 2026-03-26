@@ -14,12 +14,21 @@ export interface ShopPolicies {
 }
 
 export async function getPolicies(): Promise<ShopPolicies> {
-  const { data } = await shopify.request(SHOP_POLICIES_QUERY);
-  const shop = data?.shop ?? {};
-  return {
-    privacyPolicy: shop.privacyPolicy ?? null,
-    refundPolicy: shop.refundPolicy ?? null,
-    shippingPolicy: shop.shippingPolicy ?? null,
-    termsOfService: shop.termsOfService ?? null,
-  };
+  try {
+    const { data } = await shopify.request(SHOP_POLICIES_QUERY);
+    const shop = data?.shop ?? {};
+    return {
+      privacyPolicy: shop.privacyPolicy ?? null,
+      refundPolicy: shop.refundPolicy ?? null,
+      shippingPolicy: shop.shippingPolicy ?? null,
+      termsOfService: shop.termsOfService ?? null,
+    };
+  } catch {
+    return {
+      privacyPolicy: null,
+      refundPolicy: null,
+      shippingPolicy: null,
+      termsOfService: null,
+    };
+  }
 }
