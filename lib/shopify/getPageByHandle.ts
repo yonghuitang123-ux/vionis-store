@@ -8,8 +8,12 @@ export interface PageByHandle {
 }
 
 export async function getPageByHandle(handle: string): Promise<PageByHandle | null> {
-  const { data } = await shopify.request(PAGE_BY_HANDLE_QUERY, {
-    variables: { handle },
-  });
-  return data?.page ?? null;
+  try {
+    const { data } = await shopify.request(PAGE_BY_HANDLE_QUERY, {
+      variables: { handle },
+    });
+    return data?.page ?? null;
+  } catch {
+    return null;
+  }
 }
