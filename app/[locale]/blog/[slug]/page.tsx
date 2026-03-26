@@ -13,6 +13,9 @@ import Breadcrumb from '@/components/Breadcrumb';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticleByHandle } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
+
+// 每小时重新验证，后台更新文章后最多 1 小时自动刷新
+export const revalidate = 3600;
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/config';
