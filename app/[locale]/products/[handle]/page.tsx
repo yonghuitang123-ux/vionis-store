@@ -10,6 +10,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getProductByHandle, getProductRecommendations } from '@/lib/shopify';
+import { getApprovedReviews } from '@/lib/reviews';
 import ProductCard from '@/components/ProductCard';
 import ProductDetail from './ProductDetail';
 import ServiceBar from '@/components/ServiceBar';
@@ -143,6 +144,14 @@ export default async function ProductPage({ params }: PageProps) {
     // 推荐获取失败不影响页面渲染
   }
 
+  // 获取已审核通过的评论（用于 JSON-LD 结构化数据）
+  let approvedReviews: Awaited<ReturnType<typeof getApprovedReviews>> = [];
+  try {
+    approvedReviews = await getApprovedReviews(product.id);
+  } catch {
+    // 评论获取失败不影响页面渲染
+  }
+
   // JSON-LD 结构化数据
   const firstImage = Array.isArray(product.images) ? product.images[0] : product.images?.[0];
   const price = product.priceRange?.minVariantPrice;
@@ -152,7 +161,13 @@ export default async function ProductPage({ params }: PageProps) {
 
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com').replace(/\/+$/, '');
 
-  const jsonLd = {
+  // 计算评论聚合数据
+  const reviewCount = approvedReviews.length;
+  const avgRating = reviewCount > 0
+    ? Math.round((approvedReviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount) * 10) / 10
+    : 0;
+
+  const jsonLd: Record<string, any> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.title,
@@ -174,6 +189,34 @@ export default async function ProductPage({ params }: PageProps) {
         : 'https://schema.org/OutOfStock',
     },
   };
+
+  // 有评论时添加 aggregateRating 和 review 数组
+  if (reviewCount > 0) {
+    jsonLd.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: avgRating,
+      reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    };
+    // 最多展示最近 10 条评论的结构化数据
+    jsonLd.review = approvedReviews.slice(0, 10).map((r) => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: r.displayName,
+      },
+      datePublished: r.createdAt,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: r.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      name: r.title || undefined,
+      reviewBody: r.body || undefined,
+    }));
+  }
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
