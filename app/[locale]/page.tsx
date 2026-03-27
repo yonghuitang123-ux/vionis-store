@@ -10,8 +10,8 @@ import { getProductsByHandles, getBlogArticles } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
 import HomeContent from './HomeContent';
 
-/* ISR: 每小时重新验证一次，避免每次请求都调 Shopify API */
-export const revalidate = 3600;
+/* ISR: 每 10 分钟重新验证，确保新博客文章及时出现在首页 */
+export const revalidate = 600;
 
 /* 预生成所有语言版本的首页（SSG） */
 export function generateStaticParams() {
@@ -29,12 +29,12 @@ export default async function Home() {
   const [womenResult, menResult, journalResult] = await Promise.allSettled([
     getProductsByHandles(grid.女装产品handles),
     getProductsByHandles(grid.男装产品handles),
-    getBlogArticles('journal', 10),
+    getBlogArticles('journal', 4),
   ]);
 
   if (womenResult.status === 'fulfilled') womenProducts = womenResult.value ?? [];
   if (menResult.status === 'fulfilled')   menProducts   = menResult.value   ?? [];
-  if (journalResult.status === 'fulfilled') journalArticles = journalResult.value ?? [];
+  if (journalResult.status === 'fulfilled') journalArticles = journalResult.value?.articles ?? [];
 
   return (
     <HomeContent

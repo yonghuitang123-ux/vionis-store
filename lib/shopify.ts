@@ -534,11 +534,11 @@ export async function getCustomerOrders(accessToken: string, first = 20) {
 // ─── 博客查询 ──────────────────────────────────────────────────────────────────
 
 /** 获取博客文章列表 */
-export async function getBlogArticles(blogHandle = 'news', first = 20) {
+export async function getBlogArticles(blogHandle = 'news', first = 20, after?: string) {
   const query = `
-    query GetArticles($blogHandle: String!, $first: Int!) {
+    query GetArticles($blogHandle: String!, $first: Int!, $after: String) {
       blog(handle: $blogHandle) {
-        articles(first: $first, sortKey: PUBLISHED_AT, reverse: true) {
+        articles(first: $first, sortKey: PUBLISHED_AT, reverse: true, after: $after) {
           edges {
             node {
               id
@@ -550,15 +550,25 @@ export async function getBlogArticles(blogHandle = 'news', first = 20) {
               authorV2 { name }
               contentHtml
             }
+            cursor
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
           }
         }
       }
     }
   `;
   const { data } = await shopify.request(query, {
-    variables: { blogHandle, first },
+    variables: { blogHandle, first, ...(after ? { after } : {}) },
   });
-  return data.blog?.articles?.edges?.map((e: any) => e.node) ?? [];
+  const edges = data.blog?.articles?.edges ?? [];
+  const pageInfo = data.blog?.articles?.pageInfo ?? { hasNextPage: false, endCursor: null };
+  return {
+    articles: edges.map((e: any) => e.node),
+    pageInfo,
+  };
 }
 
 /** 根据 handle 获取单篇博客文章 */

@@ -367,41 +367,36 @@ export const siteConfig = {
   blog: {
     标题: 'INSIDE VIONIS·XY',
 
+    // 静态回退文章 — 仅当 Shopify API 不可用时显示
+    // 请保持与 Shopify 最新 4 篇博客文章同步
     文章列表: [
       {
-        图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-alashan-cashmere-goats-inner-mongolia-source.webp?v=1773412607',              // 建议上传 3:4 竖图，宽 680px 以上
-        图片_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/29a72414bf184c6268db152e0c0ce709.webp?v=1773665432',              // 不填则自动使用电脑端图片
-        文章标题: 'The Origin of Cashmere',
-        文章正文: 'Inner Mongolia, -30°C. The world\'s finest cashmere is born from extreme cold.',
-        链接: '/blog/cashmere-origin',
+        图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-alashan-cashmere-goats-inner-mongolia-source.webp?v=1773412607',
+        图片_手机端: '',
+        文章标题: 'Cashmere Care Guide: Everything You Need to Know',
+        文章正文: 'Learn how to wash, store, and maintain your cashmere garments to keep them looking beautiful for years.',
+        链接: '/blog/cashmere-care',
       },
       {
         图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-merino-wool-yarn-texture-closeup.webp?v=1773412220',
         图片_手机端: '',
-        文章标题: 'The Secret of Merino',
-        文章正文: '18.5 microns — three times finer than human hair. Every fibre chosen with precision.',
-        链接: '/blog/merino-secret',
+        文章标题: 'Merino Wool Base Layer vs Cashmere: Which Is Better?',
+        文章正文: 'A detailed comparison of two luxury natural fibers — which one suits your lifestyle and wardrobe best?',
+        链接: '/blog/merino-wool-base-layer',
       },
       {
         图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-sgs-certified-100-percent-cashmere-lab-report.webp?v=1773412943',
         图片_手机端: '',
-        文章标题: 'Independently Certified Purity',
-        文章正文: 'Every VIONIS·XY piece undergoes SGS laboratory testing to confirm 100% natural fiber composition. No blends. No shortcuts.',
-        链接: '/blog/handcraft',
+        文章标题: 'Is Cashmere Worth It? A Cost-Per-Wear Breakdown',
+        文章正文: 'We break down the real cost of cashmere versus fast fashion — the numbers may surprise you.',
+        链接: '/blog/is-cashmere-worth-it-a-brutally-honest-cost-per-wear-analysis',
       },
       {
         图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-cashmere-turtleneck-quiet-luxury_lifestyle..webp?v=1773412185',
-        图片_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-cashmere-turtleneck-quiet-luxury_lifestyle..webp?v=1773412185',
-        文章标题: 'Quiet Luxury, Defined',
-        文章正文: 'True luxury whispers. VIONIS·XY is for those who know the difference.',
-        链接: '/blog/quiet-luxury',
-      },
-      {
-        图片_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-natural-cashmere-merino-yarn-cones-premium-mill.webp?v=1773413116',
-        图片_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/vionis-xy-natural-cashmere-merino-yarn-cones-premium-mill.webp?v=1773413116',
-        文章标题: 'Precision Knit Engineering',
-        文章正文: 'Every VIONIS·XY garment is constructed with tension-balanced knitting — engineered for durability, designed for longevity.',
-        链接: '/blog/knit-engineering',
+        图片_手机端: '',
+        文章标题: 'Why Is Cashmere So Expensive?',
+        文章正文: 'From Inner Mongolian pastures to your wardrobe — the journey that makes cashmere one of the rarest fibers on earth.',
+        链接: '/blog/why-is-cashmere-so-expensive-the-real-cost-explained',
       },
     ],
   },

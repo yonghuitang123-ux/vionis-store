@@ -8,14 +8,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { type CSSProperties } from 'react';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import Breadcrumb from '@/components/Breadcrumb';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticleByHandle } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
 
-// 每小时重新验证，后台更新文章后最多 1 小时自动刷新
-export const revalidate = 3600;
+// 每 10 分钟重新验证，确保文章更新及时
+export const revalidate = 600;
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/config';
@@ -204,7 +204,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
   const article = await resolveArticle(slug);
 
   if (!article) {
-    notFound();
+    redirect('/blog');
   }
 
   // JSON-LD 结构化数据

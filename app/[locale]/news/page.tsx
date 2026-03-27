@@ -133,7 +133,7 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
 
   let articles: any[] = [];
   try {
-    const apiArticles = await getBlogArticles('news', 50);
+    const { articles: apiArticles } = await getBlogArticles('news', 50);
     articles = apiArticles.map((a: any) => ({
       handle: a.handle,
       title: a.title,
