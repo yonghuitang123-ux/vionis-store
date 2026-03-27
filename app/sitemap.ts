@@ -9,7 +9,7 @@ import { MetadataRoute } from 'next';
 import { getProducts, getCollections, getBlogArticles } from '@/lib/shopify';
 import { locales } from '@/lib/i18n/config';
 
-const BASE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com').replace(/\/+$/, '');
+const BASE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com').trim().replace(/\/+$/, '');
 
 /** 为路径生成 14 种语言 alternates 的 sitemap 条目 */
 function entry(
