@@ -15,6 +15,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin', '/api/', '/cart', '/wishlist', '/account'],
       },
     ],
-    sitemap: 'https://www.vionisxy.com/sitemap.xml',
+    sitemap: 'https://vionisxy.com/sitemap.xml',
   }
 }
