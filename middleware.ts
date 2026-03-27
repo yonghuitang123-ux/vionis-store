@@ -33,6 +33,13 @@ function getPreferredLocale(request: NextRequest): string {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // /pages/about → /pages/our-story（301，避免 Shopify API 5xx）
+  if (pathname === '/pages/about' || pathname.match(/^\/[a-z]{2}\/pages\/about$/)) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(/\/pages\/about$/, '/pages/our-story');
+    return NextResponse.redirect(url, 301);
+  }
+
   // 跳过：Shopify checkout paths, API、静态文件、admin、_next、uploads 等
   if (
     pathname.startsWith('/cart/c/') ||
