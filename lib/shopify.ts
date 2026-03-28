@@ -160,8 +160,8 @@ const CART_FRAGMENT = `
  */
 export async function getProductsByHandles(handles: string[]) {
   if (!handles.length) return [];
-  // 逐个查询，避免 alias 批量查询在某些 Storefront API 版本下解析失败
-  const results = await Promise.all(
+  // 逐个查询 + allSettled：单个产品失败不影响其余
+  const results = await Promise.allSettled(
     handles.map(async (handle) => {
       const query = `
         ${PRODUCT_CARD_FRAGMENT}
@@ -173,29 +173,42 @@ export async function getProductsByHandles(handles: string[]) {
       return data?.product ?? null;
     }),
   );
-  return results.filter(Boolean);
+  return results
+    .filter((r): r is PromiseFulfilledResult<any> => r.status === 'fulfilled')
+    .map((r) => r.value)
+    .filter(Boolean);
 }
 
 /** 获取首页产品列表（简化版，用于首页展示） */
 export async function getProducts(first = 12) {
-  const query = `
-    ${PRODUCT_CARD_FRAGMENT}
-    query GetProducts($first: Int!) {
-      products(first: $first) {
-        edges { node { ...ProductCard } }
+  try {
+    const query = `
+      ${PRODUCT_CARD_FRAGMENT}
+      query GetProducts($first: Int!) {
+        products(first: $first) {
+          edges { node { ...ProductCard } }
+        }
       }
-    }
-  `;
-  const { data } = await shopify.request(query, { variables: { first } });
-  return data.products.edges.map((e: any) => e.node);
+    `;
+    const { data } = await shopify.request(query, { variables: { first } });
+    return data?.products?.edges?.map((e: any) => e.node) ?? [];
+  } catch (e) {
+    console.error('[Shopify] getProducts failed:', e);
+    return [];
+  }
 }
 
 /** 根据 handle 获取单个产品完整信息（PDP 页面用，含 media 用于颜色过滤） */
 export async function getProductByHandle(handle: string) {
-  const { data } = await shopify.request(PRODUCT_BY_HANDLE_QUERY, {
-    variables: { handle },
-  });
-  return normalizeProductByHandle(data.product);
+  try {
+    const { data } = await shopify.request(PRODUCT_BY_HANDLE_QUERY, {
+      variables: { handle },
+    });
+    return normalizeProductByHandle(data?.product);
+  } catch (e) {
+    console.error(`[Shopify] getProductByHandle("${handle}") failed:`, e);
+    return null;
+  }
 }
 
 /** 将 ProductByHandle 查询结果规范化为统一结构 */
@@ -260,83 +273,103 @@ function normalizeProductByHandle(raw: any) {
 
 /** 获取同系列推荐产品（排除当前产品） */
 export async function getProductRecommendations(productId: string) {
-  const query = `
-    ${PRODUCT_CARD_FRAGMENT}
-    query GetRecommendations($productId: ID!) {
-      productRecommendations(productId: $productId) { ...ProductCard }
-    }
-  `;
-  const { data } = await shopify.request(query, { variables: { productId } });
-  return data.productRecommendations ?? [];
+  try {
+    const query = `
+      ${PRODUCT_CARD_FRAGMENT}
+      query GetRecommendations($productId: ID!) {
+        productRecommendations(productId: $productId) { ...ProductCard }
+      }
+    `;
+    const { data } = await shopify.request(query, { variables: { productId } });
+    return data?.productRecommendations ?? [];
+  } catch (e) {
+    console.error('[Shopify] getProductRecommendations failed:', e);
+    return [];
+  }
 }
 
 // ─── 系列查询 ──────────────────────────────────────────────────────────────────
 
 /** 根据 handle 获取 collection 及其产品列表 */
 export async function getCollectionByHandle(handle: string, first = 50) {
-  const query = `
-    ${PRODUCT_CARD_FRAGMENT}
-    query GetCollection($handle: String!, $first: Int!) {
-      collection(handle: $handle) {
-        id
-        title
-        description
-        image { url altText width height }
-        seo { title description }
-        products(first: $first) {
-          edges { node { ...ProductCard } }
+  try {
+    const query = `
+      ${PRODUCT_CARD_FRAGMENT}
+      query GetCollection($handle: String!, $first: Int!) {
+        collection(handle: $handle) {
+          id
+          title
+          description
+          image { url altText width height }
+          seo { title description }
+          products(first: $first) {
+            edges { node { ...ProductCard } }
+          }
         }
       }
-    }
-  `;
-  const { data } = await shopify.request(query, { variables: { handle, first } });
-  return data.collection;
+    `;
+    const { data } = await shopify.request(query, { variables: { handle, first } });
+    return data?.collection ?? null;
+  } catch (e) {
+    console.error(`[Shopify] getCollectionByHandle("${handle}") failed:`, e);
+    return null;
+  }
 }
 
 /** 获取所有 collections（导航用） */
 export async function getCollections(first = 20) {
-  const query = `
-    query GetCollections($first: Int!) {
-      collections(first: $first) {
-        edges {
-          node {
-            id
-            title
-            handle
-            image { url altText }
+  try {
+    const query = `
+      query GetCollections($first: Int!) {
+        collections(first: $first) {
+          edges {
+            node {
+              id
+              title
+              handle
+              image { url altText }
+            }
           }
         }
       }
-    }
-  `;
-  const { data } = await shopify.request(query, { variables: { first } });
-  return data.collections.edges.map((e: any) => e.node);
+    `;
+    const { data } = await shopify.request(query, { variables: { first } });
+    return data?.collections?.edges?.map((e: any) => e.node) ?? [];
+  } catch (e) {
+    console.error('[Shopify] getCollections failed:', e);
+    return [];
+  }
 }
 
 // ─── 搜索 ──────────────────────────────────────────────────────────────────────
 
 /** 搜索产品（用于搜索页和搜索弹窗） */
 export async function searchProducts(queryStr: string, first = 20) {
-  const query = `
-    ${PRODUCT_CARD_FRAGMENT}
-    query SearchProducts($query: String!, $first: Int!) {
-      search(query: $query, first: $first, types: [PRODUCT]) {
-        edges {
-          node {
-            ... on Product { ...ProductCard }
+  try {
+    const query = `
+      ${PRODUCT_CARD_FRAGMENT}
+      query SearchProducts($query: String!, $first: Int!) {
+        search(query: $query, first: $first, types: [PRODUCT]) {
+          edges {
+            node {
+              ... on Product { ...ProductCard }
+            }
           }
+          totalCount
         }
-        totalCount
       }
-    }
-  `;
-  const { data } = await shopify.request(query, {
-    variables: { query: queryStr, first },
-  });
-  return {
-    products: data.search.edges.map((e: any) => e.node),
-    totalCount: data.search.totalCount,
-  };
+    `;
+    const { data } = await shopify.request(query, {
+      variables: { query: queryStr, first },
+    });
+    return {
+      products: data?.search?.edges?.map((e: any) => e.node) ?? [],
+      totalCount: data?.search?.totalCount ?? 0,
+    };
+  } catch (e) {
+    console.error('[Shopify] searchProducts failed:', e);
+    return { products: [], totalCount: 0 };
+  }
 }
 
 // ─── 购物车 CRUD ───────────────────────────────────────────────────────────────
@@ -535,40 +568,45 @@ export async function getCustomerOrders(accessToken: string, first = 20) {
 
 /** 获取博客文章列表 */
 export async function getBlogArticles(blogHandle = 'news', first = 20, after?: string) {
-  const query = `
-    query GetArticles($blogHandle: String!, $first: Int!, $after: String) {
-      blog(handle: $blogHandle) {
-        articles(first: $first, sortKey: PUBLISHED_AT, reverse: true, after: $after) {
-          edges {
-            node {
-              id
-              title
-              handle
-              excerpt
-              publishedAt
-              image { url altText width height }
-              authorV2 { name }
-              contentHtml
+  try {
+    const query = `
+      query GetArticles($blogHandle: String!, $first: Int!, $after: String) {
+        blog(handle: $blogHandle) {
+          articles(first: $first, sortKey: PUBLISHED_AT, reverse: true, after: $after) {
+            edges {
+              node {
+                id
+                title
+                handle
+                excerpt
+                publishedAt
+                image { url altText width height }
+                authorV2 { name }
+                contentHtml
+              }
+              cursor
             }
-            cursor
-          }
-          pageInfo {
-            hasNextPage
-            endCursor
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
           }
         }
       }
-    }
-  `;
-  const { data } = await shopify.request(query, {
-    variables: { blogHandle, first, ...(after ? { after } : {}) },
-  });
-  const edges = data.blog?.articles?.edges ?? [];
-  const pageInfo = data.blog?.articles?.pageInfo ?? { hasNextPage: false, endCursor: null };
-  return {
-    articles: edges.map((e: any) => e.node),
-    pageInfo,
-  };
+    `;
+    const { data } = await shopify.request(query, {
+      variables: { blogHandle, first, ...(after ? { after } : {}) },
+    });
+    const edges = data?.blog?.articles?.edges ?? [];
+    const pageInfo = data?.blog?.articles?.pageInfo ?? { hasNextPage: false, endCursor: null };
+    return {
+      articles: edges.map((e: any) => e.node),
+      pageInfo,
+    };
+  } catch (e) {
+    console.error('[Shopify] getBlogArticles failed:', e);
+    return { articles: [], pageInfo: { hasNextPage: false, endCursor: null } };
+  }
 }
 
 /** 根据 handle 获取单篇博客文章 */
@@ -576,25 +614,30 @@ export async function getBlogArticleByHandle(
   blogHandle = 'news',
   articleHandle: string,
 ) {
-  const query = `
-    query GetArticle($blogHandle: String!, $articleHandle: String!) {
-      blog(handle: $blogHandle) {
-        articleByHandle(handle: $articleHandle) {
-          id
-          title
-          handle
-          contentHtml
-          excerpt
-          publishedAt
-          image { url altText width height }
-          authorV2 { name }
-          seo { title description }
+  try {
+    const query = `
+      query GetArticle($blogHandle: String!, $articleHandle: String!) {
+        blog(handle: $blogHandle) {
+          articleByHandle(handle: $articleHandle) {
+            id
+            title
+            handle
+            contentHtml
+            excerpt
+            publishedAt
+            image { url altText width height }
+            authorV2 { name }
+            seo { title description }
+          }
         }
       }
-    }
-  `;
-  const { data } = await shopify.request(query, {
-    variables: { blogHandle, articleHandle },
-  });
-  return data.blog?.articleByHandle ?? null;
+    `;
+    const { data } = await shopify.request(query, {
+      variables: { blogHandle, articleHandle },
+    });
+    return data?.blog?.articleByHandle ?? null;
+  } catch (e) {
+    console.error(`[Shopify] getBlogArticleByHandle("${articleHandle}") failed:`, e);
+    return null;
+  }
 }

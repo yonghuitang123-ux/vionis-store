@@ -54,7 +54,7 @@ export default async function CollectionPage({ params }: PageProps) {
   const collection = await getCollectionByHandle(handle);
   if (!collection) notFound();
 
-  const products = normalizeProducts(collection.products.edges);
+  const products = normalizeProducts(collection.products?.edges ?? []);
 
   return (
     <main style={{ backgroundColor: '#E8DFD6', minHeight: '100vh' }}>

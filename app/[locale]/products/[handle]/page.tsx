@@ -155,7 +155,7 @@ export default async function ProductPage({ params }: PageProps) {
   // JSON-LD 结构化数据
   const firstImage = Array.isArray(product.images) ? product.images[0] : product.images?.[0];
   const price = product.priceRange?.minVariantPrice;
-  const hasVariantsInStock = product.variants.some(
+  const hasVariantsInStock = (product.variants ?? []).some(
     (v: any) => v.availableForSale,
   );
 
