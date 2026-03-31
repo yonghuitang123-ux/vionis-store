@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin', '/api/', '/cart', '/wishlist', '/account', '/search'],
+        disallow: ['/admin', '/api/', '/cart', '/wishlist', '/account', '/search', '/_next/static/'],
       },
       // AI 爬虫专用规则 — 允许访问 llms.txt
       {

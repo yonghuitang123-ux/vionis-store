@@ -56,8 +56,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry('/policies/refund-policy',    'yearly',  0.3),
     entry('/policies/shipping-policy',  'yearly',  0.3),
     entry('/policies/terms-of-service', 'yearly',  0.3),
-    entry('/cart',                      'weekly',  0.4),
-    entry('/wishlist',                  'weekly',  0.4),
   ];
 
   // ── 产品页（从 Shopify 动态拉取） ─────────────────────────────────────────
