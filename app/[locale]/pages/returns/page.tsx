@@ -171,8 +171,8 @@ export default function ReturnsPage() {
             <h2 style={subheading}>How to Return</h2>
             <p style={body}>
               To initiate a return or exchange, please email us at{' '}
-              <a href="mailto:hello@vionisxy.com" style={emailLink}>
-                hello@vionisxy.com
+              <a href="mailto:support@vionisxy.com" style={emailLink}>
+                support@vionisxy.com
               </a>{' '}
               with your order number and the reason for return. Our team will
               respond within 1–2 business days with a prepaid return label and
@@ -205,8 +205,8 @@ export default function ReturnsPage() {
             </p>
             <p style={{ ...body, marginTop: 20 }}>
               For any questions, contact us at{' '}
-              <a href="mailto:hello@vionisxy.com" style={emailLink}>
-                hello@vionisxy.com
+              <a href="mailto:support@vionisxy.com" style={emailLink}>
+                support@vionisxy.com
               </a>
               .
             </p>

@@ -284,8 +284,8 @@ export default function SizeGuidePage() {
             <p style={body}>
               If you need help finding your size, our team is happy to assist.
               Contact us at{' '}
-              <a href="mailto:hello@vionisxy.com" style={emailLink}>
-                hello@vionisxy.com
+              <a href="mailto:support@vionisxy.com" style={emailLink}>
+                support@vionisxy.com
               </a>{' '}
               with your measurements and we will recommend the best fit for you.
             </p>

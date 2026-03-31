@@ -120,8 +120,8 @@ export default function ContactPage() {
               For questions about orders, shipping, returns, or product care:
             </p>
             <p style={{ ...body, marginTop: 16 }}>
-              <a href="mailto:hello@vionisxy.com" style={emailLink}>
-                hello@vionisxy.com
+              <a href="mailto:support@vionisxy.com" style={emailLink}>
+                support@vionisxy.com
               </a>
             </p>
             <p style={{ ...body, marginTop: 8, fontSize: 13, color: '#666' }}>
