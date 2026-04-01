@@ -8,7 +8,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { type CSSProperties } from 'react';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Breadcrumb from '@/components/Breadcrumb';
 import PlaceholderImage from '@/components/PlaceholderImage';
 import { getBlogArticleByHandle } from '@/lib/shopify';
@@ -204,7 +204,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
   const article = await resolveArticle(slug);
 
   if (!article) {
-    redirect('/blog');
+    notFound();
   }
 
   // JSON-LD 结构化数据
