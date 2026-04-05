@@ -110,20 +110,22 @@ const menSlidesFromConfig = ([11, 12, 13, 14, 15, 16, 17, 18, 19, 20] as SlideKe
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
-interface JournalArticle {
+interface ArticleItem {
   handle: string;
   title: string;
   excerpt: string;
   image: { url: string } | null;
+  publishedAt?: string;
 }
 
 interface HomeContentProps {
   womenProducts: ShopifyProduct[];
   menProducts: ShopifyProduct[];
-  journalArticles?: JournalArticle[];
+  journalArticles?: ArticleItem[];
+  newsArticles?: ArticleItem[];
 }
 
-export default function HomeContent({ womenProducts, menProducts, journalArticles = [] }: HomeContentProps) {
+export default function HomeContent({ womenProducts, menProducts, journalArticles = [], newsArticles = [] }: HomeContentProps) {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const { t } = useTranslation();
 
@@ -243,26 +245,42 @@ export default function HomeContent({ womenProducts, menProducts, journalArticle
       />
       </div>
 
-      {/* 5. BlogScroll — 博客横向滚动 */}
+      {/* 5. BlogScroll — 博客 + 新闻混合横向滚动 */}
       <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
       <BlogScroll
         heading={t('home.blogHeading')}
-        posts={journalArticles.length > 0
-          ? journalArticles.map((a) => ({
-              imageDesktop: a.image?.url || 占位图.竖版,
-              imageMobile:  undefined,
-              title:        a.title,
-              body:         a.excerpt || '',
-              href:         `/blog/${a.handle}`,
-            }))
-          : blog.文章列表.map((a, i) => ({
-              imageDesktop: a.图片_电脑端 || 占位图.竖版,
-              imageMobile:  a.图片_手机端 || undefined,
-              title:        t(`home.blogTitle${i + 1}` as any) !== `home.blogTitle${i + 1}` ? t(`home.blogTitle${i + 1}` as any) : a.文章标题,
-              body:         t(`home.blogBody${i + 1}` as any) !== `home.blogBody${i + 1}` ? t(`home.blogBody${i + 1}` as any) : a.文章正文,
-              href:         a.链接,
-            }))
-        }
+        posts={(() => {
+          // 把 journal 和 news 混合，按发布时间倒序排列
+          const journalPosts = journalArticles.map((a) => ({
+            imageDesktop: a.image?.url || 占位图.竖版,
+            imageMobile:  undefined,
+            title:        a.title,
+            body:         a.excerpt || '',
+            href:         `/blog/${a.handle}`,
+            publishedAt:  a.publishedAt || '',
+          }));
+          const newsPosts = newsArticles.map((a) => ({
+            imageDesktop: a.image?.url || 占位图.竖版,
+            imageMobile:  undefined,
+            title:        a.title,
+            body:         a.excerpt || '',
+            href:         `/news/${a.handle}`,
+            publishedAt:  a.publishedAt || '',
+          }));
+          const combined = [...journalPosts, ...newsPosts]
+            .sort((a, b) => (b.publishedAt > a.publishedAt ? 1 : -1));
+
+          if (combined.length > 0) return combined;
+
+          // fallback：静态配置
+          return blog.文章列表.map((a, i) => ({
+            imageDesktop: a.图片_电脑端 || 占位图.竖版,
+            imageMobile:  a.图片_手机端 || undefined,
+            title:        t(`home.blogTitle${i + 1}` as any) !== `home.blogTitle${i + 1}` ? t(`home.blogTitle${i + 1}` as any) : a.文章标题,
+            body:         t(`home.blogBody${i + 1}` as any) !== `home.blogBody${i + 1}` ? t(`home.blogBody${i + 1}` as any) : a.文章正文,
+            href:         a.链接,
+          }));
+        })()}
         bgColor="#E8DFD6"
         headingColor="#1a1a1a"
         textColor="#555555"

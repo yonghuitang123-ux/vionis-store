@@ -24,23 +24,27 @@ export default async function Home() {
   const { grid } = siteConfig;
   let womenProducts: any[] = [];
   let menProducts: any[] = [];
-  let journalArticles: { handle: string; title: string; excerpt: string; image: { url: string } | null }[] = [];
+  let journalArticles: { handle: string; title: string; excerpt: string; image: { url: string } | null; publishedAt?: string }[] = [];
+  let newsArticles: { handle: string; title: string; excerpt: string; image: { url: string } | null; publishedAt?: string }[] = [];
 
-  const [womenResult, menResult, journalResult] = await Promise.allSettled([
+  const [womenResult, menResult, journalResult, newsResult] = await Promise.allSettled([
     getProductsByHandles(grid.女装产品handles),
     getProductsByHandles(grid.男装产品handles),
     getBlogArticles('journal', 4),
+    getBlogArticles('news', 4),
   ]);
 
   if (womenResult.status === 'fulfilled') womenProducts = womenResult.value ?? [];
   if (menResult.status === 'fulfilled')   menProducts   = menResult.value   ?? [];
   if (journalResult.status === 'fulfilled') journalArticles = journalResult.value?.articles ?? [];
+  if (newsResult.status === 'fulfilled') newsArticles = newsResult.value?.articles ?? [];
 
   return (
     <HomeContent
       womenProducts={womenProducts}
       menProducts={menProducts}
       journalArticles={journalArticles}
+      newsArticles={newsArticles}
     />
   );
 }
