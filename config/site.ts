@@ -22,12 +22,12 @@ export const siteConfig = {
   // ═══════════════════════════════════════════════════════════════════
   banner: {
     // 左侧图片（建议竖版，800×1200 以上）
-    电脑端左图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606',
-    手机端左图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_4.webp?v=1773731718',   // 3:4 竖版 500×667
+    电脑端左图: '/images/hero/banner-desktop.webp',
+    手机端左图: '/images/hero/banner-mobile.webp',   // 3:4 竖版 500×667
 
     // 右侧图片（建议竖版，800×1200 以上）
-    电脑端右图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_100-percent-merino-wool-hand-knitting-impressionist-oil-painting-desktop_3f44612e-9de7-43fb-8a78-4c05746f0cf9.webp?v=1770369606',
-    手机端右图: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONIS_XY_4.webp?v=1773731718',   // 3:4 竖版 500×667
+    电脑端右图: '/images/hero/banner-desktop.webp',
+    手机端右图: '/images/hero/banner-mobile.webp',   // 3:4 竖版 500×667
 
     标题:       'THE SPRING COLLECTION',
     副标题:     '100% ALXA CASHMERE & AUSTRALIAN MERINO',
@@ -48,12 +48,12 @@ export const siteConfig = {
     男装Tab标签: 'Men',
 
     // 女装 hero 大图（4:5 竖版，模特从顶部展示，建议 800×1000 以上）
-    女装大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONISXY-cashmere-vest-women-french-style-beige-look-4x5.webp?v=1774341649',
-    女装大图_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONISXY-cashmere-vest-women-minimalist-outfit-16x9_webp.webp?v=1774341648',
+    女装大图_电脑端: '/images/grid/women-desktop.webp',
+    女装大图_手机端: '/images/grid/women-mobile.webp',
 
     // 男装 hero 大图
-    男装大图_电脑端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONISXY-merino-wool-blazer-men-minimalist-4x5.webp?v=1774341649',
-    男装大图_手机端: 'https://cdn.shopify.com/s/files/1/0961/1965/2627/files/VIONISXY-merino-wool-jacket-texture-men-16x9.webp?v=1774341648',
+    男装大图_电脑端: '/images/grid/men-desktop.webp',
+    男装大图_手机端: '/images/grid/men-mobile.webp',
 
     // 图片下方的文字叠层
     女装标题:   'The Spring Cashmere',
