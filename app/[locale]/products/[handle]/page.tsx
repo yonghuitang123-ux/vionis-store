@@ -39,7 +39,7 @@ function normalizeCardProduct(raw: any) {
 // ─── SEO: generateMetadata ─────────────────────────────────────────────────────
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { handle } = await params;
+  const { handle, locale } = await params;
   const product = await getProductByHandle(handle);
 
   if (!product) {
@@ -61,6 +61,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
       type: 'website',
       siteName: 'VIONIS·XY',
+      locale,
+      alternateLocale: ['en','fr','de','ja','it','es','pt','nl','pl','cs','da','fi','no','sv'].filter(l => l !== locale),
       images: image
         ? [{ url: image.url, width: image.width, height: image.height }]
         : [defaultOgImage],

@@ -33,7 +33,7 @@ interface PageProps {
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { handle } = await params;
+  const { handle, locale } = await params;
   const collection = await getCollectionByHandle(handle);
   if (!collection) return { title: 'Collection Not Found — VIONIS·XY' };
   const title = collection.seo?.title || `${collection.title} — VIONIS·XY`;
@@ -42,7 +42,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: buildAlternates(`/collections/${handle}`),
-    openGraph: { title, description, siteName: 'VIONIS·XY', images: [defaultOgImage] },
+    openGraph: {
+      title,
+      description,
+      siteName: 'VIONIS·XY',
+      locale,
+      alternateLocale: ['en','fr','de','ja','it','es','pt','nl','pl','cs','da','fi','no','sv'].filter(l => l !== locale),
+      images: [defaultOgImage],
+    },
   };
 }
 

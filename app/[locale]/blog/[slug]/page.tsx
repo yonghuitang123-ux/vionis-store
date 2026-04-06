@@ -29,7 +29,7 @@ interface PageProps {
 // ─── SEO 元数据 ────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const article = await resolveArticle(slug);
   if (!article) {
     return { title: 'Article Not Found — VIONIS·XY' };
@@ -43,6 +43,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: article.excerpt || article.title,
       siteName: 'VIONIS·XY',
       type: 'article',
+      locale,
+      alternateLocale: ['en','fr','de','ja','it','es','pt','nl','pl','cs','da','fi','no','sv'].filter(l => l !== locale),
       images: article.image ? [{ url: article.image }] : [defaultOgImage],
     },
   };

@@ -85,13 +85,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const { articles: journalArticles } = await getBlogArticles('journal', 100);
     blogEntries = journalArticles.map((a: { handle: string }) =>
-      entry(`/blog/${a.handle}`, 'monthly', 0.7),
+      entry(`/blog/${a.handle}`, 'yearly', 0.7),
     );
   } catch { /* 跳过 */ }
   try {
     const { articles: newsArticles } = await getBlogArticles('news', 100);
     newsEntries = newsArticles.map((a: { handle: string }) =>
-      entry(`/news/${a.handle}`, 'monthly', 0.7),
+      entry(`/news/${a.handle}`, 'monthly', 0.8),
     );
   } catch { /* 跳过 */ }
 

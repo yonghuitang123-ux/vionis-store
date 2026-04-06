@@ -13,6 +13,7 @@ export function generateMetadata(): Metadata {
     title: 'Shopping Cart — VIONIS·XY',
     description: 'Review your shopping cart and proceed to checkout.',
     alternates: buildAlternates('/cart'),
+    robots: 'noindex, follow',
     openGraph: {
       title: 'Shopping Cart — VIONIS·XY',
       description: 'Review your shopping cart and proceed to checkout.',

@@ -35,15 +35,20 @@ interface PageProps {
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const { q } = await searchParams;
   const query = q?.trim() || '';
+  const description = query
+    ? `Search results for "${query}" — VIONIS·XY`
+    : 'Search VIONIS·XY luxury cashmere and merino wool collections';
   return {
     title: query
       ? `"${query}" Search Results — VIONIS·XY`
       : 'Search — VIONIS·XY',
+    description,
     alternates: buildAlternates('/search'),
     openGraph: {
       title: query
         ? `"${query}" Search Results — VIONIS·XY`
         : 'Search — VIONIS·XY',
+      description,
       siteName: 'VIONIS·XY',
       images: [defaultOgImage],
     },
