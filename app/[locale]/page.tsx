@@ -8,7 +8,10 @@
 
 import { getProductsByHandles, getBlogArticles } from '@/lib/shopify';
 import { siteConfig } from '@/config/site';
+import { getDictionary } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/config';
 import HomeContent from './HomeContent';
+import HomeBlogNews from '@/components/HomeBlogNews';
 
 /* ISR: 每 10 分钟重新验证，确保新博客文章及时出现在首页 */
 export const revalidate = 600;
@@ -20,8 +23,11 @@ export function generateStaticParams() {
   ].map((locale) => ({ locale }));
 }
 
-export default async function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const { grid } = siteConfig;
+  const dict = await getDictionary((locale || 'en') as Locale);
+
   let womenProducts: any[] = [];
   let menProducts: any[] = [];
   let journalArticles: { handle: string; title: string; excerpt: string; image: { url: string } | null; publishedAt?: string }[] = [];
@@ -43,8 +49,18 @@ export default async function Home() {
     <HomeContent
       womenProducts={womenProducts}
       menProducts={menProducts}
-      journalArticles={journalArticles}
-      newsArticles={newsArticles}
-    />
+    >
+      {/* 博客+新闻：服务端渲染，爬虫完全可见 */}
+      <HomeBlogNews
+        journalArticles={journalArticles}
+        newsArticles={newsArticles}
+        labels={{
+          journalHeading: dict?.nav?.journal || 'Journal',
+          newsHeading: dict?.nav?.news || 'News',
+          viewAll: dict?.common?.viewAll || 'View All',
+          readMore: dict?.common?.readMore || 'Read More',
+        }}
+      />
+    </HomeContent>
   );
 }

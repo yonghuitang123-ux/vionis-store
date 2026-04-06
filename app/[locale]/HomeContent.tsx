@@ -13,14 +13,13 @@ import { useTranslation } from '@/lib/i18n/client';
 const EditorialPanel = dynamic(() => import('@/components/EditorialPanel'), { ssr: true });
 // Swiper 组件不需要 SSR，延迟加载省 50KB+ JS
 const MastermindShowcase = dynamic(() => import('@/components/MastermindShowcase'), { ssr: false });
-const BlogScroll = dynamic(() => import('@/components/BlogScroll'), { ssr: false });
 // 其余折叠线以下组件
 const BrandStory = dynamic(() => import('@/components/BrandStory'), { ssr: true });
 const ServiceBar = dynamic(() => import('@/components/ServiceBar'), { ssr: false });
 const SiteFooter = dynamic(() => import('@/components/SiteFooter'), { ssr: true });
 
 // ─── 便捷解构 ─────────────────────────────────────────────────────────────────
-const { banner, grid, featuredLook, blog, brandStory, serviceBar, footer } = siteConfig;
+const { banner, grid, featuredLook, brandStory, serviceBar, footer } = siteConfig;
 
 // ─── Shopify 产品原始类型 ─────────────────────────────────────────────────────
 interface ShopifyProduct {
@@ -110,22 +109,13 @@ const menSlidesFromConfig = ([11, 12, 13, 14, 15, 16, 17, 18, 19, 20] as SlideKe
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
-interface ArticleItem {
-  handle: string;
-  title: string;
-  excerpt: string;
-  image: { url: string } | null;
-  publishedAt?: string;
-}
-
 interface HomeContentProps {
   womenProducts: ShopifyProduct[];
   menProducts: ShopifyProduct[];
-  journalArticles?: ArticleItem[];
-  newsArticles?: ArticleItem[];
+  children?: React.ReactNode;
 }
 
-export default function HomeContent({ womenProducts, menProducts, journalArticles = [], newsArticles = [] }: HomeContentProps) {
+export default function HomeContent({ womenProducts, menProducts, children }: HomeContentProps) {
   const [activeTab, setActiveTab] = useState<0 | 1>(0);
   const { t } = useTranslation();
 
@@ -245,48 +235,8 @@ export default function HomeContent({ womenProducts, menProducts, journalArticle
       />
       </div>
 
-      {/* 5. BlogScroll — 博客 + 新闻混合横向滚动 */}
-      <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 500px' }}>
-      <BlogScroll
-        heading={t('home.blogHeading')}
-        posts={(() => {
-          // 把 journal 和 news 混合，按发布时间倒序排列
-          const journalPosts = journalArticles.map((a) => ({
-            imageDesktop: a.image?.url || 占位图.竖版,
-            imageMobile:  undefined,
-            title:        a.title,
-            body:         a.excerpt || '',
-            href:         `/blog/${a.handle}`,
-            publishedAt:  a.publishedAt || '',
-          }));
-          const newsPosts = newsArticles.map((a) => ({
-            imageDesktop: a.image?.url || 占位图.竖版,
-            imageMobile:  undefined,
-            title:        a.title,
-            body:         a.excerpt || '',
-            href:         `/news/${a.handle}`,
-            publishedAt:  a.publishedAt || '',
-          }));
-          const combined = [...journalPosts, ...newsPosts]
-            .sort((a, b) => (b.publishedAt > a.publishedAt ? 1 : -1));
-
-          if (combined.length > 0) return combined;
-
-          // fallback：静态配置
-          return blog.文章列表.map((a, i) => ({
-            imageDesktop: a.图片_电脑端 || 占位图.竖版,
-            imageMobile:  a.图片_手机端 || undefined,
-            title:        t(`home.blogTitle${i + 1}` as any) !== `home.blogTitle${i + 1}` ? t(`home.blogTitle${i + 1}` as any) : a.文章标题,
-            body:         t(`home.blogBody${i + 1}` as any) !== `home.blogBody${i + 1}` ? t(`home.blogBody${i + 1}` as any) : a.文章正文,
-            href:         a.链接,
-          }));
-        })()}
-        bgColor="#E8DFD6"
-        headingColor="#1a1a1a"
-        textColor="#555555"
-        mutedColor="#555555"
-      />
-      </div>
+      {/* 5. 博客 + 新闻 — 服务端渲染网格（SEO 可见） */}
+      {children}
 
       {/* 6. ServiceBar — 服务承诺栏 */}
       <div style={{ contentVisibility: 'auto', containIntrinsicSize: '0 100px' }}>
