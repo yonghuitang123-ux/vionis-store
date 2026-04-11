@@ -9,12 +9,13 @@ import { type CSSProperties } from 'react';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Sustainability — VIONIS·XY',
     description:
       'Nature is our supplier. Respect is our method. Learn how VIONIS·XY pursues sustainable cashmere and merino sourcing, responsible production, and minimal-waste packaging.',
-    alternates: buildAlternates('/pages/sustainability'),
+    alternates: buildAlternates('/pages/sustainability', locale),
     openGraph: {
       title: 'Sustainability — VIONIS·XY',
       description:

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: 'Collections — VIONIS·XY',
     description: 'Explore our curated collections of luxury cashmere and merino wool.',
-    alternates: buildAlternates('/collections'),
+    alternates: buildAlternates('/collections', locale),
     openGraph: {
       title: 'Collections — VIONIS·XY',
       description: 'Explore our curated collections of luxury cashmere and merino wool.',

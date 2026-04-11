@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${article.title} — VIONIS·XY`,
     description: article.excerpt || article.title,
-    alternates: buildAlternates(`/blog/${slug}`),
+    alternates: buildAlternates(`/blog/${slug}`, locale),
     openGraph: {
       title: `${article.title} — VIONIS·XY`,
       description: article.excerpt || article.title,

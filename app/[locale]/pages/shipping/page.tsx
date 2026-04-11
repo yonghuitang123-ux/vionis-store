@@ -9,12 +9,13 @@ import { type CSSProperties } from 'react';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Shipping — VIONIS·XY',
     description:
       'Complimentary worldwide shipping on orders over $300. Learn about delivery times, tracking, and international shipping for VIONIS·XY luxury knitwear.',
-    alternates: buildAlternates('/pages/shipping'),
+    alternates: buildAlternates('/pages/shipping', locale),
     openGraph: {
       title: 'Shipping — VIONIS·XY',
       description:

@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${product.title} — VIONIS·XY`,
     description,
-    alternates: buildAlternates(`/products/${handle}`),
+    alternates: buildAlternates(`/products/${handle}`, locale),
     openGraph: {
       title: `${product.title} — VIONIS·XY`,
       description,

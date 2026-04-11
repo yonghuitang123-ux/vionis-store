@@ -9,12 +9,13 @@ import { type CSSProperties } from 'react';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Size Guide — VIONIS·XY',
     description:
       'Find your perfect fit. Our collections are designed with a relaxed, timeless silhouette. Consult our size guide for cashmere and merino knitwear measurements.',
-    alternates: buildAlternates('/pages/size-guide'),
+    alternates: buildAlternates('/pages/size-guide', locale),
     openGraph: {
       title: 'Size Guide — VIONIS·XY',
       description:

@@ -8,14 +8,15 @@ export const revalidate = 86400;
 const HANDLE = 'contact-1';
 const PATH = '/pages/contact-1';
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   const page = await getPageByHandle(HANDLE);
   const title = page?.seo?.title ?? page?.title ?? 'Contact';
   const description = page?.seo?.description ?? undefined;
   return {
     title: `${title} — VIONIS·XY`,
     description,
-    alternates: buildAlternates(PATH),
+    alternates: buildAlternates(PATH, locale),
     openGraph: {
       title: `${title} — VIONIS·XY`,
       description,

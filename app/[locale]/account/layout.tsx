@@ -5,11 +5,12 @@
 import type { Metadata } from 'next';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'My Account — VIONIS·XY',
     description: 'Manage your VIONIS·XY account, view orders, and update your details.',
-    alternates: buildAlternates('/account'),
+    alternates: buildAlternates('/account', locale),
     openGraph: {
       title: 'My Account — VIONIS·XY',
       description: 'Manage your VIONIS·XY account, view orders, and update your details.',

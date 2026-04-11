@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
-    alternates: buildAlternates(`/collections/${handle}`),
+    alternates: buildAlternates(`/collections/${handle}`, locale),
     openGraph: {
       title,
       description,

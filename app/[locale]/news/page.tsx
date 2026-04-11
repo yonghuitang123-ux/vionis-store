@@ -22,12 +22,13 @@ export function generateStaticParams() {
 }
 
 // ─── SEO 元数据 ────────────────────────────────────────────────────────────────
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'News — VIONIS·XY',
     description:
       'Latest news, updates, and stories from VIONIS·XY — rare cashmere and seamless merino knitwear.',
-    alternates: buildAlternates('/news'),
+    alternates: buildAlternates('/news', locale),
     openGraph: {
       title: 'News — VIONIS·XY',
       description:

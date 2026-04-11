@@ -9,12 +9,13 @@ import { type CSSProperties } from 'react';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Returns & Exchanges — VIONIS·XY',
     description:
       'Returns should be simple. Free returns within 30 days, no restocking fees. Learn about our hassle-free return and exchange policy for VIONIS·XY knitwear.',
-    alternates: buildAlternates('/pages/returns'),
+    alternates: buildAlternates('/pages/returns', locale),
     openGraph: {
       title: 'Returns & Exchanges — VIONIS·XY',
       description:

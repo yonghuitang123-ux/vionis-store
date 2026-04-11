@@ -20,12 +20,13 @@ export const revalidate = 600;
 
 // ─── SEO 元数据 ────────────────────────────────────────────────────────────────
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Journal — VIONIS·XY',
     description:
       'Explore stories of rare cashmere, merino craftsmanship, and quiet luxury from VIONIS·XY.',
-    alternates: buildAlternates('/blog'),
+    alternates: buildAlternates('/blog', locale),
     openGraph: {
       title: 'Journal — VIONIS·XY',
       description:

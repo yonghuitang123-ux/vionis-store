@@ -23,7 +23,7 @@ export async function generateMetadata({
     title: 'VIONIS·XY — Rare Cashmere & Seamless Merino',
     description:
       'Handcrafted luxury knitwear from the finest natural fibres. Premium cashmere and merino wool.',
-    alternates: buildAlternates(''),
+    alternates: buildAlternates('', locale),
     openGraph: {
       title: 'VIONIS·XY — Rare Cashmere & Seamless Merino',
       description: 'Handcrafted luxury knitwear from the finest natural fibres.',

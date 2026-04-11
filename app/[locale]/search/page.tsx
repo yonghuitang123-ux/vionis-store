@@ -32,7 +32,8 @@ interface PageProps {
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
 
-export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
   const { q } = await searchParams;
   const query = q?.trim() || '';
   const description = query
@@ -43,7 +44,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
       ? `"${query}" Search Results — VIONIS·XY`
       : 'Search — VIONIS·XY',
     description,
-    alternates: buildAlternates('/search'),
+    alternates: buildAlternates('/search', locale),
     openGraph: {
       title: query
         ? `"${query}" Search Results — VIONIS·XY`

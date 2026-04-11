@@ -9,27 +9,30 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://vionisxy.com').tr
 
 /**
  * 为给定路径生成 alternates（canonical + hreflang）
- * @param path 不含 locale 的路径，例如 "/products/foo" 或 ""（首页）
+ * @param path   不含 locale 的路径，例如 "/products/foo" 或 ""（首页）
+ * @param locale 当前页面的 locale，canonical 将指向该语言版本
  */
-export function buildAlternates(path: string) {
+export function buildAlternates(path: string, locale: string = 'en') {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   const isHome = cleanPath === '/' || cleanPath === '';
   const languages: Record<string, string> = {};
-  for (const locale of locales) {
-    if (locale === 'en') {
-      // 英文是默认语言，不加 /en 前缀
-      languages[locale] = isHome ? SITE_URL : `${SITE_URL}${cleanPath}`;
+  for (const l of locales) {
+    if (l === 'en') {
+      languages[l] = isHome ? SITE_URL : `${SITE_URL}${cleanPath}`;
     } else {
-      languages[locale] = `${SITE_URL}/${locale}${isHome ? '' : cleanPath}`;
+      languages[l] = `${SITE_URL}/${l}${isHome ? '' : cleanPath}`;
     }
   }
   // x-default 指向英文版（无前缀）
   languages['x-default'] = isHome ? SITE_URL : `${SITE_URL}${cleanPath}`;
 
-  return {
-    canonical: isHome ? SITE_URL : `${SITE_URL}${cleanPath}`,
-    languages,
-  };
+  // canonical 指向当前语言版本
+  const canonical =
+    locale === 'en' || !locale
+      ? isHome ? SITE_URL : `${SITE_URL}${cleanPath}`
+      : `${SITE_URL}/${locale}${isHome ? '' : cleanPath}`;
+
+  return { canonical, languages };
 }
 
 /**

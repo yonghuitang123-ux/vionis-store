@@ -9,12 +9,13 @@ import { type CSSProperties } from 'react';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 // ─── SEO 元数据 ──────────────────────────────────────────────────────────────
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Craftsmanship — VIONIS·XY',
     description:
       'The art of making at VIONIS·XY. Discover how we transform the finest 15.5-micron cashmere and 18.5-micron merino into seamless, enduring knitwear.',
-    alternates: buildAlternates('/pages/craftsmanship'),
+    alternates: buildAlternates('/pages/craftsmanship', locale),
     openGraph: {
       title: 'Craftsmanship — VIONIS·XY',
       description:

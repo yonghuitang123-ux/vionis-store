@@ -8,11 +8,12 @@ import type { Metadata } from 'next';
 import CartPageContent from './CartPageContent';
 import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Shopping Cart — VIONIS·XY',
     description: 'Review your shopping cart and proceed to checkout.',
-    alternates: buildAlternates('/cart'),
+    alternates: buildAlternates('/cart', locale),
     robots: 'noindex, follow',
     openGraph: {
       title: 'Shopping Cart — VIONIS·XY',

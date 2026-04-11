@@ -5,12 +5,13 @@ import { buildAlternates, defaultOgImage } from '@/lib/seo';
 
 export const revalidate = 86400;
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   const { termsOfService } = await getPolicies();
   const title = termsOfService?.title ?? 'Terms of Service';
   return {
     title: `${title} — VIONIS·XY`,
-    alternates: buildAlternates('/policies/terms-of-service'),
+    alternates: buildAlternates('/policies/terms-of-service', locale),
     openGraph: {
       title: `${title} — VIONIS·XY`,
       siteName: 'VIONIS·XY',
