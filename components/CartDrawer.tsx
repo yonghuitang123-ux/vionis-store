@@ -332,6 +332,11 @@ export default function CartDrawer() {
           )}
         </div>
 
+        {/* XCotton Shipping Protection widget */}
+        {lines.length > 0 && (
+          <div className="xc-sp-container" style={{ padding: '0 24px' }} />
+        )}
+
         {/* 底栏：小计 + 操作按钮 */}
         {lines.length > 0 && (
           <div style={{

@@ -5,6 +5,7 @@ import { CartProvider } from '@/lib/cart-context';
 import { WishlistProvider } from '@/lib/wishlist-context';
 import { ToastProvider } from '@/components/Toast';
 import ClientShell from './ClientShell';
+import XCottonSDK from '@/components/XCottonSDK';
 
 const cormorant = Cormorant({
   variable: '--font-cormorant',
@@ -99,6 +100,7 @@ export default function RootLayout({
               {/* Header is rendered inside [locale]/layout.tsx so it has access to I18nProvider */}
               {children}
               <ClientShell />
+              <XCottonSDK />
             </WishlistProvider>
           </CartProvider>
         </ToastProvider>

@@ -122,6 +122,8 @@ interface CartContextValue extends CartState {
   addItem: (variantId: string, quantity?: number) => Promise<void>;
   updateItem: (lineId: string, quantity: number) => Promise<void>;
   removeItem: (lineId: string) => Promise<void>;
+  /** 重新拉取购物车数据（供外部 SDK 回调使用） */
+  refreshCart: () => Promise<void>;
   openDrawer: () => void;
   closeDrawer: () => void;
   toggleDrawer: () => void;
@@ -256,6 +258,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [state.cartId],
   );
 
+  const refreshCart = useCallback(async () => {
+    if (!state.cartId) return;
+    try {
+      const cart = await getCart(state.cartId);
+      if (cart) dispatch({ type: 'SET_CART', payload: cart });
+    } catch {
+      /* silenced */
+    }
+  }, [state.cartId]);
+
   const openDrawer = useCallback(
     () => dispatch({ type: 'TOGGLE_DRAWER', payload: true }),
     [],
@@ -275,12 +287,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
       addItem,
       updateItem,
       removeItem,
+      refreshCart,
       openDrawer,
       closeDrawer,
       toggleDrawer,
       localizedCheckoutUrl,
     }),
-    [state, addItem, updateItem, removeItem, openDrawer, closeDrawer, toggleDrawer, localizedCheckoutUrl],
+    [state, addItem, updateItem, removeItem, refreshCart, openDrawer, closeDrawer, toggleDrawer, localizedCheckoutUrl],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

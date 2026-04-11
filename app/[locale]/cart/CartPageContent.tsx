@@ -376,6 +376,9 @@ export default function CartPageContent() {
           );
         })}
 
+        {/* XCotton Shipping Protection widget */}
+        <div className="xc-sp-container" />
+
         {/* 底部汇总 */}
         <div className="cart-summary" style={summaryStyle}>
           {subtotalAmount && (
