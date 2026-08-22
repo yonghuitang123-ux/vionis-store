@@ -31,8 +31,14 @@ export function sanitizeShopifyHtml(html: string): string {
     FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover'],
   });
 
+  // Do not expose contact addresses contained in Shopify-managed page content.
+  // Remove whole mailto links first, then any remaining visible email address.
+  const withoutPublicEmails = clean
+    .replace(/<a\b[^>]*\bhref=(?:"mailto:[^"]*"|'mailto:[^']*'|mailto:[^\s>]+)[^>]*>[\s\S]*?<\/a>/gi, '')
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '');
+
   // 对没有 href 的 <a> 标签补全 href="#"
-  return clean.replace(
+  return withoutPublicEmails.replace(
     /<a([^>]*?)>/g,
     (match) => {
       if (match.includes('href')) return match;
